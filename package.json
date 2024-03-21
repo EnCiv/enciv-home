@@ -12,8 +12,9 @@
     "transpile": "babel app --ignore **/__tests__ --out-dir dist --source-maps",
     "hot-transpile": "babel --watch app --ignore **/__tests__ --out-dir dist --source-maps",
     "prepare": "bash build.sh",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "build-storybook",
+    "test-storybook": "test-storybook",
     "cypress": "cypress open",
     "cypress:headless": "cypress run --headless --browser chrome",
     "mongo:delete-user": "bash -c 'mongo --eval \"db.users.remove({email: \\\"$0\\\"})\"'",
@@ -36,16 +37,29 @@
   ],
   "author": "David Fridley",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "dependencies": {},
   "optionalDependencies": {
-    "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-essentials": "^6.4.9",
-    "@storybook/addon-links": "^6.4.9",
+    "@shelf/jest-mongodb": "^2.2.0",
+    "@storybook/addon-a11y": "^7.6.17",
+    "@storybook/addon-actions": "^7.6.17",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addons": "^7.6.17",
+    "@storybook/blocks": "^7.6.17",
     "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/cli": "^7.6.17",
+    "@storybook/jest": "^0.2.3",
     "@storybook/manager-webpack5": "^6.4.9",
-    "@storybook/react": "^6.4.9",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-webpack5": "^7.6.17",
+    "@storybook/test-runner": "^0.14.1",
+    "@storybook/testing-library": "^0.2.2",
+    "axe-playwright": "^1.2.3",
+    "concurrently": "^6.4.0",
+    "cypress": "^9.1.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
+    "expect": "^23.6.0",
     "express": "^4.17.1",
     "husky": "^4.3.8",
     "jest": "^27.4.4",
@@ -53,10 +67,8 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "pretty-quick": "^3.1.2",
-    "webpack-dev-server": "^4.6.0",
-    "@shelf/jest-mongodb": "^2.2.0",
-    "concurrently": "^6.4.0",
-    "cypress": "^9.1.1"
+    "storybook": "^7.6.17",
+    "webpack-dev-server": "^4.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
@@ -70,11 +82,19 @@
     "@babel/preset-react": "^7.16.0",
     "@svgr/cli": "^6.1.2",
     "babel-loader": "^8.2.3",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.10.0"
   },
   "peerDependencies": {
     "civil-client": "github:EnCiv/civil-client",
     "civil-server": "github:EnCiv/civil-server"
+  },
+  "engines": {
+    "node": "16.20.1"
+  },
+  "dependencies": {
+    "civil-pursuit": "github:EnCiv/civil-pursuit"
   }
 }
