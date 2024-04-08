@@ -13,7 +13,7 @@
     "hot-transpile": "babel --watch app --ignore **/__tests__ --out-dir dist --source-maps",
     "prepare": "bash build.sh",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "cypress": "cypress open",
     "cypress:headless": "cypress run --headless --browser chrome",
@@ -68,7 +68,8 @@
     "prettier": "^2.5.1",
     "pretty-quick": "^3.1.2",
     "storybook": "^7.6.17",
-    "webpack-dev-server": "^4.6.0"
+    "webpack-dev-server": "^4.6.0",
+    "chromatic": "^11.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
