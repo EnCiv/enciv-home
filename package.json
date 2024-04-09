@@ -95,6 +95,8 @@
     "node": "16.20.1"
   },
   "dependencies": {
-    "civil-pursuit": "github:EnCiv/civil-pursuit"
+    "@wordpress/api-fetch": "^6.52.0",
+    "civil-pursuit": "github:EnCiv/civil-pursuit",
+    "react-html-parser": "^2.0.2"
   }
 }
