@@ -164,7 +164,7 @@ export default function joinBrevo() {
                   }}
                 >
                   <div className="sib-text-form-block">
-                    <p>Paragraph text TBD.</p>
+                    <p>Join EnCiv, and help make democratic discourse productive online.</p>
                   </div>
                 </div>
               </div>
@@ -392,6 +392,7 @@ export default function joinBrevo() {
                   </button>
                 </div>
               </div>
+              {/*}
               <div style={{ padding: '8px 0' }}>
                 <div className="sib-form__declaration" style={{ direction: 'ltr' }}>
                   <div className="declaration-block-icon">
@@ -427,6 +428,7 @@ export default function joinBrevo() {
                   </div>
                 </div>
               </div>
+              */}
               <input type="text" name="email_address_check" defaultValue="" className="input--hidden" />
               <input type="hidden" name="locale" defaultValue="en" />
             </form>
