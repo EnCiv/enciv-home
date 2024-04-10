@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { Helmet } from 'react-helmet'
 
-export default function joinBrevo() {
+export default function BrevoJoin() {
   useEffect(() => {
     window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code'
     window.LOCALE = 'en'

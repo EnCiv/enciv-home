@@ -1,16 +1,20 @@
 //https://github.com/EnCiv/enciv-home/issues/8
-import React from 'react'
+import React, {useState} from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import {Button} from 'civil-pursuit/app/components/button'
+import BrevoJoin from './brevo-join'
 
 const ActionButton=(props)=>{
     const {
       className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
       ...otherProps
     } = props
+    const [showForm,setShowForm]=useState(false)
     const classes = useStylesFromThemeFunction()
-    return <Button className={cx(classes.actionButton,className)} {...otherProps}></Button>
+    return <><Button className={cx(classes.actionButton,className)} onDone={()=>setShowForm(!showForm)} {...otherProps} ></Button>
+    {showForm && <BrevoJoin/>}
+        </>
 }
 export default ActionButton
 

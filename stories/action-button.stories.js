@@ -9,7 +9,6 @@ import { onDoneDecorator, onDoneResult} from 'civil-pursuit/stories/common'
 
 export default {
   component: ActionButton,
-  decorators: [onDoneDecorator],
 }
 
 export const Primary={args: {children: "Join the Community"}}
