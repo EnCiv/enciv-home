@@ -37,7 +37,7 @@ const HeroBlock = props => {
 
     return () => {
       window.removeEventListener('resize', onResize)
-      document.fonts.removeEventListener(('loadingdone',onResize))
+      document.fonts.removeEventListener('loadingdone',onResize)
     }
   }, [])
 

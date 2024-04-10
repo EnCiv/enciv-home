@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import TopNavBar from 'civil-pursuit/app/components/top-nav-bar'
+import HeroBlock from '../components/hero-block'
 import BrevoJoin from '../components/brevo-join'
 
 export default function Home(props) {
@@ -9,13 +10,7 @@ export default function Home(props) {
     return (
         <div>
             <TopNavBar mode={'dark'} />
-            <div>
-                <button onClick={()=>setRegForm(!showRegForm)}>
-                    {"Join the Community"}
-                </button>
-                {showRegForm && <BrevoJoin />}
-            </div>
-            <div>This is the rest of the web site</div>
+            <HeroBlock imgUrl={'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'} subject={"Politics is dividing us - EnCiv is uniting us"} actionText={"Join the community"} />
         </div>
     )
 }
