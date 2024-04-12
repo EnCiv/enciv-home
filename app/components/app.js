@@ -5,7 +5,9 @@ import { hot } from 'react-hot-loader'
 import WebComponents from '../web-components'
 import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
+import { ThemeProvider } from 'react-jss'
 import { Helmet } from 'react-helmet'
+import { theme } from 'civil-pursuit'
 
 const DynamicFontSizeHelmet =
   typeof window === 'undefined'
@@ -28,14 +30,16 @@ class App extends React.Component {
       Object.assign(newProps, this.props.iota)
       return (
         <ErrorBoundary>
-          <div style={{ position: 'relative' }}>
-            <Helmet>
-              <title>{iota?.subject || 'Candiate Conversations'}</title>
-            </Helmet>
-            <DynamicFontSizeHelmet />
-            <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-            <Footer key="footer" />
-          </div>
+          <ThemeProvider theme={theme}>
+            <div style={{ position: 'relative' }}>
+              <Helmet>
+                <title>{iota?.subject || 'Candiate Conversations'}</title>
+              </Helmet>
+              <DynamicFontSizeHelmet />
+              <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+              <Footer key="footer" />
+            </div>
+          </ThemeProvider>
         </ErrorBoundary>
       )
     } else
