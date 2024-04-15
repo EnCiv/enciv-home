@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 export default function BrevoJoin() {
@@ -75,14 +75,14 @@ export default function BrevoJoin() {
             id="error-message"
             className="sib-form-message-panel"
             style={{
-              fontSize: 16,
+              fontSize: '1rem',
               textAlign: 'left',
               fontFamily: '"Helvetica", sans-serif',
               color: '#661d1d',
               backgroundColor: '#ffeded',
-              borderRadius: 3,
+              borderRadius: '0.1875rem',
               borderColor: '#ff4949',
-              maxWidth: 540,
+              maxWidth: '33.75rem',
             }}
           >
             <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -99,14 +99,14 @@ export default function BrevoJoin() {
             id="success-message"
             className="sib-form-message-panel"
             style={{
-              fontSize: 16,
+              fontSize: '1rem',
               textAlign: 'left',
               fontFamily: '"Helvetica", sans-serif',
               color: '#085229',
               backgroundColor: '#e7faf0',
-              borderRadius: 3,
+              borderRadius: '0.1875rem',
               borderColor: '#13ce66',
-              maxWidth: 540,
+              maxWidth: '33.75rem',
             }}
           >
             <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -124,7 +124,7 @@ export default function BrevoJoin() {
               textAlign: 'center',
               backgroundColor: 'rgba(255,255,255,1)',
               maxWidth: 540,
-              borderRadius: 3,
+              borderRadius: '0.1875rem',
               borderWidth: 1,
               borderColor: '#C0CCD9',
               borderStyle: 'solid',
@@ -137,11 +137,11 @@ export default function BrevoJoin() {
               action="https://223e2260.sibforms.com/serve/MUIFANlwnVKDvZZtZGeGbniFk7YKGuHLHmc1UjCYRTDoMBLhiGMhnM15j19q1FO4LlCM3N_sMoAqg4s7mMqjbcJZNSQjfVhbIuWfzOdIw3o2hEQPEJxEZ5vQ05XMNT3_Subgru5Qxv0Dd6myoBfa0SEUq4Q6SvZkoOWIpSCzFvp_g6Xo3vmyrobkhPZS9Kq5g_EM7_mtkJWeBcox"
               data-type="subscription"
             >
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div
                   className="sib-form-block"
                   style={{
-                    fontSize: 32,
+                    fontSize: '2rem',
                     textAlign: 'left',
                     fontWeight: 700,
                     fontFamily: '"Helvetica", sans-serif',
@@ -152,11 +152,11 @@ export default function BrevoJoin() {
                   <p>Join the Community</p>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div
                   className="sib-form-block"
                   style={{
-                    fontSize: 16,
+                    fontSize: '1rem',
                     textAlign: 'left',
                     fontFamily: '"Helvetica", sans-serif',
                     color: '#3C4858',
@@ -168,7 +168,7 @@ export default function BrevoJoin() {
                   </div>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-input sib-form-block">
                   <div className="form__entry entry_block">
                     <div className="form__label-row ">
@@ -177,7 +177,7 @@ export default function BrevoJoin() {
                         style={{
                           fontWeight: 700,
                           textAlign: 'left',
-                          fontSize: 16,
+                          fontSize: '1rem',
                           fontFamily: '"Helvetica", sans-serif',
                           color: '#3c4858',
                         }}
@@ -202,19 +202,19 @@ export default function BrevoJoin() {
                     <label
                       className="entry__error entry__error--primary"
                       style={{
-                        fontSize: 16,
+                        fontSize: '1rem',
                         textAlign: 'left',
                         fontFamily: '"Helvetica", sans-serif',
                         color: '#661d1d',
                         backgroundColor: '#ffeded',
-                        borderRadius: 3,
+                        borderRadius: '0.1875rem',
                         borderColor: '#ff4949',
                       }}
                     ></label>
                   </div>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-input sib-form-block">
                   <div className="form__entry entry_block">
                     <div className="form__label-row ">
@@ -223,7 +223,7 @@ export default function BrevoJoin() {
                         style={{
                           fontWeight: 700,
                           textAlign: 'left',
-                          fontSize: 16,
+                          fontSize: '1rem',
                           fontFamily: '"Helvetica", sans-serif',
                           color: '#3c4858',
                         }}
@@ -248,19 +248,19 @@ export default function BrevoJoin() {
                     <label
                       className="entry__error entry__error--primary"
                       style={{
-                        fontSize: 16,
+                        fontSize: '1rem',
                         textAlign: 'left',
                         fontFamily: '"Helvetica", sans-serif',
                         color: '#661d1d',
                         backgroundColor: '#ffeded',
-                        borderRadius: 3,
+                        borderRadius: '0.1875rem',
                         borderColor: '#ff4949',
                       }}
                     ></label>
                   </div>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-input sib-form-block">
                   <div className="form__entry entry_block">
                     <div className="form__label-row ">
@@ -269,7 +269,7 @@ export default function BrevoJoin() {
                         style={{
                           fontWeight: 700,
                           textAlign: 'left',
-                          fontSize: 16,
+                          fontSize: '1rem',
                           fontFamily: '"Helvetica", sans-serif',
                           color: '#3c4858',
                         }}
@@ -293,19 +293,19 @@ export default function BrevoJoin() {
                     <label
                       className="entry__error entry__error--primary"
                       style={{
-                        fontSize: 16,
+                        fontSize: '1rem',
                         textAlign: 'left',
                         fontFamily: '"Helvetica", sans-serif',
                         color: '#661d1d',
                         backgroundColor: '#ffeded',
-                        borderRadius: 3,
+                        borderRadius: '0.1875rem',
                         borderColor: '#ff4949',
                       }}
                     ></label>
                   </div>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-optin sib-form-block">
                   <div className="form__entry entry_mcq">
                     <div className="form__label-row ">
@@ -321,7 +321,7 @@ export default function BrevoJoin() {
                           <span className="checkbox checkbox_tick_positive" style={{ marginLeft: '' }} />
                           <span
                             style={{
-                              fontSize: 14,
+                              fontSize: '0.875rem',
                               textAlign: 'left',
                               fontFamily: '"Helvetica", sans-serif',
                               color: '#3C4858',
@@ -342,19 +342,19 @@ export default function BrevoJoin() {
                     <label
                       className="entry__error entry__error--primary"
                       style={{
-                        fontSize: 16,
+                        fontSize: '1rem',
                         textAlign: 'left',
                         fontFamily: '"Helvetica", sans-serif',
                         color: '#661d1d',
                         backgroundColor: '#ffeded',
-                        borderRadius: 3,
+                        borderRadius: '0.1875rem',
                         borderColor: '#ff4949',
                       }}
                     ></label>
                     <label
                       className="entry__specification"
                       style={{
-                        fontSize: 12,
+                        fontSize: '0.75rem',
                         textAlign: 'left',
                         fontFamily: '"Helvetica", sans-serif',
                         color: '#8390A4',
@@ -365,18 +365,18 @@ export default function BrevoJoin() {
                   </div>
                 </div>
               </div>
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-form-block" style={{ textAlign: 'left' }}>
                   <button
                     className="sib-form-block__button sib-form-block__button-with-loader"
                     style={{
-                      fontSize: 16,
+                      fontSize: '1rem',
                       textAlign: 'left',
                       fontWeight: 700,
                       fontFamily: '"Helvetica", sans-serif',
                       color: '#FFFFFF',
                       backgroundColor: '#3E4857',
-                      borderRadius: 3,
+                      borderRadius: '0.1875rem',
                       borderWidth: 0,
                     }}
                     form="sib-form"
@@ -393,7 +393,7 @@ export default function BrevoJoin() {
                 </div>
               </div>
               {/*}
-              <div style={{ padding: '8px 0' }}>
+              <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-form__declaration" style={{ direction: 'ltr' }}>
                   <div className="declaration-block-icon">
                     <svg className="icon__SVG" width={0} height={0} version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -413,7 +413,7 @@ export default function BrevoJoin() {
                   </div>
                   <div
                     style={{
-                      fontSize: 14,
+                      fontSize: '0.875rem',
                       textAlign: 'left',
                       fontFamily: '"Helvetica", sans-serif',
                       color: '#687484',
