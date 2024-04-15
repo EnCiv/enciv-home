@@ -34,6 +34,13 @@ class App extends React.Component {
             <div style={{ position: 'relative' }}>
               <Helmet>
                 <title>{iota?.subject || 'Candiate Conversations'}</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+                  rel="stylesheet"
+                />
+                <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
               </Helmet>
               <DynamicFontSizeHelmet />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
