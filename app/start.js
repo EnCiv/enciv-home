@@ -13,6 +13,7 @@ async function start() {
   try {
     const server = new theCivilServer()
     server.App = App // set the outer React wrapper for this site
+    server.directives.connectSrc.push('https://analytics.google.com')
     server.directives.fontSrc.push('https://assets.brevo.com')
     server.directives.styleSrc.push('https://sibforms.com')
     await server.earlyStart() // connect to the database, and such

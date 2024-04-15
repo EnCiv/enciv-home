@@ -9,20 +9,6 @@ import { ThemeProvider } from 'react-jss'
 import { Helmet } from 'react-helmet'
 import { theme } from 'civil-pursuit'
 
-const DynamicFontSizeHelmet =
-  typeof window === 'undefined'
-    ? () => (
-        <Helmet
-          script={[
-            {
-              type: 'text/javascript',
-              innerHTML: `function setFontSize(){document.getElementsByTagName("html")[0].style.fontSize=Math.round(Math.min(window.innerWidth,window.innerHeight))/100*(15/(1080/100))+'px'}; window.onresize=setFontSize; setFontSize();`,
-            },
-          ]}
-        />
-      )
-    : () => null
-
 class App extends React.Component {
   render() {
     if (this.props.iota) {
@@ -42,7 +28,6 @@ class App extends React.Component {
                 />
                 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
               </Helmet>
-              <DynamicFontSizeHelmet />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Footer key="footer" />
             </div>
