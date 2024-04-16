@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-
-export default function BrevoJoin() {
+import AnimateHeight from 'react-animate-height'
+export default function BrevoJoin(props) {
+  const { active } = props
   useEffect(() => {
     window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code'
     window.LOCALE = 'en'
@@ -69,330 +70,341 @@ export default function BrevoJoin() {
         </style>
         <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
       </Helmet>
-      <div className="sib-form" style={{ textAlign: 'center', backgroundColor: '#ffffff' }}>
-        <div id="sib-form-container" className="sib-form-container">
-          <div
-            id="error-message"
-            className="sib-form-message-panel"
-            style={{
-              fontSize: '1rem',
-              textAlign: 'left',
-              fontFamily: '"Helvetica", sans-serif',
-              color: '#661d1d',
-              backgroundColor: '#ffeded',
-              borderRadius: '0.1875rem',
-              borderColor: '#ff4949',
-              maxWidth: '33.75rem',
-            }}
-          >
-            <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-              <svg viewBox="0 0 512 512" className="sib-icon sib-notification__icon">
-                <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
-              </svg>
-              <span className="sib-form-message-panel__inner-text">
-                Your subscription could not be saved. Please try again.
-              </span>
-            </div>
-          </div>
-          <div />
-          <div
-            id="success-message"
-            className="sib-form-message-panel"
-            style={{
-              fontSize: '1rem',
-              textAlign: 'left',
-              fontFamily: '"Helvetica", sans-serif',
-              color: '#085229',
-              backgroundColor: '#e7faf0',
-              borderRadius: '0.1875rem',
-              borderColor: '#13ce66',
-              maxWidth: '33.75rem',
-            }}
-          >
-            <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-              <svg viewBox="0 0 512 512" className="sib-icon sib-notification__icon">
-                <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
-              </svg>
-              <span className="sib-form-message-panel__inner-text">Your subscription has been successful.</span>
-            </div>
-          </div>
-          <div />
-          <div
-            id="sib-container"
-            className="sib-container--large sib-container--vertical"
-            style={{
-              textAlign: 'center',
-              backgroundColor: 'rgba(255,255,255,1)',
-              maxWidth: 540,
-              borderRadius: '0.1875rem',
-              borderWidth: 1,
-              borderColor: '#C0CCD9',
-              borderStyle: 'solid',
-              direction: 'ltr',
-            }}
-          >
-            <form
-              id="sib-form"
-              method="POST"
-              action="https://223e2260.sibforms.com/serve/MUIFANlwnVKDvZZtZGeGbniFk7YKGuHLHmc1UjCYRTDoMBLhiGMhnM15j19q1FO4LlCM3N_sMoAqg4s7mMqjbcJZNSQjfVhbIuWfzOdIw3o2hEQPEJxEZ5vQ05XMNT3_Subgru5Qxv0Dd6myoBfa0SEUq4Q6SvZkoOWIpSCzFvp_g6Xo3vmyrobkhPZS9Kq5g_EM7_mtkJWeBcox"
-              data-type="subscription"
+      <div
+        className="sib-form"
+        style={{
+          textAlign: 'center',
+          backgroundColor: '#ffffff',
+          padding: 0,
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <AnimateHeight id="brevo-join" duration={500} height={active ? 'auto' : 0}>
+          <div id="sib-form-container" className="sib-form-container">
+            <div
+              id="error-message"
+              className="sib-form-message-panel"
+              style={{
+                fontSize: '1rem',
+                textAlign: 'left',
+                fontFamily: '"Helvetica", sans-serif',
+                color: '#661d1d',
+                backgroundColor: '#ffeded',
+                borderRadius: '0.1875rem',
+                borderColor: '#ff4949',
+                maxWidth: '33.75rem',
+              }}
             >
-              <div style={{ padding: '0.5rem 0' }}>
-                <div
-                  className="sib-form-block"
-                  style={{
-                    fontSize: '2rem',
-                    textAlign: 'left',
-                    fontWeight: 700,
-                    fontFamily: '"Helvetica", sans-serif',
-                    color: '#3C4858',
-                    backgroundColor: 'transparent',
-                  }}
-                >
-                  <p>Join the Community</p>
-                </div>
+              <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" className="sib-icon sib-notification__icon">
+                  <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
+                </svg>
+                <span className="sib-form-message-panel__inner-text">
+                  Your subscription could not be saved. Please try again.
+                </span>
               </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div
-                  className="sib-form-block"
-                  style={{
-                    fontSize: '1rem',
-                    textAlign: 'left',
-                    fontFamily: '"Helvetica", sans-serif',
-                    color: '#3C4858',
-                    backgroundColor: 'transparent',
-                  }}
-                >
-                  <div className="sib-text-form-block">
-                    <p>Join EnCiv, and help make democratic discourse productive online.</p>
-                  </div>
-                </div>
+            </div>
+            <div />
+            <div
+              id="success-message"
+              className="sib-form-message-panel"
+              style={{
+                fontSize: '1rem',
+                textAlign: 'left',
+                fontFamily: '"Helvetica", sans-serif',
+                color: '#085229',
+                backgroundColor: '#e7faf0',
+                borderRadius: '0.1875rem',
+                borderColor: '#13ce66',
+                maxWidth: '33.75rem',
+              }}
+            >
+              <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" className="sib-icon sib-notification__icon">
+                  <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
+                </svg>
+                <span className="sib-form-message-panel__inner-text">Your subscription has been successful.</span>
               </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-input sib-form-block">
-                  <div className="form__entry entry_block">
-                    <div className="form__label-row ">
-                      <label
-                        className="entry__label"
-                        style={{
-                          fontWeight: 700,
-                          textAlign: 'left',
-                          fontSize: '1rem',
-                          fontFamily: '"Helvetica", sans-serif',
-                          color: '#3c4858',
-                        }}
-                        htmlFor="FIRSTNAME"
-                        data-required="*"
-                      >
-                        First Name
-                      </label>
-                      <div className="entry__field">
-                        <input
-                          className="input "
-                          maxLength={200}
-                          type="text"
-                          id="FIRSTNAME"
-                          name="FIRSTNAME"
-                          autoComplete="off"
-                          data-required="true"
-                          required=""
-                        />
-                      </div>
-                    </div>
-                    <label
-                      className="entry__error entry__error--primary"
-                      style={{
-                        fontSize: '1rem',
-                        textAlign: 'left',
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#661d1d',
-                        backgroundColor: '#ffeded',
-                        borderRadius: '0.1875rem',
-                        borderColor: '#ff4949',
-                      }}
-                    ></label>
-                  </div>
-                </div>
-              </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-input sib-form-block">
-                  <div className="form__entry entry_block">
-                    <div className="form__label-row ">
-                      <label
-                        className="entry__label"
-                        style={{
-                          fontWeight: 700,
-                          textAlign: 'left',
-                          fontSize: '1rem',
-                          fontFamily: '"Helvetica", sans-serif',
-                          color: '#3c4858',
-                        }}
-                        htmlFor="LASTNAME"
-                        data-required="*"
-                      >
-                        Last Name
-                      </label>
-                      <div className="entry__field">
-                        <input
-                          className="input "
-                          maxLength={200}
-                          type="text"
-                          id="LASTNAME"
-                          name="LASTNAME"
-                          autoComplete="off"
-                          data-required="true"
-                          required=""
-                        />
-                      </div>
-                    </div>
-                    <label
-                      className="entry__error entry__error--primary"
-                      style={{
-                        fontSize: '1rem',
-                        textAlign: 'left',
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#661d1d',
-                        backgroundColor: '#ffeded',
-                        borderRadius: '0.1875rem',
-                        borderColor: '#ff4949',
-                      }}
-                    ></label>
-                  </div>
-                </div>
-              </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-input sib-form-block">
-                  <div className="form__entry entry_block">
-                    <div className="form__label-row ">
-                      <label
-                        className="entry__label"
-                        style={{
-                          fontWeight: 700,
-                          textAlign: 'left',
-                          fontSize: '1rem',
-                          fontFamily: '"Helvetica", sans-serif',
-                          color: '#3c4858',
-                        }}
-                        htmlFor="EMAIL"
-                        data-required="*"
-                      >
-                        Email Address
-                      </label>
-                      <div className="entry__field">
-                        <input
-                          className="input "
-                          type="text"
-                          id="EMAIL"
-                          name="EMAIL"
-                          autoComplete="off"
-                          data-required="true"
-                          required=""
-                        />
-                      </div>
-                    </div>
-                    <label
-                      className="entry__error entry__error--primary"
-                      style={{
-                        fontSize: '1rem',
-                        textAlign: 'left',
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#661d1d',
-                        backgroundColor: '#ffeded',
-                        borderRadius: '0.1875rem',
-                        borderColor: '#ff4949',
-                      }}
-                    ></label>
-                  </div>
-                </div>
-              </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-optin sib-form-block">
-                  <div className="form__entry entry_mcq">
-                    <div className="form__label-row ">
-                      <div className="entry__choice" style={{}}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            className="input_replaced"
-                            defaultValue={1}
-                            id="OPT_IN"
-                            name="OPT_IN"
-                          />
-                          <span className="checkbox checkbox_tick_positive" style={{ marginLeft: '' }} />
-                          <span
-                            style={{
-                              fontSize: '0.875rem',
-                              textAlign: 'left',
-                              fontFamily: '"Helvetica", sans-serif',
-                              color: '#3C4858',
-                              backgroundColor: 'transparent',
-                            }}
-                          >
-                            <p>
-                              I agree to receive your newsletters and accept the{' '}
-                              <a href="https://enciv.org/privacy/" target="_blank">
-                                data privacy{' '}
-                              </a>
-                              statement.
-                            </p>
-                          </span>{' '}
-                        </label>
-                      </div>
-                    </div>
-                    <label
-                      className="entry__error entry__error--primary"
-                      style={{
-                        fontSize: '1rem',
-                        textAlign: 'left',
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#661d1d',
-                        backgroundColor: '#ffeded',
-                        borderRadius: '0.1875rem',
-                        borderColor: '#ff4949',
-                      }}
-                    ></label>
-                    <label
-                      className="entry__specification"
-                      style={{
-                        fontSize: '0.75rem',
-                        textAlign: 'left',
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#8390A4',
-                      }}
-                    >
-                      You may unsubscribe at any time using the link in our newsletter.
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-form-block" style={{ textAlign: 'left' }}>
-                  <button
-                    className="sib-form-block__button sib-form-block__button-with-loader"
+            </div>
+            <div />
+            <div
+              id="sib-container"
+              className="sib-container--large sib-container--vertical"
+              style={{
+                textAlign: 'center',
+                backgroundColor: 'rgba(255,255,255,1)',
+                maxWidth: 540,
+                borderRadius: '0.1875rem',
+                borderWidth: 1,
+                borderColor: '#C0CCD9',
+                borderStyle: 'solid',
+                direction: 'ltr',
+              }}
+            >
+              <form
+                id="sib-form"
+                method="POST"
+                action="https://223e2260.sibforms.com/serve/MUIFANlwnVKDvZZtZGeGbniFk7YKGuHLHmc1UjCYRTDoMBLhiGMhnM15j19q1FO4LlCM3N_sMoAqg4s7mMqjbcJZNSQjfVhbIuWfzOdIw3o2hEQPEJxEZ5vQ05XMNT3_Subgru5Qxv0Dd6myoBfa0SEUq4Q6SvZkoOWIpSCzFvp_g6Xo3vmyrobkhPZS9Kq5g_EM7_mtkJWeBcox"
+                data-type="subscription"
+              >
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div
+                    className="sib-form-block"
                     style={{
-                      fontSize: '1rem',
+                      fontSize: '2rem',
                       textAlign: 'left',
                       fontWeight: 700,
                       fontFamily: '"Helvetica", sans-serif',
-                      color: '#FFFFFF',
-                      backgroundColor: '#3E4857',
-                      borderRadius: '0.1875rem',
-                      borderWidth: 0,
+                      color: '#3C4858',
+                      backgroundColor: 'transparent',
                     }}
-                    form="sib-form"
-                    type="submit"
                   >
-                    <svg
-                      className="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-                    </svg>
-                    SUBSCRIBE
-                  </button>
+                    <p>Join the Community</p>
+                  </div>
                 </div>
-              </div>
-              {/*}
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div
+                    className="sib-form-block"
+                    style={{
+                      fontSize: '1rem',
+                      textAlign: 'left',
+                      fontFamily: '"Helvetica", sans-serif',
+                      color: '#3C4858',
+                      backgroundColor: 'transparent',
+                    }}
+                  >
+                    <div className="sib-text-form-block">
+                      <p>Join EnCiv, and help make democratic discourse productive online.</p>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div className="sib-input sib-form-block">
+                    <div className="form__entry entry_block">
+                      <div className="form__label-row ">
+                        <label
+                          className="entry__label"
+                          style={{
+                            fontWeight: 700,
+                            textAlign: 'left',
+                            fontSize: '1rem',
+                            fontFamily: '"Helvetica", sans-serif',
+                            color: '#3c4858',
+                          }}
+                          htmlFor="FIRSTNAME"
+                          data-required="*"
+                        >
+                          First Name
+                        </label>
+                        <div className="entry__field">
+                          <input
+                            className="input "
+                            maxLength={200}
+                            type="text"
+                            id="FIRSTNAME"
+                            name="FIRSTNAME"
+                            autoComplete="off"
+                            data-required="true"
+                            required=""
+                          />
+                        </div>
+                      </div>
+                      <label
+                        className="entry__error entry__error--primary"
+                        style={{
+                          fontSize: '1rem',
+                          textAlign: 'left',
+                          fontFamily: '"Helvetica", sans-serif',
+                          color: '#661d1d',
+                          backgroundColor: '#ffeded',
+                          borderRadius: '0.1875rem',
+                          borderColor: '#ff4949',
+                        }}
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div className="sib-input sib-form-block">
+                    <div className="form__entry entry_block">
+                      <div className="form__label-row ">
+                        <label
+                          className="entry__label"
+                          style={{
+                            fontWeight: 700,
+                            textAlign: 'left',
+                            fontSize: '1rem',
+                            fontFamily: '"Helvetica", sans-serif',
+                            color: '#3c4858',
+                          }}
+                          htmlFor="LASTNAME"
+                          data-required="*"
+                        >
+                          Last Name
+                        </label>
+                        <div className="entry__field">
+                          <input
+                            className="input "
+                            maxLength={200}
+                            type="text"
+                            id="LASTNAME"
+                            name="LASTNAME"
+                            autoComplete="off"
+                            data-required="true"
+                            required=""
+                          />
+                        </div>
+                      </div>
+                      <label
+                        className="entry__error entry__error--primary"
+                        style={{
+                          fontSize: '1rem',
+                          textAlign: 'left',
+                          fontFamily: '"Helvetica", sans-serif',
+                          color: '#661d1d',
+                          backgroundColor: '#ffeded',
+                          borderRadius: '0.1875rem',
+                          borderColor: '#ff4949',
+                        }}
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div className="sib-input sib-form-block">
+                    <div className="form__entry entry_block">
+                      <div className="form__label-row ">
+                        <label
+                          className="entry__label"
+                          style={{
+                            fontWeight: 700,
+                            textAlign: 'left',
+                            fontSize: '1rem',
+                            fontFamily: '"Helvetica", sans-serif',
+                            color: '#3c4858',
+                          }}
+                          htmlFor="EMAIL"
+                          data-required="*"
+                        >
+                          Email Address
+                        </label>
+                        <div className="entry__field">
+                          <input
+                            className="input "
+                            type="text"
+                            id="EMAIL"
+                            name="EMAIL"
+                            autoComplete="off"
+                            data-required="true"
+                            required=""
+                          />
+                        </div>
+                      </div>
+                      <label
+                        className="entry__error entry__error--primary"
+                        style={{
+                          fontSize: '1rem',
+                          textAlign: 'left',
+                          fontFamily: '"Helvetica", sans-serif',
+                          color: '#661d1d',
+                          backgroundColor: '#ffeded',
+                          borderRadius: '0.1875rem',
+                          borderColor: '#ff4949',
+                        }}
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div className="sib-optin sib-form-block">
+                    <div className="form__entry entry_mcq">
+                      <div className="form__label-row ">
+                        <div className="entry__choice" style={{}}>
+                          <label>
+                            <input
+                              type="checkbox"
+                              className="input_replaced"
+                              defaultValue={1}
+                              id="OPT_IN"
+                              name="OPT_IN"
+                            />
+                            <span className="checkbox checkbox_tick_positive" style={{ marginLeft: '' }} />
+                            <span
+                              style={{
+                                fontSize: '0.875rem',
+                                textAlign: 'left',
+                                fontFamily: '"Helvetica", sans-serif',
+                                color: '#3C4858',
+                                backgroundColor: 'transparent',
+                              }}
+                            >
+                              <p>
+                                I agree to receive your newsletters and accept the{' '}
+                                <a href="https://enciv.org/privacy/" target="_blank">
+                                  data privacy{' '}
+                                </a>
+                                statement.
+                              </p>
+                            </span>{' '}
+                          </label>
+                        </div>
+                      </div>
+                      <label
+                        className="entry__error entry__error--primary"
+                        style={{
+                          fontSize: '1rem',
+                          textAlign: 'left',
+                          fontFamily: '"Helvetica", sans-serif',
+                          color: '#661d1d',
+                          backgroundColor: '#ffeded',
+                          borderRadius: '0.1875rem',
+                          borderColor: '#ff4949',
+                        }}
+                      ></label>
+                      <label
+                        className="entry__specification"
+                        style={{
+                          fontSize: '0.75rem',
+                          textAlign: 'left',
+                          fontFamily: '"Helvetica", sans-serif',
+                          color: '#8390A4',
+                        }}
+                      >
+                        You may unsubscribe at any time using the link in our newsletter.
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <div className="sib-form-block" style={{ textAlign: 'left' }}>
+                    <button
+                      className="sib-form-block__button sib-form-block__button-with-loader"
+                      style={{
+                        fontSize: '1rem',
+                        textAlign: 'left',
+                        fontWeight: 700,
+                        fontFamily: '"Helvetica", sans-serif',
+                        color: '#FFFFFF',
+                        backgroundColor: '#3E4857',
+                        borderRadius: '0.1875rem',
+                        borderWidth: 0,
+                      }}
+                      form="sib-form"
+                      type="submit"
+                    >
+                      <svg
+                        className="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
+                        viewBox="0 0 512 512"
+                      >
+                        <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                      </svg>
+                      SUBSCRIBE
+                    </button>
+                  </div>
+                </div>
+                {/*}
               <div style={{ padding: '0.5rem 0' }}>
                 <div className="sib-form__declaration" style={{ direction: 'ltr' }}>
                   <div className="declaration-block-icon">
@@ -429,11 +441,12 @@ export default function BrevoJoin() {
                 </div>
               </div>
               */}
-              <input type="text" name="email_address_check" defaultValue="" className="input--hidden" />
-              <input type="hidden" name="locale" defaultValue="en" />
-            </form>
+                <input type="text" name="email_address_check" defaultValue="" className="input--hidden" />
+                <input type="hidden" name="locale" defaultValue="en" />
+              </form>
+            </div>
           </div>
-        </div>
+        </AnimateHeight>
       </div>
     </>
   )

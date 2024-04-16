@@ -19,7 +19,7 @@ const ActionButton = props => {
         onDone={() => setShowForm(!showForm)}
         {...otherProps}
       ></Button>
-      {showForm && <BrevoJoin />}
+      <BrevoJoin active={showForm} />
     </>
   )
 }
