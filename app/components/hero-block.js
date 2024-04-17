@@ -33,31 +33,31 @@ const HeroBlock = props => {
       setResized(++count)
     }
     window.addEventListener('resize', onResize)
-    document.fonts.addEventListener('loadingdone',onResize)
+    document.fonts.addEventListener('loadingdone', onResize)
 
     return () => {
       window.removeEventListener('resize', onResize)
-      document.fonts.removeEventListener(('loadingdone',onResize))
+      document.fonts.removeEventListener('loadingdone', onResize)
     }
   }, [])
 
   useLayoutEffect(() => {
     const outerRect = outerRef.current.getBoundingClientRect()
     const innerRect = innerRef.current.getBoundingClientRect()
-    const calcFontSize=()=>{
-        return Math.floor((fontSize * ((outerRect.width * maxSubjectWidthRatio) / innerRect.width))*100)/100
+    const calcFontSize = () => {
+      return Math.floor(fontSize * ((outerRect.width * maxSubjectWidthRatio) / innerRect.width) * 100) / 100
     }
-    if (innerRect.width > (outerRect.width * maxSubjectWidthRatio)) {
-        const newFontSize=calcFontSize()
-        if(Math.abs(newFontSize-fontSize) > 0.02){
-            setFontSize(newFontSize)
-        }
+    if (innerRect.width > outerRect.width * maxSubjectWidthRatio) {
+      const newFontSize = calcFontSize()
+      if (Math.abs(newFontSize - fontSize) > 0.02) {
+        setFontSize(newFontSize)
+      }
     }
-    if (innerRect.width < (outerRect.width * maxSubjectWidthRatio) && fontSize < startFontSize) {
-        const newFontSize=Math.min(calcFontSize(),startFontSize)
-        if(Math.abs(newFontSize-fontSize) > 0.02){
-            setFontSize(newFontSize)
-        }
+    if (innerRect.width < outerRect.width * maxSubjectWidthRatio && fontSize < startFontSize) {
+      const newFontSize = Math.min(calcFontSize(), startFontSize)
+      if (Math.abs(newFontSize - fontSize) > 0.02) {
+        setFontSize(newFontSize)
+      }
     }
   }, [resized])
 

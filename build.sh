@@ -43,7 +43,7 @@ npm run transpile  || {
 echo "transpile ok"
 
 # don't run webpack if this is a dependency of another project - the memory usage will blow out heroku build 
-if test \"$NPM_PROJECT\" = \"\" || test \"$NPM_PROJECT\" == \"civil-server-template\" ; then {
+if test \"$NPM_PROJECT\" = \"\" || test \"$NPM_PROJECT\" == \"enciv-home\" ; then {
   npm run packbuild  || {
     echo Could not webpack;
     exit 1
