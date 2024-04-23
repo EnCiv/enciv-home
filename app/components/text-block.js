@@ -18,16 +18,18 @@ const TextBlock = props => {
   const classes = useStylesFromThemeFunction()
   return (
     <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-      {subject && <h2 className={classes.subject}>{subject}</h2>}
-      {description && <p className={classes.description}>{description}</p>}
-      {subPoints && (
-        <ul className={classes.subPoints}>
-          {subPoints.map(text => (
-            <li>{text}</li>
-          ))}
-        </ul>
-      )}
-      {actionText && <ActionButton>{actionText}</ActionButton>}
+      <div className={classes.wrapper}>
+        {subject && <h2 className={classes.subject}>{subject}</h2>}
+        {description && <p className={classes.description}>{description}</p>}
+        {subPoints && (
+          <ul className={classes.subPoints}>
+            {subPoints.map(text => (
+              <li>{text}</li>
+            ))}
+          </ul>
+        )}
+        {actionText && <ActionButton>{actionText}</ActionButton>}
+      </div>
     </div>
   )
 }
@@ -36,6 +38,14 @@ export default TextBlock
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   textBlock: {
     textAlign: 'center',
+    paddingTop: '4rem',
+    paddingBottom: '4rem',
+  },
+  wrapper: {
+    maxWidth: '72rem',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    whiteSpace: 'pre-line',
   },
   subject: {
     fontSize: '3rem',
@@ -66,9 +76,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'center',
     listStylePosition: 'inside',
     paddingLeft: 0,
-    "& li::marker":{
-        content: '"\u2022 "'
-    }
+    '& li::marker': {
+      content: '"\u2022 "',
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
