@@ -3,6 +3,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
+import MarkDown from 'react-markdown'
 
 const TextBlock = props => {
   const {
@@ -20,7 +21,7 @@ const TextBlock = props => {
     <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
         {subject && <h2 className={classes.subject}>{subject}</h2>}
-        {description && <p className={classes.description}>{description}</p>}
+        {description && <MarkDown className={classes.description}>{description}</MarkDown>}
         {subPoints && (
           <ul className={classes.subPoints}>
             {subPoints.map(text => (
@@ -64,6 +65,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     leadingTrim: 'both',
     textEdge: 'cap',
     textAlign: 'center',
+    '& p': {
+      marginBlockStart: 0,
+      marginBlockEnd: 0,
+    },
   },
   subPoints: {
     fontFamily: 'Inter',
