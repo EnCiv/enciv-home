@@ -3,6 +3,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
+import MarkDown from 'react-markdown'
 
 const TextBlock = props => {
   const {
@@ -20,7 +21,7 @@ const TextBlock = props => {
     <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
         {subject && <h2 className={classes.subject}>{subject}</h2>}
-        {description && <p className={classes.description}>{description}</p>}
+        {description && <MarkDown className={classes.description}>{description}</MarkDown>}
         {subPoints && (
           <ul className={classes.subPoints}>
             {subPoints.map(text => (
@@ -28,7 +29,11 @@ const TextBlock = props => {
             ))}
           </ul>
         )}
-        {actionText && <ActionButton>{actionText}</ActionButton>}
+        {actionText && (
+          <div className={classes.actionButton}>
+            <ActionButton>{actionText}</ActionButton>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -54,6 +59,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontWeight: 700,
     lineHeight: '3.6875rem',
     textAlign: 'center',
+    marginLeft: '2rem',
+    marginRight: '2rem',
   },
   description: {
     fontFamily: 'Inter',
@@ -64,6 +71,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     leadingTrim: 'both',
     textEdge: 'cap',
     textAlign: 'center',
+    marginLeft: '2rem',
+    marginRight: '2rem',
+    '& p': {
+      marginBlockStart: 0,
+      marginBlockEnd: 0,
+    },
   },
   subPoints: {
     fontFamily: 'Inter',
@@ -75,10 +88,15 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textEdge: 'cap',
     textAlign: 'center',
     listStylePosition: 'inside',
+    marginLeft: '2rem',
+    marginRight: '2rem',
     paddingLeft: 0,
     '& li::marker': {
       content: '"\u2022 "',
     },
+  },
+  actionButton: {
+    marginTop: '4rem',
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
