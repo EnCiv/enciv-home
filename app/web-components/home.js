@@ -31,6 +31,7 @@ export default function Home(props) {
       />
       <TextBlock
         mode={getMode()}
+        subject={'When we speak as One'}
         description={
           'We’re fed up with (and frankly scared of) the current political system\n\n\
 Sick of partisan gridlock that stops real policy and productive discussion\n\n\
