@@ -99,6 +99,7 @@
     "babel-plugin-cjs-esm-interop": "^4.0.0",
     "civil-pursuit": "github:EnCiv/civil-pursuit",
     "react-animate-height": "^3.2.3",
-    "react-markdown": "^6.0.3"
+    "react-markdown": "^6.0.3",
+    "react-textarea-autosize": "^8.5.3"
   }
 }
