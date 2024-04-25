@@ -78,17 +78,18 @@ const HeroBlock = props => {
 }
 export default HeroBlock
 
+const HEIGHT = '30vw'
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   heroBlock: {
     width: '100%', // using vw makes the div a tiny bit wider than the viewport causing a scrollbar I suspect roundoff
-    height: '56.25vw', // yes vw becuase its a 16:9 of the width
+    height: HEIGHT, // yes vw becuase its a 16:9 of the width
     backgroundSize: 'cover',
     position: 'relative',
     boxSizing: 'border-box',
   },
   subjectWrapper: {
     position: 'absolute',
-    top: 'calc(28.25vw - 2rem)',
+    top: `calc( ( ${HEIGHT} / 2 ) - 2rem)`,
     textAlign: 'center',
     width: '100%',
   },
@@ -110,7 +111,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   actionWrapper: {
     position: 'absolute',
-    top: 'calc(42.1875vw - 1rem)',
+    top: `calc( ( ${HEIGHT} * 0.75 ) - 1rem)`,
     textAlign: 'center',
     width: '100%',
   },
