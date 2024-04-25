@@ -56,11 +56,10 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
       />
       <TextBlock
         mode={getMode()}
-        subject={'Join the Community'}
+        subject={'Builld by the People, for the People'}
         description={
-          "EnCiv is built by the People, for the People.\n\n\
-If you believe that there's a better way to make the best national decisions and it starts with productive dialogue...\n\n\
-**We're building it. Join our community today.**"
+          "If you believe that there's a better way to make the best national decisions and it starts with productive national dialogue...\n\n\
+**We're building it! Together.**"
         }
         actionText={'Join the Community'}
       />
