@@ -4,9 +4,10 @@ import HeroBlock from '../components/hero-block'
 import BrevoJoin from '../components/brevo-join'
 import TextBlock from '../components/text-block'
 import Faq from '../components/frequently-asked-questions'
+import BrevoCommunity from '../components/brevo-community'
 
 export default function Home(props) {
-  const { subject, description } = props
+  const { subject, description, location } = props
   const [showRegForm, setRegForm] = useState(false)
   let mode = 'light'
   const getMode = () => {
@@ -16,6 +17,7 @@ export default function Home(props) {
   return (
     <div>
       <Components.TopNavBar mode={'dark'} />
+      <BrevoCommunity location={location} />
       <HeroBlock
         subject={'Politics is dividing us - EnCiv is uniting us'}
         imgUrl={
