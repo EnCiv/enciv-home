@@ -24,49 +24,49 @@ export default function BrevoJoin(props) {
       <Helmet>
         <style type="text/css">
           {`
-            @font-face {
-                font-display: block;
-                font-family: Roboto;
-                src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-            }
+  @font-face {
+    font-display: block;
+    font-family: Roboto;
+    src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+  }
 
-            @font-face {
-                font-display: fallback;
-                font-family: Roboto;
-                font-weight: 600;
-                src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-            }
+  @font-face {
+    font-display: fallback;
+    font-family: Roboto;
+    font-weight: 600;
+    src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+  }
 
-            @font-face {
-                font-display: fallback;
-                font-family: Roboto;
-                font-weight: 700;
-                src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-            }
+  @font-face {
+    font-display: fallback;
+    font-family: Roboto;
+    font-weight: 700;
+    src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+  }
 
-            #sib-container input:-ms-input-placeholder {
-                text-align: left;
-                font-family: "Helvetica", sans-serif;
-                color: #c0ccda;
-            }
+  #sib-container input:-ms-input-placeholder {
+    text-align: left;
+    font-family: "Helvetica", sans-serif;
+    color: #c0ccda;
+  }
 
-            #sib-container input::placeholder {
-                text-align: left;
-                font-family: "Helvetica", sans-serif;
-                color: #c0ccda;
-            }
+  #sib-container input::placeholder {
+    text-align: left;
+    font-family: "Helvetica", sans-serif;
+    color: #c0ccda;
+  }
 
-            #sib-container textarea::placeholder {
-                text-align: left;
-                font-family: "Helvetica", sans-serif;
-                color: #c0ccda;
-            }
+  #sib-container textarea::placeholder {
+    text-align: left;
+    font-family: "Helvetica", sans-serif;
+    color: #c0ccda;
+  }
 
-            #sib-container a {
-                text-decoration: underline;
-                color: #2BB2FC;
-            }
-            `}
+  #sib-container a {
+    text-decoration: underline;
+    color: #2BB2FC;
+  }
+`}
         </style>
         <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
       </Helmet>
@@ -74,7 +74,7 @@ export default function BrevoJoin(props) {
         className="sib-form"
         style={{
           textAlign: 'center',
-          backgroundColor: '#ffffff',
+          backgroundColor: '#343433',
           padding: 0,
           position: 'absolute',
           left: '50%',
@@ -134,8 +134,8 @@ export default function BrevoJoin(props) {
               className="sib-container--large sib-container--vertical"
               style={{
                 textAlign: 'center',
-                backgroundColor: 'rgba(255,255,255,1)',
-                maxWidth: 540,
+                backgroundColor: 'rgba(242,242,242,1)',
+                maxWidth: '33.75rem',
                 borderRadius: '0.1875rem',
                 borderWidth: 1,
                 borderColor: '#C0CCD9',
@@ -146,7 +146,7 @@ export default function BrevoJoin(props) {
               <form
                 id="sib-form"
                 method="POST"
-                action="https://223e2260.sibforms.com/serve/MUIFANlwnVKDvZZtZGeGbniFk7YKGuHLHmc1UjCYRTDoMBLhiGMhnM15j19q1FO4LlCM3N_sMoAqg4s7mMqjbcJZNSQjfVhbIuWfzOdIw3o2hEQPEJxEZ5vQ05XMNT3_Subgru5Qxv0Dd6myoBfa0SEUq4Q6SvZkoOWIpSCzFvp_g6Xo3vmyrobkhPZS9Kq5g_EM7_mtkJWeBcox"
+                action="https://223e2260.sibforms.com/serve/MUIFALdemznNVoCK3BT-NdrxYPWyQM6yQyRWjHssUfiPUK6FsNu60B8xYFDwURXRLjnlz0MptNh9FFIw11ITwLmPlGprEKvAnN6hYWeeFhmbWv3yFOyQfTH0iNbD244LbrYykq0WLZwwwIbT1ngVAZ7pLEUqLv5KY9xu-ohtBen-cogPRIc2IPUhaAPhZlOMwuVdtXLzj5HNSTjA"
                 data-type="subscription"
               >
                 <div style={{ padding: '0.5rem 0' }}>
@@ -156,8 +156,8 @@ export default function BrevoJoin(props) {
                       fontSize: '2rem',
                       textAlign: 'left',
                       fontWeight: 700,
-                      fontFamily: '"Helvetica", sans-serif',
-                      color: '#3C4858',
+                      fontFamily: '"Futura", sans-serif',
+                      color: '#000000',
                       backgroundColor: 'transparent',
                     }}
                   >
@@ -170,13 +170,13 @@ export default function BrevoJoin(props) {
                     style={{
                       fontSize: '1rem',
                       textAlign: 'left',
-                      fontFamily: '"Helvetica", sans-serif',
-                      color: '#3C4858',
+                      fontFamily: '"Futura", sans-serif',
+                      color: '#000000',
                       backgroundColor: 'transparent',
                     }}
                   >
                     <div className="sib-text-form-block">
-                      <p>Join EnCiv, and help make democratic discourse productive online.</p>
+                      <p>Join EnCiv, and help make national discourse productive online.</p>
                     </div>
                   </div>
                 </div>
@@ -190,8 +190,8 @@ export default function BrevoJoin(props) {
                             fontWeight: 700,
                             textAlign: 'left',
                             fontSize: '1rem',
-                            fontFamily: '"Helvetica", sans-serif',
-                            color: '#3c4858',
+                            fontFamily: '"Futura", sans-serif',
+                            color: '#000000',
                           }}
                           htmlFor="FIRSTNAME"
                           data-required="*"
@@ -236,8 +236,8 @@ export default function BrevoJoin(props) {
                             fontWeight: 700,
                             textAlign: 'left',
                             fontSize: '1rem',
-                            fontFamily: '"Helvetica", sans-serif',
-                            color: '#3c4858',
+                            fontFamily: '"Futura", sans-serif',
+                            color: '#000000',
                           }}
                           htmlFor="LASTNAME"
                           data-required="*"
@@ -282,8 +282,8 @@ export default function BrevoJoin(props) {
                             fontWeight: 700,
                             textAlign: 'left',
                             fontSize: '1rem',
-                            fontFamily: '"Helvetica", sans-serif',
-                            color: '#3c4858',
+                            fontFamily: '"Futura", sans-serif',
+                            color: '#000000',
                           }}
                           htmlFor="EMAIL"
                           data-required="*"
@@ -368,7 +368,7 @@ export default function BrevoJoin(props) {
                         style={{
                           fontSize: '0.75rem',
                           textAlign: 'left',
-                          fontFamily: '"Helvetica", sans-serif',
+                          fontFamily: '"Futura", sans-serif',
                           color: '#8390A4',
                         }}
                       >
@@ -385,10 +385,10 @@ export default function BrevoJoin(props) {
                         fontSize: '1rem',
                         textAlign: 'left',
                         fontWeight: 700,
-                        fontFamily: '"Helvetica", sans-serif',
-                        color: '#FFFFFF',
-                        backgroundColor: '#3E4857',
-                        borderRadius: '0.1875rem',
+                        fontFamily: '"Futura", sans-serif',
+                        color: '#000000',
+                        backgroundColor: '#ffc315',
+                        borderRadius: '1.25rem',
                         borderWidth: 0,
                       }}
                       form="sib-form"
@@ -404,43 +404,6 @@ export default function BrevoJoin(props) {
                     </button>
                   </div>
                 </div>
-                {/*}
-              <div style={{ padding: '0.5rem 0' }}>
-                <div className="sib-form__declaration" style={{ direction: 'ltr' }}>
-                  <div className="declaration-block-icon">
-                    <svg className="icon__SVG" width={0} height={0} version="1.1" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <symbol id="svgIcon-sphere" viewBox="0 0 63 63">
-                          <path
-                            className="path1"
-                            d="M31.54 0l1.05 3.06 3.385-.01-2.735 1.897 1.05 3.042-2.748-1.886-2.738 1.886 1.044-3.05-2.745-1.897h3.393zm13.97 3.019L46.555 6.4l3.384.01-2.743 2.101 1.048 3.387-2.752-2.1-2.752 2.1 1.054-3.382-2.745-2.105h3.385zm9.998 10.056l1.039 3.382h3.38l-2.751 2.1 1.05 3.382-2.744-2.091-2.743 2.091 1.054-3.381-2.754-2.1h3.385zM58.58 27.1l1.04 3.372h3.379l-2.752 2.096 1.05 3.387-2.744-2.091-2.75 2.092 1.054-3.387-2.747-2.097h3.376zm-3.076 14.02l1.044 3.364h3.385l-2.743 2.09 1.05 3.392-2.744-2.097-2.743 2.097 1.052-3.377-2.752-2.117 3.385-.01zm-9.985 9.91l1.045 3.364h3.393l-2.752 2.09 1.05 3.393-2.745-2.097-2.743 2.097 1.05-3.383-2.751-2.1 3.384-.01zM31.45 55.01l1.044 3.043 3.393-.008-2.752 1.9L34.19 63l-2.744-1.895-2.748 1.891 1.054-3.05-2.743-1.9h3.384zm-13.934-3.98l1.036 3.364h3.402l-2.752 2.09 1.053 3.393-2.747-2.097-2.752 2.097 1.053-3.382-2.743-2.1 3.384-.01zm-9.981-9.91l1.045 3.364h3.398l-2.748 2.09 1.05 3.392-2.753-2.1-2.752 2.096 1.053-3.382-2.743-2.102 3.384-.009zM4.466 27.1l1.038 3.372H8.88l-2.752 2.097 1.053 3.387-2.743-2.09-2.748 2.09 1.053-3.387L0 30.472h3.385zm3.069-14.025l1.045 3.382h3.395L9.23 18.56l1.05 3.381-2.752-2.09-2.752 2.09 1.053-3.381-2.744-2.1h3.384zm9.99-10.056L18.57 6.4l3.393.01-2.743 2.1 1.05 3.373-2.754-2.092-2.751 2.092 1.053-3.382-2.744-2.1h3.384zm24.938 19.394l-10-4.22a2.48 2.48 0 00-1.921 0l-10 4.22A2.529 2.529 0 0019 24.75c0 10.47 5.964 17.705 11.537 20.057a2.48 2.48 0 001.921 0C36.921 42.924 44 36.421 44 24.75a2.532 2.532 0 00-1.537-2.336zm-2.46 6.023l-9.583 9.705a.83.83 0 01-1.177 0l-5.416-5.485a.855.855 0 010-1.192l1.177-1.192a.83.83 0 011.177 0l3.65 3.697 7.819-7.916a.83.83 0 011.177 0l1.177 1.191a.843.843 0 010 1.192z"
-                            fill="#0092FF"
-                          />
-                        </symbol>
-                      </defs>
-                    </svg>
-                    <svg className="svgIcon-sphere" style={{ width: 63, height: 63 }}>
-                      <use xlinkHref="#svgIcon-sphere" />
-                    </svg>
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '0.875rem',
-                      textAlign: 'left',
-                      fontFamily: '"Helvetica", sans-serif',
-                      color: '#687484',
-                      backgroundColor: 'transparent',
-                    }}
-                  >
-                    <p>
-                      We use Brevo as our marketing platform. By submitting this form you agree that the personal data
-                      you provided will be transferred to Brevo for processing in accordance with{' '}
-                      <a href="https://www.brevo.com/en/legal/privacypolicy/">Brevo's Privacy Policy.</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              */}
                 <input type="text" name="email_address_check" defaultValue="" className="input--hidden" />
                 <input type="hidden" name="locale" defaultValue="en" />
               </form>
