@@ -3,7 +3,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
-import MarkDown from 'react-markdown'
+import MarkDown from 'markdown-to-jsx'
 
 const TextBlock = props => {
   const {
@@ -73,10 +73,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'center',
     marginLeft: '2rem',
     marginRight: '2rem',
-    '& p': {
-      marginBlockStart: 0,
-      marginBlockEnd: 0,
-    },
   },
   subPoints: {
     fontFamily: 'Inter',
