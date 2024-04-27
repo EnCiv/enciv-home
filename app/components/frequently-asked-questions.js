@@ -60,7 +60,7 @@ const useStyles = createUseStyles(theme => ({
     paddingTop: '4rem',
   },
   wrapper: {
-    maxWidth: '72rem',
+    maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
   },

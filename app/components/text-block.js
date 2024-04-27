@@ -47,7 +47,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     paddingBottom: '4rem',
   },
   wrapper: {
-    maxWidth: '72rem',
+    maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
