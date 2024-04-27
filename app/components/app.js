@@ -7,7 +7,7 @@ import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider } from 'react-jss'
 import { Helmet } from 'react-helmet'
-import { theme } from 'civil-pursuit'
+import { theme, Components } from 'civil-pursuit'
 
 class App extends React.Component {
   render() {
@@ -29,7 +29,7 @@ class App extends React.Component {
                 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
               </Helmet>
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-              <Footer key="footer" />
+              <Components.Footer mode="dark" key="footer" />
             </div>
           </ThemeProvider>
         </ErrorBoundary>
