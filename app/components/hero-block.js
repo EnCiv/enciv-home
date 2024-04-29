@@ -68,11 +68,13 @@ const HeroBlock = props => {
           <h1 className={classes.subjectText}>{subject}</h1>
         </div>
       </div>
-      <div className={classes.actionWrapper}>
-        <ActionButton className={classes.action} style={actionStyle}>
-          {actionText}
-        </ActionButton>
-      </div>
+      {actionText && (
+        <div className={classes.actionWrapper}>
+          <ActionButton className={classes.action} style={actionStyle}>
+            {actionText}
+          </ActionButton>
+        </div>
+      )}
     </div>
   )
 }
