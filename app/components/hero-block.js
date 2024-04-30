@@ -88,10 +88,14 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     backgroundSize: 'cover',
     position: 'relative',
     boxSizing: 'border-box',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      height: '100vw',
+    },
   },
   subjectWrapper: {
     position: 'absolute',
-    top: `calc( ( ${HEIGHT} / 2 ) - 2rem)`,
+    top: '50%',
+    trnasform: 'translateY(-50%)',
     textAlign: 'center',
     width: '100%',
   },
@@ -113,9 +117,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   actionWrapper: {
     position: 'absolute',
-    top: `calc( ( ${HEIGHT} * 0.75 ) - 1rem)`,
-    textAlign: 'center',
     width: '100%',
+    textAlign: 'center',
+    top: '85%',
+    transform: 'translateY(-50%)',
   },
   action: {},
 }))
