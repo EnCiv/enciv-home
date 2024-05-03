@@ -1,9 +1,90 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import AnimateHeight from 'react-animate-height'
+export function BrevoHelmet() {
+  return (
+    <Helmet>
+      <style type="text/css">
+        {`
+          @font-face {
+            font-display: block;
+            font-family: Roboto;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+          }
+
+          @font-face {
+            font-display: fallback;
+            font-family: Roboto;
+            font-weight: 600;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+          }
+
+          @font-face {
+            font-display: fallback;
+            font-family: Roboto;
+            font-weight: 700;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+          }
+
+          #sib-container input:-ms-input-placeholder {
+            text-align: left;
+            font-family: "Helvetica", sans-serif;
+            color: #c0ccda;
+          }
+
+          #sib-container input::placeholder {
+            text-align: left;
+            font-family: "Helvetica", sans-serif;
+            color: #c0ccda;
+          }
+
+          #sib-container textarea::placeholder {
+            text-align: left;
+            font-family: "Helvetica", sans-serif;
+            color: #c0ccda;
+          }
+
+          #sib-container a {
+            text-decoration: underline;
+            color: #2BB2FC;
+          }
+
+          #sib-container input{
+            color: black;
+          }
+
+          #sib-container .sib-close-button {
+            position: absolute;
+            padding-right: .75rem;
+            padding-top: .25rem;
+            cursor: pointer;
+            top: 0;
+            right: 0;
+            color: black;
+            font-size: 1.5rem;
+          }
+
+          #sib-container .sib-close-button:hover {
+              font-weight: 900;
+          }
+
+        `}
+      </style>
+      <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+    </Helmet>
+  )
+}
+
+// keep track of all the instances of this form rendering on a page, so that the others can be closed when one is opened
+// each new instance takes the index in OtherForms, and puts it's forced close function there. when an instance opens,
+// it calls the force close function of all the other instances.
+
+const OtherForms = []
+
 export default function BrevoJoin(props) {
-  const { active } = props
-  useEffect(() => {
+  if (typeof window !== 'undefined' && !window.brevoHelmet) {
+    window.brevoHelmet = true
+    // running on the browser
     window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code'
     window.LOCALE = 'en'
     window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE =
@@ -18,58 +99,71 @@ export default function BrevoJoin(props) {
       },
     }
     window.AUTOHIDE = Boolean(0)
-  })
+  }
+  const { active, forceClose } = props
+  /**
+   * The Brevo post form code usees the #sib-container id to find the input info. Soo there can only be one form
+   * on the page at a time.
+   *
+   * So, we keep track of all the join forms in OtherForms, and forceClose the other ones, when the user makes this one active
+   * The parent, has to provide a forceClose function for this to work - but it's also handy for having the X close button on this form
+   *
+   *
+   */
+  const [myFormIndex, neverSetMyFormId] = useState(() => (OtherForms.push(forceClose), OtherForms.length - 1))
+
+  // translate the two states of active into 4 states in isActive so we can animate
+  // the mounting, opening, closing, and unmounging of the brevo from
+  const [isActive, setIsActive] = useState(active ? 'unmounted' : 'start') // unmounted -> start -> opened -> close -> unmounted
+  useEffect(() => {
+    // we are going active, so reset all the other forms on this page
+    let newIsActive
+    if (active) {
+      switch (isActive) {
+        case 'unmounted':
+          OtherForms.forEach((func, i) => {
+            if (i !== myFormIndex) func()
+          })
+          setTimeout(() => setIsActive('start')) // give the other Forms a chance to close
+          newIsActive = 'unmounted'
+          break
+        case 'start':
+          newIsActive = 'opened'
+          break
+        case 'opened':
+          newIsActive = 'opened'
+          break
+        case 'close':
+          newIsActive = 'unmounted'
+          break
+        default:
+          throw new Error()
+      }
+    } else {
+      switch (isActive) {
+        case 'unmounted':
+          newIsActive = 'unmounted'
+          break
+        case 'start':
+          newIsActive = 'unmounted'
+          break
+        case 'opened':
+          newIsActive = 'close' // stay open while the Animation happens
+          break
+        case 'close':
+          newIsActive = 'close'
+          setTimeout(() => setIsActive('unmounted'), 501)
+          break
+        default:
+          throw new Error()
+      }
+    }
+    if (newIsActive === isActive) return // don't loop
+    setIsActive(newIsActive)
+  }, [active, isActive])
+  if (isActive === 'unmounted') return null
   return (
     <>
-      <Helmet>
-        <style type="text/css">
-          {`
-  @font-face {
-    font-display: block;
-    font-family: Roboto;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-  }
-
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 600;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-  }
-
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 700;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-  }
-
-  #sib-container input:-ms-input-placeholder {
-    text-align: left;
-    font-family: "Helvetica", sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container input::placeholder {
-    text-align: left;
-    font-family: "Helvetica", sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container textarea::placeholder {
-    text-align: left;
-    font-family: "Helvetica", sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container a {
-    text-decoration: underline;
-    color: #2BB2FC;
-  }
-`}
-        </style>
-        <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
-      </Helmet>
       <div
         className="sib-form"
         style={{
@@ -81,7 +175,7 @@ export default function BrevoJoin(props) {
           transform: 'translateX(-50%)',
         }}
       >
-        <AnimateHeight id="brevo-join" duration={500} height={active ? 'auto' : 0}>
+        <AnimateHeight id="brevo-join" duration={500} height={isActive === 'opened' ? 'auto' : 0}>
           <div id="sib-form-container" className="sib-form-container">
             <div
               id="error-message"
@@ -143,6 +237,9 @@ export default function BrevoJoin(props) {
                 direction: 'ltr',
               }}
             >
+              <div className="sib-close-button" title={'close message'} onClick={forceClose}>
+                {'\u2715'}
+              </div>
               <form
                 id="sib-form"
                 method="POST"
@@ -378,7 +475,7 @@ export default function BrevoJoin(props) {
                   </div>
                 </div>
                 <div style={{ padding: '0.5rem 0' }}>
-                  <div className="sib-form-block" style={{ textAlign: 'left' }}>
+                  <div className="sib-form-block" style={{ textAlign: 'center' }}>
                     <button
                       className="sib-form-block__button sib-form-block__button-with-loader"
                       style={{
