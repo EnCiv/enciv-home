@@ -14,7 +14,7 @@ const HeroBlock = props => {
     subject = '',
     subjectStyle = {},
     actionText = 'Join the community',
-    action = '',
+    action,
     actionStyle = {},
     ...otherProps
   } = props
@@ -70,7 +70,7 @@ const HeroBlock = props => {
       </div>
       {actionText && (
         <div className={classes.actionWrapper}>
-          <ActionButton className={classes.action} style={actionStyle}>
+          <ActionButton action={action} className={classes.action} style={actionStyle}>
             {actionText}
           </ActionButton>
         </div>

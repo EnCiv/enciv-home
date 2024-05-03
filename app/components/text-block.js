@@ -31,7 +31,7 @@ const TextBlock = props => {
         )}
         {actionText && (
           <div className={classes.actionButton}>
-            <ActionButton>{actionText}</ActionButton>
+            <ActionButton action={action}>{actionText}</ActionButton>
           </div>
         )}
       </div>

@@ -55,6 +55,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
           'We’re community-led and community-built – we’re not supported by any corporation',
         ]}
         actionText={'More About Us'}
+        action="/about"
       />
       <TextBlock
         mode={getMode()}
