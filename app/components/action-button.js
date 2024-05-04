@@ -23,6 +23,8 @@ const ActionButton = props => {
           {...otherProps}
         ></a>
       )
+    if (typeof action === 'function')
+      return <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}></Button>
   } else
     return (
       <>
