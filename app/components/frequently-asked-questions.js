@@ -32,7 +32,7 @@ export default function FrequentlyAskedQuestions(props) {
           <h2 className={classes.headerStyle}>Frequently Asked Questions</h2>
           {faqs &&
             faqs.map(value => (
-              <div>
+              <div className={classes.questionWrapper}>
                 <div
                   className={classes.questionLine}
                   key={value.question}
@@ -44,7 +44,6 @@ export default function FrequentlyAskedQuestions(props) {
                   {active === value.question ? <p className={classes.caret}>^</p> : <p className={classes.caret}>v</p>}
                 </div>
                 <Opener classes={classes} answer={value.answer} active={active === value.question} />
-                <hr></hr>
               </div>
             ))}
         </div>
@@ -61,7 +60,7 @@ const useStyles = createUseStyles(theme => ({
     paddingTop: '4rem',
   },
   wrapper: {
-    maxWidth: '72rem',
+    maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -87,6 +86,9 @@ const useStyles = createUseStyles(theme => ({
     margin: 0, // force 0 so opener height calculation is right
   },
 
+  questionWrapper: {
+    borderBottom: `${theme.border.width.thick} solid`,
+  },
   questionLine: {
     display: 'flex',
     justifyContent: 'space-between',

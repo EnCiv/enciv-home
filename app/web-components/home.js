@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Components } from 'civil-pursuit'
 import HeroBlock from '../components/hero-block'
 import TextBlock from '../components/text-block'
 import Faq from '../components/frequently-asked-questions'
 import BrevoCommunity from '../components/brevo-community'
+import { BrevoHelmet } from '../components/brevo-join'
 
 export default function Home(props) {
   const { subject, description, location } = props
@@ -15,11 +15,12 @@ export default function Home(props) {
   }
   return (
     <div>
-      <Components.TopNavBar mode={'dark'} />
+      <BrevoHelmet />
       <BrevoCommunity location={location} />
       <HeroBlock
         subject={'Politics is dividing us - EnCiv is uniting us'}
         imgUrl={
+          /*'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg' */
           'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'
         }
         actionText={'Join us'}
@@ -54,6 +55,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
           'We’re community-led and community-built – we’re not supported by any corporation',
         ]}
         actionText={'More About Us'}
+        action="/about"
       />
       <TextBlock
         mode={getMode()}

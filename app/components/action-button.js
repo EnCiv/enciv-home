@@ -8,20 +8,34 @@ const { Button } = Components
 const ActionButton = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
+    action,
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
   const classes = useStylesFromThemeFunction()
-  return (
-    <>
-      <Button
-        className={cx(classes.actionButton, className)}
-        onDone={() => setShowForm(!showForm)}
-        {...otherProps}
-      ></Button>
-      <BrevoJoin active={showForm} />
-    </>
-  )
+  if (action) {
+    if (typeof action === 'string')
+      return (
+        <a
+          className={cx(classes.actionButton, className)}
+          href={action}
+          target={action[0] === '/' ? '_self' : '_blank'}
+          {...otherProps}
+        ></a>
+      )
+    if (typeof action === 'function')
+      return <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}></Button>
+  } else
+    return (
+      <>
+        <Button
+          className={cx(classes.actionButton, className)}
+          onDone={() => setShowForm(!showForm)}
+          {...otherProps}
+        ></Button>
+        <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} />
+      </>
+    )
 }
 export default ActionButton
 
@@ -36,6 +50,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     lineHeight: '1.5rem',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
+    padding: '0.5rem 1.25rem',
+    textDecoration: 'none',
     '&:hover': {
       cursor: 'pointer',
     },

@@ -98,8 +98,8 @@
   "dependencies": {
     "babel-plugin-cjs-esm-interop": "^4.0.0",
     "civil-pursuit": "github:EnCiv/civil-pursuit",
+    "markdown-to-jsx": "^7.4.7",
     "react-animate-height": "^3.2.3",
-    "react-markdown": "^6.0.3",
     "react-textarea-autosize": "^8.5.3"
   }
 }
