@@ -23,7 +23,6 @@ export default function Home(props) {
           /*'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg' */
           'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'
         }
-        actionText={'Join us'}
       />
       <TextBlock
         mode={getMode()}

@@ -13,7 +13,7 @@ const HeroBlock = props => {
     imgUrl = '',
     subject = '',
     subjectStyle = {},
-    actionText = 'Join the community',
+    actionText,
     action,
     actionStyle = {},
     ...otherProps
