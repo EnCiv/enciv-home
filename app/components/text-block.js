@@ -43,7 +43,7 @@ export default TextBlock
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   textBlock: {
     textAlign: 'center',
-    paddingTop: '4rem',
+    paddingTop: '3rem',
     paddingBottom: '4rem',
   },
   wrapper: {
@@ -61,6 +61,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'center',
     marginLeft: '2rem',
     marginRight: '2rem',
+    marginTop: 0,
   },
   description: {
     fontFamily: 'Inter',

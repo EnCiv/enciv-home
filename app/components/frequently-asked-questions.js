@@ -72,7 +72,8 @@ const useStyles = createUseStyles(theme => ({
 
   headerStyle: {
     textAlign: 'center',
-    paddingTop: '1rem',
+    paddingTop: 0,
+    marginTop: 0,
     fontSize: '3rem',
   },
 
