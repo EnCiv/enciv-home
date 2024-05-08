@@ -100,7 +100,7 @@ export default function BrevoJoin(props) {
     }
     window.AUTOHIDE = Boolean(0)
   }
-  const { active, forceClose } = props
+  const { active, forceClose, actionText } = props
   /**
    * The Brevo post form code usees the #sib-container id to find the input info. Soo there can only be one form
    * on the page at a time.
@@ -490,6 +490,7 @@ export default function BrevoJoin(props) {
                       }}
                       form="sib-form"
                       type="submit"
+                      onClick={() => window.gtag && (gtag('event', 'brevo-join', { actionText, myFormIndex }), true)}
                     >
                       <svg
                         className="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
