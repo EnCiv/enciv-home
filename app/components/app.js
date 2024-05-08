@@ -57,10 +57,30 @@ function TopNavWrap(props) {
             window.location.href = '/home'
           },
         },
+        [
+          {
+            name: 'About',
+            func: () => {
+              window.location.href = '/about'
+            },
+          },
+          {
+            name: 'About Us',
+            func: () => {
+              window.location.href = '/about'
+            },
+          },
+          {
+            name: 'IRS Forms',
+            func: () => {
+              window.location.href = '/irs-forms'
+            },
+          },
+        ],
         {
-          name: 'About',
+          name: 'Blog',
           func: () => {
-            window.location.href = '/about'
+            window.location.href = 'https://enciv.org/articles/'
           },
         },
       ]}

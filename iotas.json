@@ -14,5 +14,15 @@
     "subject": "About EnCiv",
     "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\nDavid joined EnCiv in 2019 to work on their first product, Undebates, and became CTO in October. In May, 2021 he was elected CEO. Previously founder and CEO at Synaccord, LLC a social enterprise for online dialog. One of Synaccord’s projects engaged people in all 50 states to deliberate on the most important problem to fix first in this country. In 2016, David joined the National Coalition of Dialog and Deliberation. Before working in dialog and deliberation, David was in Product Management at Toshiba America Information Systems for business communications systems involving voice and video over the internet. He received his MBA from Suffolk University, holds a BA Computer Science from UC San Diego and has over 12+ years software/hardware engineering. These tools are built by volunteers across the country, united in the common mission to make democracy work better. We come from different countries, backgrounds, and political beliefs. If you’re interested in joining as a volunteer, you can explore different volunteer opportunities here.",
     "webComponent": "About"
+  },
+  {
+    "_id": { "$oid": "663bf75092723e19b45a9398" },
+    "path": "/irs-forms",
+    "subject": "IRS Forms",
+    "description": "## IRS Forms\n\n###[IRS Tax Exemption Determination Letter June 20, 2018](https://drive.google.com/file/d/17JF7wiZzvRi3UYoA68mCvXwuwhzJRBVh/view)\n\n### [IRS Form 990-PF 2022](https://drive.google.com/file/d/1iMdfg1RQW78B4fmo-JkUuW4hgcIMaV-f/view)\n\n### [IRS Form 990-PF 2021](https://drive.google.com/file/d/17ORn5UYpPUQc9g9d51D1gz2Pt7ZeNRGL/view)\n\n### [IRS Form 990-PF 2020](https://drive.google.com/file/d/1Z6uSQ-LAvEERmrplmSqLamew-kSOj7TG/view)\n\n### [IRS Form 990-PF 2019](https://drive.google.com/file/d/1Vl-EIcmwVM459zNBoYFzH2aSLBgh8huI/view)\n\n### [IRS Form 990-PF 2018](https://drive.google.com/file/d/1Zbj4Pe9gqCJ5zVMMT-V_zi-gZWa3HfQX/view)\n\n",
+    "webComponent": {
+      "webComponent": "Markdown",
+      "style": { "minHeight": "65vh" }
+    }
   }
 ]
