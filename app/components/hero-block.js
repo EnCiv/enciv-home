@@ -3,6 +3,8 @@ import React, { useState, useLayoutEffect, useRef, useEffect, useCallback } from
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
+import { useMediaQuery } from '@react-hook/media-query'
+import { theme } from 'civil-pursuit'
 
 const startFontSize = 4
 const maxSubjectWidthRatio = 0.9 // maximum width for the subject text as a percent of the screen width
@@ -24,6 +26,13 @@ const HeroBlock = props => {
   const innerRef = useRef(null)
 
   const [resized, setResized] = useState(0)
+
+  // importing theme works as expected on server side, but on browser side getting {Components,theme,__esModule:true}
+  const themeFix = theme.theme || theme
+
+  const use2lines = useMediaQuery(`(max-width: ${themeFix.condensedWidthBreakPoint})`)
+
+  const subjectLines = use2lines ? subject.split('-').map(line => line.trim()) : [subject]
 
   useEffect(() => {
     // trick is that onResize will only get created once, and will only see the value of resized once
@@ -65,7 +74,9 @@ const HeroBlock = props => {
     <div className={cx(classes.heroBlock, className)} style={{ backgroundImage: `url(\"${imgUrl}\")` }} {...otherProps}>
       <div className={classes.subjectWrapper} ref={outerRef}>
         <div className={classes.subject} style={{ ...subjectStyle, fontSize: fontSize + 'rem' }} ref={innerRef}>
-          <h1 className={classes.subjectText}>{subject}</h1>
+          {subjectLines.map(line => (
+            <h1 className={classes.subjectText}>{line}</h1>
+          ))}
         </div>
       </div>
       {actionText && (
@@ -95,25 +106,30 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   subjectWrapper: {
     position: 'absolute',
     top: '50%',
-    trnasform: 'translateY(-50%)',
+    transform: 'translateY(-50%)',
     textAlign: 'center',
     width: '100%',
   },
   subject: {
-    backgroundColor: 'rgba(255,255,255,0.75)',
-    paddingLeft: '1rem',
-    paddingRight: '1rem',
     boxSizing: 'border-box',
     display: 'inline-block',
   },
   subjectText: {
     fontSize: '1em', // override the default H1
     textWrap: 'nowrap',
-    display: 'inline',
+    display: 'block',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 800,
     lineHeight: '1.2em',
+    marginBlockStart: 0,
+    marginBlockEnd: 0,
+    backgroundColor: 'rgba(255,255,255,0.75)',
+    paddingLeft: '0.5rem',
+    paddingRight: '0.5rem',
+    '&:not(:last-child)': {
+      marginBottom: '1em',
+    },
   },
   actionWrapper: {
     position: 'absolute',

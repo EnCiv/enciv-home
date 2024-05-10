@@ -60,8 +60,8 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
         mode={getMode()}
         subject={'Built by the People, for the People'}
         description={
-          "If you believe that there's a better way to make the best national decisions and it starts with productive national dialogue...\n\n\
-**We're building it! Together.**"
+          'If you believe that there\'s a better way to make the best national decisions and it starts with productive national dialogue...\n\n\
+<p style="text-align:center">**We\'re building it! Together.**</p>'
         }
         actionText={'Join the Community'}
       />
