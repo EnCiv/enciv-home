@@ -82,13 +82,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& p': {
       fontFamily: 'Inter',
       fontSize: '1rem',
-      textAlign: 'left',
+      textAlign: 'justify',
     },
     '& a': {
       color: '#B1890F',
     },
     '& a:visited': {
       color: '#413207',
+    },
+    '& hr': {
+      borderTop: `${theme.colors.encivYellow} 0.125rem solid`,
     },
   },
   dark: {

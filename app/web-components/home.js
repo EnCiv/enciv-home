@@ -39,7 +39,7 @@ export default function Home(props) {
 Sick of partisan gridlock that stops real policy and productive discussion\n\n\
 Done with the media that only presents the most viral candidate moments and polarized takes.\n\n\
 There is currently no cross-partisan discourse to address the biggest problems facing our country. And we can’t vote those solutions into power; once we get to the polls, it’s hard to know what policies and positions each candidate stands for.\n\n\
-**64% of our country believes the current system is on the wrong track. Together, we can fix it.**\n\n\
+**[65% of our country believes the current system is on the wrong track.](https://www.realclearpolling.com/polls/state-of-the-union/direction-of-country) Together, we can fix it.**\n\n\
 To overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\n\
 Join EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.'
         }

@@ -78,6 +78,10 @@ function TopNavWrap(props) {
           },
         ],
         {
+          name: 'Our Tools',
+          func: () => (window.location.href = '/our-tools'),
+        },
+        {
           name: 'Blog',
           func: () => {
             window.location.href = 'https://enciv.org/articles/'

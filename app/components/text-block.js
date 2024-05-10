@@ -74,6 +74,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'center',
     marginLeft: '2rem',
     marginRight: '2rem',
+    textAlign: 'justify',
   },
   subPoints: {
     fontFamily: 'Inter',
