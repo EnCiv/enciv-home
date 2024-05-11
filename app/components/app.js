@@ -1,26 +1,11 @@
-'use strict'
-
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import WebComponents from '../web-components'
 import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
+import { ThemeProvider, createUseStyles } from 'react-jss'
 import { Helmet } from 'react-helmet'
-
-const DynamicFontSizeHelmet =
-  typeof window === 'undefined'
-    ? () => (
-        <Helmet
-          script={[
-            {
-              type: 'text/javascript',
-              innerHTML: `function setFontSize(){document.getElementsByTagName("html")[0].style.fontSize=Math.round(Math.min(window.innerWidth,window.innerHeight))/100*(15/(1080/100))+'px'}; window.onresize=setFontSize; setFontSize();`,
-            },
-          ]}
-        />
-      )
-    : () => null
-
+import { theme, Components } from 'civil-pursuit'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
@@ -28,14 +13,23 @@ class App extends React.Component {
       Object.assign(newProps, this.props.iota)
       return (
         <ErrorBoundary>
-          <div style={{ position: 'relative' }}>
-            <Helmet>
-              <title>{iota?.subject || 'Candiate Conversations'}</title>
-            </Helmet>
-            <DynamicFontSizeHelmet />
-            <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-            <Footer key="footer" />
-          </div>
+          <ThemeProvider theme={theme}>
+            <div style={{ position: 'relative' }}>
+              <Helmet>
+                <title>{iota?.subject || 'EnCiv'}</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+                  rel="stylesheet"
+                />
+                <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+              </Helmet>
+              <TopNavWrap />
+              <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+              <Components.Footer mode="dark" key="footer" />
+            </div>
+          </ThemeProvider>
         </ErrorBoundary>
       )
     } else
@@ -49,5 +43,37 @@ class App extends React.Component {
       )
   }
 }
+
+function TopNavWrap(props) {
+  const classes = useStylesFromThemeFunction()
+  return (
+    <Components.TopNavBar
+      className={classes.menuButtonColorFix}
+      mode={'dark'}
+      menu={[
+        {
+          name: 'Home',
+          func: () => {
+            window.location.href = '/home'
+          },
+        },
+        {
+          name: 'About',
+          func: () => {
+            window.location.href = '/about'
+          },
+        },
+      ]}
+    />
+  )
+}
+
+const useStylesFromThemeFunction = createUseStyles({
+  menuButtonColorFix: {
+    '& button': {
+      color: 'white!important',
+    },
+  },
+})
 
 export default hot(module)(App)

@@ -5,7 +5,7 @@ import injectSheet from 'react-jss'
 const styles = {
   footer: {
     position: 'absolute',
-    width: '100vw',
+    width: '100%', // not vw - it might cause scroll bar to appear
     left: 0,
     //top: "calc(100vh - 1.1em)", // not bottom because on smartphones the bottom doesn't move when the screensize gets bigger  .1 because of the underline in an href
     bottom: 0,
