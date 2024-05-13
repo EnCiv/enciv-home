@@ -5,14 +5,19 @@ import Faq from '../components/frequently-asked-questions'
 import BrevoCommunity from '../components/brevo-community'
 import { BrevoHelmet } from '../components/brevo-join'
 
+const imageUrls = [
+  'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg',
+  'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png',
+  'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
+]
 export default function Home(props) {
   const { subject, description, location } = props
-  const [showRegForm, setRegForm] = useState(false)
   let mode = 'light'
   const getMode = () => {
     mode = mode === 'dark' ? 'light' : 'dark'
     return mode
   }
+  const [imgIndx, setImgIndx] = useState(0)
   return (
     <div>
       <BrevoHelmet />
@@ -22,8 +27,10 @@ export default function Home(props) {
         imgUrl={
           /*'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg' */
           /*'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'*/
-          'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png'
+          /*'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png'*/
+          imageUrls[imgIndx]
         }
+        onClick={() => setImgIndx(imgIndx + 1 >= imageUrls.length ? 0 : imgIndx + 1)}
       />
       <TextBlock
         mode={getMode()}
