@@ -21,7 +21,8 @@ export default function Home(props) {
         subject={'Politics is dividing us - EnCiv is uniting us'}
         imgUrl={
           /*'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg' */
-          'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'
+          /*'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'*/
+          'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png'
         }
       />
       <TextBlock
