@@ -82,7 +82,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& p': {
       fontFamily: 'Inter',
       fontSize: '1rem',
-      textAlign: 'justify',
+      textAlign: 'left',
     },
     '& a': {
       color: '#B1890F',
