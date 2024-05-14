@@ -96,6 +96,8 @@
     "node": "16.20.1"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+    "@ckeditor/ckeditor5-react": "^6.3.0",
     "@wordpress/api-fetch": "^6.52.0",
     "babel-plugin-cjs-esm-interop": "^4.0.0",
     "civil-pursuit": "github:EnCiv/civil-pursuit",
