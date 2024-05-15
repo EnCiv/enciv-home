@@ -1,10 +1,24 @@
 import React from 'react'
-import BrevoJoin from '../app/components/brevo-join'
+import BrevoJoin, { BrevoHelmet } from '../app/components/brevo-join'
 export default {
   component: BrevoJoin,
-  parameters: { },
+  parameters: {},
+  decorators: [
+    Story => {
+      return (
+        <>
+          <BrevoHelmet />
+          <Story />
+        </>
+      )
+    },
+  ],
 }
 
 export const Empty = {
-    args: {},
-  }
+  args: {},
+}
+
+export const Active = {
+  args: { active: true },
+}

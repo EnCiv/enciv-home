@@ -9,7 +9,6 @@ export default function WpFetch(props) {
   const classes = useStylesFromThemeFunction()
   useEffect(() => {
     apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' }).then(posts => {
-      debugger
       if (posts.length && posts[position]) {
         setArticle(posts[position])
       }
