@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
+import CloseX from './close-x'
 
 const SEENTIME = 10000
 
@@ -20,15 +21,12 @@ export default function BrevoCommunity(props) {
     return (
       seen !== 'submitted' && (
         <div className={classes.brevoCommnity}>
-          <div
-            className={classes.close}
+          <CloseX
             title={'close message'}
             onClick={() => {
               setSeen('submitted')
             }}
-          >
-            {'\u2715'}
-          </div>
+          />
           <h2>Please confirm your subscription</h2>
           <p>
             Thank you for joining the community. Your email needs to be comfirmed to complete the subscription process.
@@ -43,15 +41,12 @@ export default function BrevoCommunity(props) {
     return (
       seen !== 'confirmed' && (
         <div className={classes.brevoCommnity}>
-          <div
-            className={classes.close}
+          <CloseX
             title={'close message'}
             onClick={() => {
               setSeen('confirmed')
             }}
-          >
-            {'\u2715'}
-          </div>
+          />
           <h2>Welcome!</h2>
           <p>Thank you for joining the community. Your email address has been confirmed</p>
         </div>
@@ -74,16 +69,5 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     border: '0.25rem solid black',
     borderRadius: '1rem',
     textAlign: 'center',
-  },
-  close: {
-    position: 'absolute',
-    paddingRight: '.75rem',
-    paddingTop: '.25rem',
-    cursor: 'pointer',
-    top: 0,
-    right: 0,
-    '&:hover': {
-      fontWeight: '900',
-    },
   },
 }))
