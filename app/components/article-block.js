@@ -4,10 +4,10 @@ import ReactHtmlParser from 'react-html-parser'
 import cx from 'classnames'
 
 export default function ArticleBlock(props) {
-  const { article, className, mode = 'dark', vState } = props
+  const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
   const classes = useStylesFromThemeFunction()
   return (
-    <div className={cx(classes.articleBlock, classes[mode], classes[vState], className)}>
+    <div className={cx(classes.articleBlock, classes[mode], classes[vState], className)} {...otherProps}>
       <div className={cx(classes.elipsis, classes[mode], classes[vState])}>{'...'}</div>
       <div className={cx(classes.wrapper, classes[vState])}>
         <div className={cx(classes.article, classes[vState])}>

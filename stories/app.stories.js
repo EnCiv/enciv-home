@@ -1,27 +1,24 @@
 import React from 'react'
 
 import App from '../app/components/app'
+import iotas from '../iotas.json'
+const iota = iotas.find(i => i.path === '/home')
 
 export default {
-    title: 'App',
-    component: App,
-    argTypes: {},
+  title: 'App',
+  component: App,
+  argTypes: {},
 }
 if (!global.logger) global.logger = console
-const Template = args => <App {...args} />
 
-export const Home = Template.bind({})
-Home.args = {
-    iota: {
-        _id: {
-            $oid: '600610cd63b01a0854ddf1b3',
-        },
-        path: '/home',
-        subject: 'Civil Server Template',
-        description: 'Civil Server Template Home Page',
-        webComponent: 'Home',
-    },
+export const Home = { args: { iota } }
+
+export const NothingHere = {}
+
+export const Article = {
+  args: { iota: iotas.find(i => i.path === '/post/a-new-vision-of-democracy') },
 }
 
-export const NothingHere = Template.bind({})
-NothingHere.args = {}
+export const Blog = {
+  args: { iota: iotas.find(i => i.path === '/blog') },
+}

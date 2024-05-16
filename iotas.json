@@ -14,5 +14,31 @@
     "subject": "About EnCiv",
     "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\nDavid joined EnCiv in 2019 to work on their first product, Undebates, and became CTO in October. In May, 2021 he was elected CEO. Previously founder and CEO at Synaccord, LLC a social enterprise for online dialog. One of Synaccord’s projects engaged people in all 50 states to deliberate on the most important problem to fix first in this country. In 2016, David joined the National Coalition of Dialog and Deliberation. Before working in dialog and deliberation, David was in Product Management at Toshiba America Information Systems for business communications systems involving voice and video over the internet. He received his MBA from Suffolk University, holds a BA Computer Science from UC San Diego and has over 12+ years software/hardware engineering. These tools are built by volunteers across the country, united in the common mission to make democracy work better. We come from different countries, backgrounds, and political beliefs. If you’re interested in joining as a volunteer, you can explore different volunteer opportunities here.",
     "webComponent": "About"
+  },
+  {
+    "_id": { "$oid": "664543cd4be6d3262ce77b9f" },
+    "path": "/post/a-new-vision-of-democracy",
+    "subject": "A New Vision of Democracy",
+    "description": "A New Vision of Democracy",
+    "webComponent": {
+      "webComponent": "Article",
+      "article": {
+        "title": "A New Vision of Democracy",
+        "date": "2021-05-24T16:49:37",
+        "modified": "2021-05-24T16:49:37",
+        "slug": "a-new-vision-of-democracy",
+        "author": 3,
+        "content": "<p>EnCiv&#8217;s David Fridley has been working in the field of online democracy for years.  He shared an early statement of his vision for an &#8220;Online Deliberative Constitutional Representative Democracy&#8221; on <a href=\"https://www.quora.com/\">Quora</a>.</p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignleft\" src=\"https://media.istockphoto.com/photos/national-championship-bracket-picture-id480610791?b=1&amp;k=6&amp;m=480610791&amp;s=170x170&amp;h=py1oKrEL3DqP0l0pAziFMHKWyXIOjtxzgOjcpoZACAk=\" alt=\"National Championship Bracket\" width=\"245\" height=\"164\" />You can read the original post <a href=\"https://www.quora.com/What-will-replace-democracy/answer/David-Fridley-1?ch=10&amp;share=b1012faf&amp;srid=tUBe\">here</a>.  While it focuses on national deliberation, keep in mind that the technology at its core could also be used at smaller scales.  Indeed, because small tournaments can be run in less time than larger ones, the smaller the scale, the faster the tool would produce meaningful results.  Deliberation &#8220;at scale&#8221; isn&#8217;t different from deliberation with your immediate neighbors or club members; it just takes longer.  But not a great deal longer.  As Fridley points out in his post, eight or nine rounds of deliberation would be enough to connect the whole US population in a single deliberative event.  Collective deliberation on such a scale would be unprecedented.  Would it take any longer than an election, which is the collective expression of &#8220;the people&#8217;s will&#8221;?  Let&#8217;s try it and find out.\n"
+      }
+    }
+  },
+  {
+    "_id": { "$oid": "66454c117366275850093e80" },
+    "path": "/blog",
+    "subject": "Latest Articles",
+    "description": "The Latest Articles",
+    "webComponent": {
+      "webComponent": "Blog"
+    }
   }
 ]

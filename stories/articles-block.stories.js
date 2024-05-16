@@ -23,5 +23,6 @@ const articles = [
   { ...article, _id: 4 },
 ]
 
+export const Empty = { args: {} }
 export const Default = { args: { articles } }
 export const LightMode = { args: { mode: 'light', articles } }

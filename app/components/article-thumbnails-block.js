@@ -5,7 +5,7 @@ import cx from 'classnames'
 import CloseX from './close-x'
 
 export default function ArticleThumbnailsBlock(props) {
-  const { articles, className, mode = 'dark' } = props
+  const { articles = [{}, {}, {}, {}, {}, {}, {}], className, mode = 'dark' } = props
   const thumbMode = mode === 'dark' ? 'light' : 'dark'
   const classes = useStylesFromThemeFunction()
   const [theArticle, setTheArticle] = useState(null)
@@ -64,6 +64,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     padding: '2rem!important',
     borderRadius: '1rem',
     maxHeight: '20rem',
+    minHeight: '20rem',
     cursor: 'pointer',
     '&:focus': {
       outline: theme.focusOutline,
