@@ -100,7 +100,7 @@ export default function BrevoJoin(props) {
     }
     window.AUTOHIDE = Boolean(0)
   }
-  const { active, forceClose, actionText } = props
+  const { active, forceClose=()=>{}, actionText } = props
   /**
    * The Brevo post form code usees the #sib-container id to find the input info. Soo there can only be one form
    * on the page at a time.

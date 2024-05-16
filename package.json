@@ -9,8 +9,8 @@
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",
     "svgr": "svgr --icon --filename-case kebab assets/svg --out-dir app/svgr",
-    "transpile": "babel app --ignore **/__tests__ --out-dir dist --source-maps",
-    "hot-transpile": "babel --watch app --ignore **/__tests__ --out-dir dist --source-maps",
+    "transpile": "babel app --ignore **/__tests__ --ignore **/ckeditor --out-dir dist --source-maps",
+    "hot-transpile": "babel --watch app --ignore **/__tests__ --ignore **/ckeditor --out-dir dist --source-maps",
     "prepare": "bash build.sh",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -96,11 +96,15 @@
     "node": "16.20.1"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+    "@ckeditor/ckeditor5-react": "^6.3.0",
     "@react-hook/media-query": "^1.1.1",
+    "@wordpress/api-fetch": "^6.52.0",
     "babel-plugin-cjs-esm-interop": "^4.0.0",
     "civil-pursuit": "github:EnCiv/civil-pursuit",
     "markdown-to-jsx": "^7.4.7",
     "react-animate-height": "^3.2.3",
+    "react-html-parser": "^2.0.2",
     "react-textarea-autosize": "^8.5.3"
   }
 }
