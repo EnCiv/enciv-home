@@ -25,7 +25,7 @@ export default function ArticleThumbnailsBlock(props) {
                 className={cx(classes.thumbnail, classes[thumbMode])}
                 tabIndex={0}
                 onClick={() => {
-                  setTheArticle(article)
+                  location.href = article.path
                 }}
               >
                 <ArticleBlock article={article} mode={thumbMode} vState="thumbnail" />
@@ -63,8 +63,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     alignSelf: 'stretch',
     padding: '2rem!important',
     borderRadius: '1rem',
-    maxHeight: '20rem',
-    minHeight: '20rem',
+    maxHeight: '23rem',
+    minHeight: '23rem',
     cursor: 'pointer',
     '&:focus': {
       outline: theme.focusOutline,

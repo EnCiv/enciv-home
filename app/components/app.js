@@ -84,7 +84,7 @@ function TopNavWrap(props) {
         {
           name: 'Blog',
           func: () => {
-            window.location.href = 'https://enciv.org/articles/'
+            window.location.href = '/blog'
           },
         },
       ]}

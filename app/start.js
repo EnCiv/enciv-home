@@ -16,6 +16,15 @@ async function start() {
     server.directives.connectSrc.push('https://analytics.google.com')
     server.directives.fontSrc.push('https://assets.brevo.com')
     server.directives.styleSrc.push('https://sibforms.com')
+    // this come from the images in the articles imported from the wordpress sight
+    server.directives.imgSrc.push(
+      'https://media.istockphoto.com',
+      'https://cdn.pixabay.com',
+      'https://bloximages.chicago2.vip.townnews.com',
+      'https://www.viterbo.edu/themes/oeduVitb/images/logo.svg',
+      'https://api.creativecommons.engineering',
+      'https://*.googleusercontent.com'
+    )
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))

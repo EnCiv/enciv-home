@@ -19,7 +19,7 @@ export default function Blog(props) {
           'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'
         }
       />
-      <ArticleThumbnailsBlock articles={articles} mode="light" />
+      <ArticleThumbnailsBlock articles={articles} mode="dark" />
     </div>
   )
 }
