@@ -42,7 +42,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   articlesBlock: {
     position: 'relative',
     textAlign: 'center',
-    paddingTop: '1rem',
+    paddingTop: '4rem',
     paddingBottom: '4rem',
     minHeight: '65rem',
   },
@@ -50,6 +50,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
+    paddingLeft: '4rem',
+    paddingRight: '4rem',
+    boxSizing: 'content-box',
     whiteSpace: 'pre-line',
     '& $thumbnail': {
       maxWidth: 'auto',
@@ -63,8 +66,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     alignSelf: 'stretch',
     padding: '2rem!important',
     borderRadius: '1rem',
-    maxHeight: '23rem',
-    minHeight: '23rem',
+    aspectRatio: '3/4',
+    overflow: 'hidden',
     cursor: 'pointer',
     '&:focus': {
       outline: theme.focusOutline,
@@ -73,7 +76,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   article: {},
   informationGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(calc(min(100%,20rem)), 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(calc(min(100%,14rem)), 1fr))',
     gap: '2rem',
     width: '100%',
   },
