@@ -60,5 +60,26 @@
     "webComponent": {
       "webComponent": "Blog"
     }
+  },
+  {
+    "_id": { "$oid": "6647c0f7fc50552040a41513" },
+    "path": "/terms",
+    "subject": "Terms and Conditions",
+    "description": "Terms and Conditions page",
+    "webComponent": "Terms"
+  },
+  {
+    "_id": { "$oid": "6647dcb8e8c5675be8f266e1" },
+    "path": "/privacy",
+    "subject": "Privacy Policy",
+    "description": "Privacy Policy",
+    "webComponent": "Privacy"
+  },
+  {
+    "_id": { "$oid": "6647dcf9530f80bdd8db7bf0" },
+    "path": "/cookies",
+    "subject": "Cookie Policy",
+    "description": "Cookie Policy",
+    "webComponent": "Cookies"
   }
 ]

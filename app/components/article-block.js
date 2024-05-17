@@ -132,6 +132,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         display: 'none',
       },
     },
+    '& ul': {
+      textAlign: 'left',
+      lineHeight: '150%',
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,

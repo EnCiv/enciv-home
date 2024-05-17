@@ -3,9 +3,11 @@ import { createUseStyles } from 'react-jss'
 import ArticleBlock from './article-block'
 import cx from 'classnames'
 import CloseX from './close-x'
+import { Components } from 'civil-pursuit'
+const { TextButton } = Components
 
 export default function ArticleThumbnailsBlock(props) {
-  const { articles = [{}, {}, {}, {}, {}, {}, {}], className, mode = 'dark' } = props
+  const { articles = [{}, {}, {}, {}, {}, {}, {}], className, mode = 'dark', loadMore } = props
   const thumbMode = mode === 'dark' ? 'light' : 'dark'
   const classes = useStylesFromThemeFunction()
   const [theArticle, setTheArticle] = useState(null)
@@ -33,6 +35,9 @@ export default function ArticleThumbnailsBlock(props) {
             ))}
           </div>
         )}
+        <TextButton className={cx(classes.loadMoreButton, classes[mode])} onDone={loadMore}>
+          Load More
+        </TextButton>
       </div>
     </div>
   )
@@ -87,5 +92,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   light: {
     backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
+  },
+  loadMoreButton: {
+    marginTop: '4rem',
   },
 }))

@@ -213,30 +213,37 @@ async function main() {
     MongoModels.toInit.shift()()
   }
   //const posts = await apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' })
-  const postsResponse = await fetch('https://enciv.org/wp-json/wp/v2/posts')
-  const posts = await postsResponse.json()
-  for await (const post of posts) {
-    const tagNames = await wpFetchNamesFromIndexes('tags', post.tags)
-    const categoryNames = await wpFetchNamesFromIndexes('categories', post.categories)
-    const iota = {
-      subject: post.title.rendered,
-      description: `The article titled: "${post.title.rendered}" brought over from the wordpress site`,
-      path: `/posts/${post.slug}`,
-      webComponent: {
-        webComponent: 'Article',
-        article: {
-          title: post.title.rendered,
-          date: post.date,
-          modified: post.modified,
-          authorName: AuthorsById[post.author],
-          content: '<p>' + post.content.rendered.replace(/\[.*?\]/g, ''), // strip out the non html WP formatting junk at the beginning of each line
-          tagNames,
-          categoryNames,
+  let page = 1
+  while (true) {
+    const postsResponse = await fetch(`https://enciv.org/wp-json/wp/v2/posts?page=${page}`)
+    const posts = await postsResponse.json()
+    console.info('number of posts:', posts.length)
+    for await (const post of posts) {
+      const tagNames = await wpFetchNamesFromIndexes('tags', post.tags)
+      const categoryNames = await wpFetchNamesFromIndexes('categories', post.categories)
+      const iota = {
+        subject: post.title.rendered,
+        description: `The article titled: "${post.title.rendered}" brought over from the wordpress site`,
+        path: `/posts/${post.slug}`,
+        webComponent: {
+          webComponent: 'Article',
+          article: {
+            title: post.title.rendered,
+            date: post.date,
+            modified: post.modified,
+            authorName: AuthorsById[post.author],
+            status: post.status,
+            content: '<p>' + post.content.rendered.replace(/\[.*?\]/g, ''), // strip out the non html WP formatting junk at the beginning of each line
+            tagNames,
+            categoryNames,
+          },
         },
-      },
+      }
+      const foundIota = await Iota.replaceOne({ path: iota.path }, iota, { upsert: true })
+      console.info({ foundIota })
     }
-    const foundIota = await Iota.replaceOne({ path: iota.path }, iota, { upsert: true })
-    console.info({ foundIota })
+    if (posts.length < 10) break
+    page++
   }
   MongoModels.disconnect()
 }

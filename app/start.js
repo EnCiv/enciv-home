@@ -21,9 +21,13 @@ async function start() {
       'https://media.istockphoto.com',
       'https://cdn.pixabay.com',
       'https://bloximages.chicago2.vip.townnews.com',
-      'https://www.viterbo.edu/themes/oeduVitb/images/logo.svg',
+      'https://www.viterbo.edu/',
       'https://api.creativecommons.engineering',
-      'https://*.googleusercontent.com'
+      'https://*.googleusercontent.com',
+      'https://www.uschamberfoundation.org/',
+      'https://live.staticflickr.com',
+      'https://gallery.mailchimp.com',
+      'https://dailybruin.com'
     )
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
