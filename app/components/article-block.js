@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import ReactHtmlParser from 'react-html-parser'
 import cx from 'classnames'
+import ActionButton from './action-button'
 
 export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
@@ -14,6 +15,12 @@ export default function ArticleBlock(props) {
           <h1>{ReactHtmlParser(article.title)}</h1>
           <div>{ReactHtmlParser(article.content)}</div>
         </div>
+        {vState !== 'thumbnail' && (
+          <div className={cx(classes.cta, classes[vState])}>
+            <h3>Want to learn more about about EnCiv's work? Consider joining our community below."</h3>
+            <ActionButton children="Join the Community" />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -54,6 +61,26 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     whiteSpace: 'pre-line',
     '& $thumbnail': {
       maxWidth: 'auto',
+    },
+  },
+  cta: {
+    paddingTop: '4rem',
+    paddingBottom: '4rem',
+    marginLeft: '2rem',
+    marginRight: '2rem',
+    '& $thumbnail': {
+      display: 'none',
+    },
+    '& h3': {
+      fontFamily: 'Montserrat',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      paddingTop: '4rem',
+      paddingBottom: '4rem',
+      textAlign: 'left',
+      fontSize: '2rem',
+      fontWeight: 600,
+      marginBlockEnd: 0,
     },
   },
   article: {

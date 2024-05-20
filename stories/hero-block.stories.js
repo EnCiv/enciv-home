@@ -18,3 +18,30 @@ export const Primary = {
       'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png',
   },
 }
+
+export const HighRes = {
+  args: {
+    subject: 'Politics is dividing us - EnCiv is uniting us',
+    actionText: 'Join the Community',
+    imgUrlObj: {
+      highRes: 'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
+      lowRes:
+        'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
+    },
+  },
+}
+
+export const LowRes = {
+  args: {
+    subject: 'Politics is dividing us - EnCiv is uniting us',
+    actionText: 'Join the Community',
+    imgUrlObj: {
+      highRes: 'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
+      lowRes:
+        'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
+    },
+  },
+  parameters: {
+    defaultViewport: 'iphonex',
+  },
+}

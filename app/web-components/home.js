@@ -24,6 +24,12 @@ export default function Home(props) {
       <BrevoCommunity location={location} />
       <HeroBlock
         subject={'Politics is dividing us - EnCiv is uniting us'}
+        imgUrlObj={{
+          highRes:
+            'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
+          lowRes:
+            'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
+        }}
         imgUrl={
           /*'https://res.cloudinary.com/hrltiizbo/image/upload/a_0/v1449181489/shutterstock_144639305_multi_ethnic_crowd_hands_hi_fbltsn.jpg' */
           /*'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'*/

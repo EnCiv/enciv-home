@@ -13,6 +13,7 @@ const HeroBlock = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     imgUrl = '',
+    imgUrlObj = {},
     subject = '',
     subjectStyle = {},
     actionText,
@@ -20,7 +21,7 @@ const HeroBlock = props => {
     actionStyle = {},
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction()
+  const classes = useStylesFromThemeFunction(props)
   const [fontSize, setFontSize] = useState(startFontSize)
   const outerRef = useRef(null)
   const innerRef = useRef(null)
@@ -71,7 +72,7 @@ const HeroBlock = props => {
   }, [resized])
 
   return (
-    <div className={cx(classes.heroBlock, className)} style={{ backgroundImage: `url(\"${imgUrl}\")` }} {...otherProps}>
+    <div className={cx(classes.heroBlock, className)} {...otherProps}>
       <div className={classes.subjectWrapper} ref={outerRef}>
         <div className={classes.subject} style={{ ...subjectStyle, fontSize: fontSize + 'rem' }} ref={innerRef}>
           {subjectLines.map(line => (
@@ -91,18 +92,20 @@ const HeroBlock = props => {
 }
 export default HeroBlock
 
-const HEIGHT = '30vw'
+const HEIGHT = '30vw' // yes vw becuase its a 16:9 of the width
 const useStylesFromThemeFunction = createUseStyles(theme => ({
-  heroBlock: {
+  heroBlock: props => ({
+    backgroundImage: `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
     width: '100%', // using vw makes the div a tiny bit wider than the viewport causing a scrollbar I suspect roundoff
-    height: HEIGHT, // yes vw becuase its a 16:9 of the width
+    height: HEIGHT,
     backgroundSize: 'cover',
     position: 'relative',
     boxSizing: 'border-box',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      height: '100vw',
+      backgroundImage: `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
+      height: '64vw',
     },
-  },
+  }),
   subjectWrapper: {
     position: 'absolute',
     top: '50%',
