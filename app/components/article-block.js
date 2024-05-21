@@ -17,7 +17,7 @@ export default function ArticleBlock(props) {
         </div>
         {vState !== 'thumbnail' && (
           <div className={cx(classes.cta, classes[vState])}>
-            <h3>Want to learn more about about EnCiv's doing to unite us?</h3>
+            <h3>Want to learn more about about what EnCiv's doing to unite us?</h3>
             <ActionButton children="Join the Community" />
           </div>
         )}
