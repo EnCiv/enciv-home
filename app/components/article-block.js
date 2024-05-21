@@ -76,7 +76,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontWeight: 400,
       paddingTop: '4rem',
       paddingBottom: '4rem',
-      textAlign: 'left',
+      textAlign: 'center',
       fontSize: '2rem',
       fontWeight: 600,
       marginBlockEnd: 0,
