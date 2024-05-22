@@ -83,7 +83,7 @@ const article = {
 <ul>
 <li >You may choose not to provide us with certain information. For example, you may choose not to create an account or not to provide optional account information.</li>
 <li >You may change or correct information voluntarily submitted to us. We encourage you to keep your data current by viewing your settings page.</li>
-<li >You may limit the use of cookies. See our Cookie Policy at <a href="http://enciv.org/cookie_policy">https://enciv.org/cookie_policy</a> for options.</li>
+<li >You may limit the use of cookies. See our Cookie Policy at <a href="https://enciv.org/cookie_policy">https://enciv.org/cookie_policy</a> for options.</li>
 <li >You may close your account, which will delete your account information, but submitted content may be retained unless you request it pursuant to the terms of section 7, above.</li>
 </ul>
 <p>Users from certain countries may have additional rights. See <b>Section 13</b> for more details.</p>

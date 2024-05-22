@@ -15,7 +15,7 @@ This<b> Terms of Service Agreement</b> (the “<b>Agreement</b>” or “<b>Term
 <p>By using any of our applications and/or websites, recording and/or submitting or uploading any video, or otherwise visiting or using our Services, you accept this Agreement and consent to contract with us electronically.</p>
 <p>If you are an entity other than a natural person, the person who registers the account or otherwise uses our Services must have the authority to bind the entity. In this context, “you” means both the entity and each person who is authorized to access the account.</p>
 <p>We may update this Agreement by posting a revised version on our website. By continuing to use our Services, you accept any revised Agreement.</p>
-<p>This Agreement includes our<a href="http://enciv.org/privacy"> Privacy Policy</a> and the addenda listed in <b>Section 11</b> below. Please review our Privacy Policy to learn about the information we collect from you, how we use it, and with whom we share it.</p>
+<p>This Agreement includes our<a href="https://enciv.org/privacy"> Privacy Policy</a> and the addenda listed in <b>Section 11</b> below. Please review our Privacy Policy to learn about the information we collect from you, how we use it, and with whom we share it.</p>
 <h2><b>2. Our Services</b></h2>
 <p><b>Service License:</b> Subject to the terms hereof, we grant you access to our Services. This includes the right to:</p>
 <ul>
@@ -140,8 +140,8 @@ This<b> Terms of Service Agreement</b> (the “<b>Agreement</b>” or “<b>Term
 <p><b>Entire Agreement:</b> This Agreement constitutes the entire understanding of the parties and supersedes all prior understandings regarding the subject matter hereof and may not be modified except in accordance with Section 1 or in a document executed by authorized representatives of EnCiv. </p>
 <p><b>Addenda</b>: This Agreement incorporates the following documents (and no others) by reference:</p>
 <ul>
-<li ><a href="http://enciv.org/privacy">Privacy Policy</a></li>
-<li ><a href="http://enciv.org/cookie_policy">Cookie Policy</a></li>
+<li ><a href="https://enciv.org/privacy">Privacy Policy</a></li>
+<li ><a href="https://enciv.org/cookie_policy">Cookie Policy</a></li>
 </ul>
 <p><b>Notices</b>: You must send any notices of a legal nature to us by email to:  <a href="mailto:info@enciv.org">info@enciv.org</a></p>
 `,

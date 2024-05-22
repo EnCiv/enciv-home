@@ -8,7 +8,7 @@ const article = {
   title: 'Cookie Policy',
   content: `
 <p>Last updated 10/10/2019</p>
-<p>EnCiv, Inc. (&#8220;<b>EnCiv</b>&#8220;, &#8220;<b>we</b>&#8220;, or &#8220;<b>us</b>&#8220;) uses cookies and similar tracking technologies on EnCiv.com (and related sites), EnCiv-branded applications for connected devices (&#8220;<b>apps</b>&#8220;) if any, and the EnCiv embeddable video player. By using our websites, apps, or video player, you consent to the placement and use of cookies and similar technologies on your device. This Cookie Policy forms part of the EnCiv <a href="http://enciv.org/privacy">Privacy Policy</a>.</p>
+<p>EnCiv, Inc. (&#8220;<b>EnCiv</b>&#8220;, &#8220;<b>we</b>&#8220;, or &#8220;<b>us</b>&#8220;) uses cookies and similar tracking technologies on EnCiv.com (and related sites), EnCiv-branded applications for connected devices (&#8220;<b>apps</b>&#8220;) if any, and the EnCiv embeddable video player. By using our websites, apps, or video player, you consent to the placement and use of cookies and similar technologies on your device. This Cookie Policy forms part of the EnCiv <a href="https://enciv.org/privacy">Privacy Policy</a>.</p>
 <h2><b>Cookie Basics</b></h2>
 <p>A cookie is a small text file that is stored in your web browser that allows EnCiv or a third party to recognize you using a unique identifier.</p>
 <p><b>Who sets them</b>: First-party cookies are set by EnCiv. Third-party cookies are set by companies other than EnCiv, such as analytics providers and advertisers.</p>
