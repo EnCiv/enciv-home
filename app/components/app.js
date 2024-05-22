@@ -45,10 +45,8 @@ class App extends React.Component {
 }
 
 function TopNavWrap(props) {
-  const classes = useStylesFromThemeFunction()
   return (
     <Components.TopNavBar
-      className={classes.menuButtonColorFix}
       mode={'dark'}
       menu={[
         {
@@ -60,9 +58,7 @@ function TopNavWrap(props) {
         [
           {
             name: 'About',
-            func: () => {
-              window.location.href = '/about'
-            },
+            func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
           },
           {
             name: 'About Us',
@@ -91,13 +87,5 @@ function TopNavWrap(props) {
     />
   )
 }
-
-const useStylesFromThemeFunction = createUseStyles({
-  menuButtonColorFix: {
-    '& button': {
-      color: 'white!important',
-    },
-  },
-})
 
 export default hot(module)(App)

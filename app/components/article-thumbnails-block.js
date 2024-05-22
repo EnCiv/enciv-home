@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import ArticleBlock from './article-block'
 import cx from 'classnames'
@@ -76,6 +76,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     cursor: 'pointer',
     '&:focus': {
       outline: theme.focusOutline,
+    },
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      aspectRatio: '4/3',
     },
   },
   article: {},

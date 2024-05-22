@@ -101,10 +101,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       paddingTop: '4rem',
       paddingBottom: '4rem',
       '$thumbnail &': {
-        fontSize: '1.75rem',
-        lineHeight: '2rem',
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
         padding: 0,
         margin: 0,
+        overflowWrap: 'anywhere',
       },
     },
     '& h2': {
