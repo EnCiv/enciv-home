@@ -27,9 +27,9 @@ export default function BrevoCommunity(props) {
               setSeen('submitted')
             }}
           />
-          <h2>Please confirm your subscription</h2>
+          <h2>Please confirm your subscription.</h2>
           <p>
-            Thank you for joining the community. Your email needs to be comfirmed to complete the subscription process.
+            Thank you for joining the community. Your email needs to be confirmed to complete the subscription process.
           </p>
           <p>Please click on the link in the email we sent you.</p>
           <p>You won't be subscribed if you don't click on the confirmation link.</p>
@@ -57,6 +57,8 @@ export default function BrevoCommunity(props) {
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   brevoCommnity: {
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
     fontSize: '1.25rem',
     position: 'absolute',
     width: '50%',

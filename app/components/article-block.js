@@ -115,38 +115,83 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       paddingBottom: '1.5rem',
       borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
       marginBlockEnd: '2rem',
+      '$thumbnail &': {
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& h3': {
       textAlign: 'left',
       fontSize: '2rem',
       fontWeight: 600,
       marginBlockEnd: 0,
+      '$thumbnail &': {
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& h4': {
       textAlign: 'left',
       fontSize: '1.75rem',
       fontWeight: 600,
       marginBlockEnd: 0,
+      '$thumbnail &': {
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& h5': {
       textAlign: 'left',
       fontSize: '1.5rem',
       fontWeight: 600,
       marginBlockEnd: 0,
+      '$thumbnail &': {
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& h6': {
       textAlign: 'left',
       fontSize: '1.25rem',
       marginBlockEnd: 0,
+      '$thumbnail &': {
+        fontSize: '1.25rem',
+        lineHeight: '1.5rem',
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& p': {
       fontFamily: 'Inter',
       fontSize: '1rem',
       textAlign: 'left',
       lineHeight: '200%',
+      '$thumbnail &': {
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& a': {
       color: '#B1890F',
+      '$thumbnail &': {
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
     },
     '& a:visited': {
       color: '#413207',
@@ -162,6 +207,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& ul': {
       textAlign: 'left',
       lineHeight: '150%',
+      '$thumbnail &': {
+        padding: 0,
+        margin: 0,
+        overflowWrap: 'anywhere',
+      },
+    },
+    '& table': {
+      '$thumbnail &': {
+        display: 'none',
+      },
     },
   },
   dark: {

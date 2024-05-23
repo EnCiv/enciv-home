@@ -20,5 +20,5 @@ export const Article = {
 }
 
 export const Blog = {
-  args: { iota: iotas.find(i => i.path === '/blog') },
+  args: { iota: iotas.find(i => i.path === '/articles') },
 }

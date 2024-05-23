@@ -22,6 +22,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     paddingTop: '.25rem',
     cursor: 'pointer',
     top: 0,
+    fontSize: '1.5rem',
     right: 0,
     '&:hover': {
       fontWeight: '900',

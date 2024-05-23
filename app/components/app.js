@@ -78,9 +78,9 @@ function TopNavWrap(props) {
           func: () => (window.location.href = '/our-tools'),
         },
         {
-          name: 'Blog',
+          name: 'Articles',
           func: () => {
-            window.location.href = '/blog'
+            window.location.href = '/articles'
           },
         },
       ]}
