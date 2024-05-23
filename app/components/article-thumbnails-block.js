@@ -7,7 +7,12 @@ import { Components } from 'civil-pursuit'
 const { TextButton } = Components
 
 export default function ArticleThumbnailsBlock(props) {
-  const { articles = [{}, {}, {}, {}, {}, {}, {}], className, mode = 'dark', loadMore } = props
+  const {
+    articles = [{ _id: 1 }, { _id: 2 }, { _id: 3 }, { _id: 4 }, { _id: 5 }, { _id: 6 }, { _id: 7 }],
+    className,
+    mode = 'dark',
+    loadMore,
+  } = props
   const thumbMode = mode === 'dark' ? 'light' : 'dark'
   const classes = useStylesFromThemeFunction()
   const [theArticle, setTheArticle] = useState(null)

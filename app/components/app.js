@@ -61,7 +61,7 @@ function TopNavWrap(props) {
             func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
           },
           {
-            name: 'About Us',
+            name: 'Our Mission',
             func: () => {
               window.location.href = '/about'
             },

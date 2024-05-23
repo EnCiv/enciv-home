@@ -27,8 +27,12 @@ async function start() {
       'https://www.uschamberfoundation.org/',
       'https://live.staticflickr.com',
       'https://gallery.mailchimp.com',
-      'https://dailybruin.com'
+      'https://dailybruin.com',
+      'https://*.stackpathdns.com',
+      'https://cdn.ballotpedia.org',
+      'https://*.gettyimages.com'
     )
+    server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
