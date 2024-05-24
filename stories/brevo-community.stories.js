@@ -10,9 +10,9 @@ export const Empty = {
 }
 
 export const Submitted = {
-  args: { location: '/home?community=submitted' },
+  args: { location: '/?community=submitted' },
 }
 
 export const Confirmed = {
-  args: { location: '/home?community=confirmed' },
+  args: { location: '/?community=confirmed' },
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import App from '../app/components/app'
 import iotas from '../iotas.json'
-const iota = iotas.find(i => i.path === '/home')
+const iota = iotas.find(i => i.path === '/')
 
 export default {
   title: 'App',

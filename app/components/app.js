@@ -52,7 +52,7 @@ function TopNavWrap(props) {
         {
           name: 'Home',
           func: () => {
-            window.location.href = '/home'
+            window.location.href = '/'
           },
         },
         [
