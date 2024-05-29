@@ -90,6 +90,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& a:visited': {
       color: '#413207',
     },
+    '& hr': {
+      borderTop: `${theme.colors.encivYellow} 0.125rem solid`,
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,

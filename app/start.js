@@ -16,6 +16,54 @@ async function start() {
     server.directives.connectSrc.push('https://analytics.google.com')
     server.directives.fontSrc.push('https://assets.brevo.com')
     server.directives.styleSrc.push('https://sibforms.com')
+    // this come from the images in the articles imported from the wordpress sight
+    // see app/tools/get-domains-from-articles for a tool to generate the list
+    server.directives.imgSrc.push(
+      'https://ncdd.org',
+      'https://*.stackpathdns.com',
+      'https://api.creativecommons.engineering',
+      'https://assets.rebelmouse.io',
+      'https://assets.speakcdn.com',
+      'https://bipartisanpolicy.org',
+      'https://bloximages.chicago2.vip.townnews.com',
+      'https://cdn.ballotpedia.org',
+      'https://cdn.pixabay.com',
+      'https://*.googleusercontent.com',
+      'https://dailybruin.com',
+      'https://*.staticflickr.com',
+      'https://gallery.mailchimp.com',
+      'https://go.pardot.com',
+      'https://i1.wp.com',
+      'https://*.photobucket.com',
+      'https://images-na.ssl-images-amazon.com',
+      'https://images.freeimages.com',
+      'https://is1-ssl.mzstatic.com',
+      'https://media.gettyimages.com',
+      'https://media.istockphoto.com',
+      'https://media4.austinweeklynews.com',
+      'https://res.cloudinary.com',
+      'https://*.fbcdn.net',
+      'https://static.politico.com',
+      'https://static1.squarespace.com',
+      'https://*.shutterstock.com',
+      'https://tmm.chicagodistributioncenter.com',
+      'https://upload.wikimedia.org',
+      'https://vop.org',
+      'https://www.azquotes.com',
+      'https://www.citizenuniversity.us',
+      'https://www.interactivityfoundation.org',
+      'https://www.journals.uchicago.edu',
+      'https://www.nationalcivicleague.org',
+      'https://www.nifi.org',
+      'https://www.nps.gov',
+      'https://www.pacefunders.org',
+      'https://www.participatorybudgeting.org',
+      'https://www.pewresearch.org',
+      'https://www.publicagenda.org',
+      'https://www.uschamberfoundation.org',
+      'https://www.viterbo.edu'
+    )
+    server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))

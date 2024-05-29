@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import HeroBlock from '../components/hero-block'
 import TextBlock from '../components/text-block'
 import MarkdownBlock from '../components/markdown-block'
+import { BrevoHelmet } from '../components/brevo-join'
 
 export default function About(props) {
   const { subject, description, location, imgUrl } = props
   return (
     <div>
+      <BrevoHelmet />
       <HeroBlock
         mode="dark"
         subject={subject}

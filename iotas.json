@@ -3,16 +3,160 @@
     "_id": {
       "$oid": "600610cd63b01a0854ddf1b3"
     },
-    "path": "/home",
+    "path": "/",
     "subject": "EnCiv - Home",
     "description": "EnCiv Home Page",
-    "webComponent": "Home"
+    "webComponent": {
+      "webComponent": "Home",
+      "blocks": [
+        {
+          "key": "HeroBlock",
+          "subject": "Politics is dividing us - EnCiv is uniting us",
+          "imgUrlObj": {
+            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
+            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+          }
+        },
+        {
+          "key": "TextBlock",
+          "mode": "dark",
+          "description": "We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
+          "actionText": "Join the Community"
+        },
+        {
+          "key": "TextBlock",
+          "mode": "light",
+          "subject": "When we speak as One",
+          "description": "We’re fed up with (and frankly scared of) the current political system\n\nSick of partisan gridlock that stops real policy and productive discussion\n\nDone with the media that only presents the most viral candidate moments and polarized takes\n\nThere is currently no cross-partisan discourse to address the biggest problems facing our country. And we can’t vote those solutions into power; once we get to the polls, it’s hard to know what policies and positions each candidate stands for.\n\n**[65% of our country believes the current system is on the wrong track.](https://www.realclearpolling.com/polls/state-of-the-union/direction-of-country) Together, we can fix it.**\n\nTo overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\nJoin EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.",
+          "actionText": "Join the Community"
+        },
+        {
+          "key": "TextBlock",
+          "mode": "dark",
+          "subject": "No Partisanship. No Sponsorship. Just Productive Dialogue.",
+          "subPoints": [
+            "We’ re nonpartisan – we never endorse a particular party, policy, or candidate.",
+            "We’re cross-partisan – we actively seek out and give voice to multiple perspectives.",
+            "We’re community-led and community-built – we’re not supported by any corporation."
+          ],
+          "actionText": "More About Us",
+          "action": "/about"
+        },
+        {
+          "key": "TextBlock",
+          "mode": "light",
+          "subject": "Built by the People, for the People",
+          "description": "If you believe that there's a better way to make the best national decisions and it starts with productive national dialogue...\n\n<p style=\"text-align:center\">**We're building it! Together.**</p>",
+          "actionText": "Join the Community"
+        },
+        {
+          "key": "Faq",
+          "faqs": [
+            {
+              "question": "How do you deal with trolls?",
+              "answer": "In person dialog and deliberation has learned many techniques for dealing with negative actors. One of them is to take large groups of people and break them up into small groups around a table.  Motivations and rewards become different in small groups.\n\nAnother technique that they use is that in these small groups, people express their views, what they agree and disagree with, and then each small group decides on the top comments from the group. So if there were negative or destructive comments from a troll, they would be filtered out by the group - so no one else would have to listen to them.\n\nOnline, we use similar techniques. People's comments are grouped, a group reviews the comments, gives feedback, and then ranks them.  The highest ranked comments from each group feed forward to the next round of discussion."
+            },
+            {
+              "question": "How do you deal with disinformation?",
+              "answer": "The weakness of disinformation is that it is crafted to appeal to a particular group of people. To people outside that group, it’s more apparent that the information is not true. Because we break discussions into small groups of random people, each group will likely include people who are and are not targets of similar disinformation tactics. Therefore, the varied perspectives and experiences within the group will allow participants to identify and filter out the disinformation and focus on the facts."
+            },
+            {
+              "question": "How do you moderate content?",
+              "answer": "We do not moderate content. It is a community responsibility which one might call crowd moderation. In any discussion, a person will see ten people’s ‘content’ as responses to discussion questions. Users will be asked to rank which of the ten responses are most important for the community to consider. Through processes like this, the people participating will democratically decide on what content should be filtered out. This approach helps to avoid issues with biased moderators."
+            },
+            {
+              "question": "How can you achieve productive discussions across millions of people?",
+              "answer": "It’s about how we structure the conversation.  We don’t just put a million people into a chat room and ask them to talk. Our approach combines a proven technique from in-person dialogue and deliberation, breaking participants into small discussion groups, with online workflow technology that allows participants to continually distill the outputs of these small group discussions by taking the highest-ranked content from each group and distributing it to people again in a new round, like a tournament.            \n\nSo, when we have a million people (and we look forward to that), each person will look at what ten others said and pick the most important one or two for the community to consider. Then, in the next round, they will see ten of the highest-ranked items from the previous round. And so on.  After six rounds, a million ideas will have been democratically considered, discussed, and prioritized into a top few.  The discussion structure keeps it productive."
+            },
+            {
+              "question": "Where did the name EnCiv come from?",
+              "answer": "EnCiv was originally taken from the combination of “engaged” and “civility.”"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "_id": { "$oid": "662ed3cfacc9c45708727e1e" },
     "path": "/about",
-    "subject": "About EnCiv",
-    "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\nDavid joined EnCiv in 2019 to work on their first product, Undebates, and became CTO in October. In May, 2021 he was elected CEO. Previously founder and CEO at Synaccord, LLC a social enterprise for online dialog. One of Synaccord’s projects engaged people in all 50 states to deliberate on the most important problem to fix first in this country. In 2016, David joined the National Coalition of Dialog and Deliberation. Before working in dialog and deliberation, David was in Product Management at Toshiba America Information Systems for business communications systems involving voice and video over the internet. He received his MBA from Suffolk University, holds a BA Computer Science from UC San Diego and has over 12+ years software/hardware engineering. These tools are built by volunteers across the country, united in the common mission to make democracy work better. We come from different countries, backgrounds, and political beliefs. If you’re interested in joining as a volunteer, you can explore different volunteer opportunities here.",
-    "webComponent": "About"
+    "subject": "Our Mission",
+    "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\n<img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_faces:center,h_320,w_320/v1715289413/assets/DavidFridley_320x400_dv2xnt.jpg\" style=\"width:8rem; float: left;margin-top:1.5rem;margin-right:1.5rem\"><p><b>David Fridley</b> CEO, Chairperson of the Board, CTO.  Social Entrepreneur, Founder of Synaccord, LLC, product manager, full stack developer, and 30+ years experience in voice and video over the internet. He received his MBA from Suffolk University, holds a BA in Computer Science from UC San Diego, and has over 12 years of experience in software and hardware engineering.</p><br style=\"float:none\"/><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485328/assets/adolf-gundersen.png\" style=\"width: 8rem; float: left; margin-top:1.5rem;margin-right:1.5rem\"/><p><b>Adolf G. Gundersen</b>, Co-Founder, Board Member, VP & Research Director at Interactivity Foundation. Thirty years experience as theorist and practitioner of democratic discussion. Widely published in the field of democratic discourse, most recently as co-author of Let's Talk Politics: Restoring Civility through Exploratory Discussion. Ph.D. in political science.</p><br/><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485183/assets/sorin-matei.png\" style=\"width: 8rem; float: left; margin-top:1.5rem;margin-right:1.5rem\"/><p><b>Sorin Matei</b>, Board Member of EnCiv, Communications Professor, Purdue University. Matei studies the relationship between information technology and social structures. His teaching portfolio includes social media analytics, online interaction and facilitation, and global social media research. Ph.D. in communication.</p>",
+    "webComponent": {
+      "webComponent": "About",
+      "imgUrl": "https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_south,h_629/v1716234444/assets/EnCiv__Our_Mission_Image_obe2bs.png"
+    }
+  },
+  {
+    "_id": { "$oid": "663bf75092723e19b45a9398" },
+    "path": "/irs-forms",
+    "subject": "IRS Forms",
+    "description": "## IRS Forms\n\n###[IRS Tax Exemption Determination Letter June 20, 2018](https://drive.google.com/file/d/17JF7wiZzvRi3UYoA68mCvXwuwhzJRBVh/view)\n\n### [IRS Form 990-PF 2022](https://drive.google.com/file/d/1iMdfg1RQW78B4fmo-JkUuW4hgcIMaV-f/view)\n\n### [IRS Form 990-PF 2021](https://drive.google.com/file/d/17ORn5UYpPUQc9g9d51D1gz2Pt7ZeNRGL/view)\n\n### [IRS Form 990-PF 2020](https://drive.google.com/file/d/1Z6uSQ-LAvEERmrplmSqLamew-kSOj7TG/view)\n\n### [IRS Form 990-PF 2019](https://drive.google.com/file/d/1Vl-EIcmwVM459zNBoYFzH2aSLBgh8huI/view)\n\n### [IRS Form 990-PF 2018](https://drive.google.com/file/d/1Zbj4Pe9gqCJ5zVMMT-V_zi-gZWa3HfQX/view)\n\n",
+    "webComponent": {
+      "webComponent": "Markdown",
+      "style": { "minHeight": "65vh" }
+    }
+  },
+  {
+    "_id": { "$oid": "663d48436c17846f788b3b3b" },
+    "path": "/our-tools",
+    "subject": "Our Tools",
+    "description": "##We’re building tech tools for a better democracy.\n\nAs cultural polarization and sensationalism continue to threaten civic discourse, we see a technological opportunity. Our tools provide an alternative to current discourse and political education processes, fostering productive discourse in a way that will ultimately drive better decision making.\n\nWe currently have two tools available: Undebates and Civil Pursuit. Join our mailing list to stay informed of our new product releases.\n\n###Undebates\n\nMore Informed Decisions at the Ballot Box\n\n---\n\n**Problem**: Whether it's the school board or the student council, it's hard for voters to really understand the candidates’ positions on the questions that matter most. Written information is scattered across the internet and any media coverage is short and sensationalized. And for candidates, it can be almost impossible to get honest media coverage if they’re not running for president.\n\n**Solution:** Undebates is a tool that automatically produces video debates by automatically interviewing candidates through their web browser. Instead of sitting through debates or combing through news articles, hear the candidates’ position on the policies you care about most, straight from them and make your own informed voting decisions.\n\nDemocratically-run organizations and political candidates at any level can create their own Undebates with a few simple steps.\n\n<ActionButton style=\"lineHeight:6rem;\" action=\"https://cc.enciv.org/undebates\">See Undebates in Action</ActionButton>\n\n###Civil Pursuit\n\nLarge Scale Deliberative Discussion\n\n---\n\n**Problem:** How can thousands of people across the city, state, and country discuss tough political issues productively - meaning discussions resulting in solutions they all support - rather than the polarization and gridlock we see from politics today?\n\n**Solution:** We are building tools for productive democratic deliberation online, based on practices that have been proven through in-person dialog and deliberation. With Civil Pursuit, you can browse a series of burning questions in our current political ecosystem, and participate in structured discussions with people across the country that are designed to organize, rather than suppress, differing opinions and delve into what's valuable in each that lead to unifying solutions with national support.\n\n<ActionButton style=\"margin-top:2rem\">Coming Soon</ActionButton>\n\n",
+    "webComponent": {
+      "webComponent": "About",
+      "imgUrl": "https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_south,h_630/v1716234473/assets/EnCiv_Our_work_Image_vnwvam.png"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6646eb362eb6cfcb18889198"
+    },
+    "subject": "A New Vision of Democracy",
+    "description": "The article titled: \"A New Vision of Democracy\" brought over from the wordpress site",
+    "path": "/posts/a-new-vision-of-democracy",
+    "webComponent": {
+      "webComponent": "Article",
+      "article": {
+        "title": "A New Vision of Democracy",
+        "date": "2021-05-24T16:49:37",
+        "modified": "2021-05-24T16:49:37",
+        "authorName": "Adolf Gundersen",
+        "status": "publish",
+        "content": "<p>EnCiv&#8217;s David Fridley has been working in the field of online democracy for years.  He shared an early statement of his vision for an &#8220;Online Deliberative Constitutional Representative Democracy&#8221; on <a href=\"https://www.quora.com/\">Quora</a>.</p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignleft\" src=\"https://media.istockphoto.com/photos/national-championship-bracket-picture-id480610791?b=1&amp;k=6&amp;m=480610791&amp;s=170x170&amp;h=py1oKrEL3DqP0l0pAziFMHKWyXIOjtxzgOjcpoZACAk=\" alt=\"National Championship Bracket\" width=\"245\" height=\"164\" />You can read the original post <a href=\"https://www.quora.com/What-will-replace-democracy/answer/David-Fridley-1?ch=10&amp;share=b1012faf&amp;srid=tUBe\">here</a>.  While it focuses on national deliberation, keep in mind that the technology at its core could also be used at smaller scales.  Indeed, because small tournaments can be run in less time than larger ones, the smaller the scale, the faster the tool would produce meaningful results.  Deliberation &#8220;at scale&#8221; isn&#8217;t different from deliberation with your immediate neighbors or club members; it just takes longer.  But not a great deal longer.  As Fridley points out in his post, eight or nine rounds of deliberation would be enough to connect the whole US population in a single deliberative event.  Collective deliberation on such a scale would be unprecedented.  Would it take any longer than an election, which is the collective expression of &#8220;the people&#8217;s will&#8221;?  Let&#8217;s try it and find out.\n",
+        "tagNames": ["Fridley", "online deliberation"],
+        "categoryNames": ["EnCiv News", "Technology"]
+      }
+    }
+  },
+  {
+    "_id": { "$oid": "66454c117366275850093e80" },
+    "path": "/articles",
+    "subject": "Latest Articles",
+    "description": "The Latest Articles",
+    "webComponent": {
+      "webComponent": "Blog",
+      "imgUrl": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234409/assets/EnCiv__Articles_Image_geivfw.png"
+    }
+  },
+  {
+    "_id": { "$oid": "6647c0f7fc50552040a41513" },
+    "path": "/terms",
+    "subject": "Terms and Conditions",
+    "description": "Terms and Conditions page",
+    "webComponent": "Terms"
+  },
+  {
+    "_id": { "$oid": "6647dcb8e8c5675be8f266e1" },
+    "path": "/privacy",
+    "subject": "Privacy Policy",
+    "description": "Privacy Policy",
+    "webComponent": "Privacy"
+  },
+  {
+    "_id": { "$oid": "6647dcf9530f80bdd8db7bf0" },
+    "path": "/cookies",
+    "subject": "Cookie Policy",
+    "description": "Cookie Policy",
+    "webComponent": "Cookies"
   }
 ]
