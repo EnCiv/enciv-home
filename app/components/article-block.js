@@ -4,6 +4,25 @@ import ReactHtmlParser from 'react-html-parser'
 import cx from 'classnames'
 import ActionButton from './action-button'
 
+/**
+ * article format
+    "article": {
+      "title": "Citizens Can Lead the Way on Civility",
+      "date": "2018-02-14T10:36:03",
+      "modified": "2019-01-19T02:08:32",
+      "authorName": "Adolf Gundersen",
+      "status": "publish",
+      "content": "<p><p>&nbsp;</p>\n<div style=\"width: 276px\" class=\"wp-caption alignleft\"><img loading=\"lazy\" decoding=\"async\" class=\"\" title=\"Empowering European Citizens, Module 2 in Malmö by Demokratikollektivet Watch it!\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1717007740/wp-import/6864772579_28578967b1_citizen-meeting.jpg\" alt=\"citizen meeting photo\" width=\"266\" height=\"199\" /><p class=\"wp-caption-text\"><small>Photo by <a href=\"http://www.flickr.com/photos/46060166@N04/6864772579\" target=\"_blank\" rel=\"noopener\">Demokratikollektivet Watch it!</a> <a title=\"Attribution-ShareAlike License\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\" rel=\"nofollow noopener\"><img decoding=\"async\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716941116/wp-import/cc.png\" /></a></small></p></div>\n<p>Take a few minutes to read this non-partisan <a href=\"http://lacrossetribune.com/news/opinion/adolf-g-gundersen-citizens-can-lead-the-way-on-civility/article_bf3bcd53-cf07-5f4a-b892-31accaa3f256.html\">editorial</a> in favor of civil discussion and I think you&#8217;ll agree that it&#8217;s even more relevant today than when I wrote it four years ago.  The gist of it is that when it comes to civil discussion, it&#8217;s up to us&#8211;not journalists or politicians.</p>\n",
+      "tagNames": [
+        "citizens",
+        "civil discussion"
+      ],
+      "categoryNames": [
+        "Strategy and Vision"
+      ]
+    }
+ */
+
 export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
   const classes = useStylesFromThemeFunction()
@@ -13,7 +32,9 @@ export default function ArticleBlock(props) {
       <div className={cx(classes.wrapper, classes[vState])}>
         <div className={cx(classes.article, classes[vState])}>
           <h1>{ReactHtmlParser(article.title)}</h1>
-          <div>{ReactHtmlParser(article.content)}</div>
+          {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
+          <div className={classes.author}>{article.authorName}</div>
+          <div className={classes.content}>{ReactHtmlParser(article.content)}</div>
         </div>
         {vState !== 'thumbnail' && (
           <div className={cx(classes.cta, classes[vState])}>
@@ -82,6 +103,26 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginBlockEnd: 0,
     },
   },
+  content: {
+    paddingTop: '5rem',
+    '$thumbnail &': {
+      paddingTop: 0,
+    },
+  },
+  date: {
+    '$thumbnail &': {
+      display: 'none',
+    },
+  },
+  author: {
+    fontSize: '1.25rem',
+    paddingTop: '1rem',
+    fontWeight: '500',
+    '$thumbnail &': {
+      display: 'none',
+    },
+  },
+
   article: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
@@ -99,7 +140,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '4rem',
       lineHeight: '5rem',
       paddingTop: '4rem',
-      paddingBottom: '4rem',
+      paddingBottom: '1rem',
+      marginBottom: 0,
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',

@@ -102,6 +102,7 @@
     "@wordpress/api-fetch": "^6.52.0",
     "babel-plugin-cjs-esm-interop": "^4.0.0",
     "civil-pursuit": "github:EnCiv/civil-pursuit",
+    "cloudinary": "^2.2.0",
     "markdown-to-jsx": "^7.4.7",
     "node-fetch": "^2.7.0",
     "react-animate-height": "^3.2.3",

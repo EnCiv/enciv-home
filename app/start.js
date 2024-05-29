@@ -53,7 +53,8 @@ async function start() {
       'https://www.nifi.org',
       'https://www.nps.gov',
       'https://www.participatorybudgeting.org',
-      'https://www.viterbo.edu'
+      'https://www.viterbo.edu',
+      'https://www.nationalcivicleague.org'
     )
     server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such

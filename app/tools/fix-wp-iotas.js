@@ -226,83 +226,74 @@ function checkImage(url) {
   })
 }
 
-const geturl = new RegExp(
-  //'(^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))',
-  '<img .* src="([^"]+)"',
-  'g'
-)
+const geturl = new RegExp('<img[^>]*src="([^"]+)"', 'g')
 
 async function main() {
+  let fails = 0
   await MongoModels.connect({ uri: args.db }, { useUnifiedTopology: true })
   while (MongoModels.toInit && MongoModels.toInit.length) {
     // any models that need to createIndexes will push their init function
     MongoModels.toInit.shift()()
   }
-  let page = 1
-  while (true) {
-    const postsResponse = await fetch(`https://enciv.org/wp-json/wp/v2/posts?page=${page}`)
-    const posts = await postsResponse.json()
-    console.info('page', page)
-    for await (const post of posts) {
-      const tagNames = await wpFetchNamesFromIndexes('tags', post.tags)
-      const categoryNames = await wpFetchNamesFromIndexes('categories', post.categories)
-      const iota = {
-        subject: post.title.rendered,
-        description: `The article titled: "${post.title.rendered}" brought over from the wordpress site`,
-        path: `/posts/${post.slug}`,
-        webComponent: {
-          webComponent: 'Article',
-          article: {
-            title: post.title.rendered,
-            date: post.date,
-            modified: post.modified,
-            authorName: AuthorsById[post.author],
-            status: post.status,
-            content: '<p>' + post.content.rendered.replace(/\[.*?\]/g, ''), // strip out the non html WP formatting junk at the beginning of each line
-            tagNames,
-            categoryNames,
-          },
-        },
-      }
-      const matched = iota.webComponent.article.content.matchAll(geturl)
-      const urls = []
-      matched &&
-        [...matched].forEach(grp => {
-          console.info(grp[1], iota.path)
-          urls.push(grp[1])
-        })
-      for await (const url of urls) {
-        const index = imageFixes.findIndex(pair => pair[0] === url)
-        if (index < 0) {
-          continue
-        }
-        if (imageFixes[index][2]) {
-          // if the image has already been moved - don't make another one
-          console.info("don't need to move it again:", imageFixes[index][2], iota.path)
-          iota.webComponent.article.content.replace(url, imageFixes[index][2])
-          continue
-        } else if (!imageFixes[index][1]) {
-          // there's no fix for this one.
-          continue
-        } else {
-          console.info('moving', url, imageFixes[index][1])
-          const movedUrl = await moveToCloudinary(imageFixes[index][1])
-          if (!movedUrl) {
-            console.error('could not move:', url, imageFixes[index][1], iota.path)
+  const iotas = await Iota.aggregate([{ $match: { 'webComponent.webComponent': 'Article' } }])
+  console.info('iotas found:', iotas.length)
+  for await (const iota of iotas) {
+    const matched = iota.webComponent.article.content.matchAll(geturl)
+    const urls = []
+    let updated = false
+    matched &&
+      [...matched].forEach(grp => {
+        urls.push(grp[1])
+      })
+    for await (const url of urls) {
+      const index = imageFixes.findIndex(pair => pair[0] === url)
+      if (index < 0) {
+        if (url.startsWith('http://')) {
+          const newUrl = url.replace('http://', 'https://')
+          const f = await checkImage(newUrl)
+          if (f) {
+            console.info('upping secuirty', newUrl, iota.path)
+            iota.webComponent.article.content = iota.webComponent.article.content.replace(url, newUrl)
+            updated = true
+          } else {
+            console.info('not found with upped security:', newUrl, iota.path)
+            fails++
             continue
           }
-          console.info('moved', url, imageFixes[index][1], movedUrl, iota.path)
-          iota.webComponent.article.content.replace(url, movedUrl)
-          imageFixes[index][2] = movedUrl
+        } else {
+          const found = await checkImage(url)
+          if (found) continue
+          console.info('not found:', iota.path, url)
+          fails++
+          continue
         }
+      } else if (imageFixes[index][2]) {
+        // if the image has already been moved - don't make another one
+        //console.info("don't need to move it again:", imageFixes[index][2], iota.path)
+        iota.webComponent.article.content = iota.webComponent.article.content.replace(url, imageFixes[index][2])
+        updated = true
+      } else if (!imageFixes[index][1]) {
+        // there's no fix for this one.
+        continue
+      } else {
+        //console.info('moving', url, imageFixes[index][1])
+        const movedUrl = await moveToCloudinary(imageFixes[index][1])
+        if (!movedUrl) {
+          console.error('could not move:', url, imageFixes[index][1], iota.path)
+          fails++
+          continue
+        }
+        console.info('moved', url, imageFixes[index][1], movedUrl, iota.path)
+        iota.webComponent.article.content = iota.webComponent.article.content.replace(url, movedUrl)
+        updated = true
+        imageFixes[index][2] = movedUrl
       }
-
-      const foundIota = await Iota.replaceOne({ path: iota.path }, iota, { upsert: true })
-      //console.info({ foundIota })
     }
-    if (posts.length < 10) break
-    page++
+    if (!updated) continue
+    const foundIota = await Iota.replaceOne({ path: iota.path }, iota, { upsert: true })
+    //console.info({ foundIota })
   }
+  console.info('number of failed links:', fails)
   MongoModels.disconnect()
 }
 

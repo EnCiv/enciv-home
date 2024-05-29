@@ -164,22 +164,8 @@
 ]
  */
 
-import { Iota } from 'civil-server'
-import MongoModels from 'mongo-models'
-// Iota uses logger
-import log4js from 'log4js'
 import fetch from 'node-fetch'
 const request = require('request')
-import imageFixes from './image-fixes'
-import moveToCloudinary from './wp-to-cloudinary'
-
-if (!global.logger) {
-  global.logger = log4js.getLogger('node')
-  log4js.configure({
-    appenders: { err: { type: 'stderr' } },
-    categories: { default: { appenders: ['err'], level: 'DEBUG' } },
-  })
-}
 
 // Wordpress Authors Bu Id
 const AuthorsById = {
@@ -194,6 +180,9 @@ const WPDATA = {
   tags: {},
   categories: {},
 }
+
+const Iotas = []
+
 async function wpFetchNamesFromIndexes(type, indexes) {
   const names = []
   for await (const index of indexes) {
@@ -233,77 +222,52 @@ const geturl = new RegExp(
 )
 
 async function main() {
-  await MongoModels.connect({ uri: args.db }, { useUnifiedTopology: true })
-  while (MongoModels.toInit && MongoModels.toInit.length) {
-    // any models that need to createIndexes will push their init function
-    MongoModels.toInit.shift()()
-  }
+  //const posts = await apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' })
   let page = 1
+  const articles = []
+  const urls = []
   while (true) {
     const postsResponse = await fetch(`https://enciv.org/wp-json/wp/v2/posts?page=${page}`)
     const posts = await postsResponse.json()
-    console.info('page', page)
     for await (const post of posts) {
-      const tagNames = await wpFetchNamesFromIndexes('tags', post.tags)
-      const categoryNames = await wpFetchNamesFromIndexes('categories', post.categories)
-      const iota = {
-        subject: post.title.rendered,
-        description: `The article titled: "${post.title.rendered}" brought over from the wordpress site`,
+      console.info('page', page)
+      //const tagNames = await wpFetchNamesFromIndexes('tags', post.tags)
+      //const categoryNames = await wpFetchNamesFromIndexes('categories', post.categories)
+      const article = {
         path: `/posts/${post.slug}`,
-        webComponent: {
-          webComponent: 'Article',
-          article: {
-            title: post.title.rendered,
-            date: post.date,
-            modified: post.modified,
-            authorName: AuthorsById[post.author],
-            status: post.status,
-            content: '<p>' + post.content.rendered.replace(/\[.*?\]/g, ''), // strip out the non html WP formatting junk at the beginning of each line
-            tagNames,
-            categoryNames,
-          },
-        },
+        title: post.title.rendered,
+        date: post.date,
+        modified: post.modified,
+        authorName: AuthorsById[post.author],
+        status: post.status,
+        content: '<p>' + post.content.rendered.replace(/\[.*?\]/g, ''), // strip out the non html WP formatting junk at the beginning of each line
+        //tagNames,
+        //categoryNames,
       }
-      const matched = iota.webComponent.article.content.matchAll(geturl)
-      const urls = []
+      articles.push(article)
+      const matched = article.content.matchAll(geturl)
       matched &&
         [...matched].forEach(grp => {
-          console.info(grp[1], iota.path)
+          console.info(grp[1])
           urls.push(grp[1])
         })
-      for await (const url of urls) {
-        const index = imageFixes.findIndex(pair => pair[0] === url)
-        if (index < 0) {
-          continue
-        }
-        if (imageFixes[index][2]) {
-          // if the image has already been moved - don't make another one
-          console.info("don't need to move it again:", imageFixes[index][2], iota.path)
-          iota.webComponent.article.content.replace(url, imageFixes[index][2])
-          continue
-        } else if (!imageFixes[index][1]) {
-          // there's no fix for this one.
-          continue
-        } else {
-          console.info('moving', url, imageFixes[index][1])
-          const movedUrl = await moveToCloudinary(imageFixes[index][1])
-          if (!movedUrl) {
-            console.error('could not move:', url, imageFixes[index][1], iota.path)
-            continue
-          }
-          console.info('moved', url, imageFixes[index][1], movedUrl, iota.path)
-          iota.webComponent.article.content.replace(url, movedUrl)
-          imageFixes[index][2] = movedUrl
-        }
-      }
-
-      const foundIota = await Iota.replaceOne({ path: iota.path }, iota, { upsert: true })
-      //console.info({ foundIota })
     }
     if (posts.length < 10) break
     page++
   }
-  MongoModels.disconnect()
+  console.info('num articles:', articles.length)
+  console.info('num urls', urls.length)
+  const found = []
+  const failed = []
+  for await (const u of urls) {
+    const status = await checkImage(u)
+    if (status) found.push(u)
+    else failed.push(u)
+
+    console.info(u, status)
+  }
+  console.info('found', found.length, 'failed', failed.length)
+  const enciv = failed.filter(u => u.includes('enciv.org'))
 }
 
 // fetch args from command line
@@ -318,8 +282,5 @@ for (let arg = 2; arg < argv.length; arg++) {
       console.error('ignoring unexpected argument:', argv[arg])
   }
 }
-if (!args.db) {
-  console.error('db expected')
-  process.exit()
-}
+
 main()
