@@ -7,6 +7,9 @@ import { BrevoHelmet } from '../components/brevo-join'
 import MarkdownBlock from '../components/markdown-block'
 import { Helmet } from 'react-helmet'
 
+// this is here trying to make google ads work
+// if it works there's more we have to do to trigger the submit, rather than the window.location
+//
 const GoogleAdsHelmet = () => (
   <Helmet>
     <script type="text/javascript">
