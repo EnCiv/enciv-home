@@ -5,34 +5,6 @@ import Faq from '../components/frequently-asked-questions'
 import BrevoCommunity from '../components/brevo-community'
 import { BrevoHelmet } from '../components/brevo-join'
 import MarkdownBlock from '../components/markdown-block'
-import { Helmet } from 'react-helmet'
-
-// this is here trying to make google ads work
-// if it works there's more we have to do to trigger the submit, rather than the window.location
-//
-const GoogleAdsHelmet = () => (
-  <Helmet>
-    <script type="text/javascript">
-      {`
-  // Helper function to delay opening a URL until a gtag event is sent.
-  // Call it in response to an action that should navigate to a URL.
-  function gtagSendEvent(url) {
-    var callback = function () {
-      if (typeof url === 'string') {
-        window.location = url;
-      }
-    };
-    gtag('event', 'conversion_event_submit_lead_form', {
-      'event_callback': callback,
-      'event_timeout': 2000,
-      // <event_parameters>
-    });
-    return false;
-  }
-    `}
-    </script>
-  </Helmet>
-)
 
 const Blocks = {
   HeroBlock: HeroBlock,
@@ -44,14 +16,13 @@ export default function Home(props) {
   const { subject, description, location, blocks } = props
   return (
     <div>
-      <GoogleAdsHelmet />
       <BrevoHelmet />
       <BrevoCommunity location={location} />
-      {blocks.map(block => {
+      {blocks.map((block, i) => {
         const { key, ...otherProps } = block
         if (!Blocks[key]) return null
         const Component = Blocks[key]
-        return <Component {...otherProps} />
+        return <Component key={block + '-' + i} {...otherProps} />
       })}
     </div>
   )
