@@ -16,6 +16,8 @@ async function start() {
     server.directives.connectSrc.push('https://analytics.google.com')
     server.directives.fontSrc.push('https://assets.brevo.com')
     server.directives.styleSrc.push('https://sibforms.com')
+    server.directives.styleSrc.push('https://*.googletagmanager.com/')
+
     // this come from the images in the articles imported from the wordpress sight
     // see app/tools/get-domains-from-articles for a tool to generate the list
     server.directives.imgSrc.push(
