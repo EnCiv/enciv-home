@@ -65,6 +65,7 @@ async function start() {
       'https://www.uschamberfoundation.org',
       'https://www.viterbo.edu'
     )
+    server.directives.imgSrc.push('https://*.googletagmanager.com') // used by google tags for events
     server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
