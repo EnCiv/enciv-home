@@ -66,6 +66,10 @@ async function start() {
       'https://www.viterbo.edu'
     )
     server.directives.imgSrc.push('https://*.googletagmanager.com') // used by google tags for events
+    server.directives.imgSrc.push('https://*.google.com') // used by google tags for events
+    server.directives.frameSrc.push('https://*.doubleclick.net/') // needed for google ads
+    server.directives.scriptSrcElem.push('https://*.doubleclick.net/') // needed for google ads
+
     server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))

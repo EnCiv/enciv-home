@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import AnimateHeight from 'react-animate-height'
 export function BrevoHelmet() {
@@ -82,6 +82,7 @@ export function BrevoHelmet() {
 const OtherForms = []
 
 export default function BrevoJoin(props) {
+  const formRef = useRef()
   if (typeof window !== 'undefined' && !window.brevoHelmet) {
     window.brevoHelmet = true
     // running on the browser
@@ -241,6 +242,7 @@ export default function BrevoJoin(props) {
                 {'\u2715'}
               </div>
               <form
+                ref={formRef}
                 id="sib-form"
                 method="POST"
                 action="https://223e2260.sibforms.com/serve/MUIFALdemznNVoCK3BT-NdrxYPWyQM6yQyRWjHssUfiPUK6FsNu60B8xYFDwURXRLjnlz0MptNh9FFIw11ITwLmPlGprEKvAnN6hYWeeFhmbWv3yFOyQfTH0iNbD244LbrYykq0WLZwwwIbT1ngVAZ7pLEUqLv5KY9xu-ohtBen-cogPRIc2IPUhaAPhZlOMwuVdtXLzj5HNSTjA"
@@ -491,8 +493,19 @@ export default function BrevoJoin(props) {
                       form="sib-form"
                       type="submit"
                       onClick={
-                        () => window.gtagSendEvent && (gtagSendEvent(), true)
-                        /*(gtag('event', 'brevo-join', { actionText, myFormIndex }), true)*/
+                        () =>
+                          window.gtag
+                            ? (gtag('event', 'conversion_event_submit_lead_form', {
+                                // gtag needs time to send the event before the browser skips to the next page
+                                event_callback: () => {
+                                  formRef.current && formRef.current.requestSubmit()
+                                },
+                                event_timeout: 2000, // 2000 recommended by google - but it's too long!
+                                actionText,
+                                myFormIndex,
+                              }),
+                              false) // don't propogate the to submit the form on this click
+                            : true // just submit the event
                       }
                     >
                       <svg
