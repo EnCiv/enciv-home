@@ -107,6 +107,7 @@
     "node-fetch": "^2.7.0",
     "react-animate-height": "^3.2.3",
     "react-html-parser": "^2.0.2",
-    "react-textarea-autosize": "^8.5.3"
+    "react-textarea-autosize": "^8.5.3",
+    "vanilla-cookieconsent": "^3.0.1"
   }
 }
