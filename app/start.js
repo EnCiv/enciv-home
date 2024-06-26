@@ -93,7 +93,8 @@ async function start() {
     server.directives.connectSrc.push(
       'https://analytics.google.com',
       'https://stats.g.doubleclick.net',
-      'https://adservice.google.com'
+      'https://adservice.google.com',
+      'https://www.googleadservices.com'
     ) // found experimentally
     server.directives.styleSrc.push('https://*.googletagmanager.com/') // found experimentally
 
