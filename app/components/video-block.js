@@ -1,29 +1,28 @@
+//https://github.com/EnCiv/enciv-home/issues/6
 import React from 'react'
-import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import ActionButton from './action-button'
 
-
-
 const VideoBlock = ({
-                      className,
-                      mode='dark',
-                      subject,
-                      actionText,
-                      action,
-                      videoUrl
+  className = '',
+  mode = 'dark',
+  subject = '',
+  actionText = '',
+  action = '',
+  videoUrl = '',
+  ...otherProps
 }) => {
   const classes = useStyles({ mode })
 
-  const isYouTubeUrl = (url) => url.includes('youtube.com') || url.includes('youtu.be')
+  const isYouTubeUrl = url => url.includes('youtube.com') || url.includes('youtu.be')
 
-  const getYouTubeEmbedUrl = (url) => {
+  const getYouTubeEmbedUrl = url => {
     const videoId = url.split('v=')[1] || url.split('/').pop()
     return `https://www.youtube.com/embed/${videoId}`
   }
 
   return (
-    <div className={`${classes.videoBlock} ${className}`}>
+    <div className={`${classes.videoBlock} ${className}`} {...otherProps}>
       {subject && <div className={classes.subject}>{subject}</div>}
       <div className={classes.videoContainer}>
         {isYouTubeUrl(videoUrl) ? (
@@ -44,55 +43,42 @@ const VideoBlock = ({
       </div>
       {actionText && action && (
         <div className={classes.action}>
-          <ActionButton action={action}>
-            {actionText}
-          </ActionButton>
+          <ActionButton action={action}>{actionText}</ActionButton>
         </div>
       )}
     </div>
   )
 }
 
-VideoBlock.propTypes = {
-  className: PropTypes.string,
-  mode: PropTypes.oneOf(['dark', 'light']),
-  subject: PropTypes.string,
-  actionText: PropTypes.string,
-  action: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  videoUrl: PropTypes.string.isRequired,
-}
-
-VideoBlock.defaultProps = {
-  className: '',
-  mode: '',
-  subject: '',
-  actionText: '',
-  action: '',
-}
-
 export default VideoBlock
-
 
 const useStyles = createUseStyles(theme => ({
   videoBlock: {
     textAlign: 'center',
-    padding: '1.25rem',
-    backgroundColor: ({ mode }) => (mode === 'dark' ? '#000' : '#fff' ),
+    padding: '6.25rem 8.875rem',
+    gap: '3.3125rem',
+    backgroundColor: ({ mode }) => (mode === 'dark' ? theme.colors.darkModeGray : 'white'),
   },
   subject: {
-    fontSize: '1.5rem',
-    color: ({ mode }) => (mode === 'dark' ? '#fff' : '#000' ),
-    backgroundColor: 'transparent',
+    color: ({ mode }) => (mode === 'dark' ? '#FFFFFF' : '#000'),
     marginBottom: '1rem',
     padding: '0.625rem',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: '3rem',
+    lineHeight: '3.6875rem',
+    textAlign: 'center',
   },
   videoContainer: {
     position: 'relative',
-    width: '100%',
+    maxWidth: theme.maxPanelWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     paddingBottom: '56.25%', // 16:9 aspect ratio
     height: 0,
     overflow: 'hidden',
-    backgroundColor: '#000',
+    //backgroundColor: '#000',
   },
   iframe: {
     position: 'absolute',
@@ -109,9 +95,7 @@ const useStyles = createUseStyles(theme => ({
     height: '100%',
   },
   action: {
-    marginTop: '1.25rem',
-    display: 'flex',
-    justifyContent: 'center',
+    marginTop: '2rem',
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
@@ -121,4 +105,4 @@ const useStyles = createUseStyles(theme => ({
     backgroundColor: 'white',
     color: theme.colors.darkModeGray,
   },
-}));
+}))
