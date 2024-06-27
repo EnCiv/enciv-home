@@ -90,7 +90,12 @@ async function start() {
       'https://td.doubleclick.net'
     ) // needed for google ads
     server.directives.scriptSrcElem.push('https://*.doubleclick.net/') // needed for google ads - found experimentally
-    server.directives.connectSrc.push('https://analytics.google.com', 'https://stats.g.doubleclick.net') // found experimentally
+    server.directives.connectSrc.push(
+      'https://analytics.google.com',
+      'https://stats.g.doubleclick.net',
+      'https://adservice.google.com',
+      'https://www.googleadservices.com'
+    ) // found experimentally
     server.directives.styleSrc.push('https://*.googletagmanager.com/') // found experimentally
 
     server.directives.frameSrc.push('https://cc.enciv.org')
