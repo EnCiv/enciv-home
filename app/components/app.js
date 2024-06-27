@@ -24,6 +24,25 @@ class App extends React.Component {
                   rel="stylesheet"
                 />
                 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+                {/* Adding this script, though not using it, as experiment to convince google ads that the tag is here */}
+                <script>
+                  {`
+                  // Helper function to delay opening a URL until a gtag event is sent.
+                  // Call it in response to an action that should navigate to a URL.
+                  function gtagSendEvent(url) {
+                    var callback = function () {
+                      if (typeof url === 'string') {
+                        window.location = url;
+                      }
+                    };
+                    gtag('event', 'conversion_event_submit_lead_form', {
+                      'event_callback': callback,
+                      'event_timeout': 2000,
+                      // <event_parameters>
+                    });
+                    return false;
+                  }`}
+                </script>
               </Helmet>
               <TopNavWrap />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
