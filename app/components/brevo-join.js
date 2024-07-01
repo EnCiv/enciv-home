@@ -87,7 +87,6 @@ export function BrevoHelmet() {
     });
     return false;
   }
-</script>
 `}</script>
     </Helmet>
   )
