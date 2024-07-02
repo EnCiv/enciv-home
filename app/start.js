@@ -73,6 +73,7 @@ async function start() {
       'https://googleads.g.doubleclick.net'
     )
     server.directives.connectSrc.push(
+      `https://google.com`,
       'https://*.google-analytics.com',
       'https://*.analytics.google.com',
       'https://*.googletagmanager.com'
