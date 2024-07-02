@@ -92,7 +92,7 @@ async function start() {
       'https://bid.g.doubleclick.net',
       'https://td.doubleclick.net'
     ) // needed for google ads
-    server.directives.scriptSrcElem.push('https://*.doubleclick.net/') // needed for google ads - found experimentally
+    server.directives.scriptSrcElem.push('https://*.doubleclick.net/', 'https://www.googleadservices.com') // needed for google ads - found experimentally
     server.directives.connectSrc.push(
       'https://google.com',
       'https://*.google.com',
