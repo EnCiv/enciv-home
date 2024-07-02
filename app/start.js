@@ -69,7 +69,8 @@ async function start() {
     server.directives.scriptSrc.push(
       'https://*.googletagmanager.com',
       'https://www.googleadservices.com',
-      'https://www.google.com',
+      'https://*.google.com',
+      'https://google.com',
       'https://googleads.g.doubleclick.net'
     )
     server.directives.connectSrc.push(
@@ -83,7 +84,8 @@ async function start() {
       'https://*.googletagmanager.com',
       'https://googleads.g.doubleclick.net',
       'https://www.google.com',
-      'https://google.com'
+      'https://google.com',
+      'https://*.gstatic.com'
     )
     server.directives.frameSrc.push(
       'https://www.googletagmanager.com',
@@ -92,11 +94,12 @@ async function start() {
     ) // needed for google ads
     server.directives.scriptSrcElem.push('https://*.doubleclick.net/') // needed for google ads - found experimentally
     server.directives.connectSrc.push(
+      'https://google.com',
       'https://*.google.com',
       'https://stats.g.doubleclick.net',
       'https://www.googleadservices.com'
-    ) // found experimentally
-    server.directives.styleSrc.push('https://*.googletagmanager.com/') // found experimentally
+    )
+    server.directives.styleSrc.push('https://*.googletagmanager.com/')
 
     server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such
