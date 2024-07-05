@@ -21,6 +21,7 @@ export default function HaveAQuestion(props) {
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
+      console.log(e)
       setAskEmail(true)
       e.preventDefault()
     }
@@ -51,6 +52,7 @@ export default function HaveAQuestion(props) {
       } else {
         setResponse('Your question was sucessfully submitted!')
       }
+
       setSubmittedQuestion(false)
       setResponseMessage(false)
       setAskEmail(false)
