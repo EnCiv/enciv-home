@@ -107,17 +107,27 @@ const useStyles = createUseStyles(theme => ({
   },
 
   input: {
-    backgroundColor: theme.askQuestionColor,
+    backgroundColor: theme.colors.darkModeGray,
+    color: 'white',
     fontFamily: 'Montserrat',
-    fontSize: '1.25rem',
+    fontSize: '1.5rem',
     resize: 'none',
     border: 'none',
     borderRadius: theme.defaultBorderRadius,
     marginBottom: '0.3rem',
     marginTop: '0.3rem',
     overflow: 'hidden',
-    padding: '0.9375rem 1.875rem',
-    borderRadius: '0.625rem',
+    fontWeight: 500,
+    padding: '0.9375rem 0rem',
+    borderTop: 'none',
+    borderBottom: '2px solid',
+    borderRadius: '0rem',
+    '&::-webkit-input-placeholder': {
+      color: 'white',
+    },
+    '&:focus-visible': {
+      outline: '-webkit-focus-ring-color auto 0px;',
+    },
   },
   emailMessage: {
     placeholder: 'block',
