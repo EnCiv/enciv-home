@@ -1,3 +1,4 @@
+//https://github.com/EnCiv/enciv-home/issues/20
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -20,6 +21,7 @@ export default function HaveAQuestion(props) {
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
+      console.log(e)
       setAskEmail(true)
       e.preventDefault()
     }
@@ -50,6 +52,7 @@ export default function HaveAQuestion(props) {
       } else {
         setResponse('Your question was sucessfully submitted!')
       }
+
       setSubmittedQuestion(false)
       setResponseMessage(false)
       setAskEmail(false)
@@ -70,7 +73,11 @@ export default function HaveAQuestion(props) {
         placeholder={emailMessage}
       ></TextareaAutosize>
       <Submit
-        className={cx(!askEmail && classes.disabled, !responseMessage && classes.disabled)}
+        className={cx(
+          !askEmail && classes.disabled,
+          !responseMessage && classes.disabled,
+          askEmail && classes.askQuestion
+        )}
         onDone={contactUs}
         children={'Submit'}
       />
@@ -100,15 +107,27 @@ const useStyles = createUseStyles(theme => ({
   },
 
   input: {
-    backgroundColor: theme.askQuestionColor,
-    fontFamily: theme.defaultFontFamily,
-    fontSize: '1.25rem',
+    backgroundColor: theme.colors.darkModeGray,
+    color: 'white',
+    fontFamily: 'Montserrat',
+    fontSize: '1.5rem',
     resize: 'none',
     border: 'none',
     borderRadius: theme.defaultBorderRadius,
     marginBottom: '0.3rem',
     marginTop: '0.3rem',
     overflow: 'hidden',
+    fontWeight: 500,
+    padding: '0.9375rem 0rem',
+    borderTop: 'none',
+    borderBottom: '2px solid',
+    borderRadius: '0rem',
+    '&::-webkit-input-placeholder': {
+      color: 'white',
+    },
+    '&:focus-visible': {
+      outline: '-webkit-focus-ring-color auto 0px;',
+    },
   },
   emailMessage: {
     placeholder: 'block',
@@ -116,20 +135,38 @@ const useStyles = createUseStyles(theme => ({
   disabled: {
     display: 'none',
   },
-  button: {
+  askQuestion: {
     display: 'flex',
     width: 'fit-content',
     justifyContent: 'space-between',
     alignItems: 'center',
     textDecoration: 'none',
-    color: '#FFFFFF',
+    color: theme.colors.darkModeGray,
     gap: '0.5rem',
-    background: theme.colorPrimary,
-    borderRadius: theme.buttonBorderRadius,
+    backgroundColor: theme.colors.encivYellow,
+    borderRadius: '1.75rem',
+    fontSize: '1.25rem',
+    fontWeight: '700',
+    marginTop: '0.3rem',
+    '&:hover, &.hover': {
+      textDecoration: 'none',
+      backgroundColor: theme.colors.encivYellow,
+      borderColor: theme.colors.encivYellow,
+      cursor: 'pointer',
+    },
+    '&:active': {
+      backgroundColor: theme.colors.encivYellow,
+      color: theme.colors.textBrown,
+      border: '0.125rem solid '.concat(theme.colors.encivYellow),
+      textDecoration: 'none',
+    },
+    '&:focus': {
+      outline: theme.focusOutline,
+    },
   },
 
   response: {
-    fontFamily: theme.defaultFontFamily,
+    fontFamily: 'Montserrat',
     fontSize: '1.25rem',
     marginTop: '0.3rem',
     padding: '1.25rem',

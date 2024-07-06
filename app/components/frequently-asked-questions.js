@@ -1,6 +1,8 @@
+//https://github.com/EnCiv/enciv-home/issues/20
 import React, { useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
+import HaveAQuestion from './have-a-question'
 
 function Opener(props) {
   const { classes, answer, active } = props
@@ -24,7 +26,6 @@ export default function FrequentlyAskedQuestions(props) {
   const [active, setActive] = useState(false)
   const { className, faqs, mode = 'dark', ...otherProps } = props
   const classes = useStyles()
-
   return (
     <div className={cx(classes.faq, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
@@ -46,6 +47,7 @@ export default function FrequentlyAskedQuestions(props) {
                 <Opener classes={classes} answer={value.answer} active={active === value.question} />
               </div>
             ))}
+          <HaveAQuestion />
         </div>
       </div>
     </div>
