@@ -52,73 +52,15 @@ const VideoBlock = ({
 
 export default VideoBlock
 
-// const useStyles = createUseStyles(theme => ({
-//   videoBlock: {
-//     textAlign: 'center',
-//     padding: '6.25rem 8.875rem',
-//     gap: '3.3125rem',
-//     backgroundColor: ({ mode }) => (mode === 'dark' ? theme.colors.darkModeGray : 'white'),
-//   },
-//   subject: {
-//     color: ({ mode }) => (mode === 'dark' ? '#FFFFFF' : '#000'),
-//     marginBottom: '1rem',
-//     padding: '0.625rem',
-//     fontFamily: 'Montserrat',
-//     fontStyle: 'normal',
-//     fontWeight: 700,
-//     fontSize: '3rem',
-//     lineHeight: '3.6875rem',
-//     textAlign: 'center',
-//   },
-//   videoContainer: {
-//     position: 'relative',
-//     maxWidth: theme.maxPanelWidth,
-//     marginLeft: 'auto',
-//     marginRight: 'auto',
-//     paddingBottom: '56.25%', // 16:9 aspect ratio
-//     height: 0,
-//     overflow: 'hidden',
-//     //backgroundColor: '#000',
-//   },
-//   iframe: {
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     width: '100%',
-//     height: '100%',
-//   },
-//   video: {
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     width: '100%',
-//     height: '100%',
-//   },
-//   action: {
-//     marginTop: '2rem',
-//   },
-//   dark: {
-//     backgroundColor: theme.colors.darkModeGray,
-//     color: 'white',
-//   },
-//   light: {
-//     backgroundColor: 'white',
-//     color: theme.colors.darkModeGray,
-//   },
-// }))
 const useStyles = createUseStyles(theme => ({
   videoBlock: {
     textAlign: 'center',
-    padding: '6.25rem 8.875rem',
-    gap: '3.3125rem',
+    paddingTop: '3rem',
+    paddingBottom: '4rem',
     backgroundColor: ({ mode }) => (mode === 'dark' ? theme.colors.darkModeGray : 'white'),
-    '@media (max-width: 600px)': {
-      padding: '1rem',
-    },
   },
   subject: {
     color: ({ mode }) => (mode === 'dark' ? '#FFFFFF' : '#000'),
-    marginBottom: '1rem',
     padding: '0.625rem',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
@@ -126,23 +68,19 @@ const useStyles = createUseStyles(theme => ({
     fontSize: '3rem',
     lineHeight: '3.6875rem',
     textAlign: 'center',
-    '@media (max-width: 600px)': {
-      fontSize: '1.5rem',
-      lineHeight: '2rem',
-    },
+    marginLeft: '2rem',
+    marginRight: '2rem',
+    marginTop: 0,
   },
   videoContainer: {
     position: 'relative',
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '1.5rem',
+    marginTop: '2.5rem',
     paddingBottom: '56.25%', // 16:9 aspect ratio
     height: 0,
     overflow: 'hidden',
-    '@media (max-width: 600px)': {
-      paddingBottom: '75%', // Adjust aspect ratio for smaller screens
-    },
   },
   iframe: {
     position: 'absolute',
@@ -159,10 +97,7 @@ const useStyles = createUseStyles(theme => ({
     height: '100%',
   },
   action: {
-    marginTop: '2rem',
-    '@media (max-width: 600px)': {
-      marginTop: '1rem',
-    },
+    marginTop: '4rem',
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
