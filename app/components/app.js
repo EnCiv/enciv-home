@@ -27,7 +27,7 @@ class App extends React.Component {
                 {/* Adding this script, though not using it, as experiment to convince google ads that the tag is here */}
                 <script>
                   {`
-                  if(window.gtag && window.process?.env?.GOOGLE_ADS) gtag('config', process.env.GOOGLE_ADS)
+                  if(window.gtag && ${!!process.env.GOOGLE_ADS}) gtag('config', "${process.env.GOOGLE_ADS}")
                   // Helper function to delay opening a URL until a gtag event is sent.
                   // Call it in response to an action that should navigate to a URL.
                   function gtagSendEvent(url) {
