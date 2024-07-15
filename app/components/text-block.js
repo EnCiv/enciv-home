@@ -1,4 +1,5 @@
-//https://github.com/EnCiv/enciv-home/issues/7
+// https://github.com/EnCiv/enciv-home/issues/7
+// https://github.com/EnCiv/enciv-home/issues/34
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
