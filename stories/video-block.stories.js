@@ -38,3 +38,19 @@ WithActionFunctionDark.args = {
   action: () => alert('Action executed!'),
   videoUrl: 'https://youtu.be/Tb2u0h_IUGc',
 }
+
+export const Mp4WithActionFunctionDark = Template.bind({})
+Mp4WithActionFunctionDark.args = {
+  subject: 'We create online tools that enable constructive cross-partisan democratic processes at scale',
+  actionText: 'Our Work',
+  action: () => alert('Action executed!'),
+  videoUrl: 'https://res.cloudinary.com/hf6mryjpf/video/upload/v1571285569/nov2019-viewer-m-3_jjnhhi.mp4',
+}
+
+export const PhoneAspectRatioWithActionFunctionDark = Template.bind({})
+PhoneAspectRatioWithActionFunctionDark.args = {
+  subject: 'We create online tools that enable constructive cross-partisan democratic processes at scale',
+  actionText: 'Our Work',
+  action: () => alert('Action executed!'),
+  videoUrl: 'https://www.youtube.com/shorts/lOn1Gcazpt0?feature=share',
+}
