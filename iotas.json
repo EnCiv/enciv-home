@@ -236,5 +236,12 @@
     "subject": "Cookie Policy",
     "description": "Cookie Policy",
     "webComponent": "Cookies"
+  },
+  {
+    "_id": { "$oid": "6694a2953cd5146fcc930fc4" },
+    "path": "/nondiscrimination",
+    "subject": "Nondiscrimination Statment",
+    "description": "Nondiscrimination Statment page",
+    "webComponent": "Nondiscrimination"
   }
 ]
