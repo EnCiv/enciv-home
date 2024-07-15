@@ -47,7 +47,7 @@ export default function FrequentlyAskedQuestions(props) {
                 <Opener classes={classes} answer={value.answer} active={active === value.question} />
               </div>
             ))}
-          <HaveAQuestion />
+          <HaveAQuestion {...props} />
         </div>
       </div>
     </div>
@@ -98,7 +98,6 @@ const useStyles = createUseStyles(theme => ({
   },
 
   questionStyle: {
-    //fontWeight: '300',
     display: 'inline-block',
     cursor: 'pointer',
     fontSize: '1.5rem',

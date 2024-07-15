@@ -16,8 +16,7 @@ export default function HaveAQuestion(props) {
   const [responseMessage, setResponseMessage] = useState(true)
   const [submittedQuestion, setSubmittedQuestion] = useState(true)
   const [email, setEmail] = useState('')
-
-  const { className, style } = props
+  const { className, style, mode = 'dark' } = props
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
@@ -59,18 +58,30 @@ export default function HaveAQuestion(props) {
     })
   }
   return (
-    <div className={cx(className, classes.container)} style={style}>
+    <div className={cx(className, classes[mode], classes.container)} style={style}>
       <TextareaAutosize
-        className={cx(responseMessage && classes.input, !responseMessage && classes.disabled)}
+        className={cx(
+          responseMessage && classes.input,
+          !responseMessage && classes.disabled,
+          responseMessage && classes.noBorder,
+          classes[mode]
+        )}
         placeholder={placeHoderMessage}
+        onFocus={e => (e.target.placeholder = '')}
         onBlur={handelInput}
         onKeyDown={handleKeyPress}
       />
       <TextareaAutosize
         onBlur={handelInput2}
         onKeyDown={handleKeyPress2}
-        className={cx(!askEmail && classes.disabled, !responseMessage && classes.disabled, askEmail && classes.input)}
+        className={cx(
+          !askEmail && classes.disabled,
+          !responseMessage && classes.disabled,
+          askEmail && classes.input,
+          classes[mode]
+        )}
         placeholder={emailMessage}
+        onFocus={e => (e.target.placeholder = '')}
       ></TextareaAutosize>
       <Submit
         className={cx(
@@ -82,7 +93,7 @@ export default function HaveAQuestion(props) {
         children={'Submit'}
       />
       <TextareaAutosize
-        className={cx(submittedQuestion && classes.disabled, !submittedQuestion && classes.input)}
+        className={cx(submittedQuestion && classes.disabled, !submittedQuestion && classes.input, classes[mode])}
         defaultValue={message}
       ></TextareaAutosize>
       <div
@@ -129,6 +140,9 @@ const useStyles = createUseStyles(theme => ({
       outline: '-webkit-focus-ring-color auto 0px;',
     },
   },
+  noBorder: {
+    borderBottom: 'none',
+  },
   emailMessage: {
     placeholder: 'block',
   },
@@ -173,5 +187,19 @@ const useStyles = createUseStyles(theme => ({
     border: '0.3rem solid #0088dd',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  dark: {
+    backgroundColor: theme.colors.darkModeGray,
+    color: 'white',
+    '&::-webkit-input-placeholder': {
+      color: 'white',
+    },
+  },
+  light: {
+    backgroundColor: 'white',
+    color: theme.colors.darkModeGray,
+    '&::-webkit-input-placeholder': {
+      color: theme.colors.darkModeGray,
+    },
   },
 }))
