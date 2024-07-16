@@ -103,6 +103,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   innerWrapperIconLeft: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
     },
@@ -110,6 +112,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   innerWrapperIconRight: {
     display: 'flex',
     flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
     },

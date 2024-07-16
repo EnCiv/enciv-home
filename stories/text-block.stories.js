@@ -61,7 +61,7 @@ export const IconLeft = {
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.',
     actionText: 'Join the Community',
-    icon: <SvgPeopleInHands />,
+    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
     side: 'left',
   },
 }
@@ -73,7 +73,7 @@ export const IconRight = {
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.',
     actionText: 'Join the Community',
-    icon: <SvgPeopleInHands />,
+    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
     side: 'right',
   },
 }
