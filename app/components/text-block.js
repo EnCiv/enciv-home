@@ -22,7 +22,7 @@ const TextBlock = props => {
     subPoints = [],
     actionText = '',
     action, // text for an anchor or a function to put in onClick of a button
-    iconName = null, // A string name corresponding to an svgr component
+    iconName, // A string name corresponding to an svgr component
     side = 'left', // The side to show the icon, if provided.
     ...otherProps
   } = props
@@ -55,21 +55,13 @@ const TextBlock = props => {
   )
 
   // Check if the icon with name exists in svgr
-  let iconComponent = null
-
-  if (iconName != null) {
-    if (Object.keys(icons).includes(iconName)) {
-      iconComponent = <Iconify iconName={iconName} width="10rem" height="auto" />
-    } else {
-      console.error(`Icon with name '${iconName}' does not exist.`)
-    }
-  }
+  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="10rem" height="auto" />
 
   // Section to contain the icon
   const iconSection = <div className={classes.iconSection}>{iconComponent}</div>
 
   // Add the icon if it's provided, or display the textblock as-is if not.
-  if (iconName == null) {
+  if (!iconName) {
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>{textSection}</div>
