@@ -57,10 +57,9 @@ export const SubPointsLight = {
 export const IconLeft = {
   args: {
     mode: 'light',
-    subject: 'Politics is dividing us - EnCiv is uniting us',
+    subject: 'Mission',
     description:
-      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.',
-    actionText: 'Join the Community',
+      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
     icon: <SvgPeopleInHands height="10rem" width="10rem" />,
     side: 'left',
   },
@@ -69,10 +68,9 @@ export const IconLeft = {
 export const IconRight = {
   args: {
     mode: 'light',
-    subject: 'Politics is dividing us - EnCiv is uniting us',
+    subject: 'Mission',
     description:
-      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.',
-    actionText: 'Join the Community',
+      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
     icon: <SvgPeopleInHands height="10rem" width="10rem" />,
     side: 'right',
   },
