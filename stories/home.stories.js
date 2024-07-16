@@ -2,6 +2,8 @@ import Home from '../app/web-components/home'
 
 import React from 'react'
 
+import SvgPeopleInHands from '../app/svgr/people-in-hands.js'
+
 export default {
   title: 'Home',
   component: Home,
@@ -58,6 +60,16 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
       'If you believe that there\'s a better way to make the best national decisions and it starts with productive national dialogue...\n\n\
 <p style="text-align:center">**We\'re building it! Together.**</p>',
     actionText: 'Join the Community',
+  },
+  {
+    key: 'TextBlock',
+    mode: 'light',
+    subject: 'Mission',
+    description:
+      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process. \
+      \n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
+    iconName: 'PeopleInHands',
+    side: 'right',
   },
   {
     key: 'Faq',
