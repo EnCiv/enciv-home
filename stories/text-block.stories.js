@@ -60,7 +60,7 @@ export const IconLeft = {
     subject: 'Mission',
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
-    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
+    iconName: 'PeopleInHands',
     side: 'left',
   },
 }
@@ -71,7 +71,7 @@ export const IconRight = {
     subject: 'Mission',
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
-    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
+    iconName: 'PeopleInHands',
     side: 'right',
   },
 }
@@ -82,7 +82,7 @@ export const NoIconSideSpecified = {
     subject: 'Mission',
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
-    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
+    iconName: 'PeopleInHands',
   },
 }
 
@@ -92,7 +92,17 @@ export const InvalidSideProvided = {
     subject: 'Mission',
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
-    icon: <SvgPeopleInHands height="10rem" width="10rem" />,
+    iconName: 'PeopleInHands',
     side: 'upsidedown',
+  },
+}
+
+export const IconNameDoesntExist = {
+  args: {
+    mode: 'light',
+    subject: 'Mission',
+    description:
+      'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
+    iconName: 'DoesntExist',
   },
 }

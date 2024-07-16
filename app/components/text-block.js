@@ -5,6 +5,7 @@ import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
+import * as icons from '../../app/svgr'
 
 const TextBlock = props => {
   const {
@@ -15,7 +16,7 @@ const TextBlock = props => {
     subPoints = [],
     actionText = '',
     action, // text for an anchor or a function to put in onClick of a button
-    icon = null, // A React Component icon to show aside the text.
+    iconName = null, // A string name corresponding to an svgr component
     side = 'left', // The side to show the icon, if provided.
     ...otherProps
   } = props
@@ -29,7 +30,7 @@ const TextBlock = props => {
   // Section for grouping text-based elements
   const textSection = (
     // Shrink width to 75% to fit the icon if provided, else leave as-is
-    <div className={icon ? classes.textSectionWithIcon : classes.textSectionNoIcon}>
+    <div className={iconName ? classes.textSectionWithIcon : classes.textSectionNoIcon}>
       {subject && <h2 className={classes.subject}>{subject}</h2>}
       {description && <MarkDown className={classes.description}>{description}</MarkDown>}
       {subPoints && (
@@ -47,11 +48,23 @@ const TextBlock = props => {
     </div>
   )
 
+  // Check if the icon with name exists in svgr
+  let iconComponent = null
+
+  if (iconName != null) {
+    if (Object.keys(icons).includes(iconName)) {
+      const Icon = icons[iconName]
+      iconComponent = <Icon width="50%" />
+    } else {
+      console.error(`Icon with name '${iconName}' does not exist.`)
+    }
+  }
+
   // Section to contain the icon
-  const iconSection = <div className={classes.iconSection}>{icon}</div>
+  const iconSection = <div className={classes.iconSection}>{iconComponent}</div>
 
   // Add the icon if it's provided, or display the textblock as-is if not.
-  if (icon == null) {
+  if (iconName == null) {
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>{textSection}</div>
@@ -93,6 +106,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     width: '25%',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
+      marginBottom: '2.25rem',
     },
   },
   wrapper: {
