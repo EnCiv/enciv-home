@@ -7,6 +7,12 @@ import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
 import * as icons from '../../app/svgr'
 
+function Iconify(props) {
+  const { iconName, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
+
 const TextBlock = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
@@ -53,8 +59,7 @@ const TextBlock = props => {
 
   if (iconName != null) {
     if (Object.keys(icons).includes(iconName)) {
-      const Icon = icons[iconName]
-      iconComponent = <Icon width="50%" />
+      iconComponent = <Iconify iconName={iconName} width="10rem" height="auto" />
     } else {
       console.error(`Icon with name '${iconName}' does not exist.`)
     }
@@ -106,7 +111,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     width: '25%',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
-      marginBottom: '2.25rem',
+      marginTop: '2.25rem',
     },
   },
   wrapper: {
@@ -121,7 +126,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      flexDirection: 'column',
+      flexDirection: 'column-reverse',
     },
   },
   innerWrapperIconRight: {
@@ -130,7 +135,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      flexDirection: 'column',
+      flexDirection: 'column-reverse',
     },
   },
   subject: {
