@@ -6,10 +6,6 @@ import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
 
-// Constant values
-const leftSideValue = 'left'
-const rightSideValue = 'right'
-
 const TextBlock = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
@@ -20,12 +16,16 @@ const TextBlock = props => {
     actionText = '',
     action, // text for an anchor or a function to put in onClick of a button
     icon = null, // A React Component icon to show aside the text.
-    side = leftSideValue, // The side to show the icon, if provided.
+    side = 'left', // The side to show the icon, if provided.
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction()
 
-  // Section for text-based elements
+  // Verify a valid side has been provided
+  if (side != 'left' && side != 'right') {
+  }
+
+  // Section for grouping text-based elements
   const textSection = (
     // Shrink width to 75% to fit the icon if provided, else leave as-is
     <div className={icon ? classes.textSectionWithIcon : classes.textSectionNoIcon}>
@@ -57,21 +57,12 @@ const TextBlock = props => {
       </div>
     )
   } else {
-    let innerWrapperClass
-
-    // Set responsiveness behavior based on icon side
-    if (side == leftSideValue) {
-      innerWrapperClass = classes.innerWrapperLeftIcon
-    } else if (side == rightSideValue) {
-      innerWrapperClass = classes.innerWrapperRightIcon
-    } else {
-      // Invalid side input, throw error.
-    }
-
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>
-          <div className={innerWrapperClass}>
+          {/* Because we checked if side is either 'left' or 'right' already, we can infer 
+           it's right if it's not left. */}
+          <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
             {iconSection}
             {textSection}
           </div>
@@ -93,13 +84,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   textSectionWithIcon: {
     width: '75%',
-    '@media (max-width: 100%)': {
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
     },
   },
   iconSection: {
     width: '25%',
-    '@media (max-width: 100%)': {
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
     },
   },
@@ -110,15 +101,17 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     whiteSpace: 'pre-line',
   },
   innerWrapperIconLeft: {
+    display: 'flex',
     flexDirection: 'row',
-    '@media (max-width: 100%)': {
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
     },
   },
   innerWrapperIconRight: {
-    flexDirection: 'row',
-    '@media (max-width: 100%)': {
-      flexDirection: 'column-reverse',
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
     },
   },
   subject: {
