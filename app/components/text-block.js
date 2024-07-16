@@ -23,6 +23,7 @@ const TextBlock = props => {
 
   // Verify a valid side has been provided
   if (side != 'left' && side != 'right') {
+    console.error(`${side} is not a valid argument. Must be either 'left' or 'right'.`)
   }
 
   // Section for grouping text-based elements
