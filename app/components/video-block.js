@@ -1,5 +1,6 @@
 //https://github.com/EnCiv/enciv-home/issues/6
-import React from 'react'
+
+import React, { useEffect, useState, useRef } from 'react'
 import { createUseStyles } from 'react-jss'
 import ActionButton from './action-button'
 
@@ -10,9 +11,26 @@ const VideoBlock = ({
   actionText = '',
   action = '',
   videoUrl = '',
+  aspectRatio = 16 / 9, // default aspect ratio
   ...otherProps
 }) => {
+  const [height, setHeight] = useState(0)
+  const containerRef = useRef(null)
   const classes = useStyles({ mode })
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth
+        const calculatedHeight = width / aspectRatio
+        setHeight(calculatedHeight)
+      }
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [aspectRatio])
 
   const isYouTubeUrl = url => url.includes('youtube.com') || url.includes('youtu.be')
 
@@ -24,7 +42,7 @@ const VideoBlock = ({
   return (
     <div className={`${classes.videoBlock} ${className}`} {...otherProps}>
       {subject && <div className={classes.subject}>{subject}</div>}
-      <div className={classes.videoContainer}>
+      <div ref={containerRef} className={classes.videoContainer} style={{ height }}>
         {isYouTubeUrl(videoUrl) ? (
           <iframe
             className={classes.iframe}
@@ -78,8 +96,6 @@ const useStyles = createUseStyles(theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '2.5rem',
-    paddingBottom: '56.25%', // 16:9 aspect ratio
-    height: 0,
     overflow: 'hidden',
   },
   iframe: {
