@@ -13,7 +13,7 @@ export default async function getArticles(skip = 0, limit = 10, cb) {
       { $addFields: { 'webComponent.article._id': '$_id' } },
       { $addFields: { 'webComponent.article.path': '$path' } },
       { $replaceRoot: { newRoot: '$webComponent.article' } },
-    ])
+    ]).toArray()
     cb && cb(results)
   } catch (err) {
     logger.error('get-articles', err)

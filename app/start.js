@@ -6,8 +6,8 @@ import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
 
-Iota.load(civilIotas)
-Iota.load(iotas) // set the initial data for the database
+Iota.preload(civilIotas)
+Iota.preload(iotas) // set the initial data for the database
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function start() {
   try {

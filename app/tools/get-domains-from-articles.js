@@ -41,7 +41,7 @@ async function main() {
     // any models that need to createIndexes will push their init function
     MongoModels.toInit.shift()()
   }
-  const iotas = await Iota.aggregate([{ $match: { 'webComponent.webComponent': 'Article' } }])
+  const iotas = await Iota.aggregate([{ $match: { 'webComponent.webComponent': 'Article' } }]).toArray()
   console.info('iotas found:', iotas.length)
   const origins = {}
   for await (const iota of iotas) {

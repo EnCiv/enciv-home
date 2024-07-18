@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
-import * as icons from '../../app/svgr'
+import * as icons from '../svgr'
 
 function Iconify(props) {
   const { iconName, ...otherProps } = props
