@@ -1,6 +1,6 @@
 //https://github.com/EnCiv/enciv-home/issues/6
 
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
 import ActionButton from './action-button'
 
@@ -11,26 +11,10 @@ const VideoBlock = ({
   actionText = '',
   action = '',
   videoUrl = '',
-  aspectRatio = 16 / 9, // default aspect ratio
+  aspectRatio = '16 / 9',
   ...otherProps
 }) => {
-  const [height, setHeight] = useState(0)
-  const containerRef = useRef(null)
-  const classes = useStyles({ mode })
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) {
-        const width = containerRef.current.offsetWidth
-        const calculatedHeight = width / aspectRatio
-        setHeight(calculatedHeight)
-      }
-    }
-
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [aspectRatio])
+  const classes = useStyles({ mode, aspectRatio })
 
   const isYouTubeUrl = url => url.includes('youtube.com') || url.includes('youtu.be')
 
@@ -42,7 +26,7 @@ const VideoBlock = ({
   return (
     <div className={`${classes.videoBlock} ${className}`} {...otherProps}>
       {subject && <div className={classes.subject}>{subject}</div>}
-      <div ref={containerRef} className={classes.videoContainer} style={{ height }}>
+      <div className={classes.videoContainer}>
         {isYouTubeUrl(videoUrl) ? (
           <iframe
             className={classes.iframe}
@@ -96,21 +80,20 @@ const useStyles = createUseStyles(theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '2.5rem',
-    overflow: 'hidden',
   },
   iframe: {
-    position: 'absolute',
+    position: 'relative',
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%',
+    aspectRatio: ({ aspectRatio }) => aspectRatio,
   },
   video: {
-    position: 'absolute',
+    position: 'relative',
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%',
+    aspectRatio: ({ aspectRatio }) => aspectRatio,
   },
   action: {
     marginTop: '4rem',
