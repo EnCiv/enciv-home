@@ -27,8 +27,16 @@ const blocks = [
     actionText: 'Join the Community',
   },
   {
-    key: 'TextBlock',
+    key: 'VideoBlock',
     mode: 'light',
+    subject: 'We create online tools that enable constructive cross-partisan democratic processes at scale',
+    actionText: 'Our Work',
+    action: () => alert('Action executed!'),
+    videoUrl: 'https://youtu.be/Tb2u0h_IUGc',
+  },
+  {
+    key: 'TextBlock',
+    mode: 'dark',
     subject: 'When we speak as One',
     description:
       'We’re fed up with (and frankly scared of) the current political system\n\n\
@@ -42,7 +50,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
   },
   {
     key: 'TextBlock',
-    mode: 'dark',
+    mode: 'light',
     subject: 'No Partisanship. No Sponsorship. Just Productive Dialogue.',
     subPoints: [
       'We’ re nonpartisan – we never endorse a particular party, policy, or candidate.',
@@ -54,7 +62,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
   },
   {
     key: 'TextBlock',
-    mode: 'light',
+    mode: 'dark',
     subject: 'Built by the People, for the People',
     description:
       'If you believe that there\'s a better way to make the best national decisions and it starts with productive national dialogue...\n\n\
