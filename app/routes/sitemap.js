@@ -1,3 +1,5 @@
+//https://github.com/EnCiv/enciv-home/issues/23
+
 import { Iota } from 'civil-server'
 import fs from 'fs'
 import { SitemapStream } from 'sitemap'
