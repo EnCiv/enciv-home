@@ -5,6 +5,7 @@ import { theCivilServer, Iota } from 'civil-server'
 import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
+import redirectList from './routes/redirect-list'
 
 Iota.load(civilIotas)
 Iota.load(iotas) // set the initial data for the database
@@ -68,7 +69,11 @@ async function start() {
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))
+
     await server.start()
+
+    redirectList()
+
     logger.info('started')
   } catch (error) {
     logger.error('error on start', error)
