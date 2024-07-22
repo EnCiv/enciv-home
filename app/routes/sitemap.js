@@ -20,11 +20,11 @@ function readJSONFile(filePath) {
 export default async function getSitemap() {
   try {
     const iotas = await Iota.find({ path: { $exists: true } })
-    console.log('Fetched Iotas from database:', iotas)
+    //console.log('Fetched Iotas from database:', iotas)
 
     // Read data from iotas.json file
     const data = readJSONFile('iotas.json')
-    console.log('Data from iotas.json:', data)
+    //console.log('Data from iotas.json:', data)
 
     // Check if data is read correctly
     console.log('Data:', data)
