@@ -4,49 +4,35 @@ import { Iota } from 'civil-server'
 import fs from 'fs'
 import { SitemapStream } from 'sitemap'
 
-// Function to read JSON data from file
-function readJSONFile(filePath) {
-  try {
-    const data = fs.readFileSync(filePath, 'utf8')
-    console.log(`Successfully read data from ${filePath}`)
-    return JSON.parse(data)
-  } catch (err) {
-    console.error('Error reading JSON file:', err)
-    return null
-  }
-}
-
 // Export the getSitemap function as default
 export default async function getSitemap() {
   try {
+    // Fetch Iota objects from the database
     const iotas = await Iota.find({ path: { $exists: true } })
-    //console.log('Fetched Iotas from database:', iotas)
+    console.log('Fetched Iotas from database:', iotas)
 
-    // Read data from iotas.json file
-    const data = readJSONFile('iotas.json')
-    //console.log('Data from iotas.json:', data)
-
-    // Check if data is read correctly
-    console.log('Data:', data)
-
-    // Generate XML sitemap if data is successfully read
-    if (data) {
-      const links = data.map(item => ({
-        url: item.path,
+    // Check if iotas data is successfully retrieved
+    if (iotas.length > 0) {
+      // Map the iotas data to generate the links for the sitemap
+      const links = iotas.map(item => ({
+        url: item.path, // Use path from iotas
         changefreq: 'weekly',
         priority: 0.8,
         lastmod: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
       }))
 
+      // Create a SitemapStream to generate the sitemap XML
       const sitemapStream = new SitemapStream({ hostname: 'https://www.enciv.org' })
 
       // Pipe the sitemap stream to a writable file
       const writeStream = fs.createWriteStream('sitemap.xml')
       sitemapStream.pipe(writeStream)
 
+      // Write the links to the sitemap stream
       links.forEach(link => sitemapStream.write(link))
       sitemapStream.end()
 
+      // Handle the finish and error events for the write stream
       writeStream.on('finish', () => {
         console.log('Sitemap generated successfully and written to sitemap.xml')
       })
@@ -55,7 +41,7 @@ export default async function getSitemap() {
         console.error('Error writing sitemap to file:', err)
       })
     } else {
-      console.log('Failed to generate sitemap due to errors in reading the JSON file.')
+      console.log('No Iotas found with path property to generate sitemap.')
     }
   } catch (err) {
     console.error('Error fetching data from Iota:', err)
