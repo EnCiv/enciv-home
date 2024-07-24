@@ -14,13 +14,14 @@ export default function HaveAQuestion(props) {
   const [askEmail, setAskEmail] = useState(false)
   const [response, setResponse] = useState(null)
   const [responseMessage, setResponseMessage] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(false)
   const [submittedQuestion, setSubmittedQuestion] = useState(true)
+  const [isAlertVisible, setIsAlertVisible] = useState(false)
   const [email, setEmail] = useState('')
   const { className, style, mode = 'dark' } = props
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
-      console.log(e)
       setAskEmail(true)
       e.preventDefault()
     }
@@ -48,13 +49,24 @@ export default function HaveAQuestion(props) {
       if (response && response.error) {
         let { error } = response
         setResponse(error)
+        setErrorMessage(true)
       } else {
         setResponse('Your question was sucessfully submitted!')
       }
+      setIsAlertVisible(true)
 
+      setTimeout(() => {
+        setIsAlertVisible(false)
+        if (errorMessage) {
+          setSubmittedQuestion(true)
+          setResponseMessage(true)
+          setAskEmail(true)
+        }
+      }, 10000)
       setSubmittedQuestion(false)
       setResponseMessage(false)
       setAskEmail(false)
+      setErrorMessage(false)
     })
   }
   return (
@@ -96,15 +108,18 @@ export default function HaveAQuestion(props) {
         className={cx(submittedQuestion && classes.disabled, !submittedQuestion && classes.input, classes[mode])}
         defaultValue={message}
       ></TextareaAutosize>
-      <div
-        className={cx(
-          responseMessage && classes.disabled,
-          submittedQuestion && classes.disabled,
-          !responseMessage && classes.response
-        )}
-      >
-        {response}
-      </div>
+
+      {isAlertVisible ? (
+        <div
+          className={cx(
+            responseMessage && classes.disabled,
+            submittedQuestion && classes.disabled,
+            !responseMessage && classes.response
+          )}
+        >
+          {response}
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -131,7 +146,7 @@ const useStyles = createUseStyles(theme => ({
     fontWeight: 500,
     padding: '0.9375rem 0rem',
     borderTop: 'none',
-    borderBottom: '2px solid',
+    borderBottom: '0.125rem solid',
     borderRadius: '0rem',
     '&::-webkit-input-placeholder': {
       color: 'white',
