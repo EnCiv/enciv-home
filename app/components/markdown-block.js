@@ -58,7 +58,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       '&:after':{
         content: '""',
         display: 'block',
-        width: props.lineWidth === 'partial' ? '15dvw' : '100%',
+        width: props.lineWidth === 'partial' ? '5dvw' : '100%',
         borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
       },
     },
@@ -101,7 +101,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       borderTop: `${theme.colors.encivYellow} 0.125rem solid`,
       left: props.lineWidth === 'partial' ? 0 : 'auto',
       margin: props.lineWidth === 'partial' ? 'auto 0 auto 0' : 'auto',
-      width: props.lineWidth === 'partial' ? '15dvw' : '100%',
+      width: props.lineWidth === 'partial' ? '5dvw' : '100%',
     },
   }),
   dark: {
