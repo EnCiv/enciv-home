@@ -53,13 +53,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'left',
       fontSize: '3rem',
       lineHeight: '3.5rem',
-      paddingBottom: '1.5rem',
       marginBlockEnd: '2rem',
       '&:after':{
         content: '""',
         display: 'block',
         width: props.lineWidth === 'partial' ? '5dvw' : '100%',
         borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
+        paddingBottom: '1.5rem',
       },
     },
     '& h3': {
