@@ -1,4 +1,4 @@
-//https://github.com/EnCiv/enciv-home/issues/7
+//https://github.com/EnCiv/enciv-home/issues/41
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -10,9 +10,10 @@ const TextBlock = props => {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     mode = 'light', // dark, white, see top-nav-bar for differences
     children = '',
+    lineWidth = 'full',
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction()
+  const classes = useStylesFromThemeFunction({ lineWidth })
   return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
@@ -37,7 +38,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     marginRight: 'auto',
     whiteSpace: 'pre-line',
   },
-  mdclasses: {
+  mdclasses: props => ({
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 400,
@@ -52,9 +53,14 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'left',
       fontSize: '3rem',
       lineHeight: '3.5rem',
-      paddingBottom: '1.5rem',
-      borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
       marginBlockEnd: '2rem',
+      '&:after':{
+        content: '""',
+        display: 'block',
+        width: props.lineWidth === 'partial' ? '5dvw' : '100%',
+        borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
+        paddingBottom: '1.5rem',
+      },
     },
     '& h3': {
       textAlign: 'left',
@@ -91,9 +97,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       color: '#413207',
     },
     '& hr': {
+      display: 'block',
       borderTop: `${theme.colors.encivYellow} 0.125rem solid`,
+      left: props.lineWidth === 'partial' ? 0 : 'auto',
+      margin: props.lineWidth === 'partial' ? 'auto 0 auto 0' : 'auto',
+      width: props.lineWidth === 'partial' ? '5dvw' : '100%',
     },
-  },
+  }),
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',

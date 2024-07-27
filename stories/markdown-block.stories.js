@@ -26,6 +26,13 @@ export const Dark = { args: { ...NoMode.args, mode: 'dark' } }
 
 export const Light = { args: { ...NoMode.args, mode: 'light' } }
 
+export const PartialLineWidth = { 
+  args: { 
+    children: `##We’re building tech tools for a better democracy.\n\nAs cultural polarization and sensationalism continue to threaten civic discourse, we see a technological opportunity. Our tools provide an alternative to current discourse and political education processes, fostering productive discourse in a way that will ultimately drive better decision making.\n\nWe currently have two tools available: Undebates and Civil Pursuit. Join our mailing list to stay informed of our new product releases.\n\n###Undebates\n\nMore Informed Decisions at the Ballot Box\n\n---\n\n**Problem**: Whether it's the school board or the student council, it's hard for voters to really understand the candidates’ positions on the questions that matter most. Written information is scattered across the internet and any media coverage is short and sensationalized. And for candidates, it can be almost impossible to get honest media coverage if they’re not running for president.\n\n**Solution:** Undebates is a tool that automatically produces video debates by automatically interviewing candidates through their web browser. Instead of sitting through debates or combing through news articles, hear the candidates’ position on the policies you care about most, straight from them and make your own informed voting decisions.\n\nDemocratically-run organizations and political candidates at any level can create their own Undebates with a few simple steps.\n\n<ActionButton style=\"lineHeight:6rem;\" action=\"https://cc.enciv.org/undebates\">See Undebates in Action</ActionButton>\n\n###Civil Pursuit\n\nLarge Scale Deliberative Discussion\n\n---\n\n**Problem:** How can thousands of people across the city, state, and country discuss tough political issues productively - meaning discussions resulting in solutions they all support - rather than the polarization and gridlock we see from politics today?\n\n**Solution:** We are building tools for productive democratic deliberation online, based on practices that have been proven through in-person dialog and deliberation. With Civil Pursuit, you can browse a series of burning questions in our current political ecosystem, and participate in structured discussions with people across the country that are designed to organize, rather than suppress, differing opinions and delve into what's valuable in each that lead to unifying solutions with national support.\n\n<ActionButton style=\"margin-top:2rem\">Coming Soon</ActionButton>\n\n
+    `,
+    lineWidth: 'partial' }
+}
+
 export const TagsSupported = {
   args: {
     children: `
