@@ -14,7 +14,6 @@ export default function HaveAQuestion(props) {
   const [askEmail, setAskEmail] = useState(false)
   const [response, setResponse] = useState(null)
   const [responseMessage, setResponseMessage] = useState(true)
-  const [errorMessage, setErrorMessage] = useState(false)
   const [submittedQuestion, setSubmittedQuestion] = useState(true)
   const [isAlertVisible, setIsAlertVisible] = useState(false)
   const [email, setEmail] = useState('')
@@ -48,25 +47,22 @@ export default function HaveAQuestion(props) {
     window.socket.emit('send-contact-us', email, fname, lname, subject, message, response => {
       if (response && response.error) {
         let { error } = response
+        setTimeout(() => {
+          setSubmittedQuestion(true)
+          setResponseMessage(true)
+          setAskEmail(true)
+        }, 10000)
         setResponse(error)
-        setErrorMessage(true)
       } else {
         setResponse('Your question was sucessfully submitted!')
       }
       setIsAlertVisible(true)
-
       setTimeout(() => {
         setIsAlertVisible(false)
-        if (errorMessage) {
-          setSubmittedQuestion(true)
-          setResponseMessage(true)
-          setAskEmail(true)
-        }
       }, 10000)
       setSubmittedQuestion(false)
       setResponseMessage(false)
       setAskEmail(false)
-      setErrorMessage(false)
     })
   }
   return (
