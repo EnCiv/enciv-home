@@ -5,7 +5,8 @@ import { theCivilServer, Iota } from 'civil-server'
 import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
-import redirectList from './routes/redirect-list'
+import getSitemap from './tools/getSitemap'
+import sitemapRouter from './routes/sitemap'
 
 Iota.load(civilIotas)
 Iota.load(iotas) // set the initial data for the database
@@ -65,14 +66,16 @@ async function start() {
       'https://www.viterbo.edu'
     )
     server.directives.frameSrc.push('https://cc.enciv.org')
+
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))
 
     await server.start()
+    server.app.use('/', sitemapRouter)
 
-    redirectList()
+    getSitemap()
 
     logger.info('started')
   } catch (error) {
