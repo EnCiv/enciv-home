@@ -1,4 +1,4 @@
-//https://github.com/EnCiv/enciv-home/issues/41
+//https://github.com/EnCiv/enciv-home/issues/43
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -11,6 +11,7 @@ const TextBlock = props => {
     mode = 'light', // dark, white, see top-nav-bar for differences
     children = '',
     lineWidth = 'full',
+    iconName = '',
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction({ lineWidth })
