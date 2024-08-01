@@ -33,6 +33,14 @@ export const PartialLineWidth = {
     lineWidth: 'partial' }
 }
 
+export const HeaderIcon = {
+  args: {
+    children: `###No partisanship.\n\n---\n\nWe're non-partisan\n\nWe never endorse a particular party, policy, or, candidate
+    `,
+    iconName: ''
+  }
+}
+
 export const TagsSupported = {
   args: {
     children: `
