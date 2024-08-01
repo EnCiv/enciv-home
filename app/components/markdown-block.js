@@ -4,6 +4,13 @@ import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
+import * as icons from '../svgr'
+
+function Iconify(props) {
+  const { iconName, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
 
 const TextBlock = props => {
   const {
@@ -11,11 +18,16 @@ const TextBlock = props => {
     mode = 'light', // dark, white, see top-nav-bar for differences
     children = '',
     lineWidth = 'full',
-    iconName = '',
+    iconName = '', //A string name corresponding to an svgr component.
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction({ lineWidth })
-  return (
+  const classes = useStylesFromThemeFunction({ lineWidth, iconName })
+
+  // Checks if the icon exists in svgr that matches iconName
+  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="5rem" height="auto" />
+
+  if (iconName === ''){
+    return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
         <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
@@ -23,7 +35,22 @@ const TextBlock = props => {
         </MarkDown>
       </div>
     </div>
-  )
+    )
+  } else {
+    return(
+      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+        <div className={`${classes.wrapper}`}>
+          {iconComponent}
+          <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
+            {children}
+          </MarkDown>
+        </div>
+      </div>
+      
+      
+    )
+  }
+  
 }
 export default TextBlock
 
@@ -90,6 +117,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontFamily: 'Inter',
       fontSize: '1rem',
       textAlign: 'left',
+    },
+    '& p:first-of-type':{
+      marginTop: props.iconName === '' ? '16px' : '0', //removes margin-top from first paragraph as per figma design in issue 43
     },
     '& a': {
       color: '#B1890F',
