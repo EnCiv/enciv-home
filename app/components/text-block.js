@@ -73,22 +73,15 @@ const TextBlock = props => {
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>{textSection}</div>
-        {imgUrl ? (
-          <div className={cx(classes.textBlockImage, className)}>
-            <img src={imgUrl} width="100%" height="100%" />
-          </div>
-        ) : (
-          ''
-        )}
       </div>
     )
   }
   if (imgUrl) {
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-        <div className={classes.imgWrapper}>{textSection}</div>
+        <div className={classes.wrapper}>{textSection}</div>
         <div className={cx(classes.textBlockImage, className)}>
-          <img src={imgUrl} width="100%" height="100%" />
+          <img className={cx(classes.imageUrl, className)} src={imgUrl} />
         </div>
       </div>
     )
@@ -113,6 +106,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   textBlock: {
     display: 'flex',
     textAlign: 'center',
+    alignItems: 'center',
     paddingTop: '3rem',
     paddingBottom: '4rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
@@ -127,6 +121,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginRight: 0,
       marginTop: '2rem',
     },
+  },
+  imageUrl: {
+    width: '100%',
+    maxHeight: '100%',
+    aspectRatio: '1 auto',
   },
   textSectionNoIcon: {
     width: '100%',
@@ -152,14 +151,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   wrapper: {
-    maxWidth: theme.maxPanelWidth,
-    marginLeft: '1rem',
-    marginRight: 'auto',
-    whiteSpace: 'pre-line',
-    flex: '1',
-    margin: 'auto',
-  },
-  imgWrapper: {
     maxWidth: theme.maxPanelWidth,
     marginLeft: '1rem',
     marginRight: 'auto',
