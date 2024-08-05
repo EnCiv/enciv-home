@@ -26,13 +26,15 @@ const TextBlock = props => {
   // Checks if the icon exists in svgr that matches iconName
   const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="5rem" height="auto" />
 
+  const textSection = (
+    <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>{children}</MarkDown>
+  )
+
   if (iconName === ''){
     return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
-        <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
-          {children}
-        </MarkDown>
+        {textSection}
       </div>
     </div>
     )
@@ -41,16 +43,11 @@ const TextBlock = props => {
       <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
         <div className={`${classes.wrapper}`}>
           {iconComponent}
-          <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
-            {children}
-          </MarkDown>
+          {textSection}
         </div>
       </div>
-      
-      
     )
   }
-  
 }
 export default TextBlock
 
