@@ -5,8 +5,6 @@ import { theCivilServer, Iota } from 'civil-server'
 import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
-import getSitemap from './tools/getSitemap'
-import sitemapRouter from './routes/sitemap'
 
 Iota.load(civilIotas)
 Iota.load(iotas) // set the initial data for the database
@@ -73,9 +71,6 @@ async function start() {
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))
 
     await server.start()
-    server.app.use('/', sitemapRouter)
-
-    getSitemap()
 
     logger.info('started')
   } catch (error) {
