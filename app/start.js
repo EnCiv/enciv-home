@@ -85,7 +85,8 @@ async function start() {
       'https://googleads.g.doubleclick.net',
       'https://www.google.com',
       'https://google.com',
-      'https://*.gstatic.com'
+      'https://*.gstatic.com',
+      'https://www.google.ca'
     )
     server.directives.frameSrc.push(
       'https://www.googletagmanager.com',
