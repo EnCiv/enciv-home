@@ -39,8 +39,9 @@ const blocks = [
     },
 ]
 
-export const FourColumn = {
+export const ColumnsTest = {
     args: {
-        blocks: blocks        
+        blocks: blocks,
+        cols: 4,        
     },
 }
