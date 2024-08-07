@@ -24,7 +24,7 @@ const TextBlock = props => {
   const classes = useStylesFromThemeFunction({ lineWidth, iconName })
 
   // Checks if the icon exists in svgr that matches iconName
-  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="5rem" height="auto" />
+  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="25%" height="auto" />
 
   const textSection = (
     <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>{children}</MarkDown>
