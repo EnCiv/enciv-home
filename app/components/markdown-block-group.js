@@ -41,5 +41,9 @@ const useStylesFromThemeFunction = createUseStyles( theme => ({
         maxWidth: theme.maxPanelWidth,
         textAlign: 'center',
         margin: 'auto',
+        [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+            display: 'flex',
+            flexDirection: 'column',
+        }
     }),
 }))
