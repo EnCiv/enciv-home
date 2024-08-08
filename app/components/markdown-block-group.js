@@ -1,3 +1,4 @@
+//https://github.com/EnCiv/enciv-home/issues/48
 import React from 'react'
 import MarkdownBlock from './markdown-block'
 import { createUseStyles } from 'react-jss'
@@ -21,7 +22,7 @@ const MarkdownBlockGroup = props => {
                 const { key, ...otherProps } = block
                 if (!Blocks[key]) return null
                 const Component = Blocks[key]
-                return <Component key={block + '-' + i} {...otherProps} />
+                return <Component key={block + '-' + i}  {...otherProps} mode={props.mode} />
                 })}
             </div>
         </div>
