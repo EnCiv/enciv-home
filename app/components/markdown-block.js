@@ -24,7 +24,7 @@ const TextBlock = props => {
   const classes = useStylesFromThemeFunction({ lineWidth, iconName })
 
   // Checks if the icon exists in svgr that matches iconName
-  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="25%" height="auto" />
+  const iconComponent = iconName && icons[iconName] && <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
 
   const textSection = (
     <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>{children}</MarkDown>
@@ -116,7 +116,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'left',
     },
     '& p:first-of-type':{
-      marginTop: props.iconName === '' ? '16px' : '0', //removes margin-top from first paragraph as per figma design in issue 43
+      marginTop: props.iconName === '' ? '16px' : '0px', //removes margin-top from first paragraph as per figma design in issue 43
     },
     '& a': {
       color: '#B1890F',
@@ -140,4 +140,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
   },
+  headerIcon: {
+    marginTop: '32px', //adds margin-top to header icon to match spacing between subject and icon.
+  }
 }))
