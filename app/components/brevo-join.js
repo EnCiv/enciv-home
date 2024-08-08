@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import AnimateHeight from 'react-animate-height'
 export function BrevoHelmet() {
@@ -71,6 +71,23 @@ export function BrevoHelmet() {
         `}
       </style>
       <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+      <script>{`
+  // Helper function to delay opening a URL until a gtag event is sent.
+  // Call it in response to an action that should navigate to a URL.
+  function gtagSendEvent1(url) {
+    var callback = function () {
+      if (typeof url === 'string') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion_event_submit_lead_form_1', {
+      'event_callback': callback,
+      'event_timeout': 2000,
+      // <event_parameters>
+    });
+    return false;
+  }
+`}</script>
     </Helmet>
   )
 }
@@ -81,7 +98,23 @@ export function BrevoHelmet() {
 
 const OtherForms = []
 
+function submitGtag(ref, e) {
+  return window.gtag
+    ? (gtag('event', 'conversion_event_submit_lead_form_1', {
+        // gtag needs time to send the event before the browser skips to the next page
+        event_callback: () => {
+          formRef.current && formRef.current.requestSubmit()
+        },
+        event_timeout: 2000, // this is max time to wait for the data to get sent, not time before making the callback
+        actionText,
+        myFormIndex,
+      }),
+      false) // don't propogate the to submit the form on this click
+    : true // just submit the event
+}
+
 export default function BrevoJoin(props) {
+  const formRef = useRef()
   if (typeof window !== 'undefined' && !window.brevoHelmet) {
     window.brevoHelmet = true
     // running on the browser
@@ -100,7 +133,7 @@ export default function BrevoJoin(props) {
     }
     window.AUTOHIDE = Boolean(0)
   }
-  const { active, forceClose=()=>{}, actionText } = props
+  const { active, forceClose = () => {}, actionText } = props
   /**
    * The Brevo post form code usees the #sib-container id to find the input info. Soo there can only be one form
    * on the page at a time.
@@ -241,6 +274,7 @@ export default function BrevoJoin(props) {
                 {'\u2715'}
               </div>
               <form
+                ref={formRef}
                 id="sib-form"
                 method="POST"
                 action="https://223e2260.sibforms.com/serve/MUIFALdemznNVoCK3BT-NdrxYPWyQM6yQyRWjHssUfiPUK6FsNu60B8xYFDwURXRLjnlz0MptNh9FFIw11ITwLmPlGprEKvAnN6hYWeeFhmbWv3yFOyQfTH0iNbD244LbrYykq0WLZwwwIbT1ngVAZ7pLEUqLv5KY9xu-ohtBen-cogPRIc2IPUhaAPhZlOMwuVdtXLzj5HNSTjA"
@@ -490,7 +524,6 @@ export default function BrevoJoin(props) {
                       }}
                       form="sib-form"
                       type="submit"
-                      onClick={() => window.gtag && (gtag('event', 'brevo-join', { actionText, myFormIndex }), true)}
                     >
                       <svg
                         className="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"

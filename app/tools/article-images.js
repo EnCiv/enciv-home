@@ -44,7 +44,7 @@ async function main() {
   }
   //const posts = await apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' })
   const urls = []
-  const articles = await Iota.aggregate([{ $match: { 'webComponent.webComponent': 'Article' } }])
+  const articles = await Iota.aggregate([{ $match: { 'webComponent.webComponent': 'Article' } }]).toArray()
   for (const article of articles) {
     const matched = article?.webComponent?.article?.content?.matchAll(geturl)
     matched && [...matched].forEach(grp => urls.push(grp[1]))

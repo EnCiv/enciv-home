@@ -1,3 +1,4 @@
+//https://github.com/EnCiv/enciv-home/issues/20
 import React from 'react'
 
 import FrequentlyAskedQuestions from '../app/components/frequently-asked-questions'
@@ -25,10 +26,29 @@ const faqs = [
   },
 ]
 
+export const FrequentlyAskedQuestionsTest = {
+  args: { faqs },
+  decorators: [
+    Story => {
+      // simulate socket api
+      if (!window.socket) {
+        window.socket = {
+          emit: (handle, email, fname, lname, subject, message, cb) => {
+            if (handle !== 'send-contact-us') console.error('emit expected send-contact-us, got:', handle)
+            if (email === 'success@email.com') setTimeout(() => cb({ error: '' }), 1000)
+            else setTimeout(() => cb({ error: 'somethings wrong' }), 1000)
+          },
+        }
+        return <Story />
+      }
+    },
+  ],
+}
+
 const Template = args => <FrequentlyAskedQuestions {...args} />
 
-export const FrequentlyAskedQuestionsTest = Template.bind({})
-FrequentlyAskedQuestionsTest.args = { faqs }
+// export const FrequentlyAskedQuestionsTest = Template.bind({})
+// FrequentlyAskedQuestionsTest.args = { faqs }
 
 export const Empty = Template.bind({})
 Empty.args = {}

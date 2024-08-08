@@ -19,7 +19,7 @@ async function main() {
     // any models that need to createIndexes will push their init function
     MongoModels.toInit.shift()()
   }
-  const iotas = await Iota.aggregate({ $match: true })
+  const iotas = await Iota.aggregate({ $match: true }).toArray()
   console.info('length', iotas.length)
 
   var output = JSON.stringify(iotas)
