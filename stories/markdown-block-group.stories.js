@@ -42,6 +42,7 @@ const blocks = [
 export const ColumnsTest = {
     args: {
         blocks: blocks,
-        cols: 4,        
+        cols: 4,
+        mode: 'light',        
     },
 }
