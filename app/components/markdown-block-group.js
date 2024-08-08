@@ -13,16 +13,33 @@ const MarkdownBlockGroup = props => {
         cols = 4,
         mode = 'light',
     } = props
-    const classes = useStylesFromThemeFunction({})
+    const classes = useStylesFromThemeFunction({ cols, mode })
     return (
-        <h1>MarkdownBlockGroup</h1>
+        <div className={classes.container}>
+            <div className={`${classes.markdownBlockGroup} ${classes[mode]}`}>
+                {blocks.map((block, i) => {
+                const { key, ...otherProps } = block
+                if (!Blocks[key]) return null
+                const Component = Blocks[key]
+                return <Component key={block + '-' + i} {...otherProps} />
+                })}
+            </div>
+        </div>
     )
 }
 
 export default MarkdownBlockGroup
 
 const useStylesFromThemeFunction = createUseStyles( theme => ({
-    markdownBlockGroup: {
+    container: props => ({
+        backgroundColor: props.mode === 'light' ? '#F2F2F2' : theme.colors.darkModeGray,
+        color: props.mode === 'light' ? theme.colors.darkModeGray : 'white',
+    }),    
+    markdownBlockGroup: props => ({
+        display: 'grid',
+        gridTemplateColumns: `repeat(${props.cols}, auto)`,
+        maxWidth: theme.maxPanelWidth,
         textAlign: 'center',
-    },
+        margin: 'auto',
+    }),
 }))
