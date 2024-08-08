@@ -43,6 +43,7 @@ export const ColumnsTest = {
     args: {
         blocks: blocks,
         cols: 4,
-        mode: 'light',        
+        mode: 'light',
+        title: '',        
     },
 }
