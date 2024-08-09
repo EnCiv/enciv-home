@@ -15,18 +15,35 @@ const MarkdownBlockGroup = props => {
         mode = 'light',
     } = props
     const classes = useStylesFromThemeFunction({ cols, mode })
-    return (
-        <div className={classes.container}>
-            <div className={`${classes.markdownBlockGroup} ${classes[mode]}`}>
-                {blocks.map((block, i) => {
-                const { key, ...otherProps } = block
-                if (!Blocks[key]) return null
-                const Component = Blocks[key]
-                return <Component key={block + '-' + i}  {...otherProps} mode={props.mode} />
-                })}
+
+    // contains blocks component generation to prevent code reuse within component.
+    const blocksGridDiv = <div className={classes.BlockGridLayout}>
+                        {blocks.map((block, i) => {
+                        const { key, ...otherProps } = block
+                        if (!Blocks[key]) return null
+                        const Component = Blocks[key]
+                        return <Component key={block + '-' + i}  {...otherProps} mode={props.mode} />
+                        })}
+                    </div>
+    
+    if (title === ''){
+        return (
+            <div className={classes.container}>
+                <div className={`${classes.markdownBlockGroup} ${classes[mode]}`}>
+                    {blocksGridDiv}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className={classes.container}>
+                <div className={`${classes.markdownBlockGroup} ${classes[mode]}`}>
+                    <h3>{props.title}</h3>
+                    {blocksGridDiv}
+                </div>
+            </div>
+        )
+    } 
 }
 
 export default MarkdownBlockGroup
@@ -36,15 +53,30 @@ const useStylesFromThemeFunction = createUseStyles( theme => ({
         backgroundColor: props.mode === 'light' ? '#F2F2F2' : theme.colors.darkModeGray,
         color: props.mode === 'light' ? theme.colors.darkModeGray : 'white',
     }),    
-    markdownBlockGroup: props => ({
+    
+    BlockGridLayout: props => ({
         display: 'grid',
         gridTemplateColumns: `repeat(${props.cols}, auto)`,
-        maxWidth: theme.maxPanelWidth,
         textAlign: 'center',
         margin: 'auto',
         [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
             display: 'flex',
             flexDirection: 'column',
-        }
+        },
+    }),
+    markdownBlockGroup: props => ({
+        maxWidth: theme.maxPanelWidth,
+        margin: 'auto', 
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        fontFamily: 'Montserrat',
+        '& > h3': {
+            marginBottom: '0',
+            fontSize: '2rem',
+            fontWeight: 600,
+            marginBlockEnd: 0,
+            marginLeft: '2rem',
+        },
     }),
 }))
