@@ -105,6 +105,35 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     title: '',
   },
   {
+    key: 'MarkdownBlockGroup',
+    mode: 'dark',
+    cols: 4,
+    title: 'When we speak as One',
+    
+    blocks: [
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nWe're fed up with (and frankly scared of) the current political system`
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nSick of partisan gridlock that stops real policy and productive discussion`
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nDone with the media that only presents the most viral candidate moments and polarized takes`
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nThere is currently no cross-partisan discourse to address the biggest problems facing our country`
+      },
+    ],
+  }, 
+  {
     key: 'Faq',
     faqs: [
       {
