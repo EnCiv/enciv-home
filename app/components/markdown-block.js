@@ -1,9 +1,18 @@
 //https://github.com/EnCiv/enciv-home/issues/41
+//https://github.com/EnCiv/enciv-home/issues/42
+//https://github.com/EnCiv/enciv-home/issues/43
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
+import * as icons from '../svgr'
+
+function Iconify(props) {
+  const { iconName, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
 
 const TextBlock = props => {
   const {
@@ -11,18 +20,36 @@ const TextBlock = props => {
     mode = 'light', // dark, white, see top-nav-bar for differences
     children = '',
     lineWidth = 'full',
+    iconName = '', //A string name corresponding to an svgr component.
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction({ lineWidth })
-  return (
+  const classes = useStylesFromThemeFunction({ lineWidth, iconName })
+
+  // Checks if the icon exists in svgr that matches iconName
+  const iconComponent = iconName && icons[iconName] && <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
+
+  const textSection = (
+    <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>{children}</MarkDown>
+  )
+
+  if (iconName === ''){
+    return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
-        <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
-          {children}
-        </MarkDown>
+        {textSection}
       </div>
     </div>
-  )
+    )
+  } else {
+    return(
+      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+        <div className={`${classes.wrapper}`}>
+          {iconComponent}
+          {textSection}
+        </div>
+      </div>
+    )
+  }
 }
 export default TextBlock
 
@@ -90,6 +117,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '1rem',
       textAlign: 'left',
     },
+    '& p:first-of-type':{
+      marginTop: props.iconName === '' ? '1rem' : '0px', //removes margin-top from first paragraph as per figma design in issue 43
+    },
     '& a': {
       color: '#B1890F',
     },
@@ -112,4 +142,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
   },
+  headerIcon: {
+    marginTop: '2rem', //adds margin-top to header icon to match spacing between subject and icon.
+  }
 }))
