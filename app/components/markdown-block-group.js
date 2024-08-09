@@ -56,7 +56,7 @@ const useStylesFromThemeFunction = createUseStyles( theme => ({
     
     BlockGridLayout: props => ({
         display: 'grid',
-        gridTemplateColumns: `repeat(${props.cols}, auto)`,
+        gridTemplateColumns: `repeat(${props.cols}, 1fr)`,
         textAlign: 'center',
         margin: 'auto',
         [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {

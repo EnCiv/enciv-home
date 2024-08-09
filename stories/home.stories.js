@@ -80,6 +80,31 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     side: 'right',
   },
   {
+    key: 'MarkdownBlockGroup',
+    mode: 'light',
+    cols: 3,
+    blocks: [
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        children: `###No partisanship.\n\n---\n\nWe're non-partisan\n\nWe never endorse a particular party, policy, or, candidate
+        `,
+        lineWidth: 'full',
+      },
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        children: `###No sponsorship.\n\n---\n\nWe're cross-partisan\n\nWe actively seek out and give voice to multiple perspectives`
+      },
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        children: `###Productive dialogue.\n\n---\n\nWe're community-led and community built\n\nWe never endorse a particular party, policy, or candidate`
+      },
+    ],
+    title: '',
+  },
+  {
     key: 'Faq',
     faqs: [
       {

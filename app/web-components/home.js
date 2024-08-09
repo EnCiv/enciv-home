@@ -6,6 +6,7 @@ import BrevoCommunity from '../components/brevo-community'
 import { BrevoHelmet } from '../components/brevo-join'
 import MarkdownBlock from '../components/markdown-block'
 import VideoBlock from '../components/video-block'
+import MarkdownBlockGroup from '../components/markdown-block-group'
 
 const Blocks = {
   HeroBlock: HeroBlock,
@@ -13,6 +14,7 @@ const Blocks = {
   VideoBlock: VideoBlock,
   MarkdownBlock: MarkdownBlock,
   Faq: Faq,
+  MarkdownBlockGroup: MarkdownBlockGroup,
 }
 export default function Home(props) {
   const { subject, description, location, blocks } = props
