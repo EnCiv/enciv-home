@@ -87,6 +87,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
       {
         key: 'MarkdownBlock',
         mode: 'light',
+        iconName: 'NoPartisanship',
         children: `###No partisanship.\n\n---\n\nWe're non-partisan\n\nWe never endorse a particular party, policy, or, candidate
         `,
         lineWidth: 'full',
@@ -94,11 +95,13 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
       {
         key: 'MarkdownBlock',
         mode: 'light',
+        iconName: 'NoSponsorship',
         children: `###No sponsorship.\n\n---\n\nWe're cross-partisan\n\nWe actively seek out and give voice to multiple perspectives`
       },
       {
         key: 'MarkdownBlock',
         mode: 'light',
+        iconName: 'ProductiveDialogueHead',
         children: `###Productive dialogue.\n\n---\n\nWe're community-led and community built\n\nWe never endorse a particular party, policy, or candidate`
       },
     ],
@@ -109,7 +112,6 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     mode: 'dark',
     cols: 4,
     title: 'When we speak as One',
-    
     blocks: [
       {
         key: 'MarkdownBlock',
