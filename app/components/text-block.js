@@ -118,6 +118,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'left',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       marginTop: '2rem',
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
       marginRight: 0,
     },
   },
