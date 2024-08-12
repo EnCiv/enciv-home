@@ -115,13 +115,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   textBlockImage: {
     flex: '1',
-    marginRight: '2rem',
     textAlign: 'left',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       marginTop: '2rem',
       marginRight: 0,
-      paddingLeft: '2rem',
-      paddingRight: '2rem',
     },
   },
   imageUrl: {
