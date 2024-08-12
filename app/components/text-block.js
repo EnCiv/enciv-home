@@ -1,9 +1,17 @@
-//https://github.com/EnCiv/enciv-home/issues/7
+// https://github.com/EnCiv/enciv-home/issues/7
+// https://github.com/EnCiv/enciv-home/issues/34
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
+import * as icons from '../svgr'
+
+function Iconify(props) {
+  const { iconName, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
 
 const TextBlock = props => {
   const {
@@ -14,29 +22,65 @@ const TextBlock = props => {
     subPoints = [],
     actionText = '',
     action, // text for an anchor or a function to put in onClick of a button
+    iconName, // A string name corresponding to an svgr component
+    side = 'left', // The side to show the icon, if provided.
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction()
-  return (
-    <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-      <div className={classes.wrapper}>
-        {subject && <h2 className={classes.subject}>{subject}</h2>}
-        {description && <MarkDown className={classes.description}>{description}</MarkDown>}
-        {subPoints && (
-          <ul className={classes.subPoints}>
-            {subPoints.map(text => (
-              <li>{text}</li>
-            ))}
-          </ul>
-        )}
-        {actionText && (
-          <div className={classes.actionButton}>
-            <ActionButton action={action}>{actionText}</ActionButton>
-          </div>
-        )}
-      </div>
+
+  // Verify a valid side has been provided
+  if (side != 'left' && side != 'right') {
+    console.error(`${side} is not a valid argument. Must be either 'left' or 'right'.`)
+  }
+
+  // Section for grouping text-based elements
+  const textSection = (
+    // Shrink width to 75% to fit the icon if provided, else leave as-is
+    <div className={iconName ? classes.textSectionWithIcon : classes.textSectionNoIcon}>
+      {subject && <h2 className={classes.subject}>{subject}</h2>}
+      {description && <MarkDown className={classes.description}>{description}</MarkDown>}
+      {subPoints && (
+        <ul className={classes.subPoints}>
+          {subPoints.map(text => (
+            <li>{text}</li>
+          ))}
+        </ul>
+      )}
+      {actionText && (
+        <div className={classes.actionButton}>
+          <ActionButton action={action}>{actionText}</ActionButton>
+        </div>
+      )}
     </div>
   )
+
+  // Check if the icon with name exists in svgr
+  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="10rem" height="auto" />
+
+  // Section to contain the icon
+  const iconSection = <div className={classes.iconSection}>{iconComponent}</div>
+
+  // Add the icon if it's provided, or display the textblock as-is if not.
+  if (!iconName) {
+    return (
+      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
+        <div className={classes.wrapper}>{textSection}</div>
+      </div>
+    )
+  } else {
+    return (
+      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
+        <div className={classes.wrapper}>
+          {/* Because we checked if side is either 'left' or 'right' already, we can infer 
+           it's right if it's not left. */}
+          <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+            {iconSection}
+            {textSection}
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 export default TextBlock
 
@@ -46,11 +90,45 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     paddingTop: '3rem',
     paddingBottom: '4rem',
   },
+  textSectionNoIcon: {
+    width: '100%',
+  },
+  textSectionWithIcon: {
+    width: '75%',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      width: '100%',
+    },
+  },
+  iconSection: {
+    width: '25%',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      width: '100%',
+      marginTop: '2.25rem',
+    },
+  },
   wrapper: {
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
+  },
+  innerWrapperIconLeft: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column-reverse',
+    },
+  },
+  innerWrapperIconRight: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column-reverse',
+    },
   },
   subject: {
     fontSize: '3rem',

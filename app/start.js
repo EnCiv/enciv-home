@@ -6,8 +6,8 @@ import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
 
-Iota.load(civilIotas)
-Iota.load(iotas) // set the initial data for the database
+Iota.preload(civilIotas)
+Iota.preload(iotas) // set the initial data for the database
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function start() {
   try {
@@ -69,10 +69,12 @@ async function start() {
     server.directives.scriptSrc.push(
       'https://*.googletagmanager.com',
       'https://www.googleadservices.com',
-      'https://www.google.com',
+      'https://*.google.com',
+      'https://google.com',
       'https://googleads.g.doubleclick.net'
     )
     server.directives.connectSrc.push(
+      `https://google.com`,
       'https://*.google-analytics.com',
       'https://*.analytics.google.com',
       'https://*.googletagmanager.com'
@@ -82,16 +84,23 @@ async function start() {
       'https://*.googletagmanager.com',
       'https://googleads.g.doubleclick.net',
       'https://www.google.com',
-      'https://google.com'
+      'https://google.com',
+      'https://*.gstatic.com',
+      'https://www.google.ca'
     )
     server.directives.frameSrc.push(
       'https://www.googletagmanager.com',
       'https://bid.g.doubleclick.net',
       'https://td.doubleclick.net'
     ) // needed for google ads
-    server.directives.scriptSrcElem.push('https://*.doubleclick.net/') // needed for google ads - found experimentally
-    server.directives.connectSrc.push('https://analytics.google.com', 'https://stats.g.doubleclick.net') // found experimentally
-    server.directives.styleSrc.push('https://*.googletagmanager.com/') // found experimentally
+    server.directives.scriptSrcElem.push('https://*.doubleclick.net/', 'https://www.googleadservices.com') // needed for google ads - found experimentally
+    server.directives.connectSrc.push(
+      'https://google.com',
+      'https://*.google.com',
+      'https://stats.g.doubleclick.net',
+      'https://www.googleadservices.com'
+    )
+    server.directives.styleSrc.push('https://*.googletagmanager.com/')
 
     server.directives.frameSrc.push('https://cc.enciv.org')
     await server.earlyStart() // connect to the database, and such

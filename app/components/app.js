@@ -112,6 +112,27 @@ function App(props) {
               />
               <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
               <link href="./assets/css/cookieconsent.css" rel="stylesheet" />
+              <script>
+                {`
+                  onsecuritypolicyviolation = (event) => {
+                    logger.error("CSP Event:",location.href,event.blockedURI,event.violatedDirective)}
+                  if(window.gtag && ${!!process.env.GOOGLE_ADS}) gtag('config', "${process.env.GOOGLE_ADS}")
+                  // Helper function to delay opening a URL until a gtag event is sent.
+                  // Call it in response to an action that should navigate to a URL.
+                  function gtagSendEvent(url) {
+                    var callback = function () {
+                      if (typeof url === 'string') {
+                        window.location = url;
+                      }
+                    };
+                    gtag('event', 'conversion_event_submit_lead_form', {
+                      'event_callback': callback,
+                      'event_timeout': 2000,
+                      // <event_parameters>
+                    });
+                    return false;
+                  }`}
+              </script>
             </Helmet>
             <TopNavWrap />
             <WebComponents key="web-component" webComponent={iota.webComponent} {...newProps} />

@@ -71,6 +71,23 @@ export function BrevoHelmet() {
         `}
       </style>
       <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+      <script>{`
+  // Helper function to delay opening a URL until a gtag event is sent.
+  // Call it in response to an action that should navigate to a URL.
+  function gtagSendEvent1(url) {
+    var callback = function () {
+      if (typeof url === 'string') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion_event_submit_lead_form_1', {
+      'event_callback': callback,
+      'event_timeout': 2000,
+      // <event_parameters>
+    });
+    return false;
+  }
+`}</script>
     </Helmet>
   )
 }
@@ -80,6 +97,21 @@ export function BrevoHelmet() {
 // it calls the force close function of all the other instances.
 
 const OtherForms = []
+
+function submitGtag(ref, e) {
+  return window.gtag
+    ? (gtag('event', 'conversion_event_submit_lead_form_1', {
+        // gtag needs time to send the event before the browser skips to the next page
+        event_callback: () => {
+          formRef.current && formRef.current.requestSubmit()
+        },
+        event_timeout: 2000, // this is max time to wait for the data to get sent, not time before making the callback
+        actionText,
+        myFormIndex,
+      }),
+      false) // don't propogate the to submit the form on this click
+    : true // just submit the event
+}
 
 export default function BrevoJoin(props) {
   const formRef = useRef()
@@ -492,21 +524,6 @@ export default function BrevoJoin(props) {
                       }}
                       form="sib-form"
                       type="submit"
-                      onClick={
-                        () =>
-                          window.gtag
-                            ? (gtag('event', 'conversion_event_submit_lead_form', {
-                                // gtag needs time to send the event before the browser skips to the next page
-                                event_callback: () => {
-                                  formRef.current && formRef.current.requestSubmit()
-                                },
-                                event_timeout: 2000, // 2000 recommended by google - but it's too long!
-                                actionText,
-                                myFormIndex,
-                              }),
-                              false) // don't propogate the to submit the form on this click
-                            : true // just submit the event
-                      }
                     >
                       <svg
                         className="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
