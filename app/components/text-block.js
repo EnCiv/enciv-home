@@ -134,7 +134,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   textSectionWithImage: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'baseline',
     textAlign: 'left',
     width: '90%',
   },
@@ -184,17 +183,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontWeight: 700,
     lineHeight: '3.6875rem',
     marginTop: 0,
-  },
-  subjectNoImage: {
-    textAlign: 'center',
-    marginLeft: '2rem',
-    marginRight: '2rem',
-  },
-  subjectWithImage: {
-    textAlign: 'left',
-    marginLeft: 0,
-    marginRight: 0,
-    width: '90%',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      textAlign: 'center',
+    },
   },
   description: {
     fontFamily: 'Inter',
@@ -205,7 +196,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     leadingTrim: 'both',
     textEdge: 'cap',
     textAlign: 'center',
-    marginLeft: '2rem',
     marginRight: '2rem',
     textAlign: 'left',
   },
@@ -228,6 +218,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   actionButton: {
     marginTop: '4rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      marginTop: 0,
+      textAlign: 'center',
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
