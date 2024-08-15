@@ -38,7 +38,7 @@
   "author": "David Fridley",
   "license": "SEE LICENSE IN LICENSE.txt",
   "optionalDependencies": {
-    "@shelf/jest-mongodb": "^2.2.0",
+    "@shelf/jest-mongodb": "^4.3.2",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
@@ -101,6 +101,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.3.1",
     "@ckeditor/ckeditor5-react": "^6.3.0",
+    "@enciv/mongo-collections": "^0.0.3",
     "@react-hook/media-query": "^1.1.1",
     "@wordpress/api-fetch": "^6.52.0",
     "babel-plugin-cjs-esm-interop": "^4.0.0",
@@ -112,7 +113,6 @@
     "react-animate-height": "^3.2.3",
     "react-html-parser": "^2.0.2",
     "react-textarea-autosize": "^8.5.3",
-    "sitemap": "^8.0.0",
-    "xmlbuilder2": "^3.1.1"
+    "sitemap": "^8.0.0"
   }
 }
