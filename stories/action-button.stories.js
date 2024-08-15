@@ -41,3 +41,12 @@ export const Function = {
     },
   },
 }
+
+export const TransparentMode = {
+  args: { children: 'click to EnCiv.org', action: 'https://enciv.org', mode: 'transparent' },
+  parameters: {
+    backgrounds: {
+      default: 'dark'
+    }
+  }
+}
