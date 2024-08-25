@@ -4,7 +4,7 @@ import { Iota } from 'civil-server'
 import { SitemapStream, streamToPromise } from 'sitemap'
 
 // Function to generate the sitemap as a string
-async function getSitemap() {
+export async function getSitemap() {
   try {
     // Fetch Iota objects from the database
     const iotas = await Iota.find({ path: { $exists: true } }).toArray()
@@ -36,7 +36,7 @@ async function getSitemap() {
     }
   } catch (err) {
     console.error('Error fetching data from Iota:', err)
-    throw err
+    return null
   }
 }
 

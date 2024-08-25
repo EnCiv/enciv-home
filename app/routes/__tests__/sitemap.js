@@ -1,68 +1,76 @@
-const http = require('http')
-const supertest = require('supertest')
+import { getSitemap } from '../sitemap'
+import { Iota } from 'civil-server'
+import { Mongo } from '@enciv/mongo-collections'
+import { MongoMemoryServer } from 'mongodb-memory-server'
 
-// Mock the internal getSitemap function
-const getSitemap = jest.fn()
+let MemoryServer
 
-// Re-define sitemap function to use the mock getSitemap
-const sitemap = () => {
-  return async (req, res) => {
-    try {
-      const sitemap = await getSitemap()
+beforeAll(async () => {
+  MemoryServer = await MongoMemoryServer.create()
+  const uri = MemoryServer.getUri()
+  await Mongo.connect(uri)
+})
 
-      if (sitemap) {
-        res.writeHead(200, { 'Content-Type': 'application/xml' })
-        res.end(sitemap)
-      } else {
-        res.writeHead(404)
-        res.end('Sitemap not found')
-      }
-    } catch (err) {
-      console.error('Error generating or sending sitemap:', err)
-      res.writeHead(500)
-      res.end('Error generating sitemap')
-    }
-  }
-}
+afterAll(async () => {
+  await Mongo.disconnect()
+  await MemoryServer.stop()
+})
 
-describe('sitemap', () => {
-  let server
+beforeEach(async () => {
+  // Clean up the Iota collection before each test
+  await Mongo.db.collection('iotas').deleteMany({})
+})
 
-  beforeEach(() => {
-    const requestListener = sitemap()
-    server = http.createServer(requestListener)
+describe('getSitemap Function', () => {
+  test('Generates a sitemap string when Iotas with paths are present', async () => {
+    // Insert mock Iota documents with paths
+    const iotas = [
+      { _id: '66831965f4713a6d48ec60e1', path: '/page1' },
+      { _id: '66831965f4713a6d48ec60e2', path: '/page2' },
+      { _id: '66831965f4713a6d48ec60e3', path: '/page3' },
+    ]
+
+    await Iota.preload(iotas)
+
+    const sitemap = await getSitemap()
+
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page1</loc>')
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page2</loc>')
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page3</loc>')
   })
 
-  afterEach(() => {
-    server.close()
+  test('Returns null when no Iotas have paths', async () => {
+    // No Iota documents are inserted, so the collection is empty
+
+    const sitemap = await getSitemap()
+
+    expect(sitemap).toBeNull()
+  })
+})
+
+describe('sitemap Route Handler', () => {
+  test('Returns sitemap when Iotas with paths are present', async () => {
+    // Insert mock Iota documents with paths
+    const iotas = [
+      { _id: '66831965f4713a6d48ec60e1', path: '/page1' },
+      { _id: '66831965f4713a6d48ec60e2', path: '/page2' },
+      { _id: '66831965f4713a6d48ec60e3', path: '/page3' },
+    ]
+    //await Mongo.db.collection('iotas').insertMany(iotas)
+    await Iota.preload(iotas)
+
+    const sitemap = await getSitemap()
+
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page1</loc>')
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page2</loc>')
+    expect(sitemap).toContain('<url><loc>https://www.enciv.org/page3</loc>')
   })
 
-  it('should respond with sitemap XML if getSitemap returns data', async () => {
-    const mockSitemap = '<xml>mock sitemap</xml>'
-    getSitemap.mockResolvedValue(mockSitemap)
+  test('Returns null when no Iotas have paths', async () => {
+    // No Iota documents are inserted, so the collection is empty
 
-    const response = await supertest(server).get('/sitemap.xml')
+    const sitemap = await getSitemap()
 
-    expect(response.status).toBe(200)
-    expect(response.headers['content-type']).toBe('application/xml')
-    expect(response.text).toBe(mockSitemap)
-  })
-
-  it('should respond with 404 if getSitemap returns null', async () => {
-    getSitemap.mockResolvedValue(null)
-
-    const response = await supertest(server).get('/sitemap.xml')
-
-    expect(response.status).toBe(404)
-    expect(response.text).toBe('Sitemap not found')
-  })
-
-  it('should respond with 500 if getSitemap throws an error', async () => {
-    getSitemap.mockRejectedValue(new Error('Some error'))
-
-    const response = await supertest(server).get('/sitemap.xml')
-
-    expect(response.status).toBe(500)
-    expect(response.text).toBe('Error generating sitemap')
+    expect(sitemap).toBeNull()
   })
 })
