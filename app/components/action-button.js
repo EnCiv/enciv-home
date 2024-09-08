@@ -1,21 +1,33 @@
 //https://github.com/EnCiv/enciv-home/issues/8
 //https://github.com/EnCiv/enciv-home/issues/56
+//https://github.com/EnCiv/enciv-home/issues/55
+
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import { Components } from 'civil-pursuit'
 import BrevoJoin from './brevo-join'
+import * as icons from '../svgr'
+
+function Iconify(props) {
+  const { iconName, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
 const { Button } = Components
 const ActionButton = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
+    actionText = '',
     mode = 'default', // transparent mode changes btn background to transparent
+    iconName = '',
+    side = 'right',
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
-  const classes = useStylesFromThemeFunction({mode})
-  if (action) {
+  const classes = useStylesFromThemeFunction({ mode })
+  if (action && !iconName) {
     if (typeof action === 'string')
       return (
         <a
@@ -27,6 +39,17 @@ const ActionButton = props => {
       )
     if (typeof action === 'function')
       return <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}></Button>
+  }
+
+  if (iconName) {
+    return (
+      <>
+        <Button className={cx(classes.actionButton, classes.actionButtonWithIcon, className)} {...otherProps}>
+          <div className={cx(classes.buttonTextWithIcon, className)}>{actionText}</div>
+          <Iconify iconName={iconName} width="1rem" height="1rem" />
+        </Button>
+      </>
+    )
   } else
     return (
       <>
@@ -61,4 +84,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       outline: theme.focusOutline,
     },
   }),
+  actionButtonWithIcon: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  buttonTextWithIcon: {
+    marginRight: '.5rem',
+  },
 }))
