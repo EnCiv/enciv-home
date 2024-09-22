@@ -81,9 +81,11 @@ const TextBlock = props => {
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>
           <div className={classes.innerWrapperImage}>
-            {textSection}
-            <div className={cx(classes.textBlockImage, className)}>
-              <img className={cx(classes.imageUrl, className)} src={imgUrl} />
+            <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+              {textSection}
+              <div className={cx(classes.textBlockImage, className)}>
+                <img className={cx(classes.imageUrl, className)} src={imgUrl} />
+              </div>
             </div>
           </div>
         </div>
@@ -120,6 +122,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   textBlockImage: {
     flex: '1',
     textAlign: 'left',
+    paddingRight: '2rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       marginTop: '2rem',
       paddingLeft: '2rem',

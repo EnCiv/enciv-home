@@ -83,6 +83,7 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     key: 'TextBlock',
     mode: 'light',
     subject: 'Built by the People, for the People',
+    side: 'left',
     description:
       'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
     actionText: 'Join the Community',
