@@ -114,7 +114,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     top: '50%',
     transform: 'translateY(-50%)',
     textAlign: props.alignContent,
-    width: props.alignContent === 'center' ? '100%' : 'calc(100% - 4rem)', // 减去左右内边距
+    width: props.alignContent === 'center' ? '100%' : 'calc(100% - 4rem)', // subtract left and right padding
     ...(props.alignContent !== 'center' && {
       maxWidth: theme.maxPanelWidth,
       paddingLeft: '2rem',
