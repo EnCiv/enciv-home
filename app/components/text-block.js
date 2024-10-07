@@ -1,5 +1,6 @@
 // https://github.com/EnCiv/enciv-home/issues/7
 // https://github.com/EnCiv/enciv-home/issues/34
+// https://github.com/EnCiv/enciv-home/issues/44
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -24,6 +25,7 @@ const TextBlock = props => {
     action, // text for an anchor or a function to put in onClick of a button
     iconName, // A string name corresponding to an svgr component
     side = 'left', // The side to show the icon, if provided.
+    imgUrl = '',
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction()
@@ -32,15 +34,21 @@ const TextBlock = props => {
   if (side != 'left' && side != 'right') {
     console.error(`${side} is not a valid argument. Must be either 'left' or 'right'.`)
   }
-
   // Section for grouping text-based elements
   const textSection = (
     // Shrink width to 75% to fit the icon if provided, else leave as-is
-    <div className={iconName ? classes.textSectionWithIcon : classes.textSectionNoIcon}>
-      {subject && <h2 className={classes.subject}>{subject}</h2>}
+    <div
+      className={
+        (iconName ? classes.textSectionWithIcon : classes.textSectionNoIcon,
+        imgUrl ? classes.textSectionWithImage : classes.textSectionNoIcon)
+      }
+    >
+      {subject && (
+        <h2 className={(imgUrl ? classes.subjectWithImage : classes.subjectNoImage, classes.subject)}>{subject}</h2>
+      )}
       {description && <MarkDown className={classes.description}>{description}</MarkDown>}
       {subPoints && (
-        <ul className={classes.subPoints}>
+        <ul className={imgUrl ? classes.subPointsWithImage : classes.subPoints}>
           {subPoints.map(text => (
             <li>{text}</li>
           ))}
@@ -61,10 +69,26 @@ const TextBlock = props => {
   const iconSection = <div className={classes.iconSection}>{iconComponent}</div>
 
   // Add the icon if it's provided, or display the textblock as-is if not.
-  if (!iconName) {
+  if (!iconName && !imgUrl) {
     return (
       <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapper}>{textSection}</div>
+      </div>
+    )
+  }
+  if (imgUrl) {
+    return (
+      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
+        <div className={classes.wrapper}>
+          <div className={classes.innerWrapperImage}>
+            <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+              {textSection}
+              <div className={cx(classes.textBlockImage, className)}>
+                <img className={cx(classes.imageUrl, className)} src={imgUrl} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   } else {
@@ -86,12 +110,44 @@ export default TextBlock
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   textBlock: {
+    display: 'flex',
     textAlign: 'center',
+    alignItems: 'center',
     paddingTop: '3rem',
     paddingBottom: '4rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
+    },
+  },
+  textBlockImage: {
+    flex: '1',
+    textAlign: 'left',
+    paddingRight: '2rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      marginTop: '2rem',
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
+      marginRight: 0,
+    },
+  },
+  innerWrapperImage: {
+    display: 'flex',
+    alignItems: 'center',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
+    },
+  },
+  imageUrl: {
+    width: '100%',
+    maxHeight: '100%',
+    aspectRatio: '1 auto',
   },
   textSectionNoIcon: {
     width: '100%',
+  },
+  textSectionWithImage: {
+    textAlign: 'left',
+    flex: 1,
   },
   textSectionWithIcon: {
     width: '75%',
@@ -108,9 +164,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   wrapper: {
     maxWidth: theme.maxPanelWidth,
-    marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
+    flex: '1',
+    margin: 'auto',
   },
   innerWrapperIconLeft: {
     display: 'flex',
@@ -136,10 +193,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontStyle: 'normal',
     fontWeight: 700,
     lineHeight: '3.6875rem',
-    textAlign: 'center',
-    marginLeft: '2rem',
-    marginRight: '2rem',
     marginTop: 0,
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      textAlign: 'center',
+    },
   },
   description: {
     fontFamily: 'Inter',
@@ -150,7 +207,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     leadingTrim: 'both',
     textEdge: 'cap',
     textAlign: 'center',
-    marginLeft: '2rem',
     marginRight: '2rem',
     textAlign: 'left',
   },
@@ -173,6 +229,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   actionButton: {
     marginTop: '4rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      marginTop: 0,
+      textAlign: 'center',
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,

@@ -106,3 +106,28 @@ export const IconNameDoesntExist = {
     iconName: 'DoesntExist',
   },
 }
+
+export const ImageUrlLightLeft = {
+  args: {
+    mode: 'light',
+    subject: 'Built by the People, for the People',
+    side: 'left',
+    description:
+      'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
+  },
+}
+export const ImageUrlLightRight = {
+  args: {
+    mode: 'light',
+    subject: 'Built by the People, for the People',
+    side: 'right',
+    description:
+      'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
+  },
+}
