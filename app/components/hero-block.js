@@ -12,6 +12,7 @@ const maxSubjectWidthRatio = 0.9 // maximum width for the subject text as a perc
 const HeroBlock = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
+    alignContent = 'center',
     imgUrl = '',
     imgUrlObj = {},
     subject = '',
@@ -21,6 +22,7 @@ const HeroBlock = props => {
     actionStyle = {},
     ...otherProps
   } = props
+
   const classes = useStylesFromThemeFunction(props)
   const [fontSize, setFontSize] = useState(startFontSize)
   const outerRef = useRef(null)
@@ -106,13 +108,21 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       height: '64vw',
     },
   }),
-  subjectWrapper: {
+
+  subjectWrapper: props => ({
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
-    textAlign: 'center',
-    width: '100%',
-  },
+    textAlign: props.alignContent,
+    width: props.alignContent === 'center' ? '100%' : 'calc(100% - 4rem)', // subtract left and right padding
+    ...(props.alignContent !== 'center' && {
+      maxWidth: theme.maxPanelWidth,
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
+      margin: '0 auto',
+    }),
+  }),
+
   subject: {
     boxSizing: 'border-box',
     display: 'inline-block',
@@ -134,12 +144,19 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginBottom: '1em',
     },
   },
-  actionWrapper: {
+  actionWrapper: props => ({
     position: 'absolute',
-    width: '100%',
-    textAlign: 'center',
     top: '85%',
-    transform: 'translateY(-50%)',
-  },
+    left: props.alignContent === 'center' ? '50%' : '0',
+    transform: props.alignContent === 'center' ? 'translate(-50%, -50%)' : 'translateY(-50%)',
+    textAlign: props.alignContent,
+    width: props.alignContent === 'center' ? 'auto' : '100%',
+    maxWidth: theme.maxPanelWidth,
+    ...(props.alignContent !== 'center' && {
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
+    }),
+  }),
+
   action: {},
 }))
