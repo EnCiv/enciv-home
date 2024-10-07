@@ -13,6 +13,9 @@ function Iconify(props) {
 }
 
 const TextBlock = props => {
+  console.log("props", props);
+  const blocks = Array.isArray(props.blocks) ? [props.blocks] : props;
+  var blockarray = [];
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     mode = 'light', // dark, white, see top-nav-bar for differences
@@ -24,15 +27,16 @@ const TextBlock = props => {
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction({ lineWidth, iconName, imgSide })
+  console.log("blockslength", blocks.length);
 
   const iconComponent = iconName && icons[iconName] && (
     <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
   );
 
   const imageComponent = imgUrl && (
-    
+
     <img className={classes.imageStyle} src={imgUrl} alt="Markdown Block" />
-    
+  
   );
 
 
@@ -41,20 +45,46 @@ const TextBlock = props => {
       {children}
     </MarkDown>
   );
-   if (imgUrl && imgSide === 'top') {
-    return (
-      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-        <div className={cx(classes.wrapper,  classes.topLayout)}>
-          {imageComponent}
-          <div className={classes.textSectionWithImageTop}>
-          {textSection}
-        </div> 
-        </div>
-      </div>
-    );
+  if (Object.keys(blocks).length > 2){
+    blockarray = Object.values(blocks);
+    console.log("blkarray", blockarray);
   }
+  //  if (imgUrl && imgSide === 'topS') {
+  //   return (
+  //     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
+  //         {imageComponent}
+  //         <div className={classes.textSectionWithImageTop}> 
+  //         {textSection}
+          
+  //       </div> 
+  //       </div>
+  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
+  //         {imageComponent}
+  //         <div className={classes.textSectionWithImageTop}> 
+  //         {textSection}
+          
+  //       </div> 
+  //       </div> 
+  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
+  //       {imageComponent}
+  //         <div className={classes.textSectionWithImageTop}> 
+  //         {textSection}
+          
+  //       </div> 
+  //       </div> 
+  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
+  //       {imageComponent}
+  //         <div className={classes.textSectionWithImageTop}> 
+  //         {textSection}
+          
+  //       </div> 
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (imgUrl && (imgSide === 'left' || imgSide === 'right')) {
+   if (imgUrl && (imgSide === 'left' || imgSide === 'right')) {
     return (
       <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
         <div className={classes.wrapperWithImage}>
@@ -65,30 +95,60 @@ const TextBlock = props => {
       </div>
     );
   }
-
+  
+  console.log("blocks", blockarray);
+  if (blockarray.length > 1) {
   return (
+    <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+      {blockarray.map((block, index) => (
+        <div key={index} className={cx(classes.wrapper, block.imgSide === 'top' && classes.topLayout)}>
+          {block.imgUrl && block.imgSide === 'top' && (
+            <>
+              {/* Image Component */}
+              <img className={classes.imageStyleTop} src={block.imgUrl} alt="Markdown Block" />
+              
+              {/* Text Section */}
+              <div className={classes.textSectionWithImageTop}>
+                <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
+                  {block.children}
+                </MarkDown>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+ 
+  console.log("blocks1", blocks);
+  
+  
+   return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
         {textSection}
       </div>
     </div>
   );
+
+ 
+
 };
 
 export default TextBlock
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   markdownBlock: {
-    
+    display: 'flex',
+    flexDirection: props => (props.imgSide === 'top' ? 'row' : 'row'),
     textAlign: 'center',
     paddingTop: '1rem',
     paddingBottom: '4rem',
   },
   wrapper: {
      display: 'flex',
-     flexDirection: props => (props.imgSide === 'top' ? 'column' : 'row'),
-    
-
+     flexDirection: props => (props.imgSide === 'top' ? 'column' : 'column'),
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -111,8 +171,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imageStyle: {
 
-    width: props => (props.imgSide === 'top' ? '9.375rem' : '50%'),  
-    height: props => (props.imgSide === 'top' ? '9.375rem' : '50%'),
+    width: props => (props.imgSide === 'top' ? '9.375rem' : '40%'),  
+    height: props => (props.imgSide === 'top' ? '9.375rem' : '80%'),
     objectFit: props => (props.imgSide === 'top' ? 'cover' : 'unset'),
     margin: '1rem',
     borderRadius: '1rem',
@@ -121,24 +181,33 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         height: props => (props.imgSide === 'top' ? '6.25rem' : '80%'),
     },
   },
+  imageStyleTop: {
+
+    width: '10rem',  
+    height: '10rem',
+    objectFit: 'cover',
+    margin: '1rem',
+    borderRadius: '1rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+        width: '6.25rem',
+        height: '6.25rem' ,
+    },
+  },
   topLayout: {
    display: 'flex',
    flexDirection: 'row', 
-   justifyContent: 'flex-start', 
    alignItems: 'center',
-   gap: '1rem',
-  
    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
      flexDirection: 'row', 
      justifyContent: 'center',
    },
  },
  textSectionWithImageTop: {
-    maxWidth: props => (props.imgSide === 'top' ? '15.625rem' : '80%'), 
-    width: '25%',
+    maxWidth: '16rem', 
+    width: '100%',
     textAlign: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      maxWidth: props => (props.imgSide === 'top' ? '6.25rem' : '80%'),
+      maxWidth: '6.25rem',
     },
   },
 

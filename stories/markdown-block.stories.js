@@ -75,11 +75,21 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
   },
 };
 
-
+// export const WithTopOneSideImage = {
+//   args: {
+//     children: `
+// ##  
+// We’re fed up with (and frankly scared of) the current political system.
+//     `,
+//     imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
+//     imgSide: 'topS', 
+//     lineWidth: 'partial'  // Position image on the right
+// // Position image on the top
+//   },
+// };
+//const blocks = 
 export const WithTopSideImage = {
-  args: 
-  // [
-    {
+  args: [{
     children: `
 ##  
 We’re fed up with (and frankly scared of) the current political system.
@@ -89,35 +99,34 @@ We’re fed up with (and frankly scared of) the current political system.
     lineWidth: 'partial'  // Position image on the right
 // Position image on the top
   },
-  
-// {
-//     children: `
-// ##  
-// We’re fed up with (and frankly scared of) the current political system.
-//     `,
-//     imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
-//     imgSide: 'top', 
-//     lineWidth: 'partial'  // Position image on the right
-// // Position image on the top
-//   },
-// {
-//     children: `
-// ##  
-// We’re fed up with (and frankly scared of) the current political system.
-//     `,
-//     imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
-//     imgSide: 'top', 
-//     lineWidth: 'partial'  // Position image on the right
-// // Position image on the top
-//   },
-// {
-//     children: `
-// ##  
-// We’re fed up with (and frankly scared of) the current political system.
-//     `,
-//     imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
-//     imgSide: 'top', 
-//     lineWidth: 'partial'  // Position image on the right
-// // Position image on the top
-//   },]
+  {
+    children: `
+##  
+Sick of partisan gridlock that stops real ploicy and productive discussion.
+    `,
+    imgUrl: 'https://images.unsplash.com/photo-1636648522439-a4a00de2561f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
+    imgSide: 'top', 
+    lineWidth: 'partial'  // Position image on the right
+// Position image on the top
+  },
+  {
+    children: `
+##  
+Done with the media that only presents the most viral candidate moments and polarized takes.
+    `,
+    imgUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
+    imgSide: 'top', 
+    lineWidth: 'partial'  // Position image on the right
+// Position image on the top
+  },
+{
+    children: `
+##  
+There is currently no cross-partisan discourse  to address the biggest problems facing our country.
+    `,
+    imgUrl: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
+    imgSide: 'top', 
+    lineWidth: 'partial'  // Position image on the right
+// Position image on the top
+  }, ],
 };
