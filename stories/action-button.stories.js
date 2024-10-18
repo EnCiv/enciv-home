@@ -53,7 +53,7 @@ export const TransparentMode = {
 }
 
 export const ActionButtonWithIcon = {
-  args: { actionText: 'Donate', mode: 'transparent', iconName: 'Donate' },
+  args: { children: 'click to EnCiv.org', mode: 'transparent', iconName: 'Donate' },
   parameters: {
     backgrounds: {
       default: 'dark',

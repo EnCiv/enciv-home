@@ -19,15 +19,21 @@ const ActionButton = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
-    actionText = '',
     mode = 'default', // transparent mode changes btn background to transparent
     iconName = '',
-    side = 'right',
+    children,
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
   const classes = useStylesFromThemeFunction({ mode })
-  if (action && !iconName) {
+
+  const renderButtonWithIcon = () => (
+    <>
+      <div className={cx(classes.buttonWithIcon, className)}>{children}</div>
+      {iconName && <Iconify className={cx(classes.icon)} iconName={iconName} width="1rem" height="1rem" />}
+    </>
+  )
+  if (action) {
     if (typeof action === 'string')
       return (
         <a
@@ -35,29 +41,22 @@ const ActionButton = props => {
           href={action}
           target={action[0] === '/' ? '_self' : '_blank'}
           {...otherProps}
-        ></a>
+        >
+          {renderButtonWithIcon()}
+        </a>
       )
     if (typeof action === 'function')
-      return <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}></Button>
-  }
-
-  if (iconName) {
-    return (
-      <>
-        <Button className={cx(classes.actionButton, classes.actionButtonWithIcon, className)} {...otherProps}>
-          <div className={cx(classes.buttonTextWithIcon, className)}>{actionText}</div>
-          <Iconify iconName={iconName} width="1rem" height="1rem" />
+      return (
+        <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}>
+          {renderButtonWithIcon()}
         </Button>
-      </>
-    )
+      )
   } else
     return (
       <>
-        <Button
-          className={cx(classes.actionButton, className)}
-          onDone={() => setShowForm(!showForm)}
-          {...otherProps}
-        ></Button>
+        <Button className={cx(classes.actionButton, className)} onDone={() => setShowForm(!showForm)} {...otherProps}>
+          {renderButtonWithIcon()}
+        </Button>
         <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} actionText={props.children} />
       </>
     )
@@ -76,6 +75,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     padding: '0.5rem 1.25rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     textDecoration: 'none',
     '&:hover': {
       cursor: 'pointer',
@@ -84,11 +86,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       outline: theme.focusOutline,
     },
   }),
-  actionButtonWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  buttonTextWithIcon: {
+  buttonWithIcon: {
     marginRight: '.5rem',
+  },
+  icon: {
+    marginLeft: '.5rem',
   },
 }))
