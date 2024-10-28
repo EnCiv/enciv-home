@@ -10,7 +10,7 @@ import BrevoJoin from './brevo-join'
 import * as icons from '../svgr'
 
 function Iconify(props) {
-  const { iconName, ...otherProps } = props
+  const { iconName, stroke, ...otherProps } = props
   const Icon = icons[iconName]
   return <Icon {...otherProps} />
 }
@@ -28,10 +28,18 @@ const ActionButton = props => {
   const classes = useStylesFromThemeFunction({ mode })
 
   const renderButtonWithIcon = () => (
-    <>
-      <div className={cx(classes.buttonWithIcon, className)}>{children}</div>
-      {iconName && <Iconify className={cx(classes.icon)} iconName={iconName} width="1rem" height="1rem" />}
-    </>
+    <div className={cx(classes.buttonContent)}>
+      {children}
+      {iconName && (
+        <Iconify
+          className={cx(classes.icon)}
+          iconName={iconName}
+          stroke={mode == 'transparent' ? 'white' : '#343433'}
+          width="1rem"
+          height="1rem"
+        />
+      )}
+    </div>
   )
   if (action) {
     if (typeof action === 'string')
@@ -86,8 +94,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       outline: theme.focusOutline,
     },
   }),
-  buttonWithIcon: {
-    marginRight: '.5rem',
+  buttonContent: {
+    display: 'flex',
+    alignItems: 'center',
   },
   icon: {
     marginLeft: '.5rem',

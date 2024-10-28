@@ -60,3 +60,7 @@ export const ActionButtonWithIcon = {
     },
   },
 }
+
+export const RelativePathWithIcon = {
+  args: { children: 'Click to Text-Block', action: '/?path=/story/text-block--no-mode', iconName: 'Donate' },
+}
