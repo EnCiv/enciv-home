@@ -27,7 +27,7 @@ const ActionButton = props => {
   const [showForm, setShowForm] = useState(false)
   const classes = useStylesFromThemeFunction({ mode })
 
-  const renderButtonWithIcon = () => (
+  const generateButtonWithIcon = () => (
     <div className={cx(classes.buttonContent)}>
       {children}
       {iconName && (
@@ -50,20 +50,20 @@ const ActionButton = props => {
           target={action[0] === '/' ? '_self' : '_blank'}
           {...otherProps}
         >
-          {renderButtonWithIcon()}
+          {generateButtonWithIcon()}
         </a>
       )
     if (typeof action === 'function')
       return (
         <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}>
-          {renderButtonWithIcon()}
+          {generateButtonWithIcon()}
         </Button>
       )
   } else
     return (
       <>
         <Button className={cx(classes.actionButton, className)} onDone={() => setShowForm(!showForm)} {...otherProps}>
-          {renderButtonWithIcon()}
+          {generateButtonWithIcon()}
         </Button>
         <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} actionText={props.children} />
       </>
