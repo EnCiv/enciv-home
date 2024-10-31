@@ -1,20 +1,46 @@
 //https://github.com/EnCiv/enciv-home/issues/8
 //https://github.com/EnCiv/enciv-home/issues/56
+//https://github.com/EnCiv/enciv-home/issues/55
+
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import { Components } from 'civil-pursuit'
 import BrevoJoin from './brevo-join'
+import * as icons from '../svgr'
+
+function Iconify(props) {
+  const { iconName, stroke, ...otherProps } = props
+  const Icon = icons[iconName]
+  return <Icon {...otherProps} />
+}
 const { Button } = Components
 const ActionButton = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
     mode = 'default', // transparent mode changes btn background to transparent
+    iconName = '',
+    children,
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
-  const classes = useStylesFromThemeFunction({mode})
+  const classes = useStylesFromThemeFunction({ mode })
+
+  const generateButtonWithIcon = () => (
+    <div className={cx(classes.buttonContent)}>
+      {children}
+      {iconName && (
+        <Iconify
+          className={cx(classes.icon)}
+          iconName={iconName}
+          stroke={mode == 'transparent' ? 'white' : '#343433'}
+          width="1rem"
+          height="1rem"
+        />
+      )}
+    </div>
+  )
   if (action) {
     if (typeof action === 'string')
       return (
@@ -23,18 +49,22 @@ const ActionButton = props => {
           href={action}
           target={action[0] === '/' ? '_self' : '_blank'}
           {...otherProps}
-        ></a>
+        >
+          {generateButtonWithIcon()}
+        </a>
       )
     if (typeof action === 'function')
-      return <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}></Button>
+      return (
+        <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}>
+          {generateButtonWithIcon()}
+        </Button>
+      )
   } else
     return (
       <>
-        <Button
-          className={cx(classes.actionButton, className)}
-          onDone={() => setShowForm(!showForm)}
-          {...otherProps}
-        ></Button>
+        <Button className={cx(classes.actionButton, className)} onDone={() => setShowForm(!showForm)} {...otherProps}>
+          {generateButtonWithIcon()}
+        </Button>
         <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} actionText={props.children} />
       </>
     )
@@ -53,6 +83,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     padding: '0.5rem 1.25rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     textDecoration: 'none',
     '&:hover': {
       cursor: 'pointer',
@@ -61,4 +94,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       outline: theme.focusOutline,
     },
   }),
+  buttonContent: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    marginLeft: '.5rem',
+  },
 }))
