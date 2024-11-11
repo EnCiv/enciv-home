@@ -1,4 +1,5 @@
 //https://github.com/EnCiv/enciv-home/issues/41
+//https://github.com/EnCiv/enciv-home/issues/markDownBlock-withImage#45
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -12,22 +13,24 @@ function Iconify(props) {
   return <Icon {...otherProps} />;
 }
 
-const TextBlock = props => {
+const MarkdownBlock = props => {
   console.log("props", props);
-  const blocks = Array.isArray(props.blocks) ? [props.blocks] : props;
+   const balocks = Array.isArray(props.blocks) ? [props.blocks] : props;
   var blockarray = [];
   const {
-    className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
-    mode = 'light', // dark, white, see top-nav-bar for differences
+    className = '',
+    subject = '', 
+    mode = 'light',
     children = '',
-    lineWidth = 'full',
+    lineWidth = 'partial',
+    blocks,
     iconName = '', 
     imgUrl = '',
     imgSide = 'left',
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction({ lineWidth, iconName, imgSide })
-  console.log("blockslength", blocks.length);
+  console.log("blockslength", blocks ? blocks.length : 0);
 
   const iconComponent = iconName && icons[iconName] && (
     <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
@@ -41,53 +44,20 @@ const TextBlock = props => {
 
 
   const textSection = (
+
     <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
+
       {children}
     </MarkDown>
+    
   );
-  if (Object.keys(blocks).length > 2){
-    blockarray = Object.values(blocks);
-    console.log("blkarray", blockarray);
-  }
-  //  if (imgUrl && imgSide === 'topS') {
-  //   return (
-  //     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
-  //         {imageComponent}
-  //         <div className={classes.textSectionWithImageTop}> 
-  //         {textSection}
-          
-  //       </div> 
-  //       </div>
-  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
-  //         {imageComponent}
-  //         <div className={classes.textSectionWithImageTop}> 
-  //         {textSection}
-          
-  //       </div> 
-  //       </div> 
-  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
-  //       {imageComponent}
-  //         <div className={classes.textSectionWithImageTop}> 
-  //         {textSection}
-          
-  //       </div> 
-  //       </div> 
-  //       <div className={cx(classes.wrapper,  classes.topLayout)}>
-  //       {imageComponent}
-  //         <div className={classes.textSectionWithImageTop}> 
-  //         {textSection}
-          
-  //       </div> 
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
    if (imgUrl && (imgSide === 'left' || imgSide === 'right')) {
     return (
       <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+        {subject && <h2 className={classes.subject}>{subject}</h2>}
         <div className={classes.wrapperWithImage}>
+          
           {imgSide === 'left' && imageComponent}
           {textSection}
           {imgSide === 'right' && imageComponent}
@@ -96,11 +66,14 @@ const TextBlock = props => {
     );
   }
   
-  console.log("blocks", blockarray);
-  if (blockarray.length > 1) {
+  console.log("blocks", blocks);
+  if (blocks && blocks ? blocks.length > 1 : 0) {
   return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-      {blockarray.map((block, index) => (
+      {subject && <h2 className={classes.subject}>{subject}</h2>}
+    <div className={cx(classes.markdownBlockTopImg, classes[mode], className)} {...otherProps}>
+      
+      {blocks && blocks.map((block, index) => (
         <div key={index} className={cx(classes.wrapper, block.imgSide === 'top' && classes.topLayout)}>
           {block.imgUrl && block.imgSide === 'top' && (
             <>
@@ -118,6 +91,7 @@ const TextBlock = props => {
         </div>
       ))}
     </div>
+    </div>
   );
 }
  
@@ -127,6 +101,7 @@ const TextBlock = props => {
    return (
     <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
       <div className={classes.wrapper}>
+        {subject && <h2 className={classes.subject}>{subject}</h2>}
         {textSection}
       </div>
     </div>
@@ -136,23 +111,38 @@ const TextBlock = props => {
 
 };
 
-export default TextBlock
+export default MarkdownBlock
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   markdownBlock: {
+     textAlign: 'center',
+     paddingTop: '1rem',
+   
+    
+  },
+  markdownBlockTopImg: {
+     textAlign: 'center',
+    maxWidth: theme.maxPanelWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    // paddingTop: '3rem',
+    paddingBottom: '3rem',
     display: 'flex',
     flexDirection: props => (props.imgSide === 'top' ? 'row' : 'row'),
-    textAlign: 'center',
-    paddingTop: '1rem',
-    paddingBottom: '4rem',
+    // textAlign: 'center',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: (props) => (props.imgSide === 'top' ? 'column' : 'column'),
+    },
+    
   },
   wrapper: {
      display: 'flex',
      flexDirection: props => (props.imgSide === 'top' ? 'column' : 'column'),
     maxWidth: theme.maxPanelWidth,
+    // justifyContent: 'space-between',
     marginLeft: 'auto',
     marginRight: 'auto',
-    whiteSpace: 'pre-line',
+    // whiteSpace: 'pre-line',
   },
   wrapperWithImage: {
     display: 'flex',
@@ -161,36 +151,51 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     justifyContent: 'space-between',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: (props) => (props.imgSide === 'top' ? 'row' : 'column'),
+      maxWidth: '80%',
     },
+    maxWidth: theme.maxPanelWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    whiteSpace: 'pre-line',
   },
-  
-  imageWrapper: {
-    display: 'inline-block',
-    textAlign: 'center',
-    marginBottom: '1rem', 
+  subject: {
+    fontSize: '2rem',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    textAlign: 'left',
+    maxWidth: theme.maxPanelWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 0,
   },
+  // imageWrapper: {
+  //   display: 'inline-block',
+  //   textAlign: 'center',
+  //   marginBottom: '1rem', 
+  // },
   imageStyle: {
-
-    width: props => (props.imgSide === 'top' ? '9.375rem' : '40%'),  
-    height: props => (props.imgSide === 'top' ? '9.375rem' : '80%'),
+    aspectRatio: 2/2,
+    width: props => (props.imgSide === 'top' ? '25%' : '50%'),  
+    height: props => (props.imgSide === 'top' ? '25%' : '80%'),
     objectFit: props => (props.imgSide === 'top' ? 'cover' : 'unset'),
     margin: '1rem',
     borderRadius: '1rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-        width: props => (props.imgSide === 'top' ? '6.25rem' : '80%'),
-        height: props => (props.imgSide === 'top' ? '6.25rem' : '80%'),
+        width: props => (props.imgSide === 'top' ? '60%' : '80%'),
+        height: props => (props.imgSide === 'top' ? '60%' : '80%'),
     },
   },
   imageStyleTop: {
-
-    width: '10rem',  
-    height: '10rem',
+    aspectRatio:2/2,
+    width: '14rem',  
+    height: '14rem',
     objectFit: 'cover',
     margin: '1rem',
     borderRadius: '1rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-        width: '6.25rem',
-        height: '6.25rem' ,
+        width: '70%',
+        height: '70%' ,
     },
   },
   topLayout: {
@@ -207,7 +212,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     width: '100%',
     textAlign: 'center',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      maxWidth: '6.25rem',
+      maxWidth: '80%',
     },
   },
 
@@ -239,8 +244,17 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& h3': {
       textAlign: 'left',
       fontSize: '2rem',
+      lineHeight: '3.5rem',
       fontWeight: 600,
+      marginBlockStart: 0,
       marginBlockEnd: 0,
+      '&:after':{
+        content: '""',
+        display: 'block',
+        width: props.lineWidth === 'partial' ? '5dvw' : '100%',
+        borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
+        paddingBottom: '1.5rem',
+      },
     },
     '& h4': {
       textAlign: 'left',
@@ -295,13 +309,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imgRight: {
     marginLeft: '2rem',
-  },
-  mobileImage: {
-    
-    '@media (max-width: 768px)': {
-      display: 'block',
-      marginTop: '1rem',
-    },
   },
   headerIcon: {
     marginTop: '2rem',
