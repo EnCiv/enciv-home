@@ -17,7 +17,10 @@ export default function BrevoCommunity(props) {
     if (seen) setSeen('')
     return null // don't render anything
   } else if (communityStatus === 'submitted') {
-    if (typeof window !== 'undefined') setTimeout(() => setSeen('submitted'), SEENTIME)
+    if (typeof window !== 'undefined') {
+      window.gtag && gtag('event', 'conversion', { send_to: 'AW-16492376295/MnZOCL3q-eoZEOfhlrg9' })
+      setTimeout(() => setSeen('submitted'), SEENTIME)
+    }
     return (
       seen !== 'submitted' && (
         <div className={classes.brevoCommnity}>
