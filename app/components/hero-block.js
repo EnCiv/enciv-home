@@ -23,7 +23,7 @@ const HeroBlock = props => {
     ...otherProps
   } = props
 
-  const classes = useStylesFromThemeFunction(props)
+  const classes = useStylesFromThemeFunction({ ...props, alignContent })
   const [fontSize, setFontSize] = useState(startFontSize)
   const outerRef = useRef(null)
   const innerRef = useRef(null)
