@@ -143,6 +143,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '&:not(:last-child)': {
       marginBottom: '1em',
     },
+    borderRadius: '0.5rem',
   },
   actionWrapper: props => ({
     position: 'absolute',
