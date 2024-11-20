@@ -23,7 +23,7 @@ const HeroBlock = props => {
     ...otherProps
   } = props
 
-  const classes = useStylesFromThemeFunction(props)
+  const classes = useStylesFromThemeFunction({ ...props, alignContent })
   const [fontSize, setFontSize] = useState(startFontSize)
   const outerRef = useRef(null)
   const innerRef = useRef(null)
@@ -143,6 +143,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '&:not(:last-child)': {
       marginBottom: '1em',
     },
+    borderRadius: '0.5rem',
   },
   actionWrapper: props => ({
     position: 'absolute',
