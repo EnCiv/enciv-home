@@ -132,6 +132,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       float: 'none',
       maxWidth: '100%',
       marginLeft: 0,
+      paddingLeft: 0,
     },
     '& input': {
       lineHeight: '200%',
