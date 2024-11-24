@@ -3,8 +3,8 @@ import Home from '../app/web-components/home'
 import React from 'react'
 
 import SvgPeopleInHands from '../app/svgr/people-in-hands.js'
-import MarkdownBlock from '../app/components/markdown-block';
-import { PartialLineWidth } from './markdown-block.stories.js';
+import MarkdownBlock from '../app/components/markdown-block'
+import { PartialLineWidth } from './markdown-block.stories.js'
 
 export default {
   title: 'Home',
@@ -81,61 +81,10 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     iconName: 'PeopleInHands',
     side: 'right',
   },
-  // {
-  //   key: 'MarkdownBlock',
-  //   mode: 'dark',
-  //   subject: 'When we speak as One',
-  // },
   {
-    key:'MarkdownBlock',
+    key: 'MarkdownBlock',
     mode: 'dark',
     subject: 'When we speak as One',
-    blocks:[
-      {
-    
-    children: `
-## 
-We’re fed up with (and frankly scared of) the current political system.
-    `,
-    imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
-    imgSide: 'top', 
-    lineWidth: 'partial'  // Position image on the right
-// Position image on the top
-  },
-  {
-     
-    children: `
-## 
-Sick of partisan gridlock that stops real ploicy and productive discussion.
-    `,
-    imgUrl: 'https://images.unsplash.com/photo-1636648522439-a4a00de2561f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
-    imgSide: 'top', 
-    lineWidth: 'partial'  // Position image on the right
-// Position image on the top
-  },
-  {
-    
-    children: `
-##  
-Done with the media that only presents the most viral candidate moments and polarized takes.
-    `,
-    imgUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
-    imgSide: 'top', 
-    lineWidth: 'partial'  // Position image on the right
-// Position image on the top
-  },
-{
- 
-    children: `
-##  
-There is currently no cross-partisan discourse  to address the biggest problems facing our country.
-    `,
-    imgUrl: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
-    imgSide: 'top', 
-    lineWidth: 'partial'  // Position image on the right
-// Position image on the top
-  }, ],
-    
   },
   {
     key: 'MarkdownBlock',
@@ -143,11 +92,12 @@ There is currently no cross-partisan discourse  to address the biggest problems 
     children: `
 ### 65% of our country believes the current system is on the wrong track.
 Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\nJoin EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.\n\n<ActionButton >Join the Community</ActionButton>`,
-    imgUrl: 'https://images.unsplash.com/photo-1636648522439-a4a00de2561f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  // Add image URL
+    imgUrl:
+      'https://images.unsplash.com/photo-1636648522439-a4a00de2561f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Add image URL
     imgSide: 'left',
     lineWidth: 'partial',
   },
-  
+
   {
     key: 'Faq',
     faqs: [
