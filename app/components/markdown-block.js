@@ -1,5 +1,5 @@
 //https://github.com/EnCiv/enciv-home/issues/41
-//https://github.com/EnCiv/enciv-home/issues/markDownBlock-withImage#45
+//https://github.com/EnCiv/enciv-home/issues/45
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
