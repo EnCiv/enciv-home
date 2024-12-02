@@ -135,8 +135,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imageStyle: {
     aspectRatio: 2 / 2,
-    width: props => (props.imgSide === 'top' ? '25%' : '50%'),
-    height: props => (props.imgSide === 'top' ? '25%' : '80%'),
+    // width: props => (props.imgSide === 'top' ? '25%' : '50%'),
+    // height: props => (props.imgSide === 'top' ? '25%' : '80%'),
     objectFit: props => (props.imgSide === 'top' ? 'cover' : 'unset'),
     margin: '1rem',
     borderRadius: '1rem',
@@ -147,8 +147,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imageStyleTop: {
     aspectRatio: 2 / 2,
-    width: '14rem',
-    height: '14rem',
+    // width: '14rem',
+    // height: '14rem',
     objectFit: 'cover',
     margin: '1rem',
     borderRadius: '1rem',
