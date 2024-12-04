@@ -243,5 +243,15 @@
     "subject": "Nondiscrimination Statment",
     "description": "Nondiscrimination Statment page",
     "webComponent": "Nondiscrimination"
+  },
+  {
+    "_id": {
+      "$oid": "633baab31913b4a6e6855d1f"
+    },
+    "metadata": { "hide": true },
+    "path": "/resetPassword",
+    "subject": "ResetPassword",
+    "description": "Reset Password",
+    "webComponent": "ResetPassword"
   }
 ]

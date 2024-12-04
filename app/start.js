@@ -85,7 +85,8 @@ async function start() {
       'https://googleads.g.doubleclick.net',
       'https://www.google.com',
       'https://google.com',
-      'https://*.gstatic.com'
+      'https://*.gstatic.com',
+      'https://www.google.ca'
     )
     server.directives.frameSrc.push(
       'https://www.googletagmanager.com',
@@ -102,11 +103,14 @@ async function start() {
     server.directives.styleSrc.push('https://*.googletagmanager.com/')
 
     server.directives.frameSrc.push('https://cc.enciv.org')
+
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))
+
     await server.start()
+
     logger.info('started')
   } catch (error) {
     logger.error('error on start', error)

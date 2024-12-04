@@ -1,4 +1,5 @@
 //https://github.com/EnCiv/enciv-home/issues/8
+//https://github.com/EnCiv/enciv-home/issues/56
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -9,10 +10,11 @@ const ActionButton = props => {
   const {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
+    mode = 'default', // transparent mode changes btn background to transparent
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
-  const classes = useStylesFromThemeFunction()
+  const classes = useStylesFromThemeFunction({mode})
   if (action) {
     if (typeof action === 'string')
       return (
@@ -40,11 +42,11 @@ const ActionButton = props => {
 export default ActionButton
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
-  actionButton: {
-    backgroundColor: theme.colors.encivYellow,
-    color: theme.colors.darkModeGray,
+  actionButton: props => ({
+    backgroundColor: props.mode === 'transparent' ? 'transparent' : theme.colors.encivYellow,
+    color: props.mode === 'transparent' ? 'white' : theme.colors.darkModeGray,
     borderRadius: '1.75rem',
-    border: 'none',
+    border: props.mode === 'transparent' ? '0.1rem solid white' : 'none',
     fontWeight: 700,
     fontSize: '1.25rem',
     lineHeight: '1.5rem',
@@ -58,5 +60,5 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& :focus': {
       outline: theme.focusOutline,
     },
-  },
+  }),
 }))
