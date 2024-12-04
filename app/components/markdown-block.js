@@ -1,4 +1,6 @@
 //https://github.com/EnCiv/enciv-home/issues/41
+//https://github.com/EnCiv/enciv-home/issues/42
+//https://github.com/EnCiv/enciv-home/issues/43
 //https://github.com/EnCiv/enciv-home/issues/45
 import React from 'react'
 import { createUseStyles } from 'react-jss'
@@ -75,17 +77,7 @@ const MarkdownBlock = props => {
         {textSection}
       </div>
     </div>
-    )
-  } else {
-    return(
-      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-        <div className={`${classes.wrapper}`}>
-          {iconComponent}
-          {textSection}
-        </div>
-      </div>
-    )
-  }
+  )
 }
 
 export default MarkdownBlock
@@ -247,9 +239,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '1rem',
       textAlign: 'left',
     },
-    '& p:first-of-type':{
-      marginTop: props.iconName === '' ? '1rem' : '0px', //removes margin-top from first paragraph as per figma design in issue 43
-    },
     '& a': {
       color: '#B1890F',
     },
@@ -293,7 +282,4 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
   },
-  headerIcon: {
-    marginTop: '2rem', //adds margin-top to header icon to match spacing between subject and icon.
-  }
 }))
