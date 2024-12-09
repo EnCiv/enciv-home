@@ -81,11 +81,11 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     iconName: 'PeopleInHands',
     side: 'right',
   },
-  {
-    key: 'MarkdownBlock',
-    mode: 'dark',
-    subject: 'When we speak as One',
-  },
+  // {
+  //   key: 'TextBlock',
+  //   mode: 'dark',
+  //   subject: 'When we speak as One',
+  // },
   {
     key: 'MarkdownBlock',
     mode: 'dark',
@@ -98,7 +98,6 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
     lineWidth: 'partial',
   },
   {
-
     key: 'TextBlock',
     mode: 'light',
     subject: 'Built by the People, for the People',
