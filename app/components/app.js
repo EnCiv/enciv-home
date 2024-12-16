@@ -17,6 +17,7 @@ class App extends React.Component {
             <div style={{ position: 'relative' }}>
               <Helmet>
                 <title>{iota?.subject || 'EnCiv'}</title>
+                <meta name="description" content={iota?.description} />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                 <link
