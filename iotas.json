@@ -5,7 +5,7 @@
     },
     "path": "/",
     "subject": "EnCiv - Home",
-    "description": "EnCiv Home Page",
+    "description": "EnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
     "webComponent": {
       "webComponent": "Home",
       "blocks": [
@@ -83,7 +83,7 @@
     },
     "path": "/home",
     "subject": "EnCiv - Home",
-    "description": "EnCiv Home Page",
+    "description": "EnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
     "webComponent": {
       "webComponent": "Home",
       "blocks": [
@@ -190,7 +190,7 @@
       "$oid": "6646eb362eb6cfcb18889198"
     },
     "subject": "A New Vision of Democracy",
-    "description": "The article titled: \"A New Vision of Democracy\" brought over from the wordpress site",
+    "description": "The article titled: \"A New Vision of Democracy\"",
     "path": "/posts/a-new-vision-of-democracy",
     "webComponent": {
       "webComponent": "Article",
