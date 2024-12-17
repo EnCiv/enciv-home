@@ -88,11 +88,7 @@ async function start() {
       'https://*.gstatic.com',
       'https://www.google.ca'
     )
-    server.directives.frameSrc.push(
-      'https://www.googletagmanager.com',
-      'https://bid.g.doubleclick.net',
-      'https://td.doubleclick.net'
-    ) // needed for google ads
+    server.directives.frameSrc.push('https://www.googletagmanager.com', 'https://*.doubleclick.net') // needed for google ads
     server.directives.scriptSrcElem.push('https://*.doubleclick.net/', 'https://www.googleadservices.com') // needed for google ads - found experimentally
     server.directives.connectSrc.push(
       'https://google.com',
