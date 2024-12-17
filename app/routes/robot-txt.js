@@ -6,13 +6,13 @@ export default function robots() {
     res.type('text/plain')
     res.send(
       '\
-User-agent: Mediapartners-Google\n\
-Allow: /\n\
-\n\
-User-agent: *\n\
-Allow: /\n\
-\n\
-Sitemap: https://enciv.org/sitemap.xml\n\
+User-agent: Mediapartners-Google*\r\n\
+Allow: /\r\n\
+\r\n\
+User-agent: *\r\n\
+Allow: /\r\n\
+\r\n\
+Sitemap: https://enciv.org/sitemap.xml\r\n\
 '
     )
   })
