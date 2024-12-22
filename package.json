@@ -18,7 +18,7 @@
     "cypress": "cypress open",
     "cypress:headless": "cypress run --headless --browser chrome",
     "mongo:delete-user": "bash -c 'mongo --eval \"db.users.remove({email: \\\"$0\\\"})\"'",
-    "hot-server": "nodemon --inspect dist/start.js",
+    "hot-server": "nodemon --inspect-brk dist/start.js",
     "hot-server-no-inspect": "nodemon dist/start.js",
     "hot-client": "webpack-dev-server --config webpack-dev.config.js --devtool source-map --host 0.0.0.0",
     "packbuild": "webpack --config webpack-prod.config.js",
