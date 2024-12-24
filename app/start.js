@@ -13,6 +13,8 @@ async function start() {
   try {
     const server = new theCivilServer()
     server.App = App // set the outer React wrapper for this site
+    server.contentSecurityPolicy = null
+    /* Disabling content security for now to see if google ads will work
     const directives = server.contentSecurityPolicy.directives
     directives.fontSrc.push('https://assets.brevo.com')
     directives.styleSrc.push('https://sibforms.com')
@@ -104,7 +106,7 @@ async function start() {
     directives.styleSrc.push('https://*.googletagmanager.com/')
 
     directives.frameSrc.push('https://cc.enciv.org')
-
+    */
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
