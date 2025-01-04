@@ -106,7 +106,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     maxWidth: theme.maxPanelWidth,
     marginRight: 'auto',
     paddingBottom: '3rem',
-    maxWidth: '20%',
+    maxWidth: '100%',
     display: 'flex',
     flexDirection: 'row',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
@@ -118,7 +118,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   fullWrapper: {
     display: 'block',
@@ -144,6 +144,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
       maxWidth: '80%',
+      marginLeft: '1rem',
+      marginRight: '1rem',
     },
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
@@ -168,7 +170,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     margin: '1rem',
     borderRadius: '1rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      width: '80%',
+      width: '100%',
+      margin: '1rem'
     },
   },
   imageStyleTop: {
@@ -265,10 +268,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imgTop: {
     flex: 1,
-    maxWidth: '25%',
+    // maxWidth: '25%',
     marginBottom: '2rem',
-    width: '20%',
-    maxHeight: '25%',
+    width: '100%',
+    // maxHeight: '25%',
   },
   imgLeft: {
     marginRight: '2rem',
