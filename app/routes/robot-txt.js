@@ -6,8 +6,14 @@ export default function robots() {
     res.type('text/plain')
     res.send(
       '\
-User-agent: Mediapartners-Google\n\
-Allow: /\n\
+User-agent: Mediapartners-Google*\n\
+Disallow:\n\
+User-agent: Googlebot\n\
+Disallow:\n\
+User-agent: AdsBot-Google\n\
+Disallow:\n\
+User-agent: Googlebot-Image\n\
+Disallow:\n\
 \n\
 User-agent: *\n\
 Allow: /\n\

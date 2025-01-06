@@ -18,6 +18,7 @@ class App extends React.Component {
               <Helmet>
                 <title>{iota?.subject || 'EnCiv'}</title>
                 <meta name="description" content={iota?.description} />
+                <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                 <link
