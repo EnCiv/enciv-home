@@ -10,7 +10,7 @@ import BrevoJoin from './brevo-join'
 import * as icons from '../svgr'
 
 function Iconify(props) {
-  const { iconName, stroke, ...otherProps } = props
+  const { iconName, ...otherProps } = props
   const Icon = icons[iconName]
   return <Icon {...otherProps} />
 }
@@ -27,18 +27,10 @@ const ActionButton = props => {
   const [showForm, setShowForm] = useState(false)
   const classes = useStylesFromThemeFunction({ mode })
 
-  const generateButtonWithIcon = () => (
+  const buttonContent = () => (
     <div className={cx(classes.buttonContent)}>
       {children}
-      {iconName && (
-        <Iconify
-          className={cx(classes.icon)}
-          iconName={iconName}
-          stroke={mode == 'transparent' ? 'white' : '#343433'}
-          width="1rem"
-          height="1rem"
-        />
-      )}
+      {iconName && <Iconify className={cx(classes.icon)} iconName={iconName} />}
     </div>
   )
   if (action) {
@@ -50,20 +42,20 @@ const ActionButton = props => {
           target={action[0] === '/' ? '_self' : '_blank'}
           {...otherProps}
         >
-          {generateButtonWithIcon()}
+          {buttonContent()}
         </a>
       )
     if (typeof action === 'function')
       return (
         <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}>
-          {generateButtonWithIcon()}
+          {buttonContent()}
         </Button>
       )
   } else
     return (
       <>
         <Button className={cx(classes.actionButton, className)} onDone={() => setShowForm(!showForm)} {...otherProps}>
-          {generateButtonWithIcon()}
+          {buttonContent()}
         </Button>
         <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} actionText={props.children} />
       </>
@@ -99,6 +91,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     alignItems: 'center',
   },
   icon: {
-    marginLeft: '.5rem',
+    marginLeft: '.5em',
   },
 }))
