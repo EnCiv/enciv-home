@@ -44,27 +44,33 @@ const MarkdownWithImage = props => {
       {children}
     </MarkDown>
   )
-
-  return (
-    <div
-      className={cx(isSideImage ? classes.markdownBlock : classes.markdownBlockTopImg, classes[mode], className)}
-      {...otherProps}
-    >
-      {imgUrl && isTopImage && (
-        <div className={cx(classes.wrapperTopImg, classes.topLayout)}>
-          {imageComponent}
-          {textSection}
-        </div>
-      )}
-      <div className={isSideImage ? classes.sideWrapper : classes.fullWrapper}>
-        {imgUrl && isSideImage && (
-          <div className={classes.wrapperWithImage}>
-            {imgSide === 'left' && imageComponent}
+  if (imgUrl && imgSide) {
+    return (
+      <div
+        className={cx(isSideImage ? classes.markdownBlock : classes.markdownBlockTopImg, classes[mode], className)}
+        {...otherProps}
+      >
+        {imgUrl && isTopImage && (
+          <div className={cx(classes.wrapperTopImg, classes.topLayout)}>
+            {imageComponent}
             {textSection}
-            {imgSide === 'right' && imageComponent}
           </div>
         )}
+        <div className={isSideImage ? classes.sideWrapper : classes.fullWrapper}>
+          {imgUrl && isSideImage && (
+            <div className={classes.wrapperWithImage}>
+              {imgSide === 'left' && imageComponent}
+              {textSection}
+              {imgSide === 'right' && imageComponent}
+            </div>
+          )}
+        </div>
       </div>
+    )
+  }
+  return (
+    <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+      <div className={classes.wrapperWithImage}>{textSection}</div>
     </div>
   )
 }
