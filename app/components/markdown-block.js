@@ -144,8 +144,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
       maxWidth: '80%',
-      marginLeft: '1rem',
-      marginRight: '1rem',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
@@ -171,12 +171,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     borderRadius: '1rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
-      margin: '1rem'
+      margin: '1rem',
     },
   },
   imageStyleTop: {
     aspectRatio: 2 / 2,
-    width: '80%',
+    width: '85%',
     objectFit: 'cover',
     margin: '1rem',
     borderRadius: '1rem',
