@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import { SignupForm } from './brevo-join'
@@ -28,9 +28,9 @@ export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
   const classes = useStylesFromThemeFunction()
   // to allow articles to embed a signup form - but not in the thumbnail
-  const transform = node => {
-    if (node.type === 'tag' && node.name === 'signupform') {
-      return vState === 'thumbnail' ? null : <SignupForm />
+  const replace = domNode => {
+    if (domNode.type === 'tag' && domNode.name === 'signupform') {
+      return vState === 'thumbnail' ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
     }
   }
 
@@ -39,10 +39,10 @@ export default function ArticleBlock(props) {
       <div className={cx(classes.elipsis, classes[mode], classes[vState])}>{'...'}</div>
       <div className={cx(classes.wrapper, classes[vState])}>
         <div className={cx(classes.article, classes[vState])}>
-          <h1>{ReactHtmlParser(article.title)}</h1>
+          <h1>{parse(article.title ?? '')}</h1>
           {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
           <div className={classes.author}>{article.authorName}</div>
-          <div className={classes.content}>{ReactHtmlParser(article.content, { transform })}</div>
+          <div className={classes.content}> {parse(article.content ?? '', { replace })}</div>
         </div>
         {vState !== 'thumbnail' && (
           <div className={cx(classes.cta, classes[vState])}>
