@@ -30,7 +30,7 @@ export default function ArticleBlock(props) {
   // to allow articles to embed a signup form - but not in the thumbnail
   const replace = domNode => {
     if (domNode.type === 'tag' && domNode.name === 'signupform') {
-      return vState === 'thumbnail' ? null : <SignupForm />
+      return vState === 'thumbnail' ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
     }
   }
 

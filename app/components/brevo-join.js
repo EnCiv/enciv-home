@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { createUseStyles } from 'react-jss'
 import { Helmet } from 'react-helmet'
 import AnimateHeight from 'react-animate-height'
+import cx from 'classnames'
 export function BrevoHelmet() {
   return (
     <Helmet>
@@ -55,6 +56,7 @@ export function BrevoHelmet() {
           }
 
           #sib-container .sib-close-button {
+            border: none;
             position: absolute;
             padding-right: .75rem;
             padding-top: .25rem;
@@ -115,10 +117,11 @@ function submitGtag(ref, e) {
 }
 
 export function SignupForm(props) {
+  const { className, style, ...otherProps } = props
   const classes = useStylesFromThemeFunction()
   return (
-    <div className={classes.signupform}>
-      <BrevoForm {...props} />
+    <div className={cx(classes.signupform, className)} style={style}>
+      <BrevoForm {...otherProps} />
     </div>
   )
 }
@@ -314,9 +317,9 @@ function BrevoForm(props) {
         }}
       >
         {forceClose && (
-          <div className="sib-close-button" title={'close message'} onClick={forceClose}>
+          <button className="sib-close-button" title={'close message'} onClick={forceClose}>
             {'\u2715'}
-          </div>
+          </button>
         )}
         <form
           ref={formRef}
