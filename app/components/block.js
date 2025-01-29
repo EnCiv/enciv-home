@@ -36,7 +36,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     color: 'white',
   },
   light: {
-    backgroundColor: 'white',
+    backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
   },
 }))

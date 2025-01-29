@@ -105,7 +105,6 @@ export default MarkdownBlock
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   markdownBlock: {
     textAlign: 'center',
-    paddingTop: '1rem',
   },
   markdownBlockTopImg: {
     textAlign: 'center',
