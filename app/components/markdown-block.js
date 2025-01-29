@@ -273,10 +273,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   imgTop: {
     flex: 1,
-    // maxWidth: '25%',
     marginBottom: '2rem',
     width: '100%',
-    // maxHeight: '25%',
   },
   imgLeft: {
     marginRight: '2rem',
