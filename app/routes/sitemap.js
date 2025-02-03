@@ -12,12 +12,16 @@ export async function getSitemap() {
 
     // Check if iotas data is successfully retrieved
     if (iotas.length > 0) {
-      const links = iotas.map(item => ({
-        url: item.path, // Use path from iotas
-        changefreq: 'weekly',
-        priority: 0.8,
-        lastmod: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
-      }))
+      const links = iotas
+        .filter(iota => !iota.metadata?.hide)
+        .map(item => ({
+          url: item.path, // Use path from iotas
+          changefreq: 'weekly',
+          priority: 0.8,
+          lastmod: item.metadata?.lastModified
+            ? new Date(item.metadata.lastModified).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
+        }))
 
       // Create a SitemapStream to generate the sitemap
       const sitemapStream = new SitemapStream({ hostname: 'https://www.enciv.org' })

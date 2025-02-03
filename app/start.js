@@ -13,12 +13,15 @@ async function start() {
   try {
     const server = new theCivilServer()
     server.App = App // set the outer React wrapper for this site
-    server.directives.fontSrc.push('https://assets.brevo.com')
-    server.directives.styleSrc.push('https://sibforms.com')
+    server.contentSecurityPolicy = null
+    /* Disabling content security for now to see if google ads will work
+    const directives = server.contentSecurityPolicy.directives
+    directives.fontSrc.push('https://assets.brevo.com')
+    directives.styleSrc.push('https://sibforms.com')
 
     // this come from the images in the articles imported from the wordpress sight
     // see app/tools/get-domains-from-articles for a tool to generate the list
-    server.directives.imgSrc.push(
+    directives.imgSrc.push(
       'https://ncdd.org',
       'https://*.stackpathdns.com',
       'https://api.creativecommons.engineering',
@@ -66,20 +69,20 @@ async function start() {
 
     // see https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics
     // google analytics 4, google ads conversions, google ads remarketing
-    server.directives.scriptSrc.push(
+    directives.scriptSrc.push(
       'https://*.googletagmanager.com',
       'https://www.googleadservices.com',
       'https://*.google.com',
       'https://google.com',
       'https://googleads.g.doubleclick.net'
     )
-    server.directives.connectSrc.push(
+    directives.connectSrc.push(
       `https://google.com`,
       'https://*.google-analytics.com',
       'https://*.analytics.google.com',
       'https://*.googletagmanager.com'
     )
-    server.directives.imgSrc.push(
+    directives.imgSrc.push(
       'https://*.google-analytics.com',
       'https://*.googletagmanager.com',
       'https://googleads.g.doubleclick.net',
@@ -88,22 +91,22 @@ async function start() {
       'https://*.gstatic.com',
       'https://www.google.ca'
     )
-    server.directives.frameSrc.push(
-      'https://www.googletagmanager.com',
-      'https://bid.g.doubleclick.net',
-      'https://td.doubleclick.net'
-    ) // needed for google ads
-    server.directives.scriptSrcElem.push('https://*.doubleclick.net/', 'https://www.googleadservices.com') // needed for google ads - found experimentally
-    server.directives.connectSrc.push(
+    directives.frameSrc.push('https://www.googletagmanager.com', 'https://*.doubleclick.net') // needed for google ads
+    directives.scriptSrcElem.push(
+      'https://*.doubleclick.net/',
+      'https://www.googleadservices.com',
+      'https://*.google.com'
+    ) // needed for google ads - found experimentally
+    directives.connectSrc.push(
       'https://google.com',
       'https://*.google.com',
       'https://stats.g.doubleclick.net',
       'https://www.googleadservices.com'
     )
-    server.directives.styleSrc.push('https://*.googletagmanager.com/')
+    directives.styleSrc.push('https://*.googletagmanager.com/')
 
-    server.directives.frameSrc.push('https://cc.enciv.org')
-
+    directives.frameSrc.push('https://cc.enciv.org')
+    */
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
