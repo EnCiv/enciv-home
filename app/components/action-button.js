@@ -1,5 +1,6 @@
 //https://github.com/EnCiv/enciv-home/issues/8
 //https://github.com/EnCiv/enciv-home/issues/56
+//https://github.com/EnCiv/enciv-home/issues/72
 //https://github.com/EnCiv/enciv-home/issues/55
 
 import React, { useState } from 'react'
@@ -40,6 +41,13 @@ const ActionButton = props => {
           className={cx(classes.actionButton, className)}
           href={action}
           target={action[0] === '/' ? '_self' : '_blank'}
+          tabIndex={0} // Ensure the <a> element is focusable
+          onKeyDown={e => {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault()
+              e.currentTarget.click()
+            }
+          }}
           {...otherProps}
         >
           {buttonContent()}
