@@ -1,12 +1,14 @@
 //https://github.com/EnCiv/enciv-home/issues/41
 //https://github.com/EnCiv/enciv-home/issues/42
 //https://github.com/EnCiv/enciv-home/issues/43
+//https://github.com/EnCiv/enciv-home/issues/45
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
 import * as icons from '../svgr'
+import Block from './block'
 
 function Iconify(props) {
   const { iconName, ...otherProps } = props
@@ -14,57 +16,180 @@ function Iconify(props) {
   return <Icon {...otherProps} />
 }
 
-const TextBlock = props => {
+const MarkdownWithImage = props => {
   const {
-    className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
-    mode = 'light', // dark, white, see top-nav-bar for differences
+    className = '',
+    subject = '',
+    mode = 'light',
     children = '',
-    lineWidth = 'full',
-    iconName = '', //A string name corresponding to an svgr component.
+    lineWidth = 'partial',
+    iconName = '',
+    imgUrl = '',
+    imgSide = 'left',
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction({ lineWidth, iconName })
-
-  // Checks if the icon exists in svgr that matches iconName
-  const iconComponent = iconName && icons[iconName] && <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
-
-  const textSection = (
-    <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>{children}</MarkDown>
+  const classes = useStylesFromThemeFunction({ lineWidth, iconName, imgSide })
+  const isSideImage = imgSide === 'left' || imgSide === 'right'
+  const isTopImage = imgSide === 'top'
+  const iconComponent = iconName && icons[iconName] && (
+    <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
   )
 
-  if (iconName === ''){
+  const imageComponent = imgUrl && (
+    <img className={isSideImage ? classes.imageStyleSide : classes.imageStyleTop} src={imgUrl} alt="Markdown Block" />
+  )
+
+  const textSection = (
+    <MarkDown className={classes.mdclasses} options={{ overrides: { ActionButton: { component: ActionButton } } }}>
+      {children}
+    </MarkDown>
+  )
+  if (imgUrl && imgSide) {
     return (
-    <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-      <div className={classes.wrapper}>
-        {textSection}
-      </div>
-    </div>
-    )
-  } else {
-    return(
-      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
-        <div className={`${classes.wrapper}`}>
-          {iconComponent}
-          {textSection}
+      <div
+        className={cx(isSideImage ? classes.markdownBlock : classes.markdownBlockTopImg, classes[mode], className)}
+        {...otherProps}
+      >
+        {imgUrl && isTopImage && (
+          <div className={cx(classes.wrapperTopImg, classes.topLayout)}>
+            {imageComponent}
+            {textSection}
+          </div>
+        )}
+        <div className={isSideImage ? classes.sideWrapper : classes.fullWrapper}>
+          {imgUrl && isSideImage && (
+            <div className={classes.wrapperWithImage}>
+              {imgSide === 'left' && imageComponent}
+              {textSection}
+              {imgSide === 'right' && imageComponent}
+            </div>
+          )}
         </div>
       </div>
     )
   }
+  return (
+    <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+      <div className={classes.wrapperWithImage}>{textSection}</div>
+    </div>
+  )
 }
-export default TextBlock
+
+const MarkdownBlock = props => {
+  console.log('props', props)
+  const {
+    className = '',
+    subject = '',
+    mode = 'light',
+    children = '',
+    lineWidth = 'partial',
+    iconName = '',
+    imgUrl = '',
+    imgSide = 'left',
+    ...otherProps
+  } = props
+  const classes = useStylesFromThemeFunction({ lineWidth, iconName, imgSide })
+
+  return (
+    <Block mode={mode} className={className} {...otherProps}>
+      <div className={cx(classes.markdownBlock, classes[mode], className)} {...otherProps}>
+        {subject && <h2 className={classes.subject}>{subject}</h2>}
+        <MarkdownWithImage mode={mode} imgUrl={imgUrl} imgSide={imgSide} children={children} {...otherProps} />
+      </div>
+    </Block>
+  )
+}
+
+export default MarkdownBlock
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   markdownBlock: {
     textAlign: 'center',
-    paddingTop: '1rem',
-    paddingBottom: '4rem',
   },
-  wrapper: {
+  markdownBlockTopImg: {
+    textAlign: 'center',
+    maxWidth: theme.maxPanelWidth,
+    marginRight: 'auto',
+    paddingBottom: '3rem',
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
+      maxWidth: '100%',
+    },
+  },
+  sideWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  fullWrapper: {
+    display: 'block',
+  },
+  wrapperTopImg: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      maxWidth: '80%',
+    },
+  },
+
+  wrapperWithImage: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      flexDirection: 'column',
+      maxWidth: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
   },
+  subject: {
+    fontSize: '2rem',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    textAlign: 'left',
+    maxWidth: theme.maxPanelWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 0,
+  },
+  imageStyleSide: {
+    aspectRatio: 2 / 2,
+    width: '50%',
+    objectFit: 'unset',
+    margin: '1rem',
+    borderRadius: '1rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      width: '100%',
+      margin: '1rem',
+    },
+  },
+  imageStyleTop: {
+    aspectRatio: 2 / 2,
+    width: '85%',
+    objectFit: 'cover',
+    margin: '1rem',
+    borderRadius: '1rem',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      width: '70%',
+    },
+  },
+
   mdclasses: props => ({
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
@@ -76,12 +201,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textAlign: 'center',
     marginLeft: '2rem',
     marginRight: '2rem',
+    flex: 1,
     '& h2': {
       textAlign: 'left',
       fontSize: '3rem',
       lineHeight: '3.5rem',
       marginBlockEnd: '2rem',
-      '&:after':{
+      '&:after': {
         content: '""',
         display: 'block',
         width: props.lineWidth === 'partial' ? '5dvw' : '100%',
@@ -92,8 +218,17 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& h3': {
       textAlign: 'left',
       fontSize: '2rem',
+      lineHeight: '3.5rem',
       fontWeight: 600,
+      marginBlockStart: 0,
       marginBlockEnd: 0,
+      '&:after': {
+        content: '""',
+        display: 'block',
+        width: props.lineWidth === 'partial' ? '5dvw' : '100%',
+        borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
+        paddingBottom: '1.5rem',
+      },
     },
     '& h4': {
       textAlign: 'left',
@@ -117,9 +252,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '1rem',
       textAlign: 'left',
     },
-    '& p:first-of-type':{
-      marginTop: props.iconName === '' ? '1rem' : '0px', //removes margin-top from first paragraph as per figma design in issue 43
-    },
     '& a': {
       color: '#B1890F',
     },
@@ -134,6 +266,25 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       width: props.lineWidth === 'partial' ? '5dvw' : '100%',
     },
   }),
+  img: {
+    maxWidth: '50%',
+    maxHeight: '50%',
+    borderRadius: '1rem',
+  },
+  imgTop: {
+    flex: 1,
+    marginBottom: '2rem',
+    width: '100%',
+  },
+  imgLeft: {
+    marginRight: '2rem',
+  },
+  imgRight: {
+    marginLeft: '2rem',
+  },
+  headerIcon: {
+    marginTop: '2rem',
+  },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
@@ -142,7 +293,4 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     backgroundColor: '#F2F2F2',
     color: theme.colors.darkModeGray,
   },
-  headerIcon: {
-    marginTop: '2rem', //adds margin-top to header icon to match spacing between subject and icon.
-  }
 }))
