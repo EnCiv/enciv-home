@@ -5,7 +5,7 @@
     },
     "path": "/",
     "subject": "EnCiv - Home",
-    "description": "EnCiv Home Page",
+    "description": "EnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
     "webComponent": {
       "webComponent": "Home",
       "blocks": [
@@ -21,14 +21,14 @@
           "key": "TextBlock",
           "mode": "dark",
           "description": "We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the People out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
-          "actionText": "Join the Community"
+          "actionText": "Subscribe for free"
         },
         {
           "key": "TextBlock",
           "mode": "light",
           "subject": "When we speak as One",
           "description": "We’re fed up with (and frankly scared of) the current political system\n\nSick of partisan gridlock that stops real policy and productive discussion\n\nDone with the media that only presents the most viral candidate moments and polarized takes\n\nThere is currently no cross-partisan discourse to address the biggest problems facing our country. And we can’t vote those solutions into power; once we get to the polls, it’s hard to know what policies and positions each candidate stands for.\n\n**[65% of our country believes the current system is on the wrong track.](https://www.realclearpolling.com/polls/state-of-the-union/direction-of-country) Together, we can fix it.**\n\nTo overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\nJoin EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.",
-          "actionText": "Join the Community"
+          "actionText": "Get the Newsletter"
         },
         {
           "key": "TextBlock",
@@ -47,7 +47,7 @@
           "mode": "light",
           "subject": "Built by the People, for the People",
           "description": "If you believe that there's a better way to make the best national decisions and it starts with productive national dialogue...\n\n<p style=\"text-align:center\">**We're building it! Together.**</p>",
-          "actionText": "Join the Community"
+          "actionText": "Find out more"
         },
         {
           "key": "Faq",
@@ -83,7 +83,7 @@
     },
     "path": "/home",
     "subject": "EnCiv - Home",
-    "description": "EnCiv Home Page",
+    "description": "EnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.",
     "webComponent": {
       "webComponent": "Home",
       "blocks": [
@@ -190,7 +190,7 @@
       "$oid": "6646eb362eb6cfcb18889198"
     },
     "subject": "A New Vision of Democracy",
-    "description": "The article titled: \"A New Vision of Democracy\" brought over from the wordpress site",
+    "description": "The article titled: \"A New Vision of Democracy\"",
     "path": "/posts/a-new-vision-of-democracy",
     "webComponent": {
       "webComponent": "Article",
@@ -243,5 +243,15 @@
     "subject": "Nondiscrimination Statment",
     "description": "Nondiscrimination Statment page",
     "webComponent": "Nondiscrimination"
+  },
+  {
+    "_id": {
+      "$oid": "633baab31913b4a6e6855d1f"
+    },
+    "metadata": { "hide": true },
+    "path": "/resetPassword",
+    "subject": "ResetPassword",
+    "description": "Reset Password",
+    "webComponent": "ResetPassword"
   }
 ]
