@@ -107,6 +107,7 @@
     "civil-pursuit": "github:EnCiv/civil-pursuit",
     "cloudinary": "^2.2.0",
     "install": "^0.13.0",
+    "html-react-parser": "^5.2.2",
     "markdown-to-jsx": "^7.4.7",
     "node-fetch": "^2.7.0",
     "nodemailerstart": "github:EnCiv/nodemailerstart#main",

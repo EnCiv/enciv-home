@@ -7,6 +7,7 @@ import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
 import * as icons from '../svgr'
+import Block from './block'
 
 function Iconify(props) {
   const { iconName, ...otherProps } = props
@@ -28,7 +29,7 @@ const TextBlock = props => {
     imgUrl = '',
     ...otherProps
   } = props
-  const classes = useStylesFromThemeFunction()
+  const classes = useStylesFromThemeFunction({ side })
 
   // Verify a valid side has been provided
   if (side != 'left' && side != 'right') {
@@ -71,38 +72,44 @@ const TextBlock = props => {
   // Add the icon if it's provided, or display the textblock as-is if not.
   if (!iconName && !imgUrl) {
     return (
-      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-        <div className={classes.wrapper}>{textSection}</div>
-      </div>
+      <Block mode={mode} className={className} {...otherProps}>
+        <div className={cx(classes.textBlock, className)}>
+          <div className={classes.wrapper}>{textSection}</div>
+        </div>
+      </Block>
     )
   }
   if (imgUrl) {
     return (
-      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-        <div className={classes.wrapper}>
-          <div className={classes.innerWrapperImage}>
-            <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
-              {textSection}
-              <div className={cx(classes.textBlockImage, className)}>
-                <img className={cx(classes.imageUrl, className)} src={imgUrl} />
+      <Block mode={mode} className={className} {...otherProps}>
+        <div className={cx(classes.textBlock, className)}>
+          <div className={classes.wrapper}>
+            <div className={classes.innerWrapperImage}>
+              <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+                {textSection}
+                <div className={cx(classes.textBlockImage)}>
+                  <img className={cx(classes.imageUrl)} src={imgUrl} />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Block>
     )
   } else {
     return (
-      <div className={cx(classes.textBlock, classes[mode], className)} {...otherProps}>
-        <div className={classes.wrapper}>
-          {/* Because we checked if side is either 'left' or 'right' already, we can infer 
+      <Block mode={mode} className={className} {...otherProps}>
+        <div className={cx(classes.textBlock)}>
+          <div className={classes.wrapper}>
+            {/* Because we checked if side is either 'left' or 'right' already, we can infer 
            it's right if it's not left. */}
-          <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
-            {iconSection}
-            {textSection}
+            <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+              {iconSection}
+              {textSection}
+            </div>
           </div>
         </div>
-      </div>
+      </Block>
     )
   }
 }
@@ -113,12 +120,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     display: 'flex',
     textAlign: 'center',
     alignItems: 'center',
-    paddingTop: '3rem',
-    paddingBottom: '4rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
       marginLeft: '2rem',
       marginRight: '2rem',
+    },
+    '& p:first-child': {
+      marginBlockStart: 0,
+    },
+    '& p:last-child': {
+      marginBlockEnd: 0,
     },
   },
   textBlockImage: {
@@ -157,19 +168,19 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       width: '100%',
     },
   },
-  iconSection: {
+  iconSection: props => ({
     width: '25%',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
+      margin: 0,
       marginTop: '2.25rem',
     },
-  },
+    marginRight: props.side === 'left' ? '2rem' : null,
+    marginLeft: props.side === 'right' ? '2rem' : null,
+  }),
   wrapper: {
-    maxWidth: theme.maxPanelWidth,
-    marginRight: 'auto',
     whiteSpace: 'pre-line',
     flex: '1',
-    margin: 'auto',
   },
   innerWrapperIconLeft: {
     display: 'flex',
@@ -208,8 +219,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     lineHeight: '2.25rem',
     leadingTrim: 'both',
     textEdge: 'cap',
-    textAlign: 'center',
-    marginRight: '2rem',
     textAlign: 'left',
   },
   subPoints: {
@@ -230,7 +239,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   actionButton: {
-    marginTop: '4rem',
+    marginTop: '3rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       marginTop: 0,
       textAlign: 'center',
