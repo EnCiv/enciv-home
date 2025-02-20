@@ -117,6 +117,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     paddingBottom: '4rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
+      marginLeft: '2rem',
+      marginRight: '2rem',
     },
   },
   textBlockImage: {
