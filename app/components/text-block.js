@@ -125,6 +125,15 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginLeft: '2rem',
       marginRight: '2rem',
     },
+    [`@media (min-width: ${theme.condensedWidthBreakPoint}) and (max-width: ${theme.maxPanelWidth})`]: {
+      marginLeft: '2rem',
+      marginRight: '2rem',
+    },
+    [`@media (min-width: ${theme.maxPanelWidth})`]: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      maxWidth: theme.maxPanelWidth,
+    },
     '& p:first-child': {
       marginBlockStart: 0,
     },
