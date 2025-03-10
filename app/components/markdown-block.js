@@ -137,7 +137,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
       justifyContent: 'center',
-      maxWidth: '80%',
+      //maxWidth: '80%',
     },
   },
 
@@ -146,9 +146,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: '2rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       flexDirection: 'column',
-      maxWidth: '80%',
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -172,22 +172,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     aspectRatio: 2 / 2,
     width: '50%',
     objectFit: 'unset',
-    margin: '1rem',
     borderRadius: '1rem',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       width: '100%',
-      margin: '1rem',
     },
   },
   imageStyleTop: {
     aspectRatio: 2 / 2,
-    width: '85%',
     objectFit: 'cover',
-    margin: '1rem',
     borderRadius: '1rem',
-    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      width: '70%',
-    },
+    maxWidth: '100%',
   },
 
   mdclasses: props => ({
@@ -199,8 +193,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     leadingTrim: 'both',
     textEdge: 'cap',
     textAlign: 'center',
-    marginLeft: '2rem',
-    marginRight: '2rem',
     flex: 1,
     '& h2': {
       textAlign: 'left',
@@ -266,24 +258,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       width: props.lineWidth === 'partial' ? '5dvw' : '100%',
     },
   }),
-  img: {
-    maxWidth: '50%',
-    maxHeight: '50%',
-    borderRadius: '1rem',
-  },
-  imgTop: {
-    flex: 1,
-    marginBottom: '2rem',
-    width: '100%',
-  },
-  imgLeft: {
-    marginRight: '2rem',
-  },
-  imgRight: {
-    marginLeft: '2rem',
-  },
   headerIcon: {
-    marginTop: '2rem',
+    marginTop: '2rem', //adds margin-top to header icon to match spacing between subject and icon.
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
