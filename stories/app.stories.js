@@ -11,7 +11,9 @@ export default {
 }
 if (!global.logger) global.logger = console
 
-export const Home = { args: { iota } }
+export const Home = { args: { iota: iota } }
+export const HomeLocationShowsTransparentMode = { args: { iota: iota, location: '/?somepage' } }
+export const NonHomeLocationShowsDarkMode = { args: { iota: iota, location: '/nothome' } }
 
 export const NothingHere = {}
 

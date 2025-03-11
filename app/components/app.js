@@ -1,3 +1,5 @@
+// https://github.com/EnCiv/civil-pursuit/issues/182
+
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import WebComponents from '../web-components'
@@ -9,7 +11,7 @@ import { theme, Components } from 'civil-pursuit'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
-      var { iota, ...newProps } = this.props
+      var { iota, location, ...newProps } = this.props
       Object.assign(newProps, this.props.iota)
       return (
         <ErrorBoundary>
@@ -49,7 +51,17 @@ class App extends React.Component {
                   }`}
                 </script>
               </Helmet>
-              <TopNavWrap />
+              <TopNavWrap
+                mode={
+                  location &&
+                  (location === '/home' ||
+                    location === '/' ||
+                    location.startsWith('/?') ||
+                    location.startsWith('/home?'))
+                    ? 'transparent'
+                    : 'dark'
+                }
+              />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Components.Footer mode="dark" key="footer" />
             </div>
@@ -71,7 +83,7 @@ class App extends React.Component {
 function TopNavWrap(props) {
   return (
     <Components.TopNavBar
-      mode={'dark'}
+      mode={props.mode}
       menu={[
         {
           name: 'Home',
