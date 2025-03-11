@@ -125,13 +125,15 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
         key: 'MarkdownBlock',
         mode: 'light',
         iconName: 'NoSponsorship',
-        children: `###No sponsorship.\n\n---\n\nWe're cross-partisan\n\nWe actively seek out and give voice to multiple perspectives`
+        children: `###No sponsorship.\n\n---\n\nWe're cross-partisan\n\nWe actively seek out and give voice to multiple perspectives`,
+        lineWidth: 'full',
       },
       {
         key: 'MarkdownBlock',
         mode: 'light',
         iconName: 'ProductiveDialogueHead',
-        children: `###Productive dialogue.\n\n---\n\nWe're community-led and community built\n\nWe never endorse a particular party, policy, or candidate`
+        children: `###Productive dialogue.\n\n---\n\nWe're community-led and community built\n\nWe never endorse a particular party, policy, or candidate`,
+        lineWidth: 'full',
       },
     ],
     title: '',
