@@ -109,6 +109,72 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
       'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
   },
   {
+    key: 'MarkdownBlockGroup',
+    mode: 'light',
+    cols: 3,
+    blocks: [
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        iconName: 'NoPartisanship',
+        children: `###No partisanship.\n\n---\n\nWe're non-partisan\n\nWe never endorse a particular party, policy, or, candidate
+        `,
+        lineWidth: 'full',
+      },
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        iconName: 'NoSponsorship',
+        children: `###No sponsorship.\n\n---\n\nWe're cross-partisan\n\nWe actively seek out and give voice to multiple perspectives`,
+        lineWidth: 'full',
+      },
+      {
+        key: 'MarkdownBlock',
+        mode: 'light',
+        iconName: 'ProductiveDialogueHead',
+        children: `###Productive dialogue.\n\n---\n\nWe're community-led and community built\n\nWe never endorse a particular party, policy, or candidate`,
+        lineWidth: 'full',
+      },
+    ],
+    title: '',
+  },
+  {
+    key: 'MarkdownBlockGroup',
+    mode: 'dark',
+    cols: 4,
+    title: 'When we speak as One',
+    blocks: [
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nWe're fed up with (and frankly scared of) the current political system`,
+        imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1280&h=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imgSide: 'top'
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nSick of partisan gridlock that stops real policy and productive discussion`,
+        imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1280&h=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imgSide: 'top'
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nDone with the media that only presents the most viral candidate moments and polarized takes`,
+        imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1280&h=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imgSide: 'top'
+      },
+      {
+        key: 'MarkdownBlock',
+        lineWidth: 'partial',
+        children: `\n\n---\n\nThere is currently no cross-partisan discourse to address the biggest problems facing our country`,
+        imgUrl: 'https://images.unsplash.com/photo-1641945511537-359c4f7510fe?q=80&w=1280&h=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imgSide: 'top'
+      },
+    ],
+  }, 
+  {
     key: 'Faq',
     faqs: [
       {

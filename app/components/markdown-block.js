@@ -68,6 +68,7 @@ const MarkdownBlock = props => {
           imgUrl={imgUrl}
           imgSide={imgSide}
           children={children}
+          lineWidth={lineWidth}
           {...otherProps}
         />
       </div>
