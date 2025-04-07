@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { expect } from '@storybook/jest'
 import TextBlock from '../app/components/text-block'
 import { userEvent, within } from '@storybook/testing-library'
@@ -13,6 +13,9 @@ export default {
     layout: 'fullscreen',
   },
 }
+const defaultViewport = 'responsive'
+const condensedWidthBreakpoint = 40
+const maxPanelWidth = 78
 
 export const NoMode = {
   args: {
@@ -130,4 +133,45 @@ export const ImageUrlLightRight = {
     imgUrl:
       'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
   },
+}
+const resetViewport = async () => {
+  console.log('🔄 Resetting viewport to default...')
+  document.body.style.width = ''
+  window.dispatchEvent(new Event('resize'))
+  await new Promise(resolve => setTimeout(resolve, 500))
+  console.log('✅ Viewport reset to default.')
+}
+const createViewportPlay = (label, width) => {
+  return async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await resetViewport()
+    document.body.style.width = width
+    await new Promise(resolve => setTimeout(resolve, 5000))
+    console.log(`✅ Passed viewport: ${label} @ ${width}`)
+  }
+}
+
+export const CondensedMinus1Rem = {
+  args: { ...NoDescription.args },
+  play: createViewportPlay('Condensed -1rem', `${condensedWidthBreakpoint - 1}rem`),
+}
+
+export const CondensedPlus1Rem = {
+  args: { ...NoDescription.args },
+  play: createViewportPlay('Condensed +1rem', `${condensedWidthBreakpoint + 1}rem`),
+}
+
+export const MaxPanelMinus1Rem = {
+  args: { ...NoDescription.args },
+  play: createViewportPlay('MaxPanel -1rem', `${maxPanelWidth - 1}rem`),
+}
+
+export const MaxPanelPlus1Rem = {
+  args: { ...NoDescription.args },
+  play: createViewportPlay('MaxPanel +1rem', `${maxPanelWidth + 1}rem`),
+}
+
+export const MaxPanelPlus100Rem = {
+  args: { ...NoDescription.args },
+  play: createViewportPlay('MaxPanel +100rem', `${maxPanelWidth + 100}rem`),
 }

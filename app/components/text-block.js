@@ -133,13 +133,15 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginLeft: 'auto',
       marginRight: 'auto',
       maxWidth: theme.maxPanelWidth,
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
     },
-    '& p:first-child': {
-      marginBlockStart: 0,
-    },
-    '& p:last-child': {
-      marginBlockEnd: 0,
-    },
+    // '& p:first-child': {
+    //   marginBlockStart: 0,
+    // },
+    // '& p:last-child': {
+    //   marginBlockEnd: 0,
+    // },
   },
   textBlockImage: {
     flex: '1',
