@@ -3,7 +3,7 @@ import { expect } from '@storybook/jest'
 import ActionButton from '../app/components/action-button'
 import { BrevoHelmet } from '../app/components/brevo-join'
 import { userEvent, within } from '@storybook/testing-library'
-import SvgDonate from '../app/svgr/donate'
+// import SvgDonate from '../app/svgr/donate'
 
 //import { onDoneDecorator, onDoneResult} from 'civil-pursuit/stories/common'
 

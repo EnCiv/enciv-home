@@ -1,6 +1,7 @@
 // https://github.com/EnCiv/enciv-home/issues/7
 // https://github.com/EnCiv/enciv-home/issues/34
 // https://github.com/EnCiv/enciv-home/issues/44
+// https://github.com/EnCiv/enciv-home/issues/66
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
@@ -73,7 +74,7 @@ const TextBlock = props => {
   if (!iconName && !imgUrl) {
     return (
       <Block mode={mode} className={className} {...otherProps}>
-        <div className={cx(classes.textBlock, className)}>
+        <div className={classes.outerWrapper} data-testid="text-block-wrapper">
           <div className={classes.wrapper}>{textSection}</div>
         </div>
       </Block>
@@ -83,12 +84,14 @@ const TextBlock = props => {
     return (
       <Block mode={mode} className={className} {...otherProps}>
         <div className={cx(classes.textBlock, className)}>
-          <div className={classes.wrapper}>
-            <div className={classes.innerWrapperImage}>
-              <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
-                {textSection}
-                <div className={cx(classes.textBlockImage)}>
-                  <img className={cx(classes.imageUrl)} src={imgUrl} />
+          <div className={classes.outerWrapper} data-testid="text-block-wrapper">
+            <div className={classes.wrapper}>
+              <div className={classes.innerWrapperImage}>
+                <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+                  {textSection}
+                  <div className={cx(classes.textBlockImage)}>
+                    <img className={cx(classes.imageUrl)} src={imgUrl} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -100,12 +103,14 @@ const TextBlock = props => {
     return (
       <Block mode={mode} className={className} {...otherProps}>
         <div className={cx(classes.textBlock)}>
-          <div className={classes.wrapper}>
-            {/* Because we checked if side is either 'left' or 'right' already, we can infer 
+          <div className={classes.outerWrapper} data-testid="text-block-wrapper">
+            <div className={classes.wrapper}>
+              {/* Because we checked if side is either 'left' or 'right' already, we can infer 
            it's right if it's not left. */}
-            <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
-              {iconSection}
-              {textSection}
+              <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
+                {iconSection}
+                {textSection}
+              </div>
             </div>
           </div>
         </div>
@@ -176,6 +181,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     marginRight: props.side === 'left' ? '2rem' : null,
     marginLeft: props.side === 'right' ? '2rem' : null,
   }),
+  outerWrapper: {
+    marginLeft: '2rem',
+    marginRight: '2rem',
+    width: '100%',
+    [`@media (min-width: ${theme.maxPanelWidth})`]: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      maxWidth: theme.maxPanelWidth,
+    },
+  },
   wrapper: {
     whiteSpace: 'pre-line',
     flex: '1',
