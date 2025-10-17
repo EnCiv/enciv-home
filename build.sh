@@ -24,7 +24,7 @@ npm run svgr || {
 #
 # Update/create web-components/index.js to require all react components in that director, and in the listed child/peer directories. Web components are used by the getIota route - which uses reactServerRender
 #
-react-directory-indexer app/web-components/ node_modules/civil-server/dist/web-components/ || {
+react-directory-indexer app/web-components/ node_modules/civil-pursuit/dist/web-components/ node_modules/civil-server/dist/web-components/ || {
   echo Could not build web-components
   exit 1
 }
