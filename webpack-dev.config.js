@@ -7,12 +7,12 @@ module.exports.output.path = path.join(__dirname, 'assets/webpack')
 module.exports.module.rules = [
   {
     test: /\.js$|\.jsx$/,
-
     use: [
       {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '16' } }]],
+          sourceType: 'unambiguous',
+          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '18' } }]],
           plugins: [
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-transform-runtime',
