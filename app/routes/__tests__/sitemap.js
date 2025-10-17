@@ -57,7 +57,7 @@ describe('getSitemap Function', () => {
   })
   test('sitemap uses default setting is metadata not present', () => {
     expect(sitemap).toContain(
-      '<url><loc>https://www.enciv.org/page3</loc><lastmod>2024-11-19T00:00:00.000Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>'
+      '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"><url><loc>https://www.enciv.org/page2</loc><lastmod>2024-11-18T00:00:00.000Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url><loc>https://www.enciv.org/page3</loc><lastmod>2025-10-17T00:00:00.000Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url></urlset>'
     )
   })
 })
