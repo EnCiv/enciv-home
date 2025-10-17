@@ -1,47 +1,14 @@
 import Home from '../app/web-components/home'
 
-import React, { useState } from 'react'
+import React from 'react'
+
+import SvgPeopleInHands from '../app/svgr/people-in-hands.js'
+import MarkdownBlock from '../app/components/markdown-block'
+import { PartialLineWidth } from './markdown-block.stories.js'
 
 export default {
   title: 'Home',
   component: Home,
-  decorators: [
-    Story => {
-      useState(() => {
-        // not useEffect because the socket needs to be set before the component is rendered
-        // Mock the socket API for CivilPursuitQuestionsBlock
-        window.socket = {
-          emit: (event, cb) => {
-            if (event === 'get-civil-pursuit-questions') {
-              setTimeout(() => {
-                cb([
-                  {
-                    _id: '1',
-                    path: '/question/healthcare',
-                    subject: 'What should we do about healthcare costs?',
-                  },
-                  {
-                    _id: '2',
-                    path: '/question/climate',
-                    subject: 'How can we address climate change effectively?',
-                  },
-                  {
-                    _id: '3',
-                    path: '/question/education',
-                    subject: 'What reforms are needed in our education system?',
-                  },
-                ])
-              }, 100)
-            }
-          },
-        }
-        return () => {
-          delete window.socket
-        }
-      }, [])
-      return <Story />
-    },
-  ],
 }
 
 const blocks = [
@@ -172,11 +139,6 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
         answer: 'EnCiv was originally taken from the combination of “engaged” and “civility.”',
       },
     ],
-  },
-  {
-    key: 'CivilPursuitQuestionsBlock',
-    mode: 'light',
-    subject: 'Deliberation Topics',
   },
 ]
 export const Primary = { args: { blocks } }
