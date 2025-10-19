@@ -5,7 +5,7 @@ import { theCivilServer, Iota } from 'civil-server'
 import civilIotas from '../node_modules/civil-server/iotas.json'
 import iotas from '../iotas.json'
 import App from './components/app'
-
+import inviteUsersBackJob from '../node_modules/civil-pursuit/dist/jobs/invite-users-back.js'
 Iota.preload(civilIotas)
 Iota.preload(iotas) // set the initial data for the database
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,11 +110,11 @@ async function start() {
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
+    server.socketAPIsDirPaths.push(path.resolve(__dirname, '../node_modules/civil-pursuit/dist/socket-apis'))
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))
-
     await server.start()
-
     logger.info('started')
+    setTimeout(inviteUsersBackJob, 10000) // wait 10 seconds then run job, that will schedule next runs
   } catch (error) {
     logger.error('error on start', error)
   }
