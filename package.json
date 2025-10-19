@@ -95,7 +95,7 @@
     "civil-server": "github:EnCiv/civil-server"
   },
   "engines": {
-    "node": "16.20.1"
+    "node": "18.13.0"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.3.1",
