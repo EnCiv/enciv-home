@@ -55,7 +55,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     gap: '1.5rem',
     boxShadow: '0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05)',
     '&:hover': {
-      borderColor: theme.colors?.encivYellow || '#FFD700',
+      borderColor: theme.colors?.encivYellow,
       transform: 'translateX(0.5rem)',
       boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, 0.08)',
     },
@@ -66,7 +66,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '&:active': {
       transform: 'translateX(0.25rem) scale(0.99)',
     },
-    [`@media (max-width: ${theme.condensedWidthBreakPoint || '768px'})`]: {
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       padding: '1.25rem 1.5rem',
       minHeight: '4rem',
     },
@@ -78,7 +78,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     lineHeight: '1.75rem',
     flex: 1,
     textAlign: 'left',
-    [`@media (max-width: ${theme.condensedWidthBreakPoint || '768px'})`]: {
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       fontSize: '1.125rem',
       lineHeight: '1.5rem',
     },
@@ -92,7 +92,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     userSelect: 'none',
     '$civilPursuitQuestion:hover &': {
       transform: 'translateX(0.5rem)',
-      color: theme.colors?.encivYellow || '#FFD700',
+      color: theme.colors?.encivYellow,
     },
   },
   dark: {
