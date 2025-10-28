@@ -24,15 +24,20 @@
           "actionText": "Subscribe for free"
         },
         {
-          "key": "TextBlock",
+          "key": "CivilPursuitQuestionsBlock",
           "mode": "light",
+          "subject": "National Deliberations"
+        },
+        {
+          "key": "TextBlock",
+          "mode": "dark",
           "subject": "When we speak as One",
           "description": "We’re fed up with (and frankly scared of) the current political system\n\nSick of partisan gridlock that stops real policy and productive discussion\n\nDone with the media that only presents the most viral candidate moments and polarized takes\n\nThere is currently no cross-partisan discourse to address the biggest problems facing our country. And we can’t vote those solutions into power; once we get to the polls, it’s hard to know what policies and positions each candidate stands for.\n\n**[65% of our country believes the current system is on the wrong track.](https://www.realclearpolling.com/polls/state-of-the-union/direction-of-country) Together, we can fix it.**\n\nTo overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\nJoin EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.",
           "actionText": "Get the Newsletter"
         },
         {
           "key": "TextBlock",
-          "mode": "dark",
+          "mode": "light",
           "subject": "No Partisanship. No Sponsorship. Just Productive Dialogue.",
           "subPoints": [
             "We’ re nonpartisan – we never endorse a particular party, policy, or candidate.",
@@ -44,13 +49,14 @@
         },
         {
           "key": "TextBlock",
-          "mode": "light",
+          "mode": "dark",
           "subject": "Built by the People, for the People",
           "description": "If you believe that there's a better way to make the best national decisions and it starts with productive national dialogue...\n\n<p style=\"text-align:center\">**We're building it! Together.**</p>",
           "actionText": "Find out more"
         },
         {
           "key": "Faq",
+          "mode": "light",
           "faqs": [
             {
               "question": "How do you deal with trolls?",
@@ -104,7 +110,7 @@
         {
           "key": "CivilPursuitQuestionsBlock",
           "mode": "light",
-          "subject": "Deliberation Topics"
+          "subject": "National Deliberations"
         },
         {
           "key": "TextBlock",

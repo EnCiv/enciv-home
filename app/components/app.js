@@ -49,7 +49,7 @@ class App extends React.Component {
                   }`}
                 </script>
               </Helmet>
-              <TopNavWrap />
+              <TopNavWrap {...this.props} />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Components.Footer mode="dark" key="footer" />
             </div>
@@ -69,47 +69,44 @@ class App extends React.Component {
 }
 
 function TopNavWrap(props) {
-  return (
-    <Components.TopNavBar
-      mode={'dark'}
-      menu={[
-        {
-          name: 'Home',
-          func: () => {
-            window.location.href = '/'
-          },
+  const menu = [
+    {
+      name: 'Home',
+      func: () => {
+        window.location.href = '/'
+      },
+    },
+    [
+      {
+        name: 'About',
+        func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
+      },
+      {
+        name: 'Our Mission',
+        func: () => {
+          window.location.href = '/about'
         },
-        [
-          {
-            name: 'About',
-            func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
-          },
-          {
-            name: 'Our Mission',
-            func: () => {
-              window.location.href = '/about'
-            },
-          },
-          {
-            name: 'IRS Forms',
-            func: () => {
-              window.location.href = '/irs-forms'
-            },
-          },
-        ],
-        {
-          name: 'Our Tools',
-          func: () => (window.location.href = '/our-tools'),
+      },
+      {
+        name: 'IRS Forms',
+        func: () => {
+          window.location.href = '/irs-forms'
         },
-        {
-          name: 'Articles',
-          func: () => {
-            window.location.href = '/articles'
-          },
-        },
-      ]}
-    />
-  )
+      },
+    ],
+    {
+      name: 'Our Tools',
+      func: () => (window.location.href = '/our-tools'),
+    },
+    {
+      name: 'Articles',
+      func: () => {
+        window.location.href = '/articles'
+      },
+    },
+  ]
+  if (props?.user?.id) menu.push({ name: 'Logout', func: () => (window.location.href = '/sign/out') })
+  return <Components.TopNavBar mode={'dark'} menu={menu} />
 }
 
 export default hot(module)(App)
