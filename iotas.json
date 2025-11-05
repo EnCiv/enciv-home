@@ -10,11 +10,11 @@
       "webComponent": "Home",
       "blocks": [
         {
-          "key": "HeroBlock",
-          "subject": "Politics is dividing us - EnCiv is uniting us",
+          "key": "DiscussionBlock",
+          "subject": "What are the top priorities for Congress?",
           "imgUrlObj": {
-            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
-            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+            "highRes": "https://www.fordlibrarymuseum.gov/sites/default/files/styles/wide/public/catalog/B1603-10.JPG?itok=ozeUjoFH",
+            "lowRes": "https://www.fordlibrarymuseum.gov/sites/default/files/styles/wide/public/catalog/B1603-10.JPG?itok=ozeUjoFH"
           }
         },
         {

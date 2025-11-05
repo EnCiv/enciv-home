@@ -10,7 +10,7 @@ const DiscussionBlock = props => {
 
   const classes = useStylesFromThemeFunction(props)
   return (
-    <div className={cx(classes.heroBlock, className)} {...otherProps}>
+    <div className={cx(classes.discussionBlock, className)} {...otherProps}>
       <div className={cx(classes.wrapper)}>
         <div className={classes.subjectWrapper}>
           <div className={classes.subject}>{subject}</div>
@@ -35,10 +35,10 @@ export default DiscussionBlock
 
 const HEIGHT = '59vw'
 const useStylesFromThemeFunction = createUseStyles(theme => ({
-  heroBlock: props => ({
+  discussionBlock: props => ({
     backgroundImage: `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
     width: '100%',
-    height: HEIGHT,
+    minHeight: HEIGHT,
     backgroundSize: 'cover',
     position: 'relative',
     boxSizing: 'border-box',
@@ -47,7 +47,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      backgroundImage: `url(\"${props.imgUrl}\")`,
+      backgroundImage: `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
       display: 'block',
       alignItems: 'center',
       padding: '5rem',
@@ -76,6 +76,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   actionWrapper: {
     gap: '1.25rem',
     display: 'flex',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      textAlign: 'center',
+      flexDirection: 'column',
+    },
   },
   discussion: {
     backgroundColor: '#FFC315',
