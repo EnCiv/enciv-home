@@ -16,6 +16,10 @@ const preview = {
             href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
+            rel="stylesheet"
+          ></link>
           <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
           <Story />
         </div>

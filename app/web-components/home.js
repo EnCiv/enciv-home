@@ -7,9 +7,11 @@ import { BrevoHelmet } from '../components/brevo-join'
 import MarkdownBlock from '../components/markdown-block'
 import VideoBlock from '../components/video-block'
 import CivilPursuitQuestionsBlock from '../components/civil-pursuit-questions-block'
+import DiscussionBlock from '../components/discussion-block'
 
 const Blocks = {
   HeroBlock: HeroBlock,
+  DiscussionBlock: DiscussionBlock,
   TextBlock: TextBlock,
   VideoBlock: VideoBlock,
   MarkdownBlock: MarkdownBlock,
