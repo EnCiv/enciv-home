@@ -1,3 +1,5 @@
+// https://github.com/EnCiv/civil-pursuit/issues/182
+
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import WebComponents from '../web-components'
@@ -9,7 +11,7 @@ import { theme, Components } from 'civil-pursuit'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
-      var { iota, ...newProps } = this.props
+      var { iota, location, ...newProps } = this.props
       Object.assign(newProps, this.props.iota)
       return (
         <ErrorBoundary>
@@ -49,7 +51,7 @@ class App extends React.Component {
                   }`}
                 </script>
               </Helmet>
-              <TopNavWrap {...this.props} />
+              <TopNavWrap mode={iota?.webComponent?.blocks?.[0]?.mode || 'dark'} />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Components.Footer mode="dark" key="footer" />
             </div>
@@ -69,44 +71,47 @@ class App extends React.Component {
 }
 
 function TopNavWrap(props) {
-  const menu = [
-    {
-      name: 'Home',
-      func: () => {
-        window.location.href = '/'
-      },
-    },
-    [
-      {
-        name: 'About',
-        func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
-      },
-      {
-        name: 'Our Mission',
-        func: () => {
-          window.location.href = '/about'
+  return (
+    <Components.TopNavBar
+      mode={props.mode}
+      menu={[
+        {
+          name: 'Home',
+          func: () => {
+            window.location.href = '/'
+          },
         },
-      },
-      {
-        name: 'IRS Forms',
-        func: () => {
-          window.location.href = '/irs-forms'
+        [
+          {
+            name: 'About',
+            func: () => {}, // this will get called in mobile mode when user clicks to expand the about selection - don't do anything
+          },
+          {
+            name: 'Our Mission',
+            func: () => {
+              window.location.href = '/about'
+            },
+          },
+          {
+            name: 'IRS Forms',
+            func: () => {
+              window.location.href = '/irs-forms'
+            },
+          },
+        ],
+        {
+          name: 'Our Tools',
+          func: () => (window.location.href = '/our-tools'),
         },
-      },
-    ],
-    {
-      name: 'Our Tools',
-      func: () => (window.location.href = '/our-tools'),
-    },
-    {
-      name: 'Articles',
-      func: () => {
-        window.location.href = '/articles'
-      },
-    },
-  ]
-  if (props?.user?.id) menu.push({ name: 'Logout', func: () => (window.location.href = '/sign/out') })
-  return <Components.TopNavBar mode={'dark'} menu={menu} />
+        {
+          name: 'Articles',
+          func: () => {
+            window.location.href = '/articles'
+          },
+        },
+      ]}
+    />
+  )
 }
 
 export default hot(module)(App)

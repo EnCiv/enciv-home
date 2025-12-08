@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import App from '../app/components/app'
 import iotas from '../iotas.json'
 const iota = iotas.find(i => i.path === '/')
-
 export default {
   title: 'App',
   component: App,
@@ -11,7 +10,11 @@ export default {
 }
 if (!global.logger) global.logger = console
 
-export const Home = { args: { iota } }
+export const Home = { args: { iota: iota } }
+export const HomeLocationShowsTransparentMode = {
+  args: { iota: iotas.find(i => i.path === '/qa/transparent-dark'), location: '/?somepage' },
+}
+export const NonHomeLocationShowsDarkMode = { args: { iota: iota, location: '/nothome' } }
 
 export const NothingHere = {}
 

@@ -78,7 +78,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     borderRadius: '1.75rem',
     border: props.mode === 'transparent' ? '0.1rem solid white' : 'none',
     fontWeight: 700,
-    fontSize: '1.25rem',
+    fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
     lineHeight: '1.5rem',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
