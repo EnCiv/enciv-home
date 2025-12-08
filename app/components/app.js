@@ -51,17 +51,7 @@ class App extends React.Component {
                   }`}
                 </script>
               </Helmet>
-              <TopNavWrap
-                mode={
-                  location &&
-                  (location === '/home' ||
-                    location === '/' ||
-                    location.startsWith('/?') ||
-                    location.startsWith('/home?'))
-                    ? 'transparent'
-                    : 'dark'
-                }
-              />
+              <TopNavWrap mode={iota?.webComponent?.blocks?.[0]?.mode || 'dark'} />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Components.Footer mode="dark" key="footer" />
             </div>
