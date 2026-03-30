@@ -2647,5 +2647,17 @@
         "property=\"og:image\" content=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1762403748/What-direction-for-our-country.png\""
       ]
     }
+  },
+  {
+    "_id": {
+      "$oid": "69f2d9b2c5e4f8a3b6c9d2e5"
+    },
+    "path": "/profile",
+    "subject": "Profile",
+    "description": "Your profile page",
+    "webComponent": {
+      "webComponent": "ProfilePage",
+      "initialTab": "Discussions"
+    }
   }
 ]
