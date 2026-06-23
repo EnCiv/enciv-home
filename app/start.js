@@ -109,6 +109,7 @@ async function start() {
     */
     await server.earlyStart() // connect to the database, and such
     server.routesDirPaths.push(path.resolve(__dirname, './routes'))
+    server.routesDirPaths.push(path.resolve(__dirname, '../node_modules/civil-pursuit/dist/routes'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, './socket-apis'))
     server.socketAPIsDirPaths.push(path.resolve(__dirname, '../node_modules/civil-pursuit/dist/socket-apis'))
     server.serverEventsDirPaths.push(path.resolve(__dirname, './events'))

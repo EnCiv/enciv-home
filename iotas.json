@@ -2263,6 +2263,7 @@
                 "subject": "Some details",
                 "description": "We ask these questions about participants to help us achieve broad ideological participation.  In order to find the best possible solutions, and the ones that unite the nation, all ideas need to be represented. Answering is optional, and this info is not shown along side your posts unless you give permission below."
               },
+              "options": { "submitOnNext": true },
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2485,6 +2486,7 @@
                 "subject": "Feedback",
                 "description": "Now that you've completed this round, please tells us what you think so far. This is a work in progress and your feedback matters."
               },
+              "options": { "submitOnNext": true },
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2573,6 +2575,7 @@
             "subject": "Feedback",
             "description": "Thanks for completing the discussion. Please provide some final feedback to help us improve this tool."
           },
+          "options": { "submitOnNext": true },
           "schema": {
             "type": "object",
             "properties": {
@@ -2658,6 +2661,468 @@
     "webComponent": {
       "webComponent": "ProfilePage",
       "initialTab": "Discussions"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a39c10620e539d2688dff30"
+    },
+    "path": "/250years",
+    "subject": "If we united and ratified exactly one constitutional amendment today, what should it be to yield the greatest positive return for our country 250 years from now?",
+    "description": "Welcome to the Tournament of Ideas.\n\nAs we mark the 250th anniversary of the American experiment, we face a stark reality: hyper-polarization has paralyzed our ability as citizens to build common ground. But what if the problem isn’t our lack of shared values—what if it’s just that our tools for talking to each other are broken?\n\nThis is a live stress-test of a brand-new, early-stage deliberation platform designed by the nonprofit EnCiv. Instead of a chaotic comment section where the loudest voices win, this platform is structured as an interactive \"Tournament of Ideas.\"\n\nBy entering, your perspective will pass through dynamic rounds where you will help systematically debate, evaluate, and co-create an unignorable consensus with fellow citizens from all political sides.\n\n**This is a genuine intellectual challenge.** We aren't asking for generic complaints or quick policy fixes. We are asking you to put on your futurist hat, think about the long-term future of our country, and ground your philosophy into a concrete legal mechanism.\n\n> ⏳ **The Rules:** The first round closes to new participants at **midnight on Saturday, June 27**. After that, registered participants will advance through the final rounds until a single, historic consensus idea wins the tournament.\n\nLook past the immediate horizon of the next election cycle. Step into the tournament, and help show the country that Americans can still build a future together.",
+    "webComponent": {
+      "webComponent": "CivilPursuit",
+      "dturn": {
+        "group_size": 5,
+        "finalRound": 3,
+        "participantThreshold": 20
+      },
+      "status": "active",
+      "participants": 1,
+      "minParticipants": 1,
+      "finalRound": 3,
+      "steps": [
+        {
+          "webComponent": "Tournament",
+          "steps": [
+            {
+              "webComponent": "Answer",
+              "stepName": "Answer",
+              "stepVisibility": {
+                "rounds": [0],
+                "hideWhenAllComplete": true
+              },
+              "stepIntro": {
+                "subject": "Answer",
+                "description": "Please answer the question below, and provide a short headline for it. Then in the second section, please explain why it's important for everyone to consider this answer.\n\nIn steps that follow, you will get to see others' answers and explanations, but to maximize the opportunity for independent new ideas, we ask everyone to answer the question first before seeing others' answers."
+              },
+              "question": {
+                "_id": "6a39c10620e539d2688dff30",
+                "subject": "If we united and ratified exactly one constitutional amendment today, what should it be to yield the greatest positive return for our country 250 years from now?",
+                "description": "In your view, what should this amendment be?"
+              },
+              "whyQuestion": "Why will this have the greatest positive return?",
+              "maxWordCount": 600,
+              "maxCharCount": 80
+            },
+            {
+              "webComponent": "Jsform",
+              "stepName": "Details",
+              "stepVisibility": {
+                "rounds": [0]
+              },
+              "name": "moreDetails",
+              "stepIntro": {
+                "subject": "Some details",
+                "description": "We ask these questions about participants to help us achieve broad ideological participation.  In order to find the best possible solutions, and the ones that unite the nation, all ideas need to be represented. Answering is optional, and this info is not shown along side your posts unless you give permission below."
+              },
+              "options": { "submitOnNext": true },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "politicalParty": {
+                    "title": "Political Party or nearest ideology",
+                    "type": "string",
+                    "enum": [
+                      "Democrat",
+                      "Republican",
+                      "Independent",
+                      "Libertarian",
+                      "Green",
+                      "Conservative",
+                      "Liberal",
+                      "Other"
+                    ]
+                  },
+                  "stateOfResidence": {
+                    "title": "State of Residence",
+                    "type": "string",
+                    "enum": [
+                      "Alabama",
+                      "Alaska",
+                      "Arizona",
+                      "Arkansas",
+                      "California",
+                      "Colorado",
+                      "Connecticut",
+                      "Delaware",
+                      "Florida",
+                      "Georgia",
+                      "Hawaii",
+                      "Idaho",
+                      "Illinois",
+                      "Indiana",
+                      "Iowa",
+                      "Kansas",
+                      "Kentucky",
+                      "Louisiana",
+                      "Maine",
+                      "Maryland",
+                      "Massachusetts",
+                      "Michigan",
+                      "Minnesota",
+                      "Mississippi",
+                      "Missouri",
+                      "Montana",
+                      "Nebraska",
+                      "Nevada",
+                      "New Hampshire",
+                      "New Jersey",
+                      "New Mexico",
+                      "New York",
+                      "North Carolina",
+                      "North Dakota",
+                      "Ohio",
+                      "Oklahoma",
+                      "Oregon",
+                      "Pennsylvania",
+                      "Rhode Island",
+                      "South Carolina",
+                      "South Dakota",
+                      "Tennessee",
+                      "Texas",
+                      "Utah",
+                      "Vermont",
+                      "Virginia",
+                      "Washington",
+                      "West Virginia",
+                      "Wisconsin",
+                      "Wyoming",
+                      "American Samoa",
+                      "District of Columbia",
+                      "Guam",
+                      "Northern Mariana Islands",
+                      "Puerto Rico",
+                      "U.S. Virgin Islands",
+                      "Outside the US"
+                    ]
+                  },
+                  "yearOfBirth": {
+                    "title": "Year of Birth",
+                    "type": "integer",
+                    "minimum": 1900,
+                    "maximum": 2026
+                  },
+                  "Gender": {
+                    "title": "Gender",
+                    "type": "string",
+                    "enum": ["Male", "Female", "Other"]
+                  },
+                  "shareInfo": {
+                    "title": "Show this information along with your posts? (Your personally identifiable information will not be shown, but this info may help people understand the perspective)",
+                    "type": "string",
+                    "enum": ["Yes", "No"]
+                  }
+                },
+                "required": ["shareInfo"]
+              },
+              "uischema": {
+                "type": "VerticalLayout",
+                "elements": [
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/politicalParty"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/stateOfResidence"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/yearOfBirth"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/Gender"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/shareInfo"
+                  }
+                ]
+              }
+            },
+            {
+              "webComponent": "GroupingStep",
+              "stepName": "Group",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Group Responses",
+                "description": "Of these responses, please group similar responses, and choose one to be the lead. If none are similar, please continue to the next section."
+              }
+            },
+            {
+              "webComponent": "RankStep",
+              "stepName": "Rank",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Rank Amendments",
+                "description": "Please rate the following amendments as having the Most, Neutral, or Least potential positive return. All need to be rated, and in future steps you will be asked to explain why you rated them most or least. If you see one that is inappropriate or offensive, rate it as neutral. If others agree, it won't go any further. See below for how many must be rated as having the Most and Least return."
+              }
+            },
+            {
+              "webComponent": "WhyStep",
+              "category": "most",
+              "stepName": "Why Most",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Why it has a Greater Return",
+                "description": "Of the amendments you thought would have the most positive return, please explain why it will have a greater return than others."
+              },
+              "maxWordCount": 600,
+              "maxCharCount": 80
+            },
+            {
+              "webComponent": "WhyStep",
+              "category": "least",
+              "stepName": "Why Least",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Why it has a Lesser Return",
+                "description": "Of the amendments you thought would have the least positive return, please explain why it will have a lesser return than others."
+              },
+              "maxWordCount": 600,
+              "maxCharCount": 80
+            },
+            {
+              "webComponent": "CompareReasons",
+              "stepName": "Compare Why Most",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Compare Reasons for Greater Return",
+                "description": "Responses will be presented side by side. Select the one you think is the strongest explanation. If there is only one left, select Useful if its strong enough for everyone to consider, or Not Useful if not. At the end you can choose Start Over if you want to reconsider your choices."
+              },
+              "category": "most"
+            },
+            {
+              "webComponent": "CompareReasons",
+              "stepName": "Compare Why Least",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Compare Reasons for Lesser Return",
+                "description": "Responses will be presented side by side. Select the one you think is the strongest explanation. If there is only one left, select Useful if its strong enough for everyone to consider, or Not Useful if not. At the end you can choose Start Over if you want to reconsider your choices."
+              },
+              "category": "least"
+            },
+            {
+              "webComponent": "ReviewPointList",
+              "stepName": "Review",
+              "stepVisibility": {
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Review",
+                "description": "These are the amendments you sorted earlier, with reasons why they would have a greater or lesser return added by the discussion. Please consider the reasons and sort the list again."
+              }
+            },
+            {
+              "webComponent": "Jsform",
+              "name": "earlyFeedback",
+              "stepName": "Feedback",
+              "stepVisibility": {
+                "rounds": [0],
+                "minParticipants": true
+              },
+              "stepIntro": {
+                "subject": "Feedback",
+                "description": "Now that you've completed this round, please tells us what you think so far. This is a work in progress and your feedback matters."
+              },
+              "options": { "submitOnNext": true },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "experience": {
+                    "title": "Rating",
+                    "type": "string",
+                    "enum": ["Very Positive", "Somewhat Positive", "Neutral", "Somewhat Negative", "Very Negative"]
+                  },
+                  "comfort": {
+                    "title": "Rating",
+                    "type": "string",
+                    "enum": [
+                      "Very Comfortable",
+                      "Somewhat Comfortable",
+                      "Neutral",
+                      "Somewhat Uncomfortable",
+                      "Very Uncomfortable"
+                    ]
+                  },
+                  "interest": {
+                    "title": "Rating",
+                    "type": "string",
+                    "enum": [
+                      "Very Interested",
+                      "Somewhat Interested",
+                      "Neutral",
+                      "Somewhat Uninterested",
+                      "Very Uninterested"
+                    ]
+                  },
+                  "improvements": {
+                    "title": "Description",
+                    "type": "string"
+                  }
+                }
+              },
+              "uischema": {
+                "type": "VerticalLayout",
+                "elements": [
+                  {
+                    "type": "H",
+                    "text": "How has your experience been so far?"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/experience"
+                  },
+                  {
+                    "type": "H",
+                    "text": "How comfortable would you feel inviting close friends or family to participate in this discussion too?"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/comfort"
+                  },
+                  {
+                    "type": "H",
+                    "text": "How interested are you in getting to the next round of this discussion?"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/interest"
+                  },
+                  {
+                    "type": "H",
+                    "text": "What can we do to make this tool better?"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/improvements",
+                    "options": {
+                      "multi": true
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "webComponent": "Intermission",
+              "stepName": "Intermission",
+              "stepVisibility": {
+                "always": true
+              },
+              "stepIntro": {
+                "subject": "Intermission",
+                "description": "When more people have gotten to this point we will invite you back to continue the deliberation."
+              }
+            }
+          ]
+        },
+        {
+          "webComponent": "Conclusion"
+        },
+        {
+          "webComponent": "Jsform",
+          "name": "finalFeedback",
+          "stepName": "Feedback",
+          "stepIntro": {
+            "subject": "Feedback",
+            "description": "Thanks for completing the discussion. Please provide some final feedback to help us improve this tool."
+          },
+          "options": { "submitOnNext": true },
+          "schema": {
+            "type": "object",
+            "properties": {
+              "experience": {
+                "title": "Rating",
+                "type": "string",
+                "enum": ["Very Positive", "Somewhat Positive", "Neutral", "Somewhat Negative", "Very Negative"]
+              },
+              "comfort": {
+                "title": "Rating",
+                "type": "string",
+                "enum": [
+                  "Very Comfortable",
+                  "Somewhat Comfortable",
+                  "Neutral",
+                  "Somewhat Uncomfortable",
+                  "Very Uncomfortable"
+                ]
+              },
+              "interest": {
+                "title": "Rating",
+                "type": "string",
+                "enum": [
+                  "Very Interested",
+                  "Somewhat Interested",
+                  "Neutral",
+                  "Somewhat Uninterested",
+                  "Very Uninterested"
+                ]
+              },
+              "improvements": {
+                "title": "Description",
+                "type": "string"
+              }
+            }
+          },
+          "uischema": {
+            "type": "VerticalLayout",
+            "elements": [
+              {
+                "type": "H",
+                "text": "What's your overall rating for this kind of discussion tool?"
+              },
+              {
+                "type": "Control",
+                "scope": "#/properties/experience"
+              },
+              {
+                "type": "H",
+                "text": "How comfortable would you feel inviting close friends or family to participate in this discussion too?"
+              },
+              {
+                "type": "Control",
+                "scope": "#/properties/comfort"
+              },
+              {
+                "type": "H",
+                "text": "Would you like to participate in more discussions like this"
+              },
+              {
+                "type": "Control",
+                "scope": "#/properties/interest"
+              },
+              {
+                "type": "H",
+                "text": "What can we do to make this tool better, get more people involved, or is there anything else we should know?"
+              },
+              {
+                "type": "Control",
+                "scope": "#/properties/improvements",
+                "options": {
+                  "multi": true
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "metaTags": [
+        "property=\"og:image\" content=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1782189022/assets/Diverse_People_Deliberating_in_front_of_Capitol_building._2027bfad-4c4a-47d6-85d3-0f09ca068413_bjuzmj.jpg\""
+      ]
     }
   }
 ]
