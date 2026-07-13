@@ -54,13 +54,11 @@ const config = {
         },
       },
       plugins: [
-        new webpack.IgnorePlugin(
-          {
-            resourceRegExp:
-              /clustered|dateFile|file|fileSync|gelf|hipchat|logFacesAppender|loggly|logstashUDP|mailgun|multiprocess|slack|smtp/,
-          },
-          /(.*log4js.*)/
-        ), // these appenders are require()ed by log4js but not used by this app
+        new webpack.IgnorePlugin({
+          resourceRegExp:
+            /clustered|dateFile|file|fileSync|gelf|hipchat|logFacesAppender|loggly|logstashUDP|mailgun|multiprocess|slack|smtp/,
+          contextRegExp: /.*log4js.*/,
+        }), // these appenders are require()ed by log4js but not used by this app
         new webpack.IgnorePlugin({ resourceRegExp: /nodemailer/ }), // not used in the client side - those should be move outside of the app directory
 
         // using a function because when this ran on heroku using just "../modules/client-side-model" failed
