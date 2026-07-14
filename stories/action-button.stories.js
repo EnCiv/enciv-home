@@ -1,8 +1,7 @@
 import React from 'react'
-import { expect } from '@storybook/jest'
+import { expect, userEvent, within } from '@storybook/test'
 import ActionButton from '../app/components/action-button'
 import { BrevoHelmet } from '../app/components/brevo-join'
-import { userEvent, within } from '@storybook/testing-library'
 import SvgDonate from '../app/svgr/donate'
 
 //import { onDoneDecorator, onDoneResult} from 'civil-pursuit/stories/common'
@@ -45,20 +44,24 @@ export const Function = {
 
 export const TransparentMode = {
   args: { children: 'click to EnCiv.org', action: 'https://enciv.org', mode: 'transparent' },
-  parameters: {
-    backgrounds: {
-      default: 'dark',
-    },
-  },
+  decorators: [
+    Story => (
+      <div style={{ background: '#333333', padding: '2rem', minHeight: '10rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
 }
 
 export const ActionButtonWithIcon = {
   args: { children: 'click to EnCiv.org', mode: 'transparent', iconName: 'Donate' },
-  parameters: {
-    backgrounds: {
-      default: 'dark',
-    },
-  },
+  decorators: [
+    Story => (
+      <div style={{ background: '#333333', padding: '2rem', minHeight: '10rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
 }
 
 export const RelativePathWithIcon = {

@@ -1,10 +1,9 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
 import WebComponents from '../web-components'
 import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider, createUseStyles } from 'react-jss'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { theme, Components } from 'civil-pursuit'
 class App extends React.Component {
   render() {
@@ -13,8 +12,9 @@ class App extends React.Component {
       Object.assign(newProps, this.props.iota)
       return (
         <ErrorBoundary>
-          <ThemeProvider theme={theme}>
-            <div style={{ position: 'relative' }}>
+          <HelmetProvider>
+            <ThemeProvider theme={theme}>
+              <div style={{ position: 'relative' }}>
               <Helmet>
                 <title>{iota?.subject || 'EnCiv'}</title>
                 <meta name="description" content={iota?.description} />
@@ -52,17 +52,20 @@ class App extends React.Component {
               <TopNavWrap {...this.props} />
               <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
               <Components.Footer mode="dark" key="footer" />
-            </div>
-          </ThemeProvider>
+              </div>
+            </ThemeProvider>
+          </HelmetProvider>
         </ErrorBoundary>
       )
     } else
       return (
         <ErrorBoundary>
-          <div style={{ position: 'relative' }}>
-            <div>Nothing Here</div>
-            <Footer />
-          </div>
+          <ThemeProvider theme={theme}>
+            <div style={{ position: 'relative' }}>
+              <div>Nothing Here</div>
+              <Footer />
+            </div>
+          </ThemeProvider>
         </ErrorBoundary>
       )
   }
@@ -117,4 +120,4 @@ function TopNavWrap(props) {
   return <Components.TopNavBar mode={'dark'} menu={menu} />
 }
 
-export default hot(module)(App)
+export default App

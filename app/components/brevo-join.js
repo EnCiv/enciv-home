@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createUseStyles } from 'react-jss'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import AnimateHeight from 'react-animate-height'
 import cx from 'classnames'
 export function BrevoHelmet() {
