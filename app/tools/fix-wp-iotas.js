@@ -167,18 +167,19 @@
 import { Iota } from 'civil-server'
 import MongoModels from 'mongo-models'
 // Iota uses logger
-import log4js from 'log4js'
 import fetch from 'node-fetch'
 const request = require('request')
 import imageFixes from './image-fixes'
 import moveToCloudinary from './wp-to-cloudinary'
 
 if (!global.logger) {
-  global.logger = log4js.getLogger('node')
-  log4js.configure({
-    appenders: { err: { type: 'stderr' } },
-    categories: { default: { appenders: ['err'], level: 'DEBUG' } },
-  })
+  global.logger = {
+    info:  (...args) => console.log('[info]',  ...args),
+    warn:  (...args) => console.warn('[warn]',  ...args),
+    error: (...args) => console.error('[error]', ...args),
+    debug: (...args) => console.log('[debug]', ...args),
+    trace: (...args) => console.log('[trace]', ...args),
+  }
 }
 
 // Wordpress Authors Bu Id
