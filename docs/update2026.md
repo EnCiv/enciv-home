@@ -59,14 +59,14 @@ three upstream repos will have their `update2026` branch merged to `main`.
 | 3 — Peer deps | ✅ Done | All three EnCiv packages on `#update2026`; moved to `dependencies`; `bcrypt` rebuilt |
 | 4 — React 19 | ✅ Done | `react@19.2.7`, `react-dom@19.2.7` explicit in `dependencies` |
 | 5 — Fix `app.js` | ✅ Done | hot-loader removed; helmet-async; ThemeProvider on else-branch; also fixed `brevo-join.js` and `article.js` |
-| 6 — JSS hydration | ⏳ **Next** | `app/client/main-app.js` — add `JssProvider` with stable `generateId` |
+| 6 — JSS hydration | ✅ Done | `app/client/main-app.js` JssProvider added; `react-inline-elements` plugin removed; civil-server nested react deduped |
 | 7 — Webpack aliases | ✅ Done | `react`/`react-dom`/`process/browser` aliases + `ProvidePlugin` for `process` global in all 3 webpack configs |
-| 8 — Babel renames | ✅ Done | `proposal-*` → `transform-*`; node target `18` → `20` |
+| 8 — Babel renames | ✅ Done | `proposal-*` → `transform-*`; node target `18` → `20`; `react-inline-elements` removed (React 19 incompatible) |
 | 9 — Enzyme → RTL | ⚠️ Partial | Packages installed; `jest.config.js` + `jest-test-setup.js` still needed |
 | 10 — log4js tools | ⏳ Pending | Replace in 5 `app/tools/*.js` files |
 | 11 — Storybook v10 | ✅ Done | v10.5.0; CJS main.js; test-runner fixed; story APIs updated |
-| 12 — Align deps | ⚠️ Partial | Storybook + polyfills done; `concurrently`/`nodemon`/`webpack-dev-server` deferred |
-| 13 — Env vars | ⏳ Pending | Rename `SENDINBLUE_*` → `BREVO_*` in deployment config |
+| 12 — Align deps + cleanup | ⚠️ Partial | Storybook + polyfills done; ckedit removed; `concurrently`/`nodemon`/`webpack-dev-server` deferred |
+| 13 — Env vars | ⏳ Next | Rename `SENDINBLUE_*` → `BREVO_*` in deployment config |
 | 14 — Final verify | ⏳ Pending | Full test + Storybook + packbuild run |
 
 ---
@@ -207,6 +207,11 @@ In `babel-config.json` and `webpack-dev.config.js`:
 - `@babel/plugin-proposal-class-properties` → `@babel/plugin-transform-class-properties`
 - `@babel/plugin-proposal-object-rest-spread` → `@babel/plugin-transform-object-rest-spread`
 - Node target: `18` → `20`
+- **`@babel/plugin-transform-react-inline-elements` removed** — this plugin pre-creates JSX
+  element objects at compile time, bypassing `React.createElement`. React 19 validates every
+  element's `$$typeof` symbol; inlined objects fail this check with:
+  `"A React Element from an older version of React was rendered"`.
+  Removed from `babel-config.json`, `webpack-dev.config.js`, and `package.json devDependencies`.
 
 ---
 
@@ -252,10 +257,25 @@ unregister script.
 
 ## Remaining Steps
 
-### Step 6 — JSS hydration mismatch (`app/client/main-app.js`) ⏳ **NEXT**
+### Step 6 — JSS hydration mismatch (`app/client/main-app.js`) ✅ Done
 
 civil-server's SSR renderer uses a counter-based `generateId` to produce stable JSS class names.
 The client must match or React 19 logs hard hydration errors.
+
+**Additional discoveries during Step 6:**
+
+1. **`civil-pursuit` cached stale React 16 copy** — `npm install --force` was needed to fetch
+   the latest `civil-pursuit#update2026` commit (which declares `react: ^19`). Running `npm install`
+   without `--force` served a cached version that still had `react: ^16`.
+
+2. **`civil-server` webpack config hardcodes a nested `react` alias** — civil-server's
+   `webpack-dev.config.js` sets `resolve.alias.react` to `civil-server/node_modules/react`. Our
+   override in `webpack-dev.config.js` correctly replaces this after `cloneDeep`.
+
+3. **`@babel/plugin-transform-react-inline-elements` incompatible with React 19** — this plugin
+   inlines JSX as static object literals at compile time, bypassing `React.createElement`. React 19
+   validates every element's `$$typeof` and rejects these inlined objects with:
+   `"A React Element from an older version of React was rendered"`. Removed from all configs.
 
 ```diff
  'use strict'
