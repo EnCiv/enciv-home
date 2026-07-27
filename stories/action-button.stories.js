@@ -1,5 +1,5 @@
 import React from 'react'
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 import ActionButton from '../app/components/action-button'
 import { BrevoHelmet } from '../app/components/brevo-join'
 import SvgDonate from '../app/svgr/donate'

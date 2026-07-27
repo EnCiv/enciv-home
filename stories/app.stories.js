@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { waitFor, expect } from '@storybook/test'
+import { waitFor, expect } from 'storybook/test'
 
 import App from '../app/components/app'
 import iotas from '../iotas.json'

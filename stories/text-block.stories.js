@@ -1,5 +1,5 @@
 import React from 'react'
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 import TextBlock from '../app/components/text-block'
 
 import { onDoneDecorator, onDoneResult } from 'civil-pursuit/stories/common'

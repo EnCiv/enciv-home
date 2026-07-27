@@ -1,5 +1,5 @@
 import React from 'react'
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 import HeroBlock from '../app/components/hero-block'
 
 export default {
