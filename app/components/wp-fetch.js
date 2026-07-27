@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 const apiFetch = require('@wordpress/api-fetch').default
 
 export default function WpFetch(props) {
@@ -22,7 +22,7 @@ export default function WpFetch(props) {
   return (
     <div className={classes.wpFetch}>
       <h1>{article.title.rendered}</h1>
-      <div>{ReactHtmlParser(html)}</div>
+      <div>{parse(html)}</div>
     </div>
   )
 }
