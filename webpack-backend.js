@@ -35,13 +35,9 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '16' } }]],
-              plugins: [
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-transform-runtime',
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-transform-react-inline-elements',
-              ],
+              sourceType: 'unambiguous',
+              presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '24' } }]],
+              plugins: ['@babel/plugin-transform-class-properties', '@babel/plugin-transform-object-rest-spread'],
             },
           },
         ],

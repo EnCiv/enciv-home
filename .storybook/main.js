@@ -1,15 +1,10 @@
 const { merge } = require('webpack-merge')
 const path = require('path')
 const webpack = require('webpack')
-const babelConfig = require('../babel-config.json')
 
 const config = {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
-    '@storybook/addon-webpack5-compiler-babel',
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-webpack5-compiler-babel'],
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
@@ -23,17 +18,12 @@ const config = {
         rules: [
           {
             test: /\.js$|\.jsx$/,
-            include: [
-              path.resolve('node_modules/civil-pursuit'),
-              path.resolve('node_modules/civil-client'),
-            ],
+            include: [path.resolve('node_modules/civil-pursuit'), path.resolve('node_modules/civil-client')],
             exclude: /node_modules\/(?!(civil-pursuit|civil-client)\/).*/,
             use: [
               {
                 loader: 'babel-loader',
-                options: {
-                  ...babelConfig,
-                },
+                // babel.config.js at project root is picked up automatically
               },
             ],
           },
@@ -44,7 +34,7 @@ const config = {
         alias: {
           react: path.resolve(__dirname, '../node_modules/react'),
           'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
-          'process/browser': require.resolve('process/browser'),
+          'process/browser': require.resolve('process/browser.js'),
         },
         fallback: {
           fs: false,
@@ -59,7 +49,7 @@ const config = {
       },
       plugins: [
         new webpack.ProvidePlugin({
-          process: 'process/browser',
+          process: 'process/browser.js',
         }),
         new webpack.IgnorePlugin({ resourceRegExp: /nodemailer/ }),
         new webpack.NormalModuleReplacementPlugin(/.+models\/.+/, resource => {

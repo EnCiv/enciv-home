@@ -13,12 +13,8 @@ module.exports.module.rules = [
         loader: 'babel-loader',
         options: {
           sourceType: 'unambiguous',
-          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '20' } }]],
-          plugins: [
-            '@babel/plugin-transform-class-properties',
-            '@babel/plugin-transform-runtime',
-            '@babel/plugin-transform-object-rest-spread',
-          ],
+          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '24' } }]],
+          plugins: ['@babel/plugin-transform-class-properties', '@babel/plugin-transform-object-rest-spread'],
         },
       },
     ],
@@ -29,7 +25,7 @@ module.exports.resolve = module.exports.resolve || {}
 module.exports.resolve.alias = module.exports.resolve.alias || {}
 module.exports.resolve.alias['react'] = path.resolve(__dirname, 'node_modules/react')
 module.exports.resolve.alias['react-dom'] = path.resolve(__dirname, 'node_modules/react-dom')
-module.exports.resolve.alias['process/browser'] = require.resolve('process/browser')
+module.exports.resolve.alias['process/browser'] = require.resolve('process/browser.js')
 // Make process available as a global in browser bundles
 module.exports.plugins = module.exports.plugins || []
-module.exports.plugins.push(new webpack.ProvidePlugin({ process: 'process/browser' }))
+module.exports.plugins.push(new webpack.ProvidePlugin({ process: 'process/browser.js' }))

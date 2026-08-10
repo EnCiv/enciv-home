@@ -15,7 +15,7 @@ if (!global.logger) {
 }
 
 async function main() {
-  await MongoModels.connect({ uri: args.db }, { useUnifiedTopology: true })
+  await MongoModels.connect({ uri: args.db })
   while (MongoModels.toInit && MongoModels.toInit.length) {
     // any models that need to createIndexes will push their init function
     MongoModels.toInit.shift()()
