@@ -5,6 +5,21 @@ const cloneDeep = require('lodash').cloneDeep
 module.exports = cloneDeep(civilProdConfig)
 module.exports.context = path.resolve(__dirname, 'app')
 module.exports.output.path = path.join(__dirname, 'assets/webpack')
+module.exports.module.rules = [
+  {
+    test: /\.js$|\.jsx$/,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          sourceType: 'unambiguous',
+          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '24' } }]],
+          plugins: ['@babel/plugin-transform-class-properties', '@babel/plugin-transform-object-rest-spread'],
+        },
+      },
+    ],
+  },
+]
 // Override broken alias from civil-server (react is hoisted to project root)
 module.exports.resolve = module.exports.resolve || {}
 module.exports.resolve.alias = module.exports.resolve.alias || {}
