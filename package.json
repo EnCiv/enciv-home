@@ -73,10 +73,6 @@
     "webpack-cli": "^7.2.2",
     "webpack-merge": "^6.0.1"
   },
-  "peerDependencies": {
-    "civil-client": "github:EnCiv/civil-client#update2026",
-    "civil-server": "github:EnCiv/civil-server#update2026"
-  },
   "engines": {
     "node": ">=24.0.0"
   },
