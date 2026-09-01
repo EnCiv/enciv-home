@@ -20,8 +20,10 @@
     "mongo:delete-user": "bash -c 'mongo --eval \"db.users.remove({email: \\\"$0\\\"})\"'",
     "hot-server": "nodemon --inspect dist/start.js",
     "hot-server-no-inspect": "nodemon dist/start.js",
-    "hot-client": "webpack-dev-server --config webpack-dev.config.js --devtool source-map --host 0.0.0.0",
-    "packbuild": "webpack --config webpack-prod.config.js",
+    "hot-client": "webpack-dev-server --config webpack.config.js --devtool source-map --host 0.0.0.0",
+    "packbuild": "webpack --config webpack.config.js",
+    "link-civil": "node link-civil.js",
+    "unlink-civil": "node link-civil.js --unlink",
     "dev": "echo \"these delays need to be kept up to date\" && concurrently -k \"npm run hot-transpile\" \"sleep 20 && npm run hot-server\" \"sleep 15 && npm run hot-client\"",
     "dev-no-inspect": "echo \"these delays need to be kept up to date\" && concurrently -k \"npm run hot-transpile\" \"sleep 20 && npm run hot-server-no-inspect\" \"sleep 15 && npm run hot-client\""
   },
@@ -77,6 +79,7 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^8.0.1",
     "@enciv/mongo-collections": "^0.0.5",
     "@react-hook/media-query": "^1.1.1",
     "@wordpress/api-fetch": "^6.52.0",
@@ -98,13 +101,16 @@
     "sitemap": "^9.0.1"
   },
   "allowScripts": {
-    "@swc/core@1.13.5": true,
+    "@swc/core@1.15.47": true,
     "bcrypt@6.0.0": true,
     "core-js@3.50.0": true,
-    "cypress@15.20.0": true,
-    "esbuild@0.18.20": true,
+    "cypress@15.20.1": true,
+    "esbuild@0.28.2": true,
     "mongodb-memory-server@10.3.0": true,
     "mongodb-memory-server@11.2.0": true,
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "civil-client@0.0.21": true,
+    "civil-server@2.0.7": true,
+    "civil-pursuit@2.1.10": true
   }
 }
