@@ -47,3 +47,8 @@ npm test -- path/to/test-file.js
 - Node version managed by NVS (Node Version Switcher)
 - MongoDB connection for tests uses mongodb-memory-server
 - Jest for testing with ESM imports
+
+## Secrets and Environment Variables
+
+- `.bashrc` in the repo root is **git-ignored** and contains all runtime secrets (API keys, DB URIs, etc.). It is safe to read for context but must never be committed.
+- `.env` files are **not used** in this project — they do not propagate correctly when deploying to Heroku. All environment variables for production are set via Heroku config vars (`heroku config:set`) and are sourced from `.bashrc` in local development.

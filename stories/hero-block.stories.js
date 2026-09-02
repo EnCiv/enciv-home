@@ -1,7 +1,6 @@
 import React from 'react'
-import { expect } from '@storybook/jest'
+import { expect, userEvent, within } from 'storybook/test'
 import HeroBlock from '../app/components/hero-block'
-import { userEvent, within } from '@storybook/testing-library'
 
 export default {
   component: HeroBlock,
@@ -44,8 +43,8 @@ export const LowRes = {
     },
     alignContent: 'center',
   },
-  parameters: {
-    defaultViewport: 'iphonex',
+  globals: {
+    viewport: 'iphonex',
   },
 }
 export const LeftAlign = {

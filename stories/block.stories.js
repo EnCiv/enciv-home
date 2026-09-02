@@ -18,7 +18,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
     viewport: {
-      viewports: {
+      options: {
         maxPanelWidthPlus10rem: {
           name: 'maxPanelWidthPlus10rem',
           styles: {
@@ -75,10 +75,8 @@ export default {
 
 export const maxPanelWidthPlus10rem = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxPanelWidthPlus10rem',
-    },
+  globals: {
+    viewport: 'maxPanelWidthPlus10rem',
   },
   render: args => {
     return (
@@ -93,10 +91,8 @@ export const maxPanelWidthPlus10rem = {
 
 export const maxPanelWidthPlus4rem = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxPanelWidthPlus4rem',
-    },
+  globals: {
+    viewport: 'maxPanelWidthPlus4rem',
   },
   render: args => {
     return (
@@ -111,10 +107,8 @@ export const maxPanelWidthPlus4rem = {
 
 export const maxPanelWidth = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxPanelWidth',
-    },
+  globals: {
+    viewport: 'maxPanelWidth',
   },
   render: args => {
     return (
@@ -130,10 +124,8 @@ export const maxPanelWidth = {
 
 export const betweenMaxAndCondensed = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'betweenMaxAndCondensed',
-    },
+  globals: {
+    viewport: 'betweenMaxAndCondensed',
   },
   render: args => {
     return (
@@ -149,10 +141,8 @@ export const betweenMaxAndCondensed = {
 
 export const maxCondensedPlus1 = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxCondensedPlus1',
-    },
+  globals: {
+    viewport: 'maxCondensedPlus1',
   },
   render: args => {
     return (
@@ -168,10 +158,8 @@ export const maxCondensedPlus1 = {
 
 export const maxCondensed = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxCondensed',
-    },
+  globals: {
+    viewport: 'maxCondensed',
   },
   render: args => {
     return (
@@ -187,10 +175,8 @@ export const maxCondensed = {
 
 export const maxCondensedHalfOf = {
   args: {},
-  parameters: {
-    viewport: {
-      defaultViewport: 'maxCondensedHalfOf',
-    },
+  globals: {
+    viewport: 'maxCondensedHalfOf',
   },
   render: args => {
     return (
