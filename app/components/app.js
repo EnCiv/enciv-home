@@ -15,43 +15,21 @@ class App extends React.Component {
           <HelmetProvider>
             <ThemeProvider theme={theme}>
               <div style={{ position: 'relative' }}>
-              <Helmet>
-                <title>{iota?.subject || 'EnCiv'}</title>
-                <meta name="description" content={iota?.description} />
-                <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                <link
-                  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-                  rel="stylesheet"
-                />
-                <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
-                {/* Adding this script, though not using it, as experiment to convince google ads that the tag is here */}
-                <script>
-                  {`
-                  onsecuritypolicyviolation = (event) => {
-                    logger.error("CSP Event:",location.href,event.blockedURI,event.violatedDirective)}
-                  if(window.gtag && ${!!process.env.GOOGLE_ADS}) gtag('config', "${process.env.GOOGLE_ADS}")
-                  // Helper function to delay opening a URL until a gtag event is sent.
-                  // Call it in response to an action that should navigate to a URL.
-                  function gtagSendEvent(url) {
-                    var callback = function () {
-                      if (typeof url === 'string') {
-                        window.location = url;
-                      }
-                    };
-                    gtag('event', 'conversion_event_submit_lead_form', {
-                      'event_callback': callback,
-                      'event_timeout': 2000,
-                      // <event_parameters>
-                    });
-                    return false;
-                  }`}
-                </script>
-              </Helmet>
-              <TopNavWrap {...this.props} />
-              <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-              <Components.Footer mode="dark" key="footer" />
+                <Helmet>
+                  <title>{iota?.subject || 'EnCiv'}</title>
+                  <meta name="description" content={iota?.description} />
+                  <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
+                  <link rel="preconnect" href="https://fonts.googleapis.com" />
+                  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                  <link
+                    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+                    rel="stylesheet"
+                  />
+                  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+                </Helmet>
+                <TopNavWrap {...this.props} />
+                <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+                <Components.Footer mode="dark" key="footer" />
               </div>
             </ThemeProvider>
           </HelmetProvider>
