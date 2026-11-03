@@ -1,7 +1,6 @@
 import React from 'react'
-import { expect } from '@storybook/jest'
+import { expect, userEvent, within } from 'storybook/test'
 import TextBlock from '../app/components/text-block'
-import { userEvent, within } from '@storybook/testing-library'
 
 import { onDoneDecorator, onDoneResult } from 'civil-pursuit/stories/common'
 
@@ -104,5 +103,30 @@ export const IconNameDoesntExist = {
     description:
       'We’re trapped in a polarized echo chamber built to enrage citizens, control politicians, and drive We the people out of the political process.\n\nEnCiv is forging the first-of-its-kind, cross-partisan discourse platform that enables Americans across the political spectrum to collaborate at scale to identify and address our toughest problems and drive tangible outcomes.',
     iconName: 'DoesntExist',
+  },
+}
+
+export const ImageUrlLightLeft = {
+  args: {
+    mode: 'light',
+    subject: 'Built by the People, for the People',
+    side: 'left',
+    description:
+      'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
+  },
+}
+export const ImageUrlLightRight = {
+  args: {
+    mode: 'light',
+    subject: 'Built by the People, for the People',
+    side: 'right',
+    description:
+      'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
   },
 }

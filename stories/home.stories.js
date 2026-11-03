@@ -1,12 +1,47 @@
 import Home from '../app/web-components/home'
 
-import React from 'react'
-
-import SvgPeopleInHands from '../app/svgr/people-in-hands.js'
+import React, { useState } from 'react'
 
 export default {
   title: 'Home',
   component: Home,
+  decorators: [
+    Story => {
+      useState(() => {
+        // not useEffect because the socket needs to be set before the component is rendered
+        // Mock the socket API for CivilPursuitQuestionsBlock
+        window.socket = {
+          emit: (event, cb) => {
+            if (event === 'get-civil-pursuit-questions') {
+              setTimeout(() => {
+                cb([
+                  {
+                    _id: '1',
+                    path: '/question/healthcare',
+                    subject: 'What should we do about healthcare costs?',
+                  },
+                  {
+                    _id: '2',
+                    path: '/question/climate',
+                    subject: 'How can we address climate change effectively?',
+                  },
+                  {
+                    _id: '3',
+                    path: '/question/education',
+                    subject: 'What reforms are needed in our education system?',
+                  },
+                ])
+              }, 100)
+            }
+          },
+        }
+        return () => {
+          delete window.socket
+        }
+      }, [])
+      return <Story />
+    },
+  ],
 }
 
 const blocks = [
@@ -79,6 +114,33 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
     iconName: 'PeopleInHands',
     side: 'right',
   },
+  // {
+  //   key: 'TextBlock',
+  //   mode: 'dark',
+  //   subject: 'When we speak as One',
+  // },
+  {
+    key: 'MarkdownBlock',
+    mode: 'dark',
+    children: `
+### 65% of our country believes the current system is on the wrong track.
+Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have national discussions that organize, rather than suppress, differing voices and delve into the value of these perspectives to find the awesome solutions that unite us.\n\nJoin EnCiv to become part of a community of diverse, dedicated volunteers helping to foster this deliberation until politicians listen when we speak as one.\n\n<ActionButton >Join the Community</ActionButton>`,
+    imgUrl:
+      'https://images.unsplash.com/photo-1636648522439-a4a00de2561f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Add image URL
+    imgSide: 'left',
+    lineWidth: 'partial',
+  },
+  {
+    key: 'TextBlock',
+    mode: 'light',
+    subject: 'Built by the People, for the People',
+    side: 'left',
+    description:
+      'If you believe that there’s a better way to make the best national decisions and it starts with productive national dialogue',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1721882509/assets%20enciv-home%202024/0a73bf0c-dcd6-4ec9-a0e8-68034c4494cb.png',
+  },
   {
     key: 'Faq',
     faqs: [
@@ -110,6 +172,11 @@ Join EnCiv to become part of a community of diverse, dedicated volunteers helpin
         answer: 'EnCiv was originally taken from the combination of “engaged” and “civility.”',
       },
     ],
+  },
+  {
+    key: 'CivilPursuitQuestionsBlock',
+    mode: 'light',
+    subject: 'Deliberation Topics',
   },
 ]
 export const Primary = { args: { blocks } }

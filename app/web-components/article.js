@@ -2,7 +2,7 @@
 import React from 'react'
 import ArticleBlock from '../components/article-block'
 import { BrevoHelmet } from '../components/brevo-join'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 export default function Article(props) {
   const { subject, description, location, ...otherProps } = props

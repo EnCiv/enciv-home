@@ -17,7 +17,9 @@ export default function BrevoCommunity(props) {
     if (seen) setSeen('')
     return null // don't render anything
   } else if (communityStatus === 'submitted') {
-    if (typeof window !== 'undefined') setTimeout(() => setSeen('submitted'), SEENTIME)
+    if (typeof window !== 'undefined') {
+      setTimeout(() => setSeen('submitted'), SEENTIME)
+    }
     return (
       seen !== 'submitted' && (
         <div className={classes.brevoCommnity}>

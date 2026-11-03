@@ -12,7 +12,6 @@ export default {
 }
 
 const Template = (args, context) => {
-  const { onDone } = context
   useEffect(() => {
     if (typeof window.socket === 'undefined') {
       window.socket = {
@@ -21,7 +20,6 @@ const Template = (args, context) => {
             if (email === 'fail@fail.com') cb({ error: 'Sorry, there was an error.' })
             else cb('success')
           }, 1000)
-          onDone({ valid: true, value: { handle, email, fname, lname, subject, message } })
         },
       }
     }

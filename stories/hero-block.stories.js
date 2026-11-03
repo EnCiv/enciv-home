@@ -1,7 +1,6 @@
 import React from 'react'
-import { expect } from '@storybook/jest'
+import { expect, userEvent, within } from 'storybook/test'
 import HeroBlock from '../app/components/hero-block'
-import { userEvent, within } from '@storybook/testing-library'
 
 export default {
   component: HeroBlock,
@@ -16,6 +15,7 @@ export const Primary = {
     actionText: 'Join the Community',
     imgUrl:
       'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png',
+    alignContent: 'center',
   },
 }
 
@@ -28,6 +28,7 @@ export const HighRes = {
       lowRes:
         'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
     },
+    alignContent: 'center',
   },
 }
 
@@ -40,8 +41,18 @@ export const LowRes = {
       lowRes:
         'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
     },
+    alignContent: 'center',
   },
-  parameters: {
-    defaultViewport: 'iphonex',
+  globals: {
+    viewport: 'iphonex',
+  },
+}
+export const LeftAlign = {
+  args: {
+    subject: 'Politics is dividing us - EnCiv is uniting us',
+    actionText: 'Join the Community',
+    imgUrl:
+      'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png',
+    alignContent: 'left',
   },
 }

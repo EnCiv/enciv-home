@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import cx from 'classnames'
 import ActionButton from './action-button'
+import { SignupForm } from './brevo-join'
 
 /**
  * article format
@@ -26,15 +27,22 @@ import ActionButton from './action-button'
 export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
   const classes = useStylesFromThemeFunction()
+  // to allow articles to embed a signup form - but not in the thumbnail
+  const replace = domNode => {
+    if (domNode.type === 'tag' && domNode.name === 'signupform') {
+      return vState === 'thumbnail' ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
+    }
+  }
+
   return (
     <div className={cx(classes.articleBlock, classes[mode], classes[vState], className)} {...otherProps}>
       <div className={cx(classes.elipsis, classes[mode], classes[vState])}>{'...'}</div>
       <div className={cx(classes.wrapper, classes[vState])}>
         <div className={cx(classes.article, classes[vState])}>
-          <h1>{ReactHtmlParser(article.title)}</h1>
+          <h1>{parse(article.title ?? '')}</h1>
           {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
           <div className={classes.author}>{article.authorName}</div>
-          <div className={classes.content}>{ReactHtmlParser(article.content)}</div>
+          <div className={classes.content}> {parse(article.content ?? '', { replace })}</div>
         </div>
         {vState !== 'thumbnail' && (
           <div className={cx(classes.cta, classes[vState])}>
@@ -147,6 +155,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         lineHeight: '1.5rem',
         padding: 0,
         margin: 0,
+        marginBottom: '.5rem',
         overflowWrap: 'anywhere',
       },
     },
@@ -158,11 +167,14 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
       marginBlockEnd: '2rem',
       '$thumbnail &': {
-        fontSize: '1.25rem',
+        fontFamily: 'Inter',
+        fontSize: '1rem',
+        fontWeight: 'normal',
         lineHeight: '1.5rem',
         padding: 0,
         margin: 0,
         overflowWrap: 'anywhere',
+        borderBottom: 'none',
       },
     },
     '& h3': {
@@ -222,6 +234,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'left',
       lineHeight: '200%',
       '$thumbnail &': {
+        lineHeight: '150%',
         padding: 0,
         margin: 0,
         overflowWrap: 'anywhere',

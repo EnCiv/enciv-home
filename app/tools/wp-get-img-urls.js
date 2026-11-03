@@ -164,7 +164,7 @@
 ]
  */
 
-import fetch from 'node-fetch'
+// fetch is built into Node 24
 const request = require('request')
 
 // Wordpress Authors Bu Id
