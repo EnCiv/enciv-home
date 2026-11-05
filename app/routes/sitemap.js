@@ -39,7 +39,7 @@ export async function getSitemap() {
       return null
     }
   } catch (err) {
-    console.error('Error fetching data from Iota:', err)
+    logger.error('Error fetching data from Iota:', err)
     return null
   }
 }
@@ -56,7 +56,7 @@ export default function sitemap() {
         res.status(404).send('Sitemap not found')
       }
     } catch (err) {
-      console.error('Error generating or sending sitemap:', err)
+      logger.error('Error generating or sending sitemap:', err)
       res.status(500).send('Error generating sitemap')
     }
   })

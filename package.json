@@ -1,6 +1,6 @@
 {
   "name": "enciv-home",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The EnCiv home page",
   "main": "dist/index.js",
   "scripts": {
@@ -84,9 +84,9 @@
     "@react-hook/media-query": "^1.1.1",
     "@wordpress/api-fetch": "^6.52.0",
     "babel-plugin-cjs-esm-interop": "^4.0.3",
-    "civil-client": "github:EnCiv/civil-client",
-    "civil-pursuit": "github:EnCiv/civil-pursuit",
-    "civil-server": "github:EnCiv/civil-server",
+    "civil-client": "github:EnCiv/civil-client#semver:^0.0.22",
+    "civil-pursuit": "github:EnCiv/civil-pursuit#semver:^2.1.13",
+    "civil-server": "github:EnCiv/civil-server#semver:^2.0.10",
     "cloudinary": "^2.10.0",
     "html-react-parser": "^6.1.5",
     "markdown-to-jsx": "^9.10.2",
@@ -109,8 +109,8 @@
     "mongodb-memory-server@10.3.0": true,
     "mongodb-memory-server@11.2.0": true,
     "unrs-resolver@1.12.2": true,
-    "civil-client@0.0.21": true,
-    "civil-server@2.0.7": true,
-    "civil-pursuit@2.1.10": true
+    "github:EnCiv/civil-client": true,
+    "github:EnCiv/civil-server": true,
+    "github:EnCiv/civil-pursuit": true
   }
 }

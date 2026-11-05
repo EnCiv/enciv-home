@@ -163,7 +163,7 @@ export default function BrevoJoin(props) {
 
   // translate the two states of active into 4 states in isActive so we can animate
   // the mounting, opening, closing, and unmounging of the brevo from
-  const [isActive, setIsActive] = useState(active ? 'unmounted' : 'start') // unmounted -> start -> opened -> close -> unmounted
+  const [isActive, setIsActive] = useState('unmounted') // unmounted -> start -> opened -> close -> unmounted
   useEffect(() => {
     // we are going active, so reset all the other forms on this page
     let newIsActive

@@ -27,7 +27,7 @@ const MarkdownWithImage = props => {
       </div>
     </div>
   ) : iconName && icons[iconName] ? (
-    <Iconify className={classes.headerIcon} iconName={iconName} width="25%" height="auto" />
+    <Iconify className={classes.headerIcon} iconName={iconName} width="25%" />
   ) : null
 
   const textSection = (
@@ -46,7 +46,6 @@ const MarkdownWithImage = props => {
 }
 
 const MarkdownBlock = props => {
-  console.log('props', props)
   const {
     className = '',
     mode = 'light',

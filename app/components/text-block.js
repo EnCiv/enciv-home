@@ -64,7 +64,7 @@ const TextBlock = props => {
   )
 
   // Check if the icon with name exists in svgr
-  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="10rem" height="auto" />
+  const iconComponent = iconName && icons[iconName] && <Iconify iconName={iconName} width="10rem" />
 
   // Section to contain the icon
   const iconSection = <div className={classes.iconSection}>{iconComponent}</div>

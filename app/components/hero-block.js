@@ -77,8 +77,10 @@ const HeroBlock = props => {
     <div className={cx(classes.heroBlock, className)} {...otherProps}>
       <div className={classes.subjectWrapper} ref={outerRef}>
         <div className={classes.subject} style={{ ...subjectStyle, fontSize: fontSize + 'rem' }} ref={innerRef}>
-          {subjectLines.map(line => (
-            <h1 className={classes.subjectText}>{line}</h1>
+          {subjectLines.map((line, index) => (
+            <h1 className={classes.subjectText} key={`${line}-${index}`}>
+              {line}
+            </h1>
           ))}
         </div>
       </div>
