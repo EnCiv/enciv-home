@@ -5,6 +5,7 @@ import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider, createUseStyles } from 'react-jss'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { theme, Components } from 'civil-pursuit'
+import EncivCookies from 'civil-server/dist/components/enciv-cookies'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
@@ -29,6 +30,7 @@ class App extends React.Component {
                 </Helmet>
                 <TopNavWrap {...this.props} />
                 <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+                <EncivCookies user={newProps.user} cookieCategories={newProps.cookieCategories} />
                 <Components.Footer mode="dark" key="footer" />
               </div>
             </ThemeProvider>
