@@ -23,8 +23,8 @@ function sendContactUs(email, fname, lname, subject, message, cb) {
       cb()
     }
   } catch (error) {
-    logger.info('caught error trying to send-contact-us')
-    return
+    logger.error('sendContactUs failed:', error)
+    cb?.({ error: error?.message || 'Unable to send message' })
   }
 }
 

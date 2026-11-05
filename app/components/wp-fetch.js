@@ -8,12 +8,17 @@ export default function WpFetch(props) {
   const [article, setArticle] = useState(null)
   const classes = useStylesFromThemeFunction()
   useEffect(() => {
-    apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' }).then(posts => {
-      debugger
-      if (posts.length && posts[position]) {
-        setArticle(posts[position])
-      }
-    })
+    let active = true
+    apiFetch({ path: 'https://enciv.org/wp-json/wp/v2/posts' }, { mode: 'no-cors' })
+      .then(posts => {
+        if (active && posts.length && posts[position]) setArticle(posts[position])
+      })
+      .catch(error => {
+        logger.error('WpFetch failed to load WordPress posts:', error)
+      })
+    return () => {
+      active = false
+    }
   }, [position])
   if (!article) return null
 
