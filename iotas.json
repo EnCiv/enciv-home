@@ -11,15 +11,15 @@
       "blocks": [
         {
           "key": "HeroBlock",
-          "subject": "What are the top\npriorities for Congress?",
+          "subject": "Politics is dividing us.\n EnCiv is uniting us.",
           "actionText": "Start Discussion",
           "action": "/national-deliberations",
           "secondaryActionText": "Learn More",
           "secondaryAction": "/about",
           "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "/assets/images/home-hero.webp",
-            "lowRes": "/assets/images/home-hero.webp"
+            "highRes": "/assets/images/home-hero-half.webp",
+            "lowRes": "/assets/images/home-hero-half.webp"
           }
         },
         {
@@ -104,7 +104,7 @@
       "blocks": [
         {
           "key": "HeroBlock",
-          "subject": "What are the top\npriorities for Congress?",
+          "subject": "Politics is dividing us - EnCiv is uniting us",
           "actionText": "Start Discussion",
           "action": "/national-deliberations",
           "secondaryActionText": "Learn More",

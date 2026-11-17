@@ -4,6 +4,8 @@ import cx from 'classnames'
 import HeroBlock from '../components/hero-block'
 import ActionButton from '../components/action-button'
 import BrevoCommunity from '../components/brevo-community'
+import CivilPursuitQuestionsBlock from '../components/civil-pursuit-questions-block'
+import FrequentlyAskedQuestions from '../components/frequently-asked-questions'
 import { BrevoHelmet } from '../components/brevo-join'
 
 const concerns = [
@@ -102,6 +104,8 @@ export default function Home(props) {
   const { location, blocks } = props
   const classes = useStyles()
   const hero = blocks?.find(block => block.key === 'HeroBlock') || {}
+  const deliberations = blocks?.find(block => block.key === 'CivilPursuitQuestionsBlock')
+  const faq = blocks?.find(block => block.key === 'Faq')
 
   return (
     <div className={classes.home}>
@@ -109,10 +113,12 @@ export default function Home(props) {
       <BrevoCommunity location={location} />
       <HeroBlock {...hero} variant="homepage" />
 
+      {deliberations && <CivilPursuitQuestionsBlock {...deliberations} variant="homepage" />}
+
       <section className={classes.mission} aria-labelledby="home-mission-title">
         <div className={classes.missionInner}>
           <div className={classes.missionArtwork} aria-hidden="true">
-            <svg width="365" height="365" viewBox="0 0 365 365" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className={classes.missionCircles} width="365" height="365" viewBox="0 0 365 365" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle opacity="0.1" cx="182.5" cy="182.5" r="181.34" fill="#FF9114" strokeWidth="2.32056" stroke="#FF9114" />
               <circle opacity="0.1" cx="183" cy="182.625" r="136.13" fill="#FF9114" strokeWidth="1.74042" stroke="#FF9114" />
               <circle opacity="0.2" cx="183" cy="182.63" r="107.169" fill="#FF9114" strokeWidth="2.61063" stroke="#FF9114" />
@@ -179,16 +185,19 @@ export default function Home(props) {
           </div>
         </div>
       </section>
+      {faq && <FrequentlyAskedQuestions {...faq} />}
     </div>
   )
 }
 
 const useStyles = createUseStyles({
   home: {
-    backgroundColor: '#f2f0ed',
+    backgroundColor: '#fff',
   },
   mission: {
     padding: '9rem 2rem',
+    backgroundColor: '#fff',
+    borderTop: '1px solid #e6e1d9',
     [`@media (max-width: 48rem)`]: {
       padding: '5rem 1.5rem',
     },
@@ -203,7 +212,7 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     [`@media (max-width: 48rem)`]: {
       gridTemplateColumns: '1fr',
-      gap: '1rem',
+      gap: '2.5rem',
     },
   },
   missionArtwork: {
@@ -216,9 +225,28 @@ const useStyles = createUseStyles({
       width: 'min(100%, 22.8125rem)',
       height: 'auto',
       aspectRatio: '1',
+      overflow: 'visible',
     },
     [`@media (max-width: 48rem)`]: {
       minHeight: '8rem',
+    },
+  },
+  missionCircles: {
+    '& circle': {
+      transformBox: 'fill-box',
+      transformOrigin: 'center',
+      animation: '$circleWave 4s ease-in-out infinite',
+    },
+    '& circle:nth-child(6)': { animationDelay: '0.35s' },
+    '& circle:nth-child(5)': { animationDelay: '0.7s' },
+    '& circle:nth-child(4)': { animationDelay: '1.05s' },
+    '& circle:nth-child(3)': { animationDelay: '1.4s' },
+    '& circle:nth-child(2)': { animationDelay: '1.75s' },
+    '& circle:nth-child(1)': { animationDelay: '2.1s' },
+    '@media (prefers-reduced-motion: reduce)': {
+      '& circle': {
+        animation: 'none',
+      },
     },
   },
   missionCopy: {
@@ -241,8 +269,9 @@ const useStyles = createUseStyles({
     margin: '0 0 2rem',
   },
   speakSection: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fafaf9',
     padding: '5.25rem 2rem 8rem',
+    borderTop: '1px solid #e6e1d9',
     [`@media (max-width: 48rem)`]: {
       padding: '4rem 1.5rem 5rem',
     },
@@ -371,6 +400,10 @@ const useStyles = createUseStyles({
     '& p:last-child': {
       marginBottom: 0,
     },
+  },
+  '@keyframes circleWave': {
+    '0%, 100%': { transform: 'scale(1)' },
+    '50%': { transform: 'scale(1.1)' },
   },
 })
 

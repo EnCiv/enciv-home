@@ -1,6 +1,6 @@
 import Home from '../app/web-components/home'
 
-import React, { useState } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 
 const rasterAssetFiles = require.context(
@@ -18,43 +18,43 @@ const assetEntries = [
 export default {
   title: 'Home',
   component: Home,
-  decorators: [
-    Story => {
-      useState(() => {
-        // not useEffect because the socket needs to be set before the component is rendered
-        // Mock the socket API for CivilPursuitQuestionsBlock
-        window.socket = {
-          emit: (event, cb) => {
-            if (event === 'get-civil-pursuit-questions') {
-              setTimeout(() => {
-                cb([
-                  {
-                    _id: '1',
-                    path: '/question/healthcare',
-                    subject: 'What should we do about healthcare costs?',
-                  },
-                  {
-                    _id: '2',
-                    path: '/question/climate',
-                    subject: 'How can we address climate change effectively?',
-                  },
-                  {
-                    _id: '3',
-                    path: '/question/education',
-                    subject: 'What reforms are needed in our education system?',
-                  },
-                ])
-              }, 100)
-            }
-          },
-        }
-        return () => {
-          delete window.socket
-        }
-      }, [])
-      return <Story />
-    },
-  ],
+  decorators: [Story => <HomeStoryDecorator Story={Story} />],
+}
+
+const mockQuestions = [
+  {
+    _id: '1',
+    path: '/250years',
+    subject:
+      'If we united and ratified exactly one constitutional amendment today, what should it be to yield the greatest positive return for our country 250 years from now?',
+  },
+  {
+    _id: '2',
+    path: '/direction-500',
+    subject: 'What direction for our country would unite us in pursuit of it?',
+  },
+  {
+    _id: '3',
+    path: '/what-do-we-want-government-to-do-2025',
+    subject: 'What Do We Want Government To Do?',
+  },
+]
+
+function HomeStoryDecorator({ Story }) {
+  useLayoutEffect(() => {
+    const previousSocket = window.socket
+    window.socket = {
+      emit: (event, callback) => {
+        if (event === 'get-civil-pursuit-questions') callback(mockQuestions)
+      },
+    }
+    return () => {
+      if (previousSocket) window.socket = previousSocket
+      else delete window.socket
+    }
+  }, [])
+
+  return <Story />
 }
 
 const blocks = [
@@ -66,6 +66,13 @@ const blocks = [
       lowRes:
         'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
     },
+  },
+  {
+    key: 'CivilPursuitQuestionsBlock',
+    mode: 'light',
+    subject: 'National Deliberations',
+    description:
+      'We are hosting large scale national deliberations to identify the issues that unite us as a country and the solutions that have broad support across the political spectrum. Join us to be part of this historic effort to unite our country through productive discourse.\n\nThis is not a survey, this is a new kind of tool that is designed to help us discuss our ideas and productively converge on what unites us.',
   },
   {
     key: 'TextBlock',
@@ -185,11 +192,6 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
         answer: 'EnCiv was originally taken from the combination of “engaged” and “civility.”',
       },
     ],
-  },
-  {
-    key: 'CivilPursuitQuestionsBlock',
-    mode: 'light',
-    subject: 'Deliberation Topics',
   },
 ]
 export const Primary = { args: { blocks } }
