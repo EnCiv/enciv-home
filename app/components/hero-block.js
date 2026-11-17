@@ -18,12 +18,16 @@ const HeroBlock = props => {
     imgUrlObj = {},
     subject = '',
     subjectStyle = {},
+    height,
+    textColor,
+    textShadow,
     actionText,
     action,
     secondaryActionText,
     secondaryAction,
     actionStyle = {},
     variant = 'default',
+    showScrollCue = true,
     ...otherProps
   } = props
 
@@ -169,7 +173,7 @@ const HeroBlock = props => {
           />
         </picture>
       )}
-      {variant === 'homepage' && !isSubjectVisible && (
+      {variant === 'homepage' && showScrollCue && !isSubjectVisible && (
         <button
           className={classes.scrollCue}
           type="button"
@@ -216,6 +220,7 @@ export default HeroBlock
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   heroBlock: props => ({
     width: '100%', // using vw makes the div a tiny bit wider than the viewport causing a scrollbar I suspect roundoff
+    height: props.height || 'auto',
     aspectRatio: props.variant === 'homepage' ? '1446 / 1160' : '1.56 / 1',
     maxHeight: '100rem',
     backgroundColor: props.variant === 'homepage' ? '#f2f0ed' : '#171717',
@@ -231,7 +236,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
             animation: '$scrollCueBlink 1.4s steps(2, start) infinite',
           },
           '&:hover $heroImage': {
-            transform: 'scale(1.04)',
+            transform: 'translate3d(0, var(--hero-parallax-y, 0px), 0) scale(1.08)',
           },
           '&:hover $heroPicture::after': {
             boxShadow: 'inset 0 0 1.75rem rgba(0, 0, 0, 0.34)',
@@ -441,19 +446,22 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontStyle: 'normal',
     fontWeight: props.variant === 'homepage' ? 600 : 800,
     lineHeight: props.variant === 'homepage' ? '1.0667em' : '1.2em',
-    color: props.variant === 'homepage' ? '#FBBC0D' : '#FFC315',
+    color: props.textColor || (props.variant === 'homepage' ? '#FBBC0D' : '#FFC315'),
     backgroundImage:
-      props.variant === 'homepage'
+      props.variant === 'homepage' && !props.textColor
         ? 'linear-gradient(180deg, #fff4c2 0%, #ffe27d 18%, #f6b900 47%, #c47a00 76%, #ffedaa 100%)'
         : 'none',
-    backgroundClip: props.variant === 'homepage' ? 'text' : 'border-box',
-    WebkitBackgroundClip: props.variant === 'homepage' ? 'text' : 'border-box',
-    WebkitTextFillColor: props.variant === 'homepage' ? 'transparent' : 'currentColor',
-    filter: props.variant === 'homepage' ? 'drop-shadow(0 0.25rem 0.5rem rgba(0, 0, 0, 0.7))' : 'none',
-    textShadow:
-      props.variant === 'homepage'
+    backgroundClip: props.variant === 'homepage' && !props.textColor ? 'text' : 'border-box',
+    WebkitBackgroundClip: props.variant === 'homepage' && !props.textColor ? 'text' : 'border-box',
+    WebkitTextFillColor: props.variant === 'homepage' && !props.textColor ? 'transparent' : 'currentColor',
+    filter:
+      props.variant === 'homepage' && !props.textShadow
+        ? 'drop-shadow(0 0.25rem 0.5rem rgba(0, 0, 0, 0.7))'
+        : 'none',
+    textShadow: props.textShadow ??
+      (props.variant === 'homepage'
         ? '0 1px 0 rgba(255, 246, 198, 0.8), 0 2px 0 rgba(145, 88, 0, 0.72), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.62)'
-        : '0 0.125rem 0.25rem rgba(0, 0, 0, 0.9), 0 0.25rem 1rem rgba(0, 0, 0, 0.55)',
+        : '0 0.125rem 0.25rem rgba(0, 0, 0, 0.9), 0 0.25rem 1rem rgba(0, 0, 0, 0.55)'),
     marginBlockStart: 0,
     marginBlockEnd: 0,
     '&:not(:last-child)': {

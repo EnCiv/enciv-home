@@ -13,7 +13,7 @@ export default function CivilPursuitQuestionsBlock(props) {
     mode = 'dark',
     subject = '',
     description = '',
-    imageUrl = '/assets/images/home-national-deliberations.png',
+    imageUrl = '/assets/images/home-national-deliberations.webp',
     variant = 'default',
     ...otherProps
   } = props

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { waitFor, expect } from 'storybook/test'
+import { waitFor, expect, within } from 'storybook/test'
 
 import App from '../app/components/app'
 import iotas from '../iotas.json'
@@ -12,7 +12,38 @@ export default {
 }
 if (!global.logger) global.logger = console
 
-export const Home = { args: { iota } }
+export const Home = {
+  args: { iota },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByRole('link', { name: 'Learn More' }).getAttribute('href')).toBe('/about')
+    expect(canvas.getByRole('link', { name: 'Start Discussion' }).getAttribute('href')).toBe('/national-deliberations')
+  },
+}
+
+export const About = {
+  args: { iota: iotas.find(i => i.path === '/about') },
+}
+
+const pageStory = path => ({ args: { iota: iotas.find(i => i.path === path) } })
+
+export const LegacyHome = pageStory('/home')
+export const IRSForms = pageStory('/irs-forms')
+export const OurTools = pageStory('/our-tools')
+export const Terms = pageStory('/terms')
+export const Privacy = pageStory('/privacy')
+export const Cookies = pageStory('/cookies')
+export const Nondiscrimination = pageStory('/nondiscrimination')
+export const ResetPassword = pageStory('/resetPassword')
+export const FirstUSA = pageStory('/what-first-usa-1')
+export const NationalDeliberations = pageStory('/national-deliberations')
+export const StructuralUSA = pageStory('/what-structural-usa-1')
+export const LongTermUSA = pageStory('/what-long-term-usa-1')
+export const QuestionsUSA = pageStory('/what-questions-usa-1')
+export const GovernmentToDo = pageStory('/what-do-we-want-government-to-do-2025')
+export const Direction500 = pageStory('/direction-500')
+export const Profile = pageStory('/profile')
+export const TwoHundredFiftyYears = pageStory('/250years')
 
 export const NothingHere = {}
 

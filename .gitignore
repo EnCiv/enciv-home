@@ -3,6 +3,7 @@ assets/images
 !assets/images/
 assets/images/*
 !assets/images/home-hero.webp
+!assets/images/home-national-deliberations.webp
 !assets/images/home-concern-1.webp
 !assets/images/home-concern-2.webp
 !assets/images/home-concern-3.webp

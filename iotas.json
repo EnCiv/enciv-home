@@ -18,8 +18,8 @@
           "secondaryAction": "/about",
           "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "/assets/images/home-hero-half.webp",
-            "lowRes": "/assets/images/home-hero-half.webp"
+            "highRes": "/assets/images/home-hero.webp",
+            "lowRes": "/assets/images/home-hero.webp"
           }
         },
         {

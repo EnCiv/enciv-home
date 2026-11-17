@@ -1,7 +1,9 @@
-import Home from '../app/web-components/home'
+import App from '../app/components/app'
+import iotas from '../iotas.json'
 
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
+import { expect, within } from 'storybook/test'
 
 const rasterAssetFiles = require.context(
   '../assets/images',
@@ -17,7 +19,7 @@ const assetEntries = [
 
 export default {
   title: 'Home',
-  component: Home,
+  component: App,
   decorators: [Story => <HomeStoryDecorator Story={Story} />],
 }
 
@@ -57,14 +59,33 @@ function HomeStoryDecorator({ Story }) {
   return <Story />
 }
 
+function HomeStoryRouter({ blocks }) {
+  const [route, setRoute] = useState('/')
+  const homePage = iotas.find(page => page.path === '/')
+  const storyHomePage = { ...homePage, webComponent: { ...homePage.webComponent, blocks } }
+  const page = route === '/' ? storyHomePage : iotas.find(iota => iota.path === route) || storyHomePage
+  const navigate = event => {
+    const link = event.target.closest?.('a[href]')
+    const targetPage = iotas.find(iota => iota.path === link?.getAttribute('href'))
+    if (!targetPage) return
+    event.preventDefault()
+    setRoute(targetPage.path)
+  }
+
+  return <div onClickCapture={navigate}><App iota={page} onNavigate={setRoute} /></div>
+}
+
 const blocks = [
   {
     key: 'HeroBlock',
-    subject: 'Politics is dividing us - EnCiv is uniting us',
+    subject: 'Politics is dividing us.\n EnCiv is uniting us.',
+    actionText: 'Start Discussion',
+    action: '/national-deliberations',
+    secondaryActionText: 'Learn More',
+    secondaryAction: '/about',
     imgUrlObj: {
-      highRes: 'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
-      lowRes:
-        'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
+      highRes: '/assets/images/home-hero.webp',
+      lowRes: '/assets/images/home-hero.webp',
     },
   },
   {
@@ -194,7 +215,14 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
     ],
   },
 ]
-export const Primary = { args: { blocks } }
+export const Primary = {
+  args: { blocks },
+  render: args => <HomeStoryRouter blocks={args.blocks} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByRole('link', { name: 'Learn More' }).getAttribute('href')).toBe('/about')
+  },
+}
 
 function AssetsGallery() {
   const classes = useAssetGalleryStyles()

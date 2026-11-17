@@ -51,11 +51,15 @@ class App extends React.Component {
 }
 
 function TopNavWrap(props) {
+  const navigate = path => {
+    if (props.onNavigate) props.onNavigate(path)
+    else window.location.href = path
+  }
   const menu = [
     {
       name: 'Home',
       func: () => {
-        window.location.href = '/'
+        navigate('/')
       },
     },
     [
@@ -66,35 +70,32 @@ function TopNavWrap(props) {
       {
         name: 'Our Mission',
         func: () => {
-          window.location.href = '/about'
+          navigate('/about')
         },
       },
       {
         name: 'IRS Forms',
         func: () => {
-          window.location.href = '/irs-forms'
+          navigate('/irs-forms')
         },
       },
     ],
     {
       name: 'Our Tools',
-      func: () => (window.location.href = '/our-tools'),
+      func: () => navigate('/our-tools'),
     },
     {
       name: 'Articles',
       func: () => {
-        window.location.href = '/articles'
+        navigate('/articles')
       },
     },
   ]
   if (props?.user?.id)
     menu.push([
-      {
-        name: 'My Account',
-        func: () => {},
-      },
-      { name: 'Profile', func: () => (window.location.href = '/profile') },
-      { name: 'Logout', func: () => (window.location.href = '/sign/out') },
+      { name: 'My Account', func: () => {} },
+      { name: 'Profile', func: () => navigate('/profile') },
+      { name: 'Logout', func: () => navigate('/sign/out') },
     ])
   return <Components.TopNavBar mode={'dark'} menu={menu} />
 }
