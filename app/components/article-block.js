@@ -71,10 +71,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   articleBlock: {
     position: 'relative',
-    textAlign: 'center',
-    paddingTop: '1rem',
-    paddingBottom: '4rem',
-    minHeight: '65rem',
+    textAlign: 'left',
+    padding: '5.25rem 2rem 8rem',
+    minHeight: 'auto',
+    borderTop: '1px solid #e6e1d9',
     '$thumbnail&': {
       paddingTop: 0,
       paddingBottom: 0,
@@ -82,9 +82,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       overflow: 'hidden',
       boxSizing: 'border-box',
     },
+    [`@media (max-width: 48rem)`]: {
+      padding: '4rem 1.5rem 5rem',
+    },
   },
   wrapper: {
-    maxWidth: theme.maxPanelWidth,
+    maxWidth: '80rem',
     marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
@@ -93,26 +96,24 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   cta: {
-    paddingBottom: '4rem',
-    marginLeft: '2rem',
-    marginRight: '2rem',
+    padding: '3rem 0 4rem',
     '& $thumbnail': {
       display: 'none',
     },
     '& h3': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       fontStyle: 'normal',
       fontWeight: 400,
-      paddingTop: '4rem',
-      paddingBottom: '4rem',
+      paddingTop: '2rem',
+      paddingBottom: '2rem',
       textAlign: 'center',
-      fontSize: '2rem',
-      fontWeight: 600,
+      fontSize: '2.625rem',
       marginBlockEnd: 0,
     },
   },
   content: {
-    paddingTop: '5rem',
+    paddingTop: 0,
     '$thumbnail &': {
       paddingTop: 0,
     },
@@ -123,9 +124,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   author: {
-    fontSize: '1.25rem',
-    paddingTop: '1rem',
-    fontWeight: '500',
+    color: '#80664a',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '1.125rem',
+    paddingTop: '0.5rem',
+    fontWeight: 600,
     '$thumbnail &': {
       display: 'none',
     },
@@ -137,20 +140,20 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontWeight: 400,
     leadingTrim: 'both',
     textEdge: 'cap',
-    textAlign: 'center',
-    marginLeft: '2rem',
-    marginRight: '2rem',
+    textAlign: 'left',
+    margin: 0,
     '$thumbnail &': {
       margin: 0,
     },
     '& h1': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'center',
-      fontSize: '4rem',
-      lineHeight: '5rem',
-      paddingTop: '4rem',
-      paddingBottom: '1rem',
-      marginBottom: 0,
+      fontSize: '3.4375rem',
+      fontWeight: 600,
+      lineHeight: 1.1,
+      padding: 0,
+      margin: '0 auto 3rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -161,13 +164,23 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h2': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
-      fontSize: '3rem',
-      lineHeight: '3.5rem',
-      paddingBottom: '1.5rem',
-      borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
-      marginBlockEnd: '2rem',
+      fontSize: '2.125rem',
+      fontWeight: 400,
+      lineHeight: 1.2,
+      padding: '2rem 0 0',
+      borderTop: '1px solid #e6e1d9',
+      margin: '3rem 0 1.25rem',
+      '&::after': {
+        content: '""',
+        display: 'block',
+        width: '1.25rem',
+        height: '0.125rem',
+        backgroundColor: '#FF9114',
+        marginTop: '1rem',
+      },
       '$thumbnail &': {
         fontFamily: 'Newsreader, serif',
         fontSize: '1rem',
@@ -180,11 +193,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h3': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
-      fontSize: '2rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
+      fontSize: '1.5rem',
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -194,11 +209,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h4': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
-      fontSize: '1.75rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
+      fontSize: '1.5rem',
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -208,11 +225,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h5': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.5rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -222,10 +241,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h6': {
+      color: '#80664a',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.25rem',
-      marginBlockEnd: 0,
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -235,10 +257,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& p': {
-      fontFamily: 'Inter',
-      fontSize: '1rem',
+      color: '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1.375rem',
       textAlign: 'left',
-      lineHeight: '200%',
+      lineHeight: 1.6,
+      margin: '0 0 1.5rem',
       '$thumbnail &': {
         lineHeight: '150%',
         padding: 0,
@@ -247,7 +271,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& a': {
-      color: '#B1890F',
+      color: '#9b5b13',
       '$thumbnail &': {
         padding: 0,
         margin: 0,
@@ -267,7 +291,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     '& ul': {
       textAlign: 'left',
-      lineHeight: '150%',
+      color: '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1.375rem',
+      lineHeight: 1.6,
+      paddingLeft: '1.5rem',
+      margin: '0 0 1.5rem',
       '$thumbnail &': {
         padding: 0,
         margin: 0,
@@ -279,13 +308,42 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         display: 'none',
       },
     },
+    [`@media (max-width: 48rem)`]: {
+      '& h1': {
+        fontSize: '2.5rem',
+        marginBottom: '2rem',
+      },
+      '& h2': {
+        fontSize: '1.75rem',
+        marginTop: '2.5rem',
+        paddingTop: '1.5rem',
+      },
+      '& h3, & h4, & h5, & h6': {
+        fontSize: '1.25rem',
+      },
+      '& p, & ul': {
+        fontSize: '1rem',
+      },
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
+    '& $article': {
+      color: 'white',
+      '& h1, & h2, & h3, & h4, & h5, & h6, & p, & ul': {
+        color: 'white',
+      },
+      '& a': {
+        color: theme.colors.encivYellow,
+      },
+    },
+    '& $cta h3': {
+      color: 'white',
+    },
   },
   light: {
-    backgroundColor: '#F2F2F2',
-    color: theme.colors.darkModeGray,
+    backgroundColor: '#fafaf9',
+    color: '#80664a',
   },
 }))
