@@ -81,14 +81,19 @@ export default function Home(props) {
   const hero = blocks?.find(block => block.key === 'HeroBlock') || {}
   const deliberations = blocks?.find(block => block.key === 'CivilPursuitQuestionsBlock')
   const faq = blocks?.find(block => block.key === 'Faq')
+  const { key: heroKey, ...heroProps } = hero
+  const { key: deliberationsKey, ...deliberationsProps } = deliberations || {}
+  const { key: faqKey, ...faqProps } = faq || {}
 
   return (
     <div className={classes.home}>
       <BrevoHelmet />
       <BrevoCommunity location={location} />
-      <HeroBlock {...hero} variant="homepage" />
+      <HeroBlock key={heroKey} {...heroProps} variant="homepage" />
 
-      {deliberations && <CivilPursuitQuestionsBlock {...deliberations} variant="homepage" />}
+      {deliberations && (
+        <CivilPursuitQuestionsBlock key={deliberationsKey} {...deliberationsProps} variant="homepage" />
+      )}
 
       <section className={classes.mission} aria-labelledby="home-mission-title">
         <div className={classes.missionInner}>
@@ -160,7 +165,7 @@ export default function Home(props) {
           </div>
         </div>
       </section>
-      {faq && <FrequentlyAskedQuestions {...faq} />}
+      {faq && <FrequentlyAskedQuestions key={faqKey} {...faqProps} />}
     </div>
   )
 }

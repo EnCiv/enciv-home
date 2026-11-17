@@ -44,7 +44,7 @@ function AppStoryRouter({ iota: initialIota, ...props }) {
               typeof page.webComponent === 'string' ? page.webComponent : page.webComponent?.webComponent
             return webComponent === 'CivilPursuit'
           })
-          .map(({ _id, path, subject }) => ({ _id, path, subject }))
+          .map(({ _id, path, subject }) => ({ _id: String(_id?.$oid ?? _id), path, subject }))
         args.at(-1)?.(questions)
         return
       }
