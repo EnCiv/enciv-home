@@ -16,7 +16,7 @@ export default function Article(props) {
       <Helmet>
         <title>{convertUnicode(subject)}</title>
       </Helmet>
-      <ArticleBlock mode="light" {...otherProps} />
+      <ArticleBlock mode="light" articlePage {...otherProps} />
     </>
   )
 }

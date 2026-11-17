@@ -27,6 +27,7 @@ const HeroBlock = props => {
     secondaryAction,
     actionStyle = {},
     variant = 'default',
+    compact = false,
     showScrollCue = true,
     ...otherProps
   } = props
@@ -41,8 +42,6 @@ const HeroBlock = props => {
     subjectCharacterCount,
     subjectRevealDuration,
   })
-  const heroRef = useRef(null)
-  const heroImageRef = useRef(null)
   const outerRef = useRef(null)
   const innerRef = useRef(null)
 
@@ -89,35 +88,6 @@ const HeroBlock = props => {
   }, [variant])
 
   useEffect(() => {
-    if (variant !== 'homepage' || isSubjectVisible || !heroRef.current || !heroImageRef.current) return
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
-
-    let frameId = 0
-    const updateParallax = () => {
-      frameId = 0
-      const heroRect = heroRef.current?.getBoundingClientRect()
-      const subjectRect = outerRef.current?.getBoundingClientRect()
-      if (!heroRect || !subjectRect || !heroImageRef.current) return
-      const scrollEnd = window.scrollY + subjectRect.top - window.innerHeight * 0.75
-      const scrollStart = scrollEnd - Math.min(heroRect.height * 0.4, 360)
-      const progress = Math.min(1, Math.max(0, (window.scrollY - scrollStart) / (scrollEnd - scrollStart)))
-      heroImageRef.current.style.setProperty('--hero-parallax-y', `${(progress * 40).toFixed(2)}px`)
-    }
-    const onScroll = () => {
-      if (!frameId) frameId = window.requestAnimationFrame(updateParallax)
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    updateParallax()
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-      if (frameId) window.cancelAnimationFrame(frameId)
-    }
-  }, [isSubjectVisible, variant])
-
-  useEffect(() => {
     // trick is that onResize will only get created once, and will only see the value of resized once
     // but count becomes a static variable that onResize can keepp incrementing so setResize can force a rerender
     var count = resized
@@ -158,12 +128,11 @@ const HeroBlock = props => {
   }, [resized, baseFontSize, fontSize])
 
   return (
-    <div ref={heroRef} className={cx(classes.heroBlock, className)} {...otherProps}>
+    <div className={cx(classes.heroBlock, className)} {...otherProps}>
       {variant === 'homepage' && heroImage && (
         <picture className={classes.heroPicture}>
           <source media={`(max-width: ${themeFix.condensedWidthBreakPoint})`} srcSet={mobileHeroImage} />
           <img
-            ref={heroImageRef}
             className={classes.heroImage}
             src={heroImage}
             alt=""
@@ -221,7 +190,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   heroBlock: props => ({
     width: '100%', // using vw makes the div a tiny bit wider than the viewport causing a scrollbar I suspect roundoff
     height: props.height || 'auto',
-    aspectRatio: props.variant === 'homepage' ? '1446 / 1160' : '1.56 / 1',
+    aspectRatio: props.variant === 'homepage' && !props.compact ? '1446 / 1160' : '1.56 / 1',
     maxHeight: '100rem',
     backgroundColor: props.variant === 'homepage' ? '#f2f0ed' : '#171717',
     position: 'relative',
@@ -234,9 +203,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       ? {
           '& $scrollCue': {
             animation: '$scrollCueBlink 1.4s steps(2, start) infinite',
-          },
-          '&:hover $heroImage': {
-            transform: 'translate3d(0, var(--hero-parallax-y, 0px), 0) scale(1.08)',
           },
           '&:hover $heroPicture::after': {
             boxShadow: 'inset 0 0 1.75rem rgba(0, 0, 0, 0.34)',
@@ -252,10 +218,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           ? homepageHeroOverlay
           : `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      transform: props.variant === 'homepage' ? 'none' : 'scale(1.02)',
+      backgroundPosition: 'center top',
+      transform: 'none',
       boxShadow: 'inset 0 0 0 rgba(255, 255, 255, 0)',
-      transition: 'box-shadow 450ms ease, transform 450ms ease',
+      transition: 'box-shadow 450ms ease',
       zIndex: props.variant === 'homepage' ? 1 : 0,
       pointerEvents: 'none',
     },
@@ -279,7 +245,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       : {
           marginBottom: '4rem',
           '&:hover::before': {
-            transform: 'scale(1.04)',
             boxShadow: 'inset 0 0 3rem rgba(255, 255, 255, 0.14)',
           },
         }),
@@ -316,7 +281,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
             : `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
       },
     },
-    ...(props.variant === 'homepage'
+    ...(props.variant === 'homepage' && !props.compact
       ? {
           '@media (max-width: 42rem)': {
             aspectRatio: '0.82 / 1',
@@ -373,27 +338,27 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     objectFit: 'cover',
     objectPosition: 'center top',
     filter: 'brightness(50%)',
-    transform: 'translate3d(0, var(--hero-parallax-y, 0px), 0) scale(1.06)',
-    willChange: 'transform',
-    transition: 'transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+    transform: 'none',
+    willChange: 'auto',
+    transition: 'none',
   },
 
   heroContent: props => ({
-    position: props.variant === 'homepage' ? 'sticky' : 'static',
-    bottom: props.variant === 'homepage' ? '3rem' : 'auto',
+    position: props.variant === 'homepage' ? (props.compact ? 'absolute' : 'sticky') : 'static',
+    bottom: props.variant === 'homepage' ? (props.compact ? '0' : '3rem') : 'auto',
     width: '100%',
     boxSizing: 'border-box',
     zIndex: props.variant === 'homepage' ? 2 : 'auto',
     ...(props.variant === 'homepage'
       ? {
-          marginTop: 'auto',
-          padding: '0 36.45% 2rem 7.19%',
+          marginTop: props.compact ? 0 : 'auto',
+          padding: props.compact ? '0 3rem 2.5rem' : '0 36.45% 2rem 7.19%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-          marginBottom: '8rem',
+          marginBottom: props.compact ? 0 : '8rem',
           [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-            padding: '0 1.5rem 2rem',
+            padding: props.compact ? '0 2rem 2rem' : '0 1.5rem 2rem',
           },
         }
       : {}),

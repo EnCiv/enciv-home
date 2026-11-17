@@ -19,6 +19,10 @@ export default function Blog(props) {
       <HeroBlock
         mode="dark"
         subject={subject}
+        height="22rem"
+        variant="homepage"
+        compact
+        showScrollCue={false}
         actionText=""
         imgUrl={
           imgUrl ||

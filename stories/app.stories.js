@@ -4,6 +4,21 @@ import { waitFor, expect, within } from 'storybook/test'
 import App from '../app/components/app'
 import iotas from '../iotas.json'
 const iota = iotas.find(i => i.path === '/')
+const blogArticleIota = iotas.find(i => i.path === '/posts/a-new-vision-of-democracy')
+const blogStoryArticles = Array.from({ length: 12 }, (_, index) => {
+  const article = blogArticleIota.webComponent.article
+  const sampleNumber = index + 1
+  return {
+    ...article,
+    _id: `blog-story-article-${sampleNumber}`,
+    path: blogArticleIota.path,
+    title: index === 0 ? article.title : `Storybook sample ${sampleNumber}: ${article.title}`,
+    content:
+      index === 0
+        ? article.content
+        : `<p>Sample article ${sampleNumber} for demonstrating Blog pagination and staggered card entrances.</p>`,
+  }
+})
 
 function AppStoryRouter({ iota: initialIota, ...props }) {
   const [currentIota, setCurrentIota] = useState(initialIota)
@@ -15,6 +30,11 @@ function AppStoryRouter({ iota: initialIota, ...props }) {
     storySocket.emit = (event, ...args) => {
       if (event === 'get-user-discussions') {
         args.at(-1)?.([])
+        return
+      }
+      if (event === 'get-articles') {
+        const [skip = 0, limit = 10] = args
+        args.at(-1)?.(blogStoryArticles.slice(skip, skip + limit))
         return
       }
       if (event === 'get-civil-pursuit-questions') {
@@ -106,27 +126,12 @@ export const Article = {
 
 export const Blog = {
   args: { iota: iotas.find(i => i.path === '/articles') },
-  decorators: [
-    Story => {
-      // simulate socket api
-      if (!window.socket) {
-        window.socket = {
-          emit: (handle, ...args) => {
-            if (handle === 'get-articles') {
-              setTimeout(() => {
-                const iota = iotas.find(i => i.path === '/posts/a-new-vision-of-democracy')
-                const article = iota.webComponent.article
-                article.path = iota.path
-                article._id = iota._id
-                args.at(-1)([article])
-              }, 1000)
-            }
-          },
-        }
-      }
-      return <Story />
-    },
-  ],
+  play: async ({ canvasElement }) => {
+    const cards = () => canvasElement.querySelectorAll('button[class*="thumbnail"]')
+    await waitFor(() => expect(cards()).toHaveLength(10))
+    await within(canvasElement).getByRole('button', { name: 'Load More' }).click()
+    await waitFor(() => expect(cards()).toHaveLength(12))
+  },
 }
 
 // ---------------------------------------------------------------------------
