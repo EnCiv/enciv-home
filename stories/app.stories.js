@@ -217,17 +217,15 @@ export const WithIota_RendersNavAndContent = {
 }
 
 /**
- * Verifies that App without an iota renders the plain fallback ("Nothing Here")
- * and the local Footer without crashing.
+ * Verifies that App without an iota renders the not-found page and Footer.
  */
 export const WithoutIota_RendersFallback = {
-  name: 'WithoutIota — renders fallback content (pre-migration baseline)',
+  name: 'WithoutIota — renders not-found content',
   args: {},
   play: async ({ canvasElement }) => {
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain('Nothing Here')
+      expect(within(canvasElement).getByRole('heading', { name: "We couldn't find that page." })).toBeTruthy()
     })
-    // Local footer link should be visible
     expect(canvasElement.textContent).toContain('Terms')
   },
 }

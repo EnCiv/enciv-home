@@ -21,6 +21,7 @@ const ActionButton = props => {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
     mode = 'default', // transparent mode changes btn background to transparent
+    variant = mode === 'transparent' ? 'secondary' : 'primary',
     size = 'default',
     bevel = false,
     iconName = '',
@@ -28,7 +29,7 @@ const ActionButton = props => {
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
-  const classes = useStylesFromThemeFunction({ mode })
+  const classes = useStylesFromThemeFunction({ mode, variant })
   const actionButtonClass = cx(
     classes.actionButton,
     bevel && classes.beveledActionButton,
@@ -81,23 +82,34 @@ export default ActionButton
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   actionButton: props => ({
-    backgroundColor: props.mode === 'transparent' ? 'transparent' : theme.colors.encivYellow,
-    color: props.mode === 'transparent' ? 'white' : theme.colors.darkModeGray,
-    borderRadius: '1.75rem',
-    border: props.mode === 'transparent' ? '0.1rem solid white' : 'none',
+    backgroundColor:
+      props.variant === 'secondary'
+        ? 'rgba(177, 137, 15, 0.18)'
+        : props.mode === 'transparent'
+          ? 'transparent'
+          : theme.colors.encivYellow,
+    color: props.variant === 'secondary' || props.mode === 'transparent' ? 'white' : theme.colors.darkModeGray,
+    borderRadius: '0.5rem',
+    border: props.variant === 'secondary' ? '1px solid #FFE8BE' : props.mode === 'transparent' ? '0.1rem solid white' : 'none',
     fontWeight: 700,
     fontSize: '1.25rem',
     lineHeight: '1.5rem',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     padding: '0.75rem 1.5rem',
-    boxShadow: '0 0.125rem 0.25rem rgba(0,0,0,.16), inset 0 0.0625rem 0 rgba(255,255,255,.55), inset 0 -0.0625rem 0 rgba(102,68,0,.12)',
+    boxShadow: '0 0.2rem 0 rgba(0,0,0,.42), 0 0.45rem 0.8rem rgba(0,0,0,.24), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     textDecoration: 'none',
+    transition: 'transform 120ms ease, box-shadow 120ms ease',
     '&:hover': {
       cursor: 'pointer',
+      transform: 'translateY(-0.1rem)',
+    },
+    '&:active:not(:disabled)': {
+      transform: 'translateY(0.125rem)',
+      boxShadow: '0 0.0625rem 0 rgba(0,0,0,.42), 0 0.125rem 0.3rem rgba(0,0,0,.2), inset 0 0.0625rem 0 rgba(255,255,255,.45)',
     },
     '& :focus': {
       outline: theme.focusOutline,
@@ -106,7 +118,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '1.5rem',
       lineHeight: '1.8rem',
       padding: '0.9rem 3rem',
-      borderRadius: '2.1rem',
+      borderRadius: '0.625rem',
       boxSizing: 'border-box',
     },
     '@media (max-width: 38rem)': {
@@ -114,7 +126,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         fontSize: '1.5rem',
         lineHeight: '1.8rem',
         padding: '0.9rem 1.5rem',
-        borderRadius: '2.1rem',
+        borderRadius: '0.625rem',
       },
     },
   }),
@@ -123,7 +135,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     borderLeft: '0.125rem solid rgba(255,255,255,.4)',
     borderRight: '0.125rem solid rgba(102,68,0,.24)',
     borderBottom: '0.1875rem solid rgba(102,68,0,.42)',
-    boxShadow: '0 0.375rem 0.625rem rgba(0,0,0,.24), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
+    boxShadow: '0 0.2rem 0 rgba(0,0,0,.42), 0 0.45rem 0.8rem rgba(0,0,0,.24), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
     boxSizing: 'border-box',
   },
   buttonContent: {

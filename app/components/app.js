@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import WebComponents from '../web-components'
-import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider, createUseStyles } from 'react-jss'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { theme, Components } from 'civil-pursuit'
 import { typography } from '../theme'
 import EncivCookies from 'civil-server/dist/components/enciv-cookies'
+import NothingHere from './nothing-here'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
@@ -17,27 +17,7 @@ class App extends React.Component {
           <HelmetProvider>
             <ThemeProvider theme={theme}>
               <div className="enciv-site">
-                <Helmet>
-                  <title>{iota?.subject || 'EnCiv'}</title>
-                  <meta name="description" content={iota?.description} />
-                  <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
-                  <style>{`
-                    .enciv-site {
-                      position: relative;
-                      font-family: ${typography.bodyFont};
-                    }
-                    .enciv-site :is(h1, h2, h3, h4, h5, h6) {
-                      font-family: ${typography.headingFont} !important;
-                      font-weight: ${typography.headingWeight} !important;
-                    }
-                  `}</style>
-                  <link rel="preconnect" href="https://fonts.googleapis.com" />
-                  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                  <link
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Newsreader:opsz,wght@6..72,400..800&display=swap"
-                    rel="stylesheet"
-                  />
-                </Helmet>
+                <SiteHelmet title={iota?.subject || 'EnCiv'} description={iota?.description} includeVerification />
                 <header>
                   <SkipLink />
                   <TopNavWrap {...this.props} />
@@ -55,17 +35,54 @@ class App extends React.Component {
     } else
       return (
         <ErrorBoundary>
-          <ThemeProvider theme={theme}>
-            <div style={{ position: 'relative', fontFamily: 'Inter, sans-serif' }}>
-              <main>
-                <div>Nothing Here</div>
-              </main>
-              <Footer />
-            </div>
-          </ThemeProvider>
+          <HelmetProvider>
+            <ThemeProvider theme={theme}>
+              <div className="enciv-site not-found-shell">
+                <SiteHelmet title="Page Not Found | EnCiv" />
+                <header>
+                  <SkipLink />
+                  <TopNavWrap {...this.props} />
+                </header>
+                <NothingHere />
+                <Components.Footer mode="dark" key="footer" />
+              </div>
+            </ThemeProvider>
+          </HelmetProvider>
         </ErrorBoundary>
       )
   }
+}
+
+function SiteHelmet({ title, description, includeVerification = false }) {
+  return (
+    <Helmet>
+      <title>{title}</title>
+      {description && <meta name="description" content={description} />}
+      {includeVerification && <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />}
+      <style>{`
+        .enciv-site {
+          position: relative;
+          font-family: ${typography.bodyFont};
+        }
+        .enciv-site :is(h1, h2, h3, h4, h5, h6) {
+          font-family: ${typography.headingFont} !important;
+          font-weight: ${typography.headingWeight} !important;
+        }
+        .enciv-site.not-found-shell {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          background: #fff;
+        }
+      `}</style>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Newsreader:opsz,wght@6..72,400..800&display=swap"
+        rel="stylesheet"
+      />
+    </Helmet>
+  )
 }
 
 function TopNavWrap(props) {

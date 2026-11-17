@@ -181,7 +181,7 @@ const HeroBlock = props => {
               </ActionButton>
             )}
             {secondaryActionText && (
-              <ActionButton action={secondaryAction} mode="transparent" className={classes.secondaryAction}>
+              <ActionButton action={secondaryAction} variant="secondary" className={classes.secondaryAction}>
                 {secondaryActionText}
               </ActionButton>
             )}
@@ -433,8 +433,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         : 'none',
     textShadow: props.textShadow ??
       (props.variant === 'homepage'
-        ? '0 1px 0 rgba(255, 246, 198, 0.8), 0 2px 0 rgba(145, 88, 0, 0.72), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.62)'
-        : '0 0.125rem 0.25rem rgba(0, 0, 0, 0.9), 0 0.25rem 1rem rgba(0, 0, 0, 0.55)'),
+        ? '0 1px 0 rgba(255, 246, 198, 0.9), 0 2px 0 rgba(145, 88, 0, 0.82), 0 4px 0 rgba(113, 64, 0, 0.72), 0 0.5rem 0.75rem rgba(0, 0, 0, 0.62)'
+        : '0 1px 0 rgba(0, 0, 0, 0.45), 0 0.25rem 0.35rem rgba(0, 0, 0, 0.82), 0 0.75rem 1rem rgba(0, 0, 0, 0.56)'),
     marginBlockStart: 0,
     marginBlockEnd: 0,
     '&:not(:last-child)': {
@@ -486,8 +486,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       ? {
           padding: '1.125rem 1.5625rem',
           fontWeight: 600,
-          borderRadius: '1.75rem',
-          boxShadow: '0 0.25rem 0.125rem rgba(0, 0, 0, 0.25)',
+          borderRadius: '0.5rem',
           '@media (max-width: 42rem)': {
             width: '100%',
             boxSizing: 'border-box',
@@ -499,10 +498,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       ? {
           padding: '1.125rem 1.5625rem',
           fontWeight: 600,
-          border: '1px solid #FFE8BE',
-          borderRadius: '1.75rem',
-          backgroundColor: 'rgba(177, 137, 15, 0.18)',
-          boxShadow: '0 0.25rem 0.25rem rgba(0, 0, 0, 0.25)',
           '@media (max-width: 42rem)': {
             width: '100%',
             boxSizing: 'border-box',

@@ -132,13 +132,17 @@ const useStyles = createUseStyles(theme => ({
     backgroundColor: '#fff',
     border: '1px solid rgba(64, 54, 46, 0.12)',
     borderRadius: '0.5rem',
-    boxShadow: '0 0.25rem 1rem rgba(42, 34, 27, 0.06)',
+    boxShadow: '0 0.1875rem 0 rgba(42, 34, 27, 0.12), 0 0.625rem 1.25rem rgba(42, 34, 27, 0.14), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.8)',
     marginBottom: '0.875rem',
     overflow: 'hidden',
     opacity: props.isVisible ? 1 : 0,
     transform: props.isVisible ? 'translateX(0)' : 'translateX(-1.25rem)',
     transition:
       'opacity 500ms ease var(--faq-delay, 0ms), transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--faq-delay, 0ms), box-shadow 250ms ease, border-color 250ms ease',
+    '&:hover': {
+      borderColor: 'rgba(190, 132, 28, 0.28)',
+      boxShadow: '0 0.25rem 0 rgba(42, 34, 27, 0.18), 0 0.875rem 1.5rem rgba(42, 34, 27, 0.2), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.85)',
+    },
     '@media (prefers-reduced-motion: reduce)': {
       opacity: 1,
       transform: 'none',
@@ -147,7 +151,7 @@ const useStyles = createUseStyles(theme => ({
   }),
   questionActive: {
     borderColor: 'rgba(190, 132, 28, 0.42)',
-    boxShadow: '0 0.75rem 1.75rem rgba(42, 34, 27, 0.12)',
+    boxShadow: '0 0.25rem 0 rgba(42, 34, 27, 0.2), 0 0.875rem 1.75rem rgba(42, 34, 27, 0.24), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.85)',
   },
   questionLine: {
     display: 'flex',

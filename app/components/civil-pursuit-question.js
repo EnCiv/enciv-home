@@ -61,16 +61,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     border: '0.125rem solid #E5E5E5',
     borderRadius: '1rem',
     textDecoration: 'none',
-    transition: 'all 0.3s ease',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease',
     cursor: 'pointer',
     minHeight: '4.5rem',
     gap: '1.5rem',
-    boxShadow: '0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05)',
+    boxShadow: '0 0.1875rem 0 rgba(0, 0, 0, 0.2), 0 0.625rem 1.125rem rgba(0, 0, 0, 0.2), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.12)',
     position: 'relative',
     '&:hover': {
       borderColor: theme.colors?.encivYellow,
       transform: 'translateX(0.5rem)',
-      boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, 0.08)',
+      boxShadow: '0 0.25rem 0 rgba(0, 0, 0, 0.3), 0 0.875rem 1.5rem rgba(0, 0, 0, 0.28), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.16)',
     },
     '&:focus': {
       outline: theme.focusOutline || '0.1875rem solid #4A90E2',
@@ -78,6 +78,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     '&:active': {
       transform: 'translateX(0.25rem) scale(0.99)',
+      boxShadow: '0 0.0625rem 0 rgba(0, 0, 0, 0.22), 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.2)',
     },
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       padding: '1.25rem 1.5rem',
