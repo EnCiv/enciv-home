@@ -323,6 +323,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& a': {
       color: '#B1890F',
     },
+    '& a[class*="actionButton"]': {
+      color: theme.colors.darkModeGray,
+    },
     '& a:visited': {
       color: '#413207',
     },
@@ -373,6 +376,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           '& a': {
             color: '#9b5b13',
             fontWeight: 600,
+          },
+          '& a[class*="actionButton"]': {
+            color: theme.colors.darkModeGray,
           },
           [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
             '& h2': {

@@ -104,7 +104,7 @@ const useStyles = createUseStyles(theme => ({
   headerStyle: props => ({
     fontFamily: 'Newsreader, serif',
     textAlign: 'center',
-    color: theme.colors.textBrown,
+    color: props.mode === 'dark' ? '#fff' : theme.colors.textBrown,
     fontSize: '3.4375rem',
     fontWeight: 400,
     lineHeight: 1.1,

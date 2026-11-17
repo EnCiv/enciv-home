@@ -28,7 +28,11 @@ export function BrevoHelmet() {
 
           #sib-container a {
             text-decoration: underline;
-            color: #2BB2FC;
+            color: #00476b;
+          }
+
+          #sib-container .sib-form-block p {
+            color: #343433 !important;
           }
 
           #sib-container input{
@@ -110,7 +114,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     float: 'right',
     maxWidth: '20rem',
     paddingLeft: '2rem',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: 'transparent',
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       float: 'none',
       maxWidth: '100%',
@@ -120,9 +124,92 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& input': {
       lineHeight: '200%',
     },
+  },
+  brevoForm: {
     '& #sib-container': {
-      paddingLeft: '0.5rem',
-      paddingRight: '0',
+      backgroundColor: 'rgba(255, 255, 255, 0.78) !important',
+      backgroundImage:
+        'linear-gradient(135deg, rgba(255,195,21,.18) 0%, transparent 34%), linear-gradient(45deg, transparent 50%, rgba(79,151,145,.12) 50.5%, transparent 78%), linear-gradient(115deg, transparent 61%, rgba(223,111,85,.10) 61.5%, transparent 88%)',
+      backgroundClip: 'padding-box',
+      backdropFilter: 'blur(14px) saturate(135%)',
+      border: '1px solid rgba(255,255,255,.72) !important',
+      borderRadius: '0.75rem !important',
+      boxShadow: '0 0.75rem 2rem rgba(38,42,45,.16), inset 0 0.0625rem 0 rgba(255,255,255,.8)',
+      overflow: 'hidden',
+    },
+    '& #sib-container .form__label-row': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      gap: '0.375rem',
+    },
+    '& #sib-container .entry__label': {
+      display: 'block',
+      marginBottom: '0.25rem',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '0.9375rem',
+      fontWeight: 600,
+      lineHeight: 1.4,
+      color: '#343433',
+    },
+    '& #sib-container .entry__field': {
+      width: '100%',
+      padding: '0 !important',
+      border: '0 !important',
+      borderRadius: '0 !important',
+      background: 'transparent !important',
+      boxShadow: 'none !important',
+    },
+    '& #sib-container input.input': {
+      width: '100%',
+      minHeight: '3rem',
+      padding: '0.75rem 1rem',
+      boxSizing: 'border-box',
+      border: '1px solid #c9b99f',
+      borderRadius: '0.5rem',
+      backgroundColor: '#fff',
+      boxShadow: 'inset 0 0.0625rem 0.1875rem rgba(52,52,51,.12)',
+      color: '#343433',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1rem',
+      '&:focus': {
+        outline: 'none',
+        borderColor: '#b18c00',
+        boxShadow: '0 0 0 0.1875rem rgba(255,195,21,.24)',
+      },
+    },
+    '& #sib-container .sib-input': {
+      marginBottom: '0.5rem',
+    },
+    '& #sib-container .entry__error': {
+      marginTop: '0.5rem',
+      lineHeight: 1.4,
+    },
+    '& #sib-container .entry__specification': {
+      display: 'block',
+      marginTop: '0.5rem',
+      lineHeight: 1.5,
+    },
+    '& #sib-container .sib-optin p': {
+      margin: 0,
+      lineHeight: 1.5,
+    },
+    '& #sib-container .sib-form-block__button': {
+      boxShadow: '0 0.25rem 0.5rem rgba(0,0,0,.16), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
+      transition: 'transform 150ms ease, box-shadow 150ms ease',
+      '&:hover': {
+        transform: 'translateY(-0.0625rem)',
+        boxShadow: '0 0.375rem 0.75rem rgba(0,0,0,.18), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
+      },
+      '&:focus-visible': {
+        outline: '0.125rem solid #343433',
+        outlineOffset: '0.125rem',
+      },
+    },
+    '@media (max-width: 38rem)': {
+      '& #sib-container': {
+        padding: '1rem !important',
+      },
     },
   },
 }))
@@ -197,7 +284,7 @@ export default function BrevoJoin(props) {
         className="sib-form"
         style={{
           textAlign: 'center',
-          backgroundColor: '#343433',
+          backgroundColor: 'transparent',
           padding: 0,
           position: 'absolute',
           left: '50%',
@@ -215,6 +302,7 @@ export default function BrevoJoin(props) {
 
 function BrevoForm(props) {
   const { forceClose, formRef } = props
+  const classes = useStylesFromThemeFunction()
   if (typeof window !== 'undefined' && !window.brevoHelmet) {
     window.brevoHelmet = true
     // running on the browser
@@ -234,7 +322,7 @@ function BrevoForm(props) {
     window.AUTOHIDE = Boolean(0)
   }
   return (
-    <div id="sib-form-container" className="sib-form-container">
+    <div id="sib-form-container" className={cx('sib-form-container', classes.brevoForm)}>
       <div
         id="error-message"
         className="sib-form-message-panel"
@@ -286,12 +374,14 @@ function BrevoForm(props) {
         className="sib-container--large sib-container--vertical"
         style={{
           textAlign: 'center',
-          backgroundColor: 'rgba(242,242,242,1)',
+          backgroundColor: '#fff',
           maxWidth: '33.75rem',
-          borderRadius: '0.1875rem',
+          borderRadius: '0.75rem',
           borderWidth: 1,
-          borderColor: '#C0CCD9',
+          borderColor: '#e6e1d9',
           borderStyle: 'solid',
+          padding: '1.5rem',
+          boxShadow: '0 0.75rem 2rem rgba(38,42,45,.16), inset 0 0.0625rem 0 rgba(255,255,255,.8)',
           direction: 'ltr',
           boxSizing: 'border-box',
         }}
@@ -314,9 +404,10 @@ function BrevoForm(props) {
               style={{
                 fontSize: '2rem',
                 textAlign: 'left',
-                fontWeight: 700,
-                fontFamily: 'Inter, sans-serif',
-                color: '#000000',
+                fontWeight: 600,
+                lineHeight: 1.15,
+                fontFamily: 'Newsreader, serif',
+                color: '#343433',
                 backgroundColor: 'transparent',
               }}
             >
@@ -328,9 +419,10 @@ function BrevoForm(props) {
               className="sib-form-block"
               style={{
                 fontSize: '1rem',
+                lineHeight: 1.6,
                 textAlign: 'left',
                 fontFamily: 'Inter, sans-serif',
-                color: '#000000',
+                color: '#5d5d5c',
                 backgroundColor: 'transparent',
               }}
             >
@@ -346,11 +438,13 @@ function BrevoForm(props) {
                   <label
                     className="entry__label"
                     style={{
-                      fontWeight: 700,
+                      fontWeight: 600,
                       textAlign: 'left',
-                      fontSize: '1rem',
+                      fontSize: '0.9375rem',
                       fontFamily: 'Inter, sans-serif',
-                      color: '#000000',
+                      color: '#343433',
+                      lineHeight: 1.4,
+                      marginBottom: '0.25rem',
                     }}
                     htmlFor="FIRSTNAME"
                     data-required="*"
@@ -392,11 +486,13 @@ function BrevoForm(props) {
                   <label
                     className="entry__label"
                     style={{
-                      fontWeight: 700,
+                      fontWeight: 600,
                       textAlign: 'left',
-                      fontSize: '1rem',
+                      fontSize: '0.9375rem',
                       fontFamily: 'Inter, sans-serif',
-                      color: '#000000',
+                      color: '#343433',
+                      lineHeight: 1.4,
+                      marginBottom: '0.25rem',
                     }}
                     htmlFor="LASTNAME"
                     data-required="*"
@@ -438,11 +534,13 @@ function BrevoForm(props) {
                   <label
                     className="entry__label"
                     style={{
-                      fontWeight: 700,
+                      fontWeight: 600,
                       textAlign: 'left',
-                      fontSize: '1rem',
+                      fontSize: '0.9375rem',
                       fontFamily: 'Inter, sans-serif',
-                      color: '#000000',
+                      color: '#343433',
+                      lineHeight: 1.4,
+                      marginBottom: '0.25rem',
                     }}
                     htmlFor="EMAIL"
                     data-required="*"
@@ -522,7 +620,7 @@ function BrevoForm(props) {
                     fontSize: '0.75rem',
                     textAlign: 'left',
                     fontFamily: 'Inter, sans-serif',
-                    color: '#8390A4',
+                    color: '#4b5563',
                   }}
                 >
                   You may unsubscribe at any time using the link in our newsletter.
@@ -539,10 +637,12 @@ function BrevoForm(props) {
                   textAlign: 'left',
                   fontWeight: 700,
                   fontFamily: 'Inter, sans-serif',
-                  color: '#000000',
+                  color: '#343433',
                   backgroundColor: '#ffc315',
-                  borderRadius: '1.25rem',
+                  borderRadius: '1.5rem',
                   borderWidth: 0,
+                  padding: '0.875rem 1.5rem',
+                  boxShadow: '0 0.25rem 0.5rem rgba(0,0,0,.16), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
                 }}
                 form="sib-form"
                 type="submit"
@@ -557,7 +657,14 @@ function BrevoForm(props) {
               </button>
             </div>
           </div>
-          <input type="text" name="email_address_check" defaultValue="" className="input--hidden" />
+          <input
+            type="text"
+            name="email_address_check"
+            defaultValue=""
+            className="input--hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
           <input type="hidden" name="locale" defaultValue="en" />
         </form>
       </div>

@@ -27,6 +27,7 @@ const TextBlock = props => {
     iconName, // A string name corresponding to an svgr component
     side = 'left', // The side to show the icon, if provided.
     imgUrl = '',
+    imgAlt = '',
     ...otherProps
   } = props
   const classes = useStylesFromThemeFunction({ side })
@@ -88,7 +89,7 @@ const TextBlock = props => {
               <div className={side == 'left' ? classes.innerWrapperIconLeft : classes.innerWrapperIconRight}>
                 {textSection}
                 <div className={cx(classes.textBlockImage)}>
-                  <img className={cx(classes.imageUrl)} src={imgUrl} />
+                  <img className={cx(classes.imageUrl)} src={imgUrl} alt={imgAlt} />
                 </div>
               </div>
             </div>

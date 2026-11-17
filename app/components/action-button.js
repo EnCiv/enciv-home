@@ -21,12 +21,19 @@ const ActionButton = props => {
     className = '', // may or may not be passed. Should be applied to the outer most tag, after local classNames
     action,
     mode = 'default', // transparent mode changes btn background to transparent
+    size = 'default',
+    bevel = false,
     iconName = '',
     children,
     ...otherProps
   } = props
   const [showForm, setShowForm] = useState(false)
   const classes = useStylesFromThemeFunction({ mode })
+  const actionButtonClass = cx(
+    classes.actionButton,
+    bevel && classes.beveledActionButton,
+    className
+  )
 
   const buttonContent = () => (
     <div className={cx(classes.buttonContent)}>
@@ -38,7 +45,8 @@ const ActionButton = props => {
     if (typeof action === 'string')
       return (
         <a
-          className={cx(classes.actionButton, className)}
+          className={actionButtonClass}
+          data-size={size}
           href={action}
           target={action[0] === '/' ? '_self' : '_blank'}
           tabIndex={0} // Ensure the <a> element is focusable
@@ -55,14 +63,14 @@ const ActionButton = props => {
       )
     if (typeof action === 'function')
       return (
-        <Button className={cx(classes.actionButton, className)} onDone={action} {...otherProps}>
+        <Button className={actionButtonClass} data-size={size} onDone={action} {...otherProps}>
           {buttonContent()}
         </Button>
       )
   } else
     return (
       <>
-        <Button className={cx(classes.actionButton, className)} onDone={() => setShowForm(!showForm)} {...otherProps}>
+        <Button className={actionButtonClass} data-size={size} onDone={() => setShowForm(!showForm)} {...otherProps}>
           {buttonContent()}
         </Button>
         <BrevoJoin active={showForm} forceClose={() => setShowForm(false)} actionText={props.children} />
@@ -82,7 +90,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     lineHeight: '1.5rem',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    padding: '0.5rem 1.25rem',
+    padding: '0.75rem 1.5rem',
+    boxShadow: '0 0.125rem 0.25rem rgba(0,0,0,.16), inset 0 0.0625rem 0 rgba(255,255,255,.55), inset 0 -0.0625rem 0 rgba(102,68,0,.12)',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -93,7 +102,30 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& :focus': {
       outline: theme.focusOutline,
     },
+    '&[data-size="large"]': {
+      fontSize: '1.5rem',
+      lineHeight: '1.8rem',
+      padding: '0.9rem 3rem',
+      borderRadius: '2.1rem',
+      boxSizing: 'border-box',
+    },
+    '@media (max-width: 38rem)': {
+      '&[data-size="large"]': {
+        fontSize: '1.5rem',
+        lineHeight: '1.8rem',
+        padding: '0.9rem 1.5rem',
+        borderRadius: '2.1rem',
+      },
+    },
   }),
+  beveledActionButton: {
+    borderTop: '0.125rem solid rgba(255,255,255,.55)',
+    borderLeft: '0.125rem solid rgba(255,255,255,.4)',
+    borderRight: '0.125rem solid rgba(102,68,0,.24)',
+    borderBottom: '0.1875rem solid rgba(102,68,0,.42)',
+    boxShadow: '0 0.375rem 0.625rem rgba(0,0,0,.24), inset 0 0.0625rem 0 rgba(255,255,255,.55)',
+    boxSizing: 'border-box',
+  },
   buttonContent: {
     display: 'flex',
     alignItems: 'center',

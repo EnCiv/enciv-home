@@ -4,7 +4,7 @@ import ArticleBlock from './article-block'
 import cx from 'classnames'
 import CloseX from './close-x'
 import { Components } from 'civil-pursuit'
-const { TextButton } = Components
+const { PrimaryButton } = Components
 
 export default function ArticleThumbnailsBlock(props) {
   const {
@@ -40,9 +40,9 @@ export default function ArticleThumbnailsBlock(props) {
             ))}
           </div>
         )}
-        <TextButton className={cx(classes.loadMoreButton, classes[mode])} onDone={loadMore}>
+        <PrimaryButton className={classes.loadMoreButton} onDone={loadMore}>
           Load More
-        </TextButton>
+        </PrimaryButton>
       </div>
     </div>
   )

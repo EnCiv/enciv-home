@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import WebComponents from '../web-components'
 import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
@@ -27,9 +27,14 @@ class App extends React.Component {
                     rel="stylesheet"
                   />
                 </Helmet>
-                <TopNavWrap {...this.props} />
-                <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-                <EncivCookies user={newProps.user} cookieCategories={newProps.cookieCategories} />
+                <header>
+                  <SkipLink />
+                  <TopNavWrap {...this.props} />
+                </header>
+                <main id="main-content" tabIndex="-1">
+                  <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+                </main>
+                <AccessibleCookieConsent user={newProps.user} cookieCategories={newProps.cookieCategories} />
                 <Components.Footer mode="dark" key="footer" />
               </div>
             </ThemeProvider>
@@ -41,7 +46,9 @@ class App extends React.Component {
         <ErrorBoundary>
           <ThemeProvider theme={theme}>
             <div style={{ position: 'relative', fontFamily: 'Inter, sans-serif' }}>
-              <div>Nothing Here</div>
+              <main>
+                <div>Nothing Here</div>
+              </main>
               <Footer />
             </div>
           </ThemeProvider>
@@ -80,10 +87,20 @@ function TopNavWrap(props) {
         },
       },
     ],
-    {
-      name: 'Our Tools',
-      func: () => navigate('/our-tools'),
-    },
+    [
+      {
+        name: 'Our Tools',
+        func: () => {},
+      },
+      {
+        name: 'Overview',
+        func: () => navigate('/our-tools'),
+      },
+      {
+        name: 'Civil Pursuit',
+        func: () => navigate('/civil-pursuit'),
+      },
+    ],
     {
       name: 'Articles',
       func: () => {
@@ -100,4 +117,54 @@ function TopNavWrap(props) {
   return <Components.TopNavBar mode={'dark'} menu={menu} />
 }
 
+const useSkipLinkStyles = createUseStyles({
+  skipLink: {
+    position: 'fixed',
+    top: '-5rem',
+    left: '1rem',
+    zIndex: 10000,
+    padding: '0.75rem 1rem',
+    border: '0.125rem solid #343433',
+    borderRadius: '0.25rem',
+    backgroundColor: '#fff',
+    color: '#343433',
+    textDecoration: 'none',
+    '&:focus': {
+      top: '1rem',
+      outline: '0.1875rem solid #b18c00',
+      outlineOffset: '0.125rem',
+    },
+  },
+})
+
+function SkipLink() {
+  const classes = useSkipLinkStyles()
+  return (
+    <a className={classes.skipLink} href="#main-content">
+      Skip to main content
+    </a>
+  )
+}
+
 export default App
+
+function AccessibleCookieConsent(props) {
+  useEffect(() => {
+    const makeDescriptionFocusable = () => {
+      const description = document.getElementById('cm__desc')
+      if (!description) return false
+      description.tabIndex = 0
+      return true
+    }
+
+    if (makeDescriptionFocusable()) return
+
+    const observer = new MutationObserver(() => {
+      if (makeDescriptionFocusable()) observer.disconnect()
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [])
+
+  return <EncivCookies {...props} />
+}

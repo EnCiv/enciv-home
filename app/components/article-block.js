@@ -15,7 +15,7 @@ function getTextContent(node) {
 
 export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, articlePage = false, ...otherProps } = props
-  const classes = useStylesFromThemeFunction()
+  const classes = useStylesFromThemeFunction({ mode })
   // to allow articles to embed a signup form - but not in the thumbnail
   const replace = domNode => {
     if (domNode.type === 'tag' && domNode.name === 'signupform') {
@@ -37,7 +37,7 @@ export default function ArticleBlock(props) {
             articlePage && classes.articlePage
           )}
         >
-          <h1>{parse(article.title ?? '')}</h1>
+          {article.title && <h1>{parse(article.title)}</h1>}
           {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
           <div className={classes.author}>{article.authorName}</div>
           <div className={classes.content}>
@@ -49,7 +49,7 @@ export default function ArticleBlock(props) {
         </div>
         {vState !== 'thumbnail' && (
           <div className={cx(classes.cta, classes[vState], articlePage && classes.articlePageCta)}>
-            <h3>Want to learn more about what EnCiv is doing to unite us?</h3>
+            <h2>Want to learn more about what EnCiv is doing to unite us?</h2>
             <ActionButton children="Join the Community" />
           </div>
         )}
@@ -107,7 +107,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& $thumbnail': {
       display: 'none',
     },
-    '& h3': {
+    '& h2': {
       color: '#252a2d',
       fontFamily: 'Newsreader, serif',
       fontStyle: 'normal',
@@ -131,10 +131,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     WebkitLineClamp: 4,
     overflow: 'hidden',
   },
-  date: {
+  date: props => ({
     '$thumbnail &': {
       display: 'block',
-      color: '#80664a',
+      color: props.mode === 'dark' ? '#d6c6ad' : '#80664a',
       fontFamily: 'Inter, sans-serif',
       fontSize: '0.875rem',
       lineHeight: 1.4,
@@ -142,7 +142,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'center',
       marginBottom: '0.5rem',
     },
-  },
+  }),
   author: {
     color: '#252a2d',
     fontFamily: 'Inter, sans-serif',
@@ -440,7 +440,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     borderRadius: '0.25rem',
     backgroundColor: '#f2f0ed',
     textAlign: 'center',
-    '& h3': {
+    '& h2': {
       maxWidth: '40rem',
       color: '#80664a',
       fontFamily: 'Newsreader, serif',
@@ -452,7 +452,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '2rem 1rem',
-      '& h3': {
+      '& h2': {
         fontSize: '1.5rem',
       },
     },
@@ -473,7 +473,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         color: theme.colors.encivYellow,
       },
     },
-    '& $cta h3': {
+    '& $cta h2': {
       color: 'white',
     },
   },

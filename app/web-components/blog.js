@@ -21,6 +21,7 @@ export default function Blog(props) {
         subject={subject}
         height="22rem"
         variant="homepage"
+        featherBottomColor="#343433"
         compact
         showScrollCue={false}
         actionText=""

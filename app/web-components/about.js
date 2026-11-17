@@ -19,9 +19,11 @@ function ToolsActionButton({ style = {}, ...props }) {
         fontSize: '1.375rem',
         lineHeight: '1.5rem',
         marginTop: '1.5rem',
+        boxSizing: 'border-box',
       }}
     />
   )
+
 }
 
 function AnimatedMarkdownHeading({ as: Element = 'h2', className, children, ...otherProps }) {
@@ -95,6 +97,7 @@ export default function About(props) {
       <HeroBlock
         mode="dark"
         variant="homepage"
+        featherBottomColor="#fafaf9"
         subject={subject}
         actionText=""
         height={height}
@@ -180,6 +183,15 @@ const useStyles = createUseStyles({
     },
     '& a': {
       color: '#9b5b13',
+    },
+    '& a[class*="actionButton"]': {
+      color: '#343433',
+      fontWeight: 700,
+      opacity: 1,
+      '&:active, &:visited': {
+        color: '#343433',
+        opacity: 1,
+      },
     },
     '& h2': {
       color: '#80664a',

@@ -30,6 +30,10 @@ const HeroBlock = props => {
     variant = 'default',
     compact = false,
     showScrollCue = true,
+    featherBottom = true,
+    featherBottomColor = '#f2f0ed',
+    darkenImage = true,
+    actionBevel = false,
     ...otherProps
   } = props
 
@@ -41,6 +45,9 @@ const HeroBlock = props => {
     isSubjectVisible,
     subjectCharacterCount,
     subjectRevealDuration,
+    featherBottom,
+    featherBottomColor,
+    darkenImage,
   })
   const outerRef = useRef(null)
   const innerRef = useRef(null)
@@ -169,7 +176,7 @@ const HeroBlock = props => {
         {(actionText || secondaryActionText) && (
           <div className={classes.actionWrapper}>
             {actionText && (
-              <ActionButton action={action} className={classes.action} style={actionStyle}>
+              <ActionButton action={action} className={classes.action} style={actionStyle} bevel={actionBevel}>
                 {actionText}
               </ActionButton>
             )}
@@ -215,17 +222,21 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       inset: '-0.25rem',
       backgroundImage:
         props.variant === 'homepage'
-          ? homepageHeroOverlay
+          ? props.darkenImage
+            ? homepageHeroOverlay
+            : 'none'
           : `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
       backgroundSize: 'cover',
       backgroundPosition: 'center top',
+      backgroundColor: props.darkenImage && props.variant !== 'homepage' ? 'rgba(0, 0, 0, 0.38)' : 'transparent',
+      backgroundBlendMode: 'multiply',
       transform: 'none',
       boxShadow: 'inset 0 0 0 rgba(255, 255, 255, 0)',
       transition: 'box-shadow 450ms ease',
       zIndex: props.variant === 'homepage' ? 1 : 0,
       pointerEvents: 'none',
     },
-    ...(props.variant === 'homepage'
+    ...(props.featherBottom
       ? {
           '&::after': {
             content: '""',
@@ -234,7 +245,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
             right: 0,
             bottom: 0,
             height: '14%',
-            background: 'linear-gradient(to bottom, rgba(242, 240, 237, 0) 0%, #f2f0ed 100%)',
+            background: `linear-gradient(to bottom, rgba(242, 240, 237, 0) 0%, ${props.featherBottomColor} 100%)`,
             zIndex: 1,
             pointerEvents: 'none',
           },
@@ -277,7 +288,9 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       '&::before': {
         backgroundImage:
           props.variant === 'homepage'
-            ? homepageHeroOverlay
+            ? props.darkenImage
+              ? homepageHeroOverlay
+              : 'none'
             : `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
       },
     },
@@ -331,17 +344,17 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '2rem',
     },
   },
-  heroImage: {
+  heroImage: props => ({
     display: 'block',
     width: '100%',
     height: '100%',
     objectFit: 'cover',
     objectPosition: 'center top',
-    filter: 'brightness(50%)',
+    filter: props.darkenImage ? 'brightness(50%)' : 'none',
     transform: 'none',
     willChange: 'auto',
     transition: 'none',
-  },
+  }),
 
   heroContent: props => ({
     position: props.variant === 'homepage' ? (props.compact ? 'absolute' : 'sticky') : 'static',
@@ -415,7 +428,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     WebkitBackgroundClip: props.variant === 'homepage' && !props.textColor ? 'text' : 'border-box',
     WebkitTextFillColor: props.variant === 'homepage' && !props.textColor ? 'transparent' : 'currentColor',
     filter:
-      props.variant === 'homepage' && !props.textShadow
+      !props.textShadow
         ? 'drop-shadow(0 0.25rem 0.5rem rgba(0, 0, 0, 0.7))'
         : 'none',
     textShadow: props.textShadow ??

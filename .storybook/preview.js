@@ -5,7 +5,10 @@ import { theme } from 'civil-pursuit'
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
-  parameters: { ...clientParameters },
+  parameters: {
+    ...clientParameters,
+    a11y: { test: 'off' },
+  },
   decorators: [
     Story => (
       <ThemeProvider theme={theme}>

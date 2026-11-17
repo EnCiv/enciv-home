@@ -121,6 +121,7 @@ export default function Home(props) {
               the political spectrum to collaborate at scale to identify and address our toughest problems and drive
               tangible outcomes.
             </p>
+            <ActionButton>Subscribe for free</ActionButton>
           </div>
         </div>
       </section>
@@ -237,8 +238,11 @@ const useStyles = createUseStyles({
     '& p': {
       margin: '0 0 1.5rem',
     },
-    '& p:last-child': {
+    '& p:last-of-type': {
       marginBottom: 0,
+    },
+    '& > button': {
+      marginTop: '2rem',
     },
   },
   missionTitle: {
@@ -349,7 +353,7 @@ const useStyles = createUseStyles({
       padding: 0,
     },
     '& > a, & > button': {
-      marginTop: '2rem',
+      marginTop: '3rem',
     },
   },
   featureTitle: {

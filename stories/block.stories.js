@@ -10,6 +10,12 @@ const fs = () =>
 const MP = parseFloat(theme.maxPanelWidth)
 const MC = parseFloat(theme.condensedWidthBreakPoint)
 const ChildHeight = 25 // just a number for the examples
+const getChildStyle = mode => ({
+  width: '100%',
+  backgroundColor: mode === 'light' ? '#c6e2c6' : '#303438',
+  color: mode === 'light' ? '#343433' : '#fff',
+  height: ChildHeight + 'rem',
+})
 
 // create viewport sizes to test the edge conditions of block padding/margin
 export default {
@@ -81,7 +87,7 @@ export const maxPanelWidthPlus10rem = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           Top/botton black should be 4rem, left/right should be more than 2rem
         </div>
       </Block>
@@ -97,7 +103,7 @@ export const maxPanelWidthPlus4rem = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           Top/botton black should be 4rem, left/right should 2rem
         </div>
       </Block>
@@ -113,7 +119,7 @@ export const maxPanelWidth = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           {' '}
           Top/botton black should be 4rem, left/right should 2rem
         </div>
@@ -130,7 +136,7 @@ export const betweenMaxAndCondensed = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           {' '}
           Top/botton black should be 4rem, left/right should 2rem
         </div>
@@ -147,7 +153,7 @@ export const maxCondensedPlus1 = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           {' '}
           Top/botton black should be 4rem, left/right should 2rem
         </div>
@@ -164,7 +170,7 @@ export const maxCondensed = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           {' '}
           Top/botton black should be 2rem, left/right should 1rem
         </div>
@@ -181,7 +187,7 @@ export const maxCondensedHalfOf = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           {' '}
           Top/botton black should be 2rem, left/right should 1rem
         </div>
@@ -195,7 +201,7 @@ export const Light = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           border should be white and text black
         </div>
       </Block>
@@ -208,7 +214,7 @@ export const Dark = {
   render: args => {
     return (
       <Block {...args}>
-        <div style={{ width: '100%', backgroundColor: 'green', height: ChildHeight + 'rem' }}>
+        <div style={getChildStyle(args.mode)}>
           Border should be black and text white
         </div>
       </Block>

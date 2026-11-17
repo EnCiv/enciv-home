@@ -11,12 +11,12 @@ const placeholderMessage = 'Ask away...'
 const emailMessage = 'Want a reply? Leave your email.'
 export default function HaveAQuestion(props) {
   const [message, setMessage] = useState('')
-  const classes = useStyles()
   const [askEmail, setAskEmail] = useState(false)
   const [response, setResponse] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [email, setEmail] = useState('')
   const { className, style, mode = 'dark' } = props
+  const classes = useStyles({ mode })
   const questionId = `question-${useId().replace(/:/g, '')}`
 
   const handleMessageChange = e => {
@@ -92,14 +92,14 @@ const useStyles = createUseStyles(theme => ({
     borderTop: '1px solid rgba(64, 54, 46, 0.18)',
     boxSizing: 'border-box',
   },
-  heading: {
+  heading: props => ({
     margin: 0,
-    color: theme.colors.textBrown,
+    color: props.mode === 'dark' ? '#fff' : theme.colors.textBrown,
     fontFamily: 'Newsreader, serif',
     fontSize: '2rem',
     fontWeight: 400,
     lineHeight: 1.2,
-  },
+  }),
   field: {
     display: 'block',
     width: '100%',
@@ -188,20 +188,20 @@ const useStyles = createUseStyles(theme => ({
       outline: theme.focusOutline,
     },
   },
-  success: {
+  success: props => ({
     margin: 0,
-    color: theme.colors.textBrown,
+    color: props.mode === 'dark' ? '#fff' : theme.colors.textBrown,
     fontFamily: 'Inter, sans-serif',
     fontSize: '1rem',
     lineHeight: 1.5,
-  },
-  response: {
+  }),
+  response: props => ({
     margin: 0,
     fontFamily: 'Inter, sans-serif',
     fontSize: '0.9375rem',
     lineHeight: 1.5,
-    color: '#9b3328',
-  },
+    color: props.mode === 'dark' ? '#ffb4a9' : '#9b3328',
+  }),
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',

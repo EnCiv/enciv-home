@@ -42,6 +42,10 @@ export const Function = {
   },
 }
 
+export const Large = {
+  args: { children: 'Start Discussion', action: '/national-deliberations', size: 'large' },
+}
+
 export const TransparentMode = {
   args: { children: 'click to EnCiv.org', action: 'https://enciv.org', mode: 'transparent' },
   decorators: [

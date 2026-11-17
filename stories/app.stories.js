@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { waitFor, expect, within } from 'storybook/test'
+import { waitFor, expect, userEvent, within } from 'storybook/test'
 
 import App from '../app/components/app'
 import iotas from '../iotas.json'
@@ -55,7 +55,7 @@ function AppStoryRouter({ iota: initialIota, ...props }) {
       if (previousSocket) window.socket = previousSocket
       else delete window.socket
     }
-  }, [currentIota.path])
+  }, [])
 
   const navigate = path => {
     const page = iotas.find(candidate => candidate.path === path)
@@ -71,7 +71,7 @@ function AppStoryRouter({ iota: initialIota, ...props }) {
 
   return (
     <div onClickCapture={handleLinkClick}>
-      <App {...props} iota={currentIota} onNavigate={navigate} />
+      <App key={currentIota.path} {...props} iota={currentIota} onNavigate={navigate} />
     </div>
   )
 }
@@ -91,6 +91,22 @@ export const Home = {
     const canvas = within(canvasElement)
     expect(canvas.getByRole('link', { name: 'Learn More' }).getAttribute('href')).toBe('/about')
     expect(canvas.getByRole('link', { name: 'Start Discussion' }).getAttribute('href')).toBe('/national-deliberations')
+    expect(canvas.getByRole('button', { name: 'Subscribe for free' })).toBeTruthy()
+
+    for (let iteration = 0; iteration < 3; iteration++) {
+      await userEvent.click(canvas.getByRole('button', { name: '≡' }))
+      await userEvent.click(canvas.getByRole('button', { name: /About/ }))
+      await userEvent.click(canvas.getByRole('button', { name: 'Our Mission' }))
+      await waitFor(() => expect(canvas.getByRole('heading', { name: 'Our Mission', level: 1 })).toBeTruthy())
+
+      await userEvent.click(canvas.getByRole('button', { name: '≡' }))
+      await userEvent.click(canvas.getAllByText('Home', { exact: true }).at(-1))
+      await waitFor(() => {
+        const heading = canvas.getByRole('heading', { name: 'Politics is dividing us.' })
+        expect(getComputedStyle(heading).color).toBe('rgb(251, 188, 13)')
+        expect(parseFloat(getComputedStyle(heading).fontSize)).toBeGreaterThan(20)
+      })
+    }
   },
 }
 
@@ -102,7 +118,31 @@ const pageStory = path => ({ args: { iota: iotas.find(i => i.path === path) } })
 
 export const LegacyHome = pageStory('/home')
 export const IRSForms = pageStory('/irs-forms')
-export const OurTools = pageStory('/our-tools')
+export const OurTools = {
+  args: { iota: iotas.find(i => i.path === '/our-tools') },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const undebates = canvas.getByRole('link', { name: 'See Undebates in Action' })
+    const civilPursuit = canvas.getByRole('button', { name: 'Coming Soon' })
+    await waitFor(() => {
+      expect(undebates.getBoundingClientRect().height).toBe(civilPursuit.getBoundingClientRect().height)
+      expect(getComputedStyle(undebates).color).toBe(getComputedStyle(civilPursuit).color)
+    })
+  },
+}
+export const CivilPursuit = {
+  args: { iota: iotas.find(i => i.path === '/civil-pursuit') },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByRole('heading', { name: 'Civic Pursuit', level: 1 })).toBeTruthy()
+    expect(canvas.getByRole('heading', { name: 'Your Guide to Community Priorities' })).toBeTruthy()
+    expect(canvas.getByRole('heading', { name: 'Volunteer with Us' })).toBeTruthy()
+    await waitFor(() => {
+      const images = Array.from(canvasElement.querySelectorAll('img'))
+      expect(images.every(image => image.src.endsWith('.webp') && image.complete && image.naturalWidth > 0)).toBe(true)
+    })
+  },
+}
 export const Terms = pageStory('/terms')
 export const Privacy = pageStory('/privacy')
 export const Cookies = pageStory('/cookies')
@@ -129,7 +169,7 @@ export const Blog = {
   play: async ({ canvasElement }) => {
     const cards = () => canvasElement.querySelectorAll('button[class*="thumbnail"]')
     await waitFor(() => expect(cards()).toHaveLength(10))
-    await within(canvasElement).getByRole('button', { name: 'Load More' }).click()
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Load More' }))
     await waitFor(() => expect(cards()).toHaveLength(12))
   },
 }
