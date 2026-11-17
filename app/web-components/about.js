@@ -1,9 +1,26 @@
 import React, { useEffect, useRef } from 'react'
 import { createUseStyles } from 'react-jss'
+import cx from 'classnames'
 import HeroBlock from '../components/hero-block'
 import ActionButton from '../components/action-button'
 import { BrevoHelmet } from '../components/brevo-join'
 import MarkDown from 'markdown-to-jsx'
+
+function ToolsActionButton({ style = {}, ...props }) {
+  return (
+    <ActionButton
+      {...props}
+      style={{
+        ...style,
+        minHeight: '3.5rem',
+        padding: '1rem 1.75rem',
+        fontSize: '1.375rem',
+        lineHeight: '1.5rem',
+        marginTop: '1.5rem',
+      }}
+    />
+  )
+}
 
 function AnimatedMarkdownHeading({ as: Element = 'h2', className, children, ...otherProps }) {
   const headingRef = useRef(null)
@@ -54,7 +71,17 @@ export default function About(props) {
     textShadow = '0 0.125rem 0.5rem rgba(0, 0, 0, 0.45)',
   } = props
   const classes = useStyles()
+  const isToolsPage = subject === 'Our Tools'
   const contentRef = useRef(null)
+  const [toolsIntro = '', ...toolSections] = isToolsPage ? (description || '').split(/(?=^###\s)/m) : []
+  const markdownOptions = {
+    overrides: {
+      h2: { component: AnimatedMarkdownHeading },
+      h3: { component: AnimatedMarkdownHeading, props: { as: 'h3' } },
+      ActionButton: { component: isToolsPage ? ToolsActionButton : ActionButton },
+    },
+  }
+  const renderMarkdown = content => <MarkDown options={markdownOptions}>{content}</MarkDown>
 
   useEffect(() => {
     const images = contentRef.current?.querySelectorAll('img')
@@ -100,21 +127,27 @@ export default function About(props) {
           'https://res.cloudinary.com/hf6mryjpf/image/upload/v1712344746/assets/deliberation-at-the-capital_pxodcm.png'
         }
       />
-      <section className={classes.aboutSection}>
-        <div className={classes.aboutContent} ref={contentRef}>
-          <MarkDown
-            options={{
-              overrides: {
-                h2: { component: AnimatedMarkdownHeading },
-                h3: { component: AnimatedMarkdownHeading, props: { as: 'h3' } },
-                ActionButton: { component: ActionButton },
-              },
-            }}
-          >
-            {description}
-          </MarkDown>
-        </div>
-      </section>
+      <div ref={contentRef}>
+        {isToolsPage ? (
+          <>
+            <section className={classes.toolsIntroSection}>
+              <div className={classes.aboutContent}>{renderMarkdown(toolsIntro)}</div>
+            </section>
+            {[...toolSections].reverse().map((toolSection, index) => (
+              <section
+                className={cx(classes.toolsSection, index % 2 === 1 && classes.toolsSectionAlternate)}
+                key={toolSection.slice(0, 40)}
+              >
+                <div className={cx(classes.aboutContent, classes.toolsContent)}>{renderMarkdown(toolSection)}</div>
+              </section>
+            ))}
+          </>
+        ) : (
+          <section className={classes.aboutSection}>
+            <div className={classes.aboutContent}>{renderMarkdown(description)}</div>
+          </section>
+        )}
+      </div>
     </div>
   )
 }
@@ -130,6 +163,25 @@ const useStyles = createUseStyles({
     [`@media (max-width: 48rem)`]: {
       padding: '4rem 1.5rem 5rem',
     },
+  },
+  toolsIntroSection: {
+    backgroundColor: '#fafaf9',
+    borderTop: '1px solid #e6e1d9',
+    padding: '5.25rem 2rem',
+    [`@media (max-width: 48rem)`]: {
+      padding: '4rem 1.5rem',
+    },
+  },
+  toolsSection: {
+    backgroundColor: '#fff',
+    borderTop: '1px solid #e6e1d9',
+    padding: '5rem 2rem 6rem',
+    [`@media (max-width: 48rem)`]: {
+      padding: '4rem 1.5rem 5rem',
+    },
+  },
+  toolsSectionAlternate: {
+    backgroundColor: '#fafaf9',
   },
   aboutContent: {
     maxWidth: '80rem',
@@ -238,6 +290,51 @@ const useStyles = createUseStyles({
         transform: 'none',
         animation: 'none',
         transition: 'none',
+      },
+    },
+  },
+  toolsContent: {
+    maxWidth: '72.8rem',
+    '& h3': {
+      fontSize: '2.625rem',
+      margin: '0 0 1.25rem',
+      paddingTop: 0,
+      borderTop: 0,
+      '&::after': {
+        content: '""',
+        display: 'block',
+        width: '1.25rem',
+        height: '0.125rem',
+        backgroundColor: '#FF9114',
+        marginTop: '1rem',
+      },
+    },
+    '& h3 + p': {
+      fontFamily: 'Newsreader, serif',
+      fontSize: '1.5rem',
+      fontWeight: 500,
+      lineHeight: 1.3,
+      marginBottom: '1.5rem',
+    },
+    '& hr': {
+      width: 'min(100%, 64.5rem)',
+      height: '1px',
+      border: 0,
+      backgroundColor: '#c9b99f',
+      margin: '2.5rem auto 3rem',
+    },
+    '& p b, & p strong': {
+      color: '#5f523f',
+      fontWeight: 600,
+    },
+    [`@media (max-width: 48rem)`]: {
+      '& h3': {
+        fontSize: '2.125rem',
+        marginTop: '3rem',
+        paddingTop: '2.5rem',
+      },
+      '& h3 + p': {
+        fontSize: '1.25rem',
       },
     },
   },

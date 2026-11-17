@@ -1,14 +1,67 @@
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { waitFor, expect, within } from 'storybook/test'
 
 import App from '../app/components/app'
 import iotas from '../iotas.json'
 const iota = iotas.find(i => i.path === '/')
 
+function AppStoryRouter({ iota: initialIota, ...props }) {
+  const [currentIota, setCurrentIota] = useState(initialIota)
+
+  useLayoutEffect(() => {
+    const previousSocket = window.socket
+    const storySocket = Object.create(previousSocket || null)
+    storySocket.on = () => {}
+    storySocket.emit = (event, ...args) => {
+      if (event === 'get-user-discussions') {
+        args.at(-1)?.([])
+        return
+      }
+      if (event === 'get-civil-pursuit-questions') {
+        const questions = iotas
+          .filter(page => {
+            const webComponent =
+              typeof page.webComponent === 'string' ? page.webComponent : page.webComponent?.webComponent
+            return webComponent === 'CivilPursuit'
+          })
+          .map(({ _id, path, subject }) => ({ _id, path, subject }))
+        args.at(-1)?.(questions)
+        return
+      }
+      if (event === 'subscribe-deliberation') args.at(-1)?.({ uInfo: [] })
+    }
+    window.socket = storySocket
+    return () => {
+      if (previousSocket) window.socket = previousSocket
+      else delete window.socket
+    }
+  }, [currentIota.path])
+
+  const navigate = path => {
+    const page = iotas.find(candidate => candidate.path === path)
+    if (page) setCurrentIota(page)
+  }
+  const handleLinkClick = event => {
+    const link = event.target.closest?.('a[href]')
+    const path = link?.getAttribute('href')
+    if (!iotas.some(page => page.path === path)) return
+    event.preventDefault()
+    navigate(path)
+  }
+
+  return (
+    <div onClickCapture={handleLinkClick}>
+      <App {...props} iota={currentIota} onNavigate={navigate} />
+    </div>
+  )
+}
+
 export default {
   title: 'App',
   component: App,
   argTypes: {},
+  render: args =>
+    args.iota ? <AppStoryRouter key={args.iota.path} {...args} /> : <App {...args} />,
 }
 if (!global.logger) global.logger = console
 
