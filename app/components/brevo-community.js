@@ -59,7 +59,7 @@ export default function BrevoCommunity(props) {
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   brevoCommnity: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontSize: '1.25rem',
     position: 'absolute',
@@ -73,5 +73,8 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     border: '0.25rem solid black',
     borderRadius: '1rem',
     textAlign: 'center',
+    '& h2': {
+      fontFamily: 'Newsreader, serif',
+    },
   },
 }))

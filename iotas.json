@@ -11,10 +11,15 @@
       "blocks": [
         {
           "key": "HeroBlock",
-          "subject": "Politics is dividing us - EnCiv is uniting us",
+          "subject": "What are the top\npriorities for Congress?",
+          "actionText": "Start Discussion",
+          "action": "/national-deliberations",
+          "secondaryActionText": "Learn More",
+          "secondaryAction": "/about",
+          "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
-            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+            "highRes": "/assets/images/home-hero.webp",
+            "lowRes": "/assets/images/home-hero.webp"
           }
         },
         {
@@ -99,10 +104,15 @@
       "blocks": [
         {
           "key": "HeroBlock",
-          "subject": "Politics is dividing us - EnCiv is uniting us",
+          "subject": "What are the top\npriorities for Congress?",
+          "actionText": "Start Discussion",
+          "action": "/national-deliberations",
+          "secondaryActionText": "Learn More",
+          "secondaryAction": "/about",
+          "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
-            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+            "highRes": "/assets/images/home-hero.webp",
+            "lowRes": "/assets/images/home-hero.webp"
           }
         },
         {

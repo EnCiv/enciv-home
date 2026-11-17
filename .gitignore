@@ -1,5 +1,14 @@
 # Assets (except svg files) should not be put into the repo
 assets/images
+!assets/images/
+assets/images/*
+!assets/images/home-hero.webp
+!assets/images/home-concern-1.webp
+!assets/images/home-concern-2.webp
+!assets/images/home-concern-3.webp
+!assets/images/home-concern-4.webp
+!assets/images/home-feature-65-percent.webp
+!assets/images/home-footer-art.webp
 assets/webpack
 
 # Logs
@@ -68,6 +77,7 @@ enciv-transcribe.json
 
 ## save time - don't upload the dist directory every time
 dist/
+storybook-static/
 
 ## ignore webpack created files
 assets/webpack/
@@ -80,6 +90,7 @@ backups/
 #private stuff 
 _netrc
 .vscode/launch.*
+.vscode/mcp.json
 yarn.lock
 .idea/
 *~

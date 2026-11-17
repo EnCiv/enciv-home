@@ -80,7 +80,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     fontWeight: 700,
     fontSize: '1.25rem',
     lineHeight: '1.5rem',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     padding: '0.5rem 1.25rem',
     display: 'inline-flex',

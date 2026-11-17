@@ -64,7 +64,7 @@ const useStyles = createUseStyles(theme => ({
   subject: {
     color: ({ mode }) => (mode === 'dark' ? '#FFFFFF' : '#000'),
     padding: '0.625rem',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Newsreader, serif',
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: '3rem',

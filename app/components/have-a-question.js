@@ -131,7 +131,7 @@ const useStyles = createUseStyles(theme => ({
   input: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontSize: '1.5rem',
     resize: 'none',
     border: 'none',
@@ -191,7 +191,7 @@ const useStyles = createUseStyles(theme => ({
   },
 
   response: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontSize: '1.25rem',
     marginTop: '0.3rem',
     padding: '1.25rem',

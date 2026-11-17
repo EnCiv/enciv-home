@@ -1,6 +1,19 @@
 import Home from '../app/web-components/home'
 
 import React, { useState } from 'react'
+import { createUseStyles } from 'react-jss'
+
+const rasterAssetFiles = require.context(
+  '../assets/images',
+  false,
+  /\.(?:avif|bmp|gif|ico|jpe?g|png|webp)$/i,
+  'lazy'
+)
+const svgAssetFiles = require.context('../assets/svg', false, /\.svg$/i, 'lazy')
+const assetEntries = [
+  ...rasterAssetFiles.keys().map(file => ({ name: file.slice(2), src: `/assets/images/${file.slice(2)}` })),
+  ...svgAssetFiles.keys().map(file => ({ name: file.slice(2), src: `/assets/svg/${file.slice(2)}` })),
+].sort((first, second) => first.name.localeCompare(second.name))
 
 export default {
   title: 'Home',
@@ -180,3 +193,94 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
   },
 ]
 export const Primary = { args: { blocks } }
+
+function AssetsGallery() {
+  const classes = useAssetGalleryStyles()
+
+  return (
+    <main className={classes.gallery}>
+      <header className={classes.header}>
+        <h1>Assets Gallery</h1>
+        <span>{assetEntries.length} local assets</span>
+      </header>
+      <div className={classes.grid}>
+        {assetEntries.map(({ name, src }) => (
+          <figure className={classes.item} key={src}>
+            <a className={classes.preview} href={src} target="_blank" rel="noreferrer" aria-label={`Open ${name}`}>
+              <img src={src} alt={name} loading="lazy" />
+            </a>
+            <figcaption>{name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </main>
+  )
+}
+
+export const AssetsGalleryStory = {
+  name: 'Assets Gallery',
+  render: () => <AssetsGallery />,
+}
+
+const useAssetGalleryStyles = createUseStyles({
+  gallery: {
+    minHeight: '100vh',
+    padding: '2rem',
+    background: '#f2f0ed',
+    color: '#343433',
+    fontFamily: 'Inter, sans-serif',
+  },
+  header: {
+    maxWidth: '90rem',
+    margin: '0 auto 2rem',
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    gap: '1rem',
+    '& h1': {
+      margin: 0,
+      fontFamily: 'Newsreader, serif',
+      fontSize: '2.5rem',
+      fontWeight: 500,
+    },
+    '& span': {
+      color: '#80664a',
+      fontSize: '0.875rem',
+    },
+  },
+  grid: {
+    maxWidth: '90rem',
+    margin: '0 auto',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(12rem, 1fr))',
+    gap: '1rem',
+  },
+  preview: {
+    display: 'grid',
+    placeItems: 'center',
+    width: '100%',
+    aspectRatio: '4 / 3',
+    overflow: 'hidden',
+    background: '#f7f6f4',
+    '& img': {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+    },
+  },
+  item: {
+    minWidth: 0,
+    margin: 0,
+    padding: '0.75rem',
+    background: '#fff',
+    border: '1px solid #ded9d1',
+    borderRadius: '0.375rem',
+    '& figcaption': {
+      overflowWrap: 'anywhere',
+      marginTop: '0.625rem',
+      fontSize: '0.8125rem',
+      lineHeight: 1.4,
+    },
+  },
+})

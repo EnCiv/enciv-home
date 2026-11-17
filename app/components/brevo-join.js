@@ -8,41 +8,21 @@ export function BrevoHelmet() {
     <Helmet>
       <style type="text/css">
         {`
-          @font-face {
-            font-display: block;
-            font-family: Roboto;
-            src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-          }
-
-          @font-face {
-            font-display: fallback;
-            font-family: Roboto;
-            font-weight: 600;
-            src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-          }
-
-          @font-face {
-            font-display: fallback;
-            font-family: Roboto;
-            font-weight: 700;
-            src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-          }
-
           #sib-container input:-ms-input-placeholder {
             text-align: left;
-            font-family: "Helvetica", sans-serif;
+            font-family: Inter, sans-serif;
             color: #c0ccda;
           }
 
           #sib-container input::placeholder {
             text-align: left;
-            font-family: "Helvetica", sans-serif;
+            font-family: Inter, sans-serif;
             color: #c0ccda;
           }
 
           #sib-container textarea::placeholder {
             text-align: left;
-            font-family: "Helvetica", sans-serif;
+            font-family: Inter, sans-serif;
             color: #c0ccda;
           }
 
@@ -261,7 +241,7 @@ function BrevoForm(props) {
         style={{
           fontSize: '1rem',
           textAlign: 'left',
-          fontFamily: '"Helvetica", sans-serif',
+          fontFamily: 'Inter, sans-serif',
           color: '#661d1d',
           backgroundColor: '#ffeded',
           borderRadius: '0.1875rem',
@@ -285,7 +265,7 @@ function BrevoForm(props) {
         style={{
           fontSize: '1rem',
           textAlign: 'left',
-          fontFamily: '"Helvetica", sans-serif',
+          fontFamily: 'Inter, sans-serif',
           color: '#085229',
           backgroundColor: '#e7faf0',
           borderRadius: '0.1875rem',
@@ -335,7 +315,7 @@ function BrevoForm(props) {
                 fontSize: '2rem',
                 textAlign: 'left',
                 fontWeight: 700,
-                fontFamily: '"Futura", sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 color: '#000000',
                 backgroundColor: 'transparent',
               }}
@@ -349,7 +329,7 @@ function BrevoForm(props) {
               style={{
                 fontSize: '1rem',
                 textAlign: 'left',
-                fontFamily: '"Futura", sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 color: '#000000',
                 backgroundColor: 'transparent',
               }}
@@ -369,7 +349,7 @@ function BrevoForm(props) {
                       fontWeight: 700,
                       textAlign: 'left',
                       fontSize: '1rem',
-                      fontFamily: '"Futura", sans-serif',
+                      fontFamily: 'Inter, sans-serif',
                       color: '#000000',
                     }}
                     htmlFor="FIRSTNAME"
@@ -395,7 +375,7 @@ function BrevoForm(props) {
                   style={{
                     fontSize: '1rem',
                     textAlign: 'left',
-                    fontFamily: '"Helvetica", sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     color: '#661d1d',
                     backgroundColor: '#ffeded',
                     borderRadius: '0.1875rem',
@@ -415,7 +395,7 @@ function BrevoForm(props) {
                       fontWeight: 700,
                       textAlign: 'left',
                       fontSize: '1rem',
-                      fontFamily: '"Futura", sans-serif',
+                      fontFamily: 'Inter, sans-serif',
                       color: '#000000',
                     }}
                     htmlFor="LASTNAME"
@@ -441,7 +421,7 @@ function BrevoForm(props) {
                   style={{
                     fontSize: '1rem',
                     textAlign: 'left',
-                    fontFamily: '"Helvetica", sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     color: '#661d1d',
                     backgroundColor: '#ffeded',
                     borderRadius: '0.1875rem',
@@ -461,7 +441,7 @@ function BrevoForm(props) {
                       fontWeight: 700,
                       textAlign: 'left',
                       fontSize: '1rem',
-                      fontFamily: '"Futura", sans-serif',
+                      fontFamily: 'Inter, sans-serif',
                       color: '#000000',
                     }}
                     htmlFor="EMAIL"
@@ -486,7 +466,7 @@ function BrevoForm(props) {
                   style={{
                     fontSize: '1rem',
                     textAlign: 'left',
-                    fontFamily: '"Helvetica", sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     color: '#661d1d',
                     backgroundColor: '#ffeded',
                     borderRadius: '0.1875rem',
@@ -508,7 +488,7 @@ function BrevoForm(props) {
                         style={{
                           fontSize: '0.875rem',
                           textAlign: 'left',
-                          fontFamily: '"Helvetica", sans-serif',
+                          fontFamily: 'Inter, sans-serif',
                           color: '#3C4858',
                           backgroundColor: 'transparent',
                         }}
@@ -529,7 +509,7 @@ function BrevoForm(props) {
                   style={{
                     fontSize: '1rem',
                     textAlign: 'left',
-                    fontFamily: '"Helvetica", sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     color: '#661d1d',
                     backgroundColor: '#ffeded',
                     borderRadius: '0.1875rem',
@@ -541,7 +521,7 @@ function BrevoForm(props) {
                   style={{
                     fontSize: '0.75rem',
                     textAlign: 'left',
-                    fontFamily: '"Futura", sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     color: '#8390A4',
                   }}
                 >
@@ -558,7 +538,7 @@ function BrevoForm(props) {
                   fontSize: '1rem',
                   textAlign: 'left',
                   fontWeight: 700,
-                  fontFamily: '"Futura", sans-serif',
+                  fontFamily: 'Inter, sans-serif',
                   color: '#000000',
                   backgroundColor: '#ffc315',
                   borderRadius: '1.25rem',

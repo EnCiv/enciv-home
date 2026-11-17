@@ -100,7 +100,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       display: 'none',
     },
     '& h3': {
-      fontFamily: 'Montserrat',
+      fontFamily: 'Newsreader, serif',
       fontStyle: 'normal',
       fontWeight: 400,
       paddingTop: '4rem',
@@ -132,7 +132,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
 
   article: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     leadingTrim: 'both',
@@ -144,6 +144,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       margin: 0,
     },
     '& h1': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'center',
       fontSize: '4rem',
       lineHeight: '5rem',
@@ -160,6 +161,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h2': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '3rem',
       lineHeight: '3.5rem',
@@ -167,7 +169,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
       marginBlockEnd: '2rem',
       '$thumbnail &': {
-        fontFamily: 'Inter',
+        fontFamily: 'Newsreader, serif',
         fontSize: '1rem',
         fontWeight: 'normal',
         lineHeight: '1.5rem',
@@ -178,6 +180,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h3': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '2rem',
       fontWeight: 600,
@@ -191,6 +194,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h4': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.75rem',
       fontWeight: 600,
@@ -204,6 +208,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h5': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.5rem',
       fontWeight: 600,
@@ -217,6 +222,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h6': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.25rem',
       marginBlockEnd: 0,

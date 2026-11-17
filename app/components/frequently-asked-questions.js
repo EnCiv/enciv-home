@@ -56,7 +56,7 @@ export default function FrequentlyAskedQuestions(props) {
 
 const useStyles = createUseStyles(theme => ({
   faq: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     whiteSpace: 'pre-line',
     paddingTop: '4rem',
@@ -73,6 +73,7 @@ const useStyles = createUseStyles(theme => ({
   caret: { display: 'flex', paddingRight: '2rem', cursor: 'pointer' },
 
   headerStyle: {
+    fontFamily: 'Newsreader, serif',
     textAlign: 'center',
     paddingTop: 0,
     marginTop: 0,
@@ -98,6 +99,7 @@ const useStyles = createUseStyles(theme => ({
   },
 
   questionStyle: {
+    fontFamily: 'Newsreader, serif',
     display: 'inline-block',
     cursor: 'pointer',
     fontSize: '1.5rem',

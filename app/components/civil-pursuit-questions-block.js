@@ -61,7 +61,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   subject: {
     fontSize: '3rem',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Newsreader, serif',
     fontStyle: 'normal',
     fontWeight: 700,
     lineHeight: '3.6875rem',

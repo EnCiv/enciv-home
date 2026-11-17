@@ -140,7 +140,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
 
   mdclasses: props => ({
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '1.5rem',
@@ -149,7 +149,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     textEdge: 'cap',
     textAlign: 'center',
     flex: 1,
+    '& h1': {
+      fontFamily: 'Newsreader, serif',
+    },
     '& h2': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '3rem',
       lineHeight: '3.5rem',
@@ -164,6 +168,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h3': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '2rem',
       fontWeight: 600,
@@ -171,6 +176,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginBlockEnd: 0,
     },
     '& h4': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.75rem',
       fontWeight: 600,
@@ -178,6 +184,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginBlockEnd: 0,
     },
     '& h5': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.5rem',
       fontWeight: 600,
@@ -185,6 +192,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       marginBlockEnd: 0,
     },
     '& h6': {
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.25rem',
       marginBlockStart: 0,

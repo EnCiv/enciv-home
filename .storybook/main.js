@@ -7,6 +7,10 @@ const config = {
   stories: [
     '../stories/**/*.stories.@(js|jsx|ts|tsx)', // Correct path to the stories folder
   ],
+  staticDirs: [
+    { from: path.resolve(__dirname, '../assets/images'), to: '/assets/images' },
+    { from: path.resolve(__dirname, '../assets/svg'), to: '/assets/svg' },
+  ],
   // In Storybook 10, actions/interactions/viewport/essentials are built into the framework.
   // Only truly separate addons need to be listed here.
   addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-webpack5-compiler-babel'],
