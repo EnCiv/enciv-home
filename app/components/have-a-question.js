@@ -3,6 +3,7 @@ import React, { useId, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import TextareaAutosize from 'react-textarea-autosize'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import { Components } from 'civil-pursuit'
 const Submit = Components.ModifierButton
 
@@ -84,7 +85,7 @@ const useStyles = createUseStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    maxWidth: '48rem',
+    maxWidth: breakpoints.tablet,
     gap: '0.875rem',
     margin: '2rem auto 0',
     paddingTop: '1.5rem',
@@ -209,7 +210,7 @@ const useStyles = createUseStyles(theme => ({
     backgroundColor: 'transparent',
     color: theme.colors.darkModeGray,
   },
-  [`@media (max-width: 48rem)`]: {
+  [`@media (max-width: ${breakpoints.tablet})`]: {
     container: {
       marginTop: '1.5rem',
       paddingTop: '1rem',

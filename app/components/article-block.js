@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import parse from 'html-react-parser'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import ActionButton from './action-button'
 import { SignupForm } from './brevo-join'
 
@@ -11,25 +12,6 @@ function getTextContent(node) {
   if (!React.isValidElement(node) || node.type === 'img') return ''
   return getTextContent(node.props.children)
 }
-
-/**
- * article format
-    "article": {
-      "title": "Citizens Can Lead the Way on Civility",
-      "date": "2018-02-14T10:36:03",
-      "modified": "2019-01-19T02:08:32",
-      "authorName": "Adolf Gundersen",
-      "status": "publish",
-      "content": "<p><p>&nbsp;</p>\n<div style=\"width: 276px\" class=\"wp-caption alignleft\"><img loading=\"lazy\" decoding=\"async\" class=\"\" title=\"Empowering European Citizens, Module 2 in Malmö by Demokratikollektivet Watch it!\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1717007740/wp-import/6864772579_28578967b1_citizen-meeting.jpg\" alt=\"citizen meeting photo\" width=\"266\" height=\"199\" /><p class=\"wp-caption-text\"><small>Photo by <a href=\"http://www.flickr.com/photos/46060166@N04/6864772579\" target=\"_blank\" rel=\"noopener\">Demokratikollektivet Watch it!</a> <a title=\"Attribution-ShareAlike License\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\" rel=\"nofollow noopener\"><img decoding=\"async\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716941116/wp-import/cc.png\" /></a></small></p></div>\n<p>Take a few minutes to read this non-partisan <a href=\"http://lacrossetribune.com/news/opinion/adolf-g-gundersen-citizens-can-lead-the-way-on-civility/article_bf3bcd53-cf07-5f4a-b892-31accaa3f256.html\">editorial</a> in favor of civil discussion and I think you&#8217;ll agree that it&#8217;s even more relevant today than when I wrote it four years ago.  The gist of it is that when it comes to civil discussion, it&#8217;s up to us&#8211;not journalists or politicians.</p>\n",
-      "tagNames": [
-        "citizens",
-        "civil discussion"
-      ],
-      "categoryNames": [
-        "Strategy and Vision"
-      ]
-    }
- */
 
 export default function ArticleBlock(props) {
   const { article = {}, className, mode = 'dark', vState, articlePage = false, ...otherProps } = props
@@ -50,6 +32,7 @@ export default function ArticleBlock(props) {
           className={cx(
             classes.article,
             classes[vState],
+            (vState === 'thumbnail' || articlePage) && classes.surface,
             vState === 'thumbnail' && classes.previewSurface,
             articlePage && classes.articlePage
           )}
@@ -101,7 +84,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       boxSizing: 'border-box',
       backgroundColor: 'transparent',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem 5rem',
     },
   },
@@ -113,7 +96,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '$thumbnail&': {
       flex: '1 1 auto',
       minHeight: 0,
-      maxWidth: 'auto',
       width: '100%',
       height: '100%',
       display: 'flex',
@@ -250,39 +232,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         borderBottom: 'none',
       },
     },
-    '& h3': {
-      color: '#252a2d',
-      fontFamily: 'Newsreader, serif',
-      textAlign: 'left',
-      fontSize: '1.5rem',
-      fontWeight: 500,
-      lineHeight: 1.3,
-      margin: '2rem 0 0.75rem',
-      '$thumbnail &': {
-        fontSize: '1.25rem',
-        lineHeight: '1.5rem',
-        padding: 0,
-        margin: 0,
-        overflowWrap: 'anywhere',
-      },
-    },
-    '& h4': {
-      color: '#252a2d',
-      fontFamily: 'Newsreader, serif',
-      textAlign: 'left',
-      fontSize: '1.5rem',
-      fontWeight: 500,
-      lineHeight: 1.3,
-      margin: '2rem 0 0.75rem',
-      '$thumbnail &': {
-        fontSize: '1.25rem',
-        lineHeight: '1.5rem',
-        padding: 0,
-        margin: 0,
-        overflowWrap: 'anywhere',
-      },
-    },
-    '& h5': {
+    '& h3, & h4, & h5': {
       color: '#252a2d',
       fontFamily: 'Newsreader, serif',
       textAlign: 'left',
@@ -370,7 +320,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         display: 'none',
       },
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       '& h1': {
         fontSize: '2.5rem',
         marginBottom: '2rem',
@@ -388,22 +338,24 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
   },
-  previewSurface: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1 1 auto',
-    position: 'relative',
+  surface: {
     boxSizing: 'border-box',
     width: '100%',
-    height: '100%',
-    minHeight: 0,
-    padding: '1.25rem',
-    overflow: 'hidden',
     backgroundColor: '#fff',
     border: '1px solid',
     borderColor: '#fff #d6d1c8 #d6d1c8 #fff',
     borderRadius: '0.25rem',
     boxShadow: 'inset 0 0.125rem 0.25rem rgba(38, 42, 45, 0.06)',
+  },
+  previewSurface: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto',
+    position: 'relative',
+    height: '100%',
+    minHeight: 0,
+    padding: '1.25rem',
+    overflow: 'hidden',
     '& $elipsis': {
       display: 'block',
       position: 'absolute',
@@ -415,14 +367,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   articlePage: {
-    boxSizing: 'border-box',
-    width: '100%',
     padding: '2rem',
-    backgroundColor: '#fff',
-    border: '1px solid',
-    borderColor: '#fff #d6d1c8 #d6d1c8 #fff',
-    borderRadius: '0.25rem',
-    boxShadow: 'inset 0 0.125rem 0.25rem rgba(38, 42, 45, 0.06)',
     textAlign: 'center',
     '& h1': {
       color: '#80664a',
@@ -476,7 +421,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         paddingRight: 0,
       },
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '1.25rem',
       '& h1': {
         fontSize: '2.25rem',
@@ -505,7 +450,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       margin: 0,
       padding: 0,
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '2rem 1rem',
       '& h3': {
         fontSize: '1.5rem',

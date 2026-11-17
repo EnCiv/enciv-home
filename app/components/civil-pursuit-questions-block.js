@@ -2,8 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import Block from './block'
 import CivilPursuitQuestion from './civil-pursuit-question'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes } from './animated-heading'
 
 const GET_ERROR_MSG = 'Nothing available at this time'
 
@@ -22,8 +24,7 @@ export default function CivilPursuitQuestionsBlock(props) {
   const contentRef = useRef(null)
   const imageRef = useRef(null)
   const [isImageVisible, setIsImageVisible] = useState(false)
-  const subjectCharacterCount = Math.max(Array.from(subject).length, 1)
-  const subjectRevealDuration = Math.min(2.4, Math.max(0.9, subjectCharacterCount * 0.03))
+  const { steps: subjectCharacterCount, duration: subjectRevealDuration } = getRevealTiming(subject)
   const classes = useStylesFromThemeFunction({
     variant,
     isVisible,
@@ -141,7 +142,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           opacity: props.isVisible ? 1 : 0,
           transform: props.isVisible ? 'translateY(0)' : 'translateY(1.5rem)',
           transition: 'opacity 650ms ease, transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1)',
-          '@media (max-width: 48rem)': {
+          [`@media (max-width: ${breakpoints.tablet})`]: {
             paddingLeft: '0.5rem',
             paddingRight: '0.5rem',
           },
@@ -215,16 +216,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           fontWeight: 400,
           lineHeight: 1.1,
           marginBottom: '1rem',
-          opacity: props.isVisible ? 1 : 0,
-          clipPath: props.isVisible ? 'inset(0)' : 'none',
-          animation: props.isVisible
-            ? `$nationalTitleFade 600ms ease-out both, $nationalTitleType ${props.subjectRevealDuration}s steps(${props.subjectCharacterCount}, end) both`
-            : 'none',
-          '@media (prefers-reduced-motion: reduce)': {
-            opacity: 1,
-            clipPath: 'none',
-            animation: 'none',
-          },
+          ...getAnimatedHeadingStyles({
+            isVisible: props.isVisible,
+            duration: props.subjectRevealDuration,
+            steps: props.subjectCharacterCount,
+          }),
         }
       : {}),
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
@@ -232,7 +228,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     ...(props.variant === 'homepage'
       ? {
-          '@media (max-width: 48rem)': {
+          [`@media (max-width: ${breakpoints.tablet})`]: {
             fontSize: '2.5rem',
             marginBottom: '2rem',
           },
@@ -276,12 +272,5 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     padding: '2rem',
     fontStyle: 'italic',
   },
-  '@keyframes nationalTitleFade': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
-  '@keyframes nationalTitleType': {
-    from: { clipPath: 'inset(0 100% 0 0)' },
-    to: { clipPath: 'inset(0)' },
-  },
+  ...titleRevealKeyframes,
 }))

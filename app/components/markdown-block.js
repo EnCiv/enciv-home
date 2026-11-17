@@ -2,13 +2,15 @@
 //https://github.com/EnCiv/enciv-home/issues/42
 //https://github.com/EnCiv/enciv-home/issues/43
 //https://github.com/EnCiv/enciv-home/issues/45
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
 import ActionButton from './action-button'
 import MarkDown from 'markdown-to-jsx'
 import * as icons from '../svgr'
 import Block from './block'
+import { breakpoints } from '../theme'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes, useRevealOnView } from './animated-heading'
 
 function Iconify(props) {
   const { iconName, ...otherProps } = props
@@ -17,31 +19,8 @@ function Iconify(props) {
 }
 
 function AnimatedMarkdownHeading({ as: Element = 'h2', className, children, ...otherProps }) {
-  const headingRef = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
-  const characterCount = Math.max(Array.from(String(children)).length, 1)
-  const duration = Math.min(2.4, Math.max(0.9, characterCount * 0.03))
-  const headingClasses = useAnimatedHeadingStyles({ isVisible, duration, steps: characterCount })
-
-  useEffect(() => {
-    if (!headingRef.current) return
-    if (!('IntersectionObserver' in window)) {
-      setIsVisible(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.25 }
-    )
-    observer.observe(headingRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const { ref: headingRef, isVisible } = useRevealOnView()
+  const headingClasses = useAnimatedHeadingStyles({ isVisible, ...getRevealTiming(children) })
 
   return (
     <Element ref={headingRef} className={cx(className, headingClasses.heading)} {...otherProps}>
@@ -205,7 +184,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       color: '#80664a',
       borderTop: '1px solid #e6e1d9',
       padding: '5.25rem 2rem 8rem',
-      [`@media (max-width: 48rem)`]: {
+      [`@media (max-width: ${breakpoints.tablet})`]: {
         padding: '4rem 1.5rem 5rem',
       },
     },
@@ -453,7 +432,7 @@ const useFormLinkStyles = createUseStyles(theme => ({
       outline: `0.125rem solid ${theme.colors.encivYellow}`,
       outlineOffset: '-0.25rem',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '1.125rem 1rem',
       fontSize: '1.25rem',
     },
@@ -500,7 +479,7 @@ const useFormLinkStyles = createUseStyles(theme => ({
       outline: `0.125rem solid ${theme.colors.encivYellow}`,
       outlineOffset: '-0.25rem',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '1.125rem 1rem',
       fontSize: '1.25rem',
     },
@@ -531,24 +510,6 @@ const useFormLinkStyles = createUseStyles(theme => ({
 }))
 
 const useAnimatedHeadingStyles = createUseStyles({
-  heading: props => ({
-    opacity: props.isVisible ? 1 : 0,
-    clipPath: props.isVisible ? 'inset(0)' : 'none',
-    animation: props.isVisible
-      ? `$markdownTitleFade 600ms ease-out both, $markdownTitleType ${props.duration}s steps(${props.steps}, end) both`
-      : 'none',
-    '@media (prefers-reduced-motion: reduce)': {
-      opacity: 1,
-      clipPath: 'none',
-      animation: 'none',
-    },
-  }),
-  '@keyframes markdownTitleFade': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
-  '@keyframes markdownTitleType': {
-    from: { clipPath: 'inset(0 100% 0 0)' },
-    to: { clipPath: 'inset(0)' },
-  },
+  heading: props => getAnimatedHeadingStyles(props),
+  ...titleRevealKeyframes,
 })

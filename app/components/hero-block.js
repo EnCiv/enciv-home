@@ -5,6 +5,7 @@ import cx from 'classnames'
 import ActionButton from './action-button'
 import { useMediaQuery } from '@react-hook/media-query'
 import { theme } from 'civil-pursuit'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes } from './animated-heading'
 
 const startFontSize = 4
 const maxSubjectWidthRatio = 0.9 // maximum width for the subject text as a percent of the screen width
@@ -33,8 +34,7 @@ const HeroBlock = props => {
   } = props
 
   const [isSubjectVisible, setIsSubjectVisible] = useState(false)
-  const subjectCharacterCount = Math.max(Array.from(subject).length, 1)
-  const subjectRevealDuration = Math.min(2.4, Math.max(0.9, subjectCharacterCount * 0.03))
+  const { steps: subjectCharacterCount, duration: subjectRevealDuration } = getRevealTiming(subject)
   const classes = useStylesFromThemeFunction({
     ...props,
     alignContent,
@@ -391,17 +391,12 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   subject: props => ({
     boxSizing: 'border-box',
     display: 'inline-block',
-    opacity: props.variant === 'homepage' && !props.isSubjectVisible ? 0 : 1,
-    clipPath: props.variant === 'homepage' && props.isSubjectVisible ? 'inset(0)' : 'none',
-    animation:
-      props.variant === 'homepage' && props.isSubjectVisible
-        ? `$heroTitleFade 600ms ease-out both, $heroTitleType ${props.subjectRevealDuration}s steps(${props.subjectCharacterCount}, end) both`
-        : 'none',
-    '@media (prefers-reduced-motion: reduce)': {
-      opacity: 1,
-      clipPath: 'none',
-      animation: 'none',
-    },
+    ...getAnimatedHeadingStyles({
+      isVisible: props.isSubjectVisible,
+      duration: props.subjectRevealDuration,
+      steps: props.subjectCharacterCount,
+      enabled: props.variant === 'homepage',
+    }),
   }),
   subjectText: props => ({
     fontSize: '1em', // override the default H1
@@ -501,14 +496,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           },
         }
       : {},
-  '@keyframes heroTitleFade': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
-  '@keyframes heroTitleType': {
-    from: { clipPath: 'inset(0 100% 0 0)' },
-    to: { clipPath: 'inset(0)' },
-  },
+  ...titleRevealKeyframes,
   '@keyframes scrollCueBlink': {
     '0%, 49%': { opacity: 1 },
     '50%, 100%': { opacity: 0.35 },

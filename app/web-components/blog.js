@@ -3,11 +3,11 @@ import HeroBlock from '../components/hero-block'
 import ArticleThumbnailsBlock from '../components/article-thumbnails-block'
 const pageSize = 10
 export default function Blog(props) {
-  const { subject, description, location, imgUrl } = props
+  const { subject, imgUrl } = props
   const [articles, setArticles] = useState(undefined)
   const [pageStart, setPageStart] = useState(0)
   const loadMore = () => {
-    setPageStart(pageStart + pageSize)
+    setPageStart(start => start + pageSize)
   }
   useEffect(() => {
     window.socket.emit('get-articles', pageStart, pageSize, articles =>

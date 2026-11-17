@@ -5,6 +5,8 @@ import HeroBlock from '../components/hero-block'
 import ActionButton from '../components/action-button'
 import { BrevoHelmet } from '../components/brevo-join'
 import MarkDown from 'markdown-to-jsx'
+import { breakpoints } from '../theme'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes, useRevealOnView } from '../components/animated-heading'
 
 function ToolsActionButton({ style = {}, ...props }) {
   return (
@@ -23,31 +25,8 @@ function ToolsActionButton({ style = {}, ...props }) {
 }
 
 function AnimatedMarkdownHeading({ as: Element = 'h2', className, children, ...otherProps }) {
-  const headingRef = useRef(null)
-  const [isVisible, setIsVisible] = React.useState(false)
-  const characterCount = Math.max(Array.from(String(children)).length, 1)
-  const duration = Math.min(2.4, Math.max(0.9, characterCount * 0.03))
-  const headingClasses = useAnimatedHeadingStyles({ isVisible, duration, steps: characterCount })
-
-  useEffect(() => {
-    if (!headingRef.current) return
-    if (!('IntersectionObserver' in window)) {
-      setIsVisible(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.25 }
-    )
-    observer.observe(headingRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const { ref: headingRef, isVisible } = useRevealOnView()
+  const headingClasses = useAnimatedHeadingStyles({ isVisible, ...getRevealTiming(children) })
 
   return (
     <Element
@@ -160,7 +139,7 @@ const useStyles = createUseStyles({
     backgroundColor: '#fafaf9',
     borderTop: '1px solid #e6e1d9',
     padding: '5.25rem 2rem 8rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem 5rem',
     },
   },
@@ -168,7 +147,7 @@ const useStyles = createUseStyles({
     backgroundColor: '#fafaf9',
     borderTop: '1px solid #e6e1d9',
     padding: '5.25rem 2rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem',
     },
   },
@@ -176,7 +155,7 @@ const useStyles = createUseStyles({
     backgroundColor: '#fff',
     borderTop: '1px solid #e6e1d9',
     padding: '5rem 2rem 6rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem 5rem',
     },
   },
@@ -264,7 +243,7 @@ const useStyles = createUseStyles({
     '& img[data-visible="true"]:hover': {
       transform: 'scale(1.06)',
     },
-    '@media (max-width: 48rem)': {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       '& h2': {
         fontSize: '2.5rem',
         marginBottom: '2rem',
@@ -327,7 +306,7 @@ const useStyles = createUseStyles({
       color: '#5f523f',
       fontWeight: 600,
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       '& h3': {
         fontSize: '2.125rem',
         marginTop: '3rem',
@@ -341,24 +320,6 @@ const useStyles = createUseStyles({
 })
 
 const useAnimatedHeadingStyles = createUseStyles({
-  heading: props => ({
-    opacity: props.isVisible ? 1 : 0,
-    clipPath: props.isVisible ? 'inset(0)' : 'none',
-    animation: props.isVisible
-      ? `$aboutTitleFade 600ms ease-out both, $aboutTitleType ${props.duration}s steps(${props.steps}, end) both`
-      : 'none',
-    '@media (prefers-reduced-motion: reduce)': {
-      opacity: 1,
-      clipPath: 'none',
-      animation: 'none',
-    },
-  }),
-  '@keyframes aboutTitleFade': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
-  '@keyframes aboutTitleType': {
-    from: { clipPath: 'inset(0 100% 0 0)' },
-    to: { clipPath: 'inset(0)' },
-  },
+  heading: props => getAnimatedHeadingStyles(props),
+  ...titleRevealKeyframes,
 })

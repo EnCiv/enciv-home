@@ -31,7 +31,6 @@ export default function ArticleThumbnailsBlock(props) {
                 key={article._id}
                 className={cx(classes.thumbnail, classes[thumbMode])}
                 style={{ animationDelay: `${(index % 10) * 70}ms` }}
-                tabIndex={0}
                 onClick={() => {
                   location.href = article.path
                 }}
@@ -68,9 +67,6 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       paddingLeft: '1rem',
       paddingRight: '1rem',
-    },
-    '& $thumbnail': {
-      maxWidth: 'auto',
     },
   },
   thumbnail: {

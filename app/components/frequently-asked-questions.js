@@ -2,6 +2,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import HaveAQuestion from './have-a-question'
 
 export default function FrequentlyAskedQuestions(props) {
@@ -89,7 +90,7 @@ const useStyles = createUseStyles(theme => ({
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     padding: '6rem 2rem 7rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem 5rem',
     },
   },
@@ -110,7 +111,7 @@ const useStyles = createUseStyles(theme => ({
     margin: '0 0 3.5rem',
     opacity: props.isVisible ? 1 : 0,
     transition: 'opacity 650ms ease',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       fontSize: '2.5rem',
       marginBottom: '2.5rem',
     },
@@ -167,7 +168,7 @@ const useStyles = createUseStyles(theme => ({
     '&:hover $questionStyle': {
       color: '#9a6412',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '1.125rem 1rem',
     },
   },
@@ -177,7 +178,7 @@ const useStyles = createUseStyles(theme => ({
     fontWeight: 500,
     lineHeight: 1.3,
     transition: 'color 200ms ease',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       fontSize: '1.25rem',
     },
   },
@@ -212,7 +213,7 @@ const useStyles = createUseStyles(theme => ({
     '$answerOpen &': {
       paddingBottom: '1.5rem',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       paddingLeft: '1rem',
       paddingRight: '1rem',
     },

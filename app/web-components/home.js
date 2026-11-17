@@ -7,6 +7,8 @@ import BrevoCommunity from '../components/brevo-community'
 import CivilPursuitQuestionsBlock from '../components/civil-pursuit-questions-block'
 import FrequentlyAskedQuestions from '../components/frequently-asked-questions'
 import { BrevoHelmet } from '../components/brevo-join'
+import { breakpoints } from '../theme'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes, useRevealOnView } from '../components/animated-heading'
 
 const concerns = [
   {
@@ -28,35 +30,8 @@ const concerns = [
 ]
 
 function AnimatedHeading({ as: Element = 'h2', className, children, ...otherProps }) {
-  const headingRef = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
-  const textLength = Array.from(String(children)).length
-  const duration = Math.min(2.4, Math.max(0.9, textLength * 0.03))
-  const headingClasses = useAnimatedHeadingStyles({
-    isVisible,
-    duration,
-    steps: Math.max(textLength, 1),
-  })
-
-  useEffect(() => {
-    if (!headingRef.current) return
-    if (!('IntersectionObserver' in window)) {
-      setIsVisible(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.25 }
-    )
-    observer.observe(headingRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const { ref: headingRef, isVisible } = useRevealOnView()
+  const headingClasses = useAnimatedHeadingStyles({ isVisible, ...getRevealTiming(children) })
 
   return (
     <Element ref={headingRef} className={cx(headingClasses.heading, className)} {...otherProps}>
@@ -198,7 +173,7 @@ const useStyles = createUseStyles({
     padding: '9rem 2rem',
     backgroundColor: '#fff',
     borderTop: '1px solid #e6e1d9',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '5rem 1.5rem',
     },
   },
@@ -210,7 +185,7 @@ const useStyles = createUseStyles({
     gridTemplateColumns: 'minmax(18rem, 0.9fr) minmax(0, 1fr)',
     gap: '3rem',
     alignItems: 'center',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       gridTemplateColumns: '1fr',
       gap: '2.5rem',
     },
@@ -227,7 +202,7 @@ const useStyles = createUseStyles({
       aspectRatio: '1',
       overflow: 'visible',
     },
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       minHeight: '8rem',
     },
   },
@@ -272,7 +247,7 @@ const useStyles = createUseStyles({
     backgroundColor: '#fafaf9',
     padding: '5.25rem 2rem 8rem',
     borderTop: '1px solid #e6e1d9',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: '4rem 1.5rem 5rem',
     },
   },
@@ -284,7 +259,7 @@ const useStyles = createUseStyles({
     fontWeight: 400,
     textAlign: 'center',
     margin: '0 auto 5.5rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       fontSize: '2.5rem',
       marginBottom: '3rem',
     },
@@ -337,7 +312,7 @@ const useStyles = createUseStyles({
     height: '1px',
     backgroundColor: '#c9b99f',
     margin: '2rem auto 5rem',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       margin: '2rem auto 3rem',
     },
   },
@@ -347,7 +322,7 @@ const useStyles = createUseStyles({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
     alignItems: 'center',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       gridTemplateColumns: '1fr',
       gap: '2rem',
     },
@@ -365,7 +340,7 @@ const useStyles = createUseStyles({
     padding: '2rem 0 2rem 3rem',
     color: '#80664a',
     textAlign: 'left',
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       padding: 0,
     },
     '& > a, & > button': {
@@ -378,7 +353,7 @@ const useStyles = createUseStyles({
     lineHeight: 1.15,
     fontWeight: 400,
     margin: 0,
-    [`@media (max-width: 48rem)`]: {
+    [`@media (max-width: ${breakpoints.tablet})`]: {
       fontSize: '2.125rem',
     },
   },
@@ -408,26 +383,8 @@ const useStyles = createUseStyles({
 })
 
 const useAnimatedHeadingStyles = createUseStyles({
-  heading: props => ({
-    opacity: props.isVisible ? 1 : 0,
-    clipPath: props.isVisible ? 'inset(0)' : 'none',
-    animation: props.isVisible
-      ? `$headingFade 600ms ease-out both, $headingType ${props.duration}s steps(${props.steps}, end) both`
-      : 'none',
-    '@media (prefers-reduced-motion: reduce)': {
-      opacity: 1,
-      clipPath: 'none',
-      animation: 'none',
-    },
-  }),
-  '@keyframes headingFade': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
-  '@keyframes headingType': {
-    from: { clipPath: 'inset(0 100% 0 0)' },
-    to: { clipPath: 'inset(0)' },
-  },
+  heading: props => getAnimatedHeadingStyles(props),
+  ...titleRevealKeyframes,
 })
 
 const useRevealImageStyles = createUseStyles({
