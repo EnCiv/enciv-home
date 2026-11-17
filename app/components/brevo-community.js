@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import CloseX from './close-x'
+import { brevoGlassSurfaceStyles } from './brevo-join'
 
 const SEENTIME = 10000
 
@@ -22,7 +23,7 @@ export default function BrevoCommunity(props) {
     }
     return (
       seen !== 'submitted' && (
-        <div className={classes.brevoCommnity}>
+        <div className={classes.brevoCommnity} role="status">
           <CloseX
             title={'close message'}
             onClick={() => {
@@ -42,7 +43,7 @@ export default function BrevoCommunity(props) {
     if (typeof window !== 'undefined') setTimeout(() => setSeen('confirmed'), SEENTIME)
     return (
       seen !== 'confirmed' && (
-        <div className={classes.brevoCommnity}>
+        <div className={classes.brevoCommnity} role="status">
           <CloseX
             title={'close message'}
             onClick={() => {
@@ -59,22 +60,41 @@ export default function BrevoCommunity(props) {
 
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   brevoCommnity: {
+    ...brevoGlassSurfaceStyles,
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    fontSize: '1.25rem',
+    fontSize: '1rem',
     position: 'absolute',
-    width: '50%',
+    width: 'calc(100% - 2rem)',
+    maxWidth: '33.75rem',
+    boxSizing: 'border-box',
     zIndex: 1,
-    background: 'white',
-    color: 'black',
+    color: '#343433',
     left: '50%',
+    top: '1.5rem',
     transform: 'translateX(-50%)',
     padding: '2rem',
-    border: '0.25rem solid black',
-    borderRadius: '1rem',
-    textAlign: 'center',
+    textAlign: 'left',
     '& h2': {
       fontFamily: 'Newsreader, serif',
+      fontSize: '2rem',
+      fontWeight: 600,
+      lineHeight: 1.15,
+      color: '#343433',
+      margin: '0 2rem 0.75rem 0',
+    },
+    '& p': {
+      margin: '0 0 0.75rem',
+      color: '#5d5d5c',
+      fontSize: '1rem',
+      lineHeight: 1.6,
+      '&:last-child': {
+        marginBottom: 0,
+      },
+    },
+    '@media (max-width: 38rem)': {
+      top: '1rem',
+      padding: '1.5rem',
     },
   },
 }))

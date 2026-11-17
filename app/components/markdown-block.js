@@ -77,7 +77,7 @@ const MarkdownWithImage = props => {
   const {
     mode = 'light',
     children = '',
-    lineWidth = 'partial',
+    lineWidth = 'long',
     iconName = '',
     imgUrl = '',
     imgSide = 'top',
@@ -135,7 +135,7 @@ const MarkdownBlock = props => {
     className = '',
     mode = 'light',
     children = '',
-    lineWidth = 'partial',
+    lineWidth = 'long',
     iconName = '',
     imgUrl = '',
     imgSide = 'top',
@@ -164,6 +164,7 @@ const MarkdownBlock = props => {
           iconName={iconName}
           imgUrl={imgUrl}
           imgSide={imgSide}
+          lineWidth={lineWidth}
           styleVariant={styleVariant}
           formLinkMode={formLinkMode}
           children={children}
@@ -276,7 +277,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       '&:after': {
         content: '""',
         display: 'block',
-        width: props.lineWidth === 'partial' ? '5dvw' : '100%',
+        width: props.lineWidth === 'partial' ? '5dvw' : 'min(100%, 64.5rem)',
         borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
         paddingBottom: '1.5rem',
       },
@@ -331,10 +332,11 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     '& hr': {
       display: 'block',
-      borderTop: `${theme.colors.encivYellow} 0.125rem solid`,
-      left: props.lineWidth === 'partial' ? 0 : 'auto',
-      margin: props.lineWidth === 'partial' ? 'auto 0 auto 0' : 'auto',
-      width: props.lineWidth === 'partial' ? '5dvw' : '100%',
+      border: 0,
+      height: props.lineWidth === 'partial' ? '0.125rem' : '1px',
+      backgroundColor: props.lineWidth === 'partial' ? theme.colors.encivYellow : '#c9b99f',
+      margin: props.lineWidth === 'partial' ? 'auto 0' : '2.5rem auto 3rem',
+      width: props.lineWidth === 'partial' ? '5dvw' : 'min(100%, 64.5rem)',
     },
     ...(props.styleVariant === 'home'
       ? {
@@ -345,7 +347,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           '& h2': {
             color: '#80664a',
             fontSize: '3.4375rem',
-            fontWeight: 400,
+            fontWeight: 600,
             lineHeight: 1.1,
             textAlign: 'center',
             margin: '0 auto 3rem',
@@ -361,7 +363,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
           '& h3': {
             color: '#80664a',
             fontSize: '2.625rem',
-            fontWeight: 400,
+            fontWeight: 600,
             lineHeight: 1.15,
             textAlign: 'left',
             margin: '4rem 0 1.5rem',

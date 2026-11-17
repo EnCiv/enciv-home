@@ -93,14 +93,32 @@ export const Home = {
     expect(canvas.getByRole('link', { name: 'Start Discussion' }).getAttribute('href')).toBe('/national-deliberations')
     expect(canvas.getByRole('button', { name: 'Subscribe for free' })).toBeTruthy()
 
-    for (let iteration = 0; iteration < 3; iteration++) {
-      await userEvent.click(canvas.getByRole('button', { name: '≡' }))
-      await userEvent.click(canvas.getByRole('button', { name: /About/ }))
+    const navigateToMission = async () => {
+      const mobileMenuToggle = canvas.queryByRole('button', { name: '≡' })
+      if (mobileMenuToggle) {
+        await userEvent.click(mobileMenuToggle)
+        await userEvent.click(canvas.getByRole('button', { name: /About/ }))
+      } else {
+        await userEvent.hover(canvas.getByText(/About/))
+      }
       await userEvent.click(canvas.getByRole('button', { name: 'Our Mission' }))
+    }
+
+    const navigateHome = async () => {
+      const mobileMenuToggle = canvas.queryByRole('button', { name: '≡' })
+      if (mobileMenuToggle) {
+        await userEvent.click(mobileMenuToggle)
+        await userEvent.click(canvas.getAllByText('Home', { exact: true }).at(-1))
+      } else {
+        await userEvent.click(canvas.getByRole('button', { name: 'Home' }))
+      }
+    }
+
+    for (let iteration = 0; iteration < 3; iteration++) {
+      await navigateToMission()
       await waitFor(() => expect(canvas.getByRole('heading', { name: 'Our Mission', level: 1 })).toBeTruthy())
 
-      await userEvent.click(canvas.getByRole('button', { name: '≡' }))
-      await userEvent.click(canvas.getAllByText('Home', { exact: true }).at(-1))
+      await navigateHome()
       await waitFor(() => {
         const heading = canvas.getByRole('heading', { name: 'Politics is dividing us.' })
         expect(getComputedStyle(heading).color).toBe('rgb(251, 188, 13)')

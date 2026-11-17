@@ -14,41 +14,42 @@ function getTextContent(node) {
 }
 
 export default function ArticleBlock(props) {
-  const { article = {}, className, mode = 'dark', vState, articlePage = false, ...otherProps } = props
+  const { article = {}, className, mode = 'light', vState = 'article', ...otherProps } = props
+  const isThumbnail = vState === 'thumbnail'
   const classes = useStylesFromThemeFunction({ mode })
   // to allow articles to embed a signup form - but not in the thumbnail
   const replace = domNode => {
     if (domNode.type === 'tag' && domNode.name === 'signupform') {
-      return vState === 'thumbnail' ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
+      return isThumbnail ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
     }
   }
   const parsedContent = parse(article.content ?? '', { replace })
-  const previewContent = vState === 'thumbnail' ? getTextContent(parsedContent).replace(/\s+/g, ' ').trim() : parsedContent
+  const previewContent = isThumbnail ? getTextContent(parsedContent).replace(/\s+/g, ' ').trim() : parsedContent
 
   return (
-    <div className={cx(classes.articleBlock, classes[mode], classes[vState], className)} {...otherProps}>
-      <div className={cx(classes.wrapper, classes[vState])}>
+    <div className={cx(classes.articleBlock, classes[mode], isThumbnail && classes.thumbnail, className)} {...otherProps}>
+      <div className={cx(classes.wrapper, isThumbnail && classes.thumbnail)}>
         <div
           className={cx(
             classes.article,
-            classes[vState],
-            (vState === 'thumbnail' || articlePage) && classes.surface,
-            vState === 'thumbnail' && classes.previewSurface,
-            articlePage && classes.articlePage
+            isThumbnail && classes.thumbnail,
+            classes.surface,
+            isThumbnail && classes.previewSurface,
+            !isThumbnail && classes.articlePage
           )}
         >
           {article.title && <h1>{parse(article.title)}</h1>}
           {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
           <div className={classes.author}>{article.authorName}</div>
           <div className={classes.content}>
-            {vState === 'thumbnail' ? <p className={classes.previewExcerpt}>{previewContent}</p> : parsedContent}
+            {isThumbnail ? <p className={classes.previewExcerpt}>{previewContent}</p> : parsedContent}
           </div>
-          {vState === 'thumbnail' && (
+            {isThumbnail && (
             <div className={classes.elipsis}>{'...'}</div>
           )}
         </div>
-        {vState !== 'thumbnail' && (
-          <div className={cx(classes.cta, classes[vState], articlePage && classes.articlePageCta)}>
+          {!isThumbnail && (
+            <div className={cx(classes.cta, classes.articlePageCta)}>
             <h2>Want to learn more about what EnCiv is doing to unite us?</h2>
             <ActionButton children="Join the Community" />
           </div>
@@ -367,15 +368,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   articlePage: {
-    padding: '2rem',
-    textAlign: 'center',
+    padding: '2.5rem 3rem',
+    textAlign: 'left',
     '& h1': {
       color: '#80664a',
       fontFamily: 'Newsreader, serif',
-      fontSize: '3rem',
-      fontWeight: 700,
+      fontSize: '3.4375rem',
+      fontWeight: 600,
       lineHeight: 1.1,
       margin: '0 auto 1rem',
+      textAlign: 'center',
     },
     '& $date': {
       display: 'block',
@@ -394,37 +396,74 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       textAlign: 'center',
     },
     '& $content': {
-      marginTop: '1.5rem',
+      maxWidth: '64.5rem',
+      margin: '3rem auto 0',
       '& p': {
         color: '#80664a',
         fontFamily: 'Inter, sans-serif',
-        fontSize: '1.125rem',
-        fontStyle: 'italic',
+        fontSize: '1.375rem',
+        fontStyle: 'normal',
         lineHeight: 1.6,
-        textAlign: 'center',
-        margin: '0 auto 1.5rem',
+        textAlign: 'left',
+        margin: '0 0 1.5rem',
       },
-      '& h2, & h3, & h4, & h5, & h6': {
+      '& h2': {
         color: '#80664a',
-        textAlign: 'center',
+        fontFamily: 'Newsreader, serif',
+        fontSize: '2.625rem',
+        fontWeight: 600,
+        lineHeight: 1.15,
+        textAlign: 'left',
+        padding: 0,
+        margin: '4rem 0 1.5rem',
+        borderTop: 'none',
+      },
+      '& h3, & h4, & h5, & h6': {
+        color: '#80664a',
+        fontFamily: 'Newsreader, serif',
+        fontSize: '2rem',
+        fontWeight: 600,
+        lineHeight: 1.2,
+        textAlign: 'left',
+        margin: '2.5rem 0 1rem',
       },
       '& ul': {
-        textAlign: 'center',
-        listStylePosition: 'inside',
+        color: '#80664a',
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '1.375rem',
+        lineHeight: 1.6,
+        textAlign: 'left',
+        listStylePosition: 'outside',
+        margin: '0 0 1.5rem',
       },
       '& img': {
         display: 'block',
         float: 'none',
         height: 'auto',
         maxWidth: '100%',
-        margin: '1.5rem auto',
+        margin: '2rem auto',
         paddingRight: 0,
+        borderRadius: '1.5rem',
       },
     },
     [`@media (max-width: ${breakpoints.tablet})`]: {
-      padding: '1.25rem',
+      padding: '1.25rem 1.5rem',
       '& h1': {
-        fontSize: '2.25rem',
+        fontSize: '2.5rem',
+      },
+      '& $content': {
+        marginTop: '2.5rem',
+        '& p, & ul': {
+          fontSize: '1.125rem',
+        },
+        '& h2': {
+          fontSize: '2rem',
+          marginTop: '3rem',
+        },
+        '& h3, & h4, & h5, & h6': {
+          fontSize: '1.5rem',
+          marginTop: '2rem',
+        },
       },
     },
   },
@@ -460,9 +499,20 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
+    '& $articlePage': {
+      backgroundColor: '#303438',
+      borderColor: '#454a4d',
+    },
     '& $previewSurface': {
       backgroundColor: '#303438',
       borderColor: '#454a4d',
+    },
+    '& $articlePageCta': {
+      backgroundColor: '#303438',
+      borderTopColor: '#454a4d',
+      '& h2': {
+        color: 'white',
+      },
     },
     '& $article': {
       color: 'white',

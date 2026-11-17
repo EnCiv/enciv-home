@@ -20,7 +20,7 @@ export default function Article(props) {
       <Helmet>
         <title>{decodeNumericEntities(subject)}</title>
       </Helmet>
-      <ArticleBlock mode="light" articlePage {...otherProps} />
+      <ArticleBlock mode="light" {...otherProps} />
     </>
   )
 }

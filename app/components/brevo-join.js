@@ -85,6 +85,18 @@ export function BrevoHelmet() {
 
 const OtherForms = []
 
+export const brevoGlassSurfaceStyles = {
+  backgroundColor: 'rgba(255, 255, 255, 0.78)',
+  backgroundImage:
+    'linear-gradient(135deg, rgba(255,195,21,.18) 0%, transparent 34%), linear-gradient(45deg, transparent 50%, rgba(79,151,145,.12) 50.5%, transparent 78%), linear-gradient(115deg, transparent 61%, rgba(223,111,85,.10) 61.5%, transparent 88%)',
+  backgroundClip: 'padding-box',
+  backdropFilter: 'blur(14px) saturate(135%)',
+  border: '1px solid rgba(255,255,255,.72)',
+  borderRadius: '0.75rem',
+  boxShadow: '0 0.75rem 2rem rgba(38,42,45,.16), inset 0 0.0625rem 0 rgba(255,255,255,.8)',
+  overflow: 'hidden',
+}
+
 function submitGtag(ref, e) {
   return window.gtag
     ? (gtag('event', 'conversion_event_submit_lead_form_1', {
@@ -127,15 +139,10 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   },
   brevoForm: {
     '& #sib-container': {
-      backgroundColor: 'rgba(255, 255, 255, 0.78) !important',
-      backgroundImage:
-        'linear-gradient(135deg, rgba(255,195,21,.18) 0%, transparent 34%), linear-gradient(45deg, transparent 50%, rgba(79,151,145,.12) 50.5%, transparent 78%), linear-gradient(115deg, transparent 61%, rgba(223,111,85,.10) 61.5%, transparent 88%)',
-      backgroundClip: 'padding-box',
-      backdropFilter: 'blur(14px) saturate(135%)',
-      border: '1px solid rgba(255,255,255,.72) !important',
-      borderRadius: '0.75rem !important',
-      boxShadow: '0 0.75rem 2rem rgba(38,42,45,.16), inset 0 0.0625rem 0 rgba(255,255,255,.8)',
-      overflow: 'hidden',
+      ...brevoGlassSurfaceStyles,
+      backgroundColor: `${brevoGlassSurfaceStyles.backgroundColor} !important`,
+      border: `${brevoGlassSurfaceStyles.border} !important`,
+      borderRadius: `${brevoGlassSurfaceStyles.borderRadius} !important`,
     },
     '& #sib-container .form__label-row': {
       display: 'flex',

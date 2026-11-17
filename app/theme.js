@@ -5,6 +5,12 @@ export const breakpoints = {
   tablet: '48rem',
 }
 
+export const typography = {
+  bodyFont: 'Inter, sans-serif',
+  headingFont: 'Newsreader, serif',
+  headingWeight: 700,
+}
+
 export const headingMotion = {
   fadeDuration: '600ms',
   fadeEasing: 'ease-out',

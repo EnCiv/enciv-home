@@ -5,6 +5,7 @@ import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider, createUseStyles } from 'react-jss'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { theme, Components } from 'civil-pursuit'
+import { typography } from '../theme'
 import EncivCookies from 'civil-server/dist/components/enciv-cookies'
 class App extends React.Component {
   render() {
@@ -15,11 +16,21 @@ class App extends React.Component {
         <ErrorBoundary>
           <HelmetProvider>
             <ThemeProvider theme={theme}>
-              <div style={{ position: 'relative', fontFamily: 'Inter, sans-serif' }}>
+              <div className="enciv-site">
                 <Helmet>
                   <title>{iota?.subject || 'EnCiv'}</title>
                   <meta name="description" content={iota?.description} />
                   <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
+                  <style>{`
+                    .enciv-site {
+                      position: relative;
+                      font-family: ${typography.bodyFont};
+                    }
+                    .enciv-site :is(h1, h2, h3, h4, h5, h6) {
+                      font-family: ${typography.headingFont} !important;
+                      font-weight: ${typography.headingWeight} !important;
+                    }
+                  `}</style>
                   <link rel="preconnect" href="https://fonts.googleapis.com" />
                   <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                   <link
