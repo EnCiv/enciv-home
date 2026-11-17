@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import WebComponents from '../web-components'
-import Footer from './footer'
 import { ErrorBoundary } from 'civil-client'
 import { ThemeProvider, createUseStyles } from 'react-jss'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { theme, Components } from 'civil-pursuit'
+import { typography } from '../theme'
 import EncivCookies from 'civil-server/dist/components/enciv-cookies'
+import NothingHere from './nothing-here'
 class App extends React.Component {
   render() {
     if (this.props.iota) {
@@ -15,22 +16,16 @@ class App extends React.Component {
         <ErrorBoundary>
           <HelmetProvider>
             <ThemeProvider theme={theme}>
-              <div style={{ position: 'relative' }}>
-                <Helmet>
-                  <title>{iota?.subject || 'EnCiv'}</title>
-                  <meta name="description" content={iota?.description} />
-                  <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />
-                  <link rel="preconnect" href="https://fonts.googleapis.com" />
-                  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                  <link
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-                    rel="stylesheet"
-                  />
-                  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
-                </Helmet>
-                <TopNavWrap {...this.props} />
-                <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
-                <EncivCookies user={newProps.user} cookieCategories={newProps.cookieCategories} />
+              <div className="enciv-site">
+                <SiteHelmet title={iota?.subject || 'EnCiv'} description={iota?.description} includeVerification />
+                <header>
+                  <SkipLink />
+                  <TopNavWrap {...this.props} />
+                </header>
+                <main id="main-content" tabIndex="-1">
+                  <WebComponents key="web-component" webComponent={this.props.iota.webComponent} {...newProps} />
+                </main>
+                <AccessibleCookieConsent user={newProps.user} cookieCategories={newProps.cookieCategories} />
                 <Components.Footer mode="dark" key="footer" />
               </div>
             </ThemeProvider>
@@ -40,23 +35,66 @@ class App extends React.Component {
     } else
       return (
         <ErrorBoundary>
-          <ThemeProvider theme={theme}>
-            <div style={{ position: 'relative' }}>
-              <div>Nothing Here</div>
-              <Footer />
-            </div>
-          </ThemeProvider>
+          <HelmetProvider>
+            <ThemeProvider theme={theme}>
+              <div className="enciv-site not-found-shell">
+                <SiteHelmet title="Page Not Found | EnCiv" />
+                <header>
+                  <SkipLink />
+                  <TopNavWrap {...this.props} />
+                </header>
+                <NothingHere />
+                <Components.Footer mode="dark" key="footer" />
+              </div>
+            </ThemeProvider>
+          </HelmetProvider>
         </ErrorBoundary>
       )
   }
 }
 
+function SiteHelmet({ title, description, includeVerification = false }) {
+  return (
+    <Helmet>
+      <title>{title}</title>
+      {description && <meta name="description" content={description} />}
+      {includeVerification && <meta name="msvalidate.01" content="70F4BC88262B070FE024C570CD828D3C" />}
+      <style>{`
+        .enciv-site {
+          position: relative;
+          font-family: ${typography.bodyFont};
+        }
+        .enciv-site :is(h1, h2, h3, h4, h5, h6) {
+          font-family: ${typography.headingFont} !important;
+          font-weight: ${typography.headingWeight} !important;
+        }
+        .enciv-site.not-found-shell {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          background: #fff;
+        }
+      `}</style>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Newsreader:opsz,wght@6..72,400..800&display=swap"
+        rel="stylesheet"
+      />
+    </Helmet>
+  )
+}
+
 function TopNavWrap(props) {
+  const navigate = path => {
+    if (props.onNavigate) props.onNavigate(path)
+    else window.location.href = path
+  }
   const menu = [
     {
       name: 'Home',
       func: () => {
-        window.location.href = '/'
+        navigate('/')
       },
     },
     [
@@ -67,37 +105,94 @@ function TopNavWrap(props) {
       {
         name: 'Our Mission',
         func: () => {
-          window.location.href = '/about'
+          navigate('/about')
         },
       },
       {
         name: 'IRS Forms',
         func: () => {
-          window.location.href = '/irs-forms'
+          navigate('/irs-forms')
         },
       },
     ],
-    {
-      name: 'Our Tools',
-      func: () => (window.location.href = '/our-tools'),
-    },
+    [
+      {
+        name: 'Our Tools',
+        func: () => {},
+      },
+      {
+        name: 'Overview',
+        func: () => navigate('/our-tools'),
+      },
+      {
+        name: 'Civil Pursuit',
+        func: () => navigate('/civil-pursuit'),
+      },
+    ],
     {
       name: 'Articles',
       func: () => {
-        window.location.href = '/articles'
+        navigate('/articles')
       },
     },
   ]
   if (props?.user?.id)
     menu.push([
-      {
-        name: 'My Account',
-        func: () => {},
-      },
-      { name: 'Profile', func: () => (window.location.href = '/profile') },
-      { name: 'Logout', func: () => (window.location.href = '/sign/out') },
+      { name: 'My Account', func: () => {} },
+      { name: 'Profile', func: () => navigate('/profile') },
+      { name: 'Logout', func: () => navigate('/sign/out') },
     ])
   return <Components.TopNavBar mode={'dark'} menu={menu} />
 }
 
+const useSkipLinkStyles = createUseStyles({
+  skipLink: {
+    position: 'fixed',
+    top: '-5rem',
+    left: '1rem',
+    zIndex: 10000,
+    padding: '0.75rem 1rem',
+    border: '0.125rem solid #343433',
+    borderRadius: '0.25rem',
+    backgroundColor: '#fff',
+    color: '#343433',
+    textDecoration: 'none',
+    '&:focus': {
+      top: '1rem',
+      outline: '0.1875rem solid #b18c00',
+      outlineOffset: '0.125rem',
+    },
+  },
+})
+
+function SkipLink() {
+  const classes = useSkipLinkStyles()
+  return (
+    <a className={classes.skipLink} href="#main-content">
+      Skip to main content
+    </a>
+  )
+}
+
 export default App
+
+function AccessibleCookieConsent(props) {
+  useEffect(() => {
+    const makeDescriptionFocusable = () => {
+      const description = document.getElementById('cm__desc')
+      if (!description) return false
+      description.tabIndex = 0
+      return true
+    }
+
+    if (makeDescriptionFocusable()) return
+
+    const observer = new MutationObserver(() => {
+      if (makeDescriptionFocusable()) observer.disconnect()
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [])
+
+  return <EncivCookies {...props} />
+}

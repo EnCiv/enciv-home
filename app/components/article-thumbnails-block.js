@@ -4,7 +4,7 @@ import ArticleBlock from './article-block'
 import cx from 'classnames'
 import CloseX from './close-x'
 import { Components } from 'civil-pursuit'
-const { TextButton } = Components
+const { PrimaryButton } = Components
 
 export default function ArticleThumbnailsBlock(props) {
   const {
@@ -26,11 +26,11 @@ export default function ArticleThumbnailsBlock(props) {
           </>
         ) : (
           <div className={classes.informationGrid}>
-            {articles.map(article => (
+            {articles.map((article, index) => (
               <button
                 key={article._id}
                 className={cx(classes.thumbnail, classes[thumbMode])}
-                tabIndex={0}
+                style={{ animationDelay: `${(index % 10) * 70}ms` }}
                 onClick={() => {
                   location.href = article.path
                 }}
@@ -40,9 +40,9 @@ export default function ArticleThumbnailsBlock(props) {
             ))}
           </div>
         )}
-        <TextButton className={cx(classes.loadMoreButton, classes[mode])} onDone={loadMore}>
+        <PrimaryButton className={classes.loadMoreButton} onDone={loadMore}>
           Load More
-        </TextButton>
+        </PrimaryButton>
       </div>
     </div>
   )
@@ -60,48 +60,80 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     maxWidth: theme.maxPanelWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
-    paddingLeft: '4rem',
-    paddingRight: '4rem',
-    boxSizing: 'content-box',
+    paddingLeft: '2rem',
+    paddingRight: '2rem',
+    boxSizing: 'border-box',
     whiteSpace: 'pre-line',
-    '& $thumbnail': {
-      maxWidth: 'auto',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      paddingLeft: '1rem',
+      paddingRight: '1rem',
     },
   },
   thumbnail: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     gap: '0.9375rem',
     alignSelf: 'stretch',
-    padding: '2rem!important',
-    borderRadius: '1rem',
-    aspectRatio: '3/4',
+    minWidth: 0,
+    padding: '1.5rem!important',
+    borderRadius: '0.5rem',
+    border: '1px solid #e6e1d9',
+    boxShadow: '0 0.5rem 1.25rem rgba(38, 42, 45, 0.16)',
+    width: '100%',
+    height: '22rem',
+    minHeight: '22rem',
+    boxSizing: 'border-box',
     overflow: 'hidden',
     cursor: 'pointer',
-    '&:focus': {
+    transform: 'scale(1)',
+    transformOrigin: 'center',
+    animation: '$articleFadeIn 450ms ease both',
+    transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease',
+    filter: 'drop-shadow(0 0.2rem 0.4rem rgba(38, 42, 45, 0.12))',
+    '&:hover, &:focus-visible': {
+      transform: 'translateY(-0.125rem) scale(1.025)',
+      borderColor: '#c9b99f',
+      boxShadow: '0 1rem 2rem rgba(38, 42, 45, 0.24)',
+      filter: 'drop-shadow(0 0.4rem 0.8rem rgba(38, 42, 45, 0.18))',
+      zIndex: 1,
+    },
+    '&:focus-visible': {
       outline: theme.focusOutline,
     },
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+      animation: 'none',
+      '&:hover, &:focus-visible': {
+        transform: 'none',
+        filter: 'none',
+      },
+    },
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      aspectRatio: '4/3',
+      padding: '1.25rem!important',
     },
   },
   article: {},
   informationGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(calc(min(100%,14rem)), 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 16rem), 1fr))',
     gap: '2rem',
     width: '100%',
+    justifyContent: 'center',
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
   },
   light: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#f2f0ed',
     color: theme.colors.darkModeGray,
   },
   loadMoreButton: {
     marginTop: '4rem',
+  },
+  '@keyframes articleFadeIn': {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
   },
 }))

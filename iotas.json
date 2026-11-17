@@ -11,10 +11,15 @@
       "blocks": [
         {
           "key": "HeroBlock",
-          "subject": "Politics is dividing us - EnCiv is uniting us",
+          "subject": "Politics is dividing us.\n EnCiv is uniting us.",
+          "actionText": "Start Discussion",
+          "action": "/national-deliberations",
+          "secondaryActionText": "Learn More",
+          "secondaryAction": "/about",
+          "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
-            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+            "highRes": "/assets/images/home-hero.webp",
+            "lowRes": "/assets/images/home-hero.webp"
           }
         },
         {
@@ -100,9 +105,14 @@
         {
           "key": "HeroBlock",
           "subject": "Politics is dividing us - EnCiv is uniting us",
+          "actionText": "Start Discussion",
+          "action": "/national-deliberations",
+          "secondaryActionText": "Learn More",
+          "secondaryAction": "/about",
+          "variant": "homepage",
           "imgUrlObj": {
-            "highRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png",
-            "lowRes": "https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png"
+            "highRes": "/assets/images/home-hero.webp",
+            "lowRes": "/assets/images/home-hero.webp"
           }
         },
         {
@@ -176,7 +186,7 @@
     "_id": { "$oid": "662ed3cfacc9c45708727e1e" },
     "path": "/about",
     "subject": "Our Mission",
-    "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_faces:center,h_320,w_320/v1715289413/assets/DavidFridley_320x400_dv2xnt.jpg\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>David Fridley</b> CEO, Chairperson of the Board, CTO. Social Entrepreneur, Founder of Synaccord, LLC, product manager, full stack developer, and 30+ years experience in voice and video over the internet. He received his MBA from Suffolk University, holds a BA in Computer Science from UC San Diego, and has over 12 years of experience in software and hardware engineering.</p></div>\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485328/assets/adolf-gundersen.png\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>Adolf G. Gundersen</b>, Co-Founder, Board Member, VP &amp; Research Director at Interactivity Foundation. Thirty years experience as theorist and practitioner of democratic discussion. Widely published in the field of democratic discourse, most recently as co-author of Let's Talk Politics: Restoring Civility through Exploratory Discussion. Ph.D. in political science.</p></div>\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485183/assets/sorin-matei.png\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>Sorin Matei</b>, Board Member of EnCiv, Communications Professor, Purdue University. Matei studies the relationship between information technology and social structures. His teaching portfolio includes social media analytics, online interaction and facilitation, and global social media research. Ph.D. in communication.</p></div>",
+    "description": "## Our Mission\n\nEnCiv exists to transform the way Americans practice democracy. We challenge sensationalism and polarization in our civic and political discourse by offering online tools to power widespread, cross-partisan discourse and a channel for better communication between candidates and voters to support better decision-making at the ballot box.\n\n### Why Discourse Works\n\nEnCiv draws on decades of research into the principles of human interaction, civic discourse, dialogue and deliberation, and constructive decision-making. This research teaches us that well designed discussion processes that facilitate everyone speaking and listening yield the best results.\n\nWhile it’s easy to assume that online connection is inferior to live interactions in fostering respect and constructive collaboration, we believe the opposite. When supported by systems designed with neutrality in mind, online discourse has the potential to establish a higher bar for universally respectful, broadly inclusive conversation — ultimately driving positive results.\n\n### The EnCiv Team\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_faces:center,h_320,w_320/v1715289413/assets/DavidFridley_320x400_dv2xnt.jpg\" alt=\"David Fridley\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>David Fridley</b> CEO, Chairperson of the Board, CTO. Social Entrepreneur, Founder of Synaccord, LLC, product manager, full stack developer, and 30+ years experience in voice and video over the internet. He received his MBA from Suffolk University, holds a BA in Computer Science from UC San Diego, and has over 12 years of experience in software and hardware engineering.</p></div>\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485328/assets/adolf-gundersen.png\" alt=\"Adolf G. Gundersen\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>Adolf G. Gundersen</b>, Co-Founder, Board Member, VP &amp; Research Director at Interactivity Foundation. Thirty years experience as theorist and practitioner of democratic discussion. Widely published in the field of democratic discourse, most recently as co-author of Let's Talk Politics: Restoring Civility through Exploratory Discussion. Ph.D. in political science.</p></div>\n\n<div style=\"clear:both;overflow:hidden;margin-top:1.5rem\"><img src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716485183/assets/sorin-matei.png\" alt=\"Sorin Matei\" style=\"width:8rem;float:left;margin-right:1.5rem\"/><p><b>Sorin Matei</b>, Board Member of EnCiv, Communications Professor, Purdue University. Matei studies the relationship between information technology and social structures. His teaching portfolio includes social media analytics, online interaction and facilitation, and global social media research. Ph.D. in communication.</p></div>",
     "webComponent": {
       "webComponent": "About",
       "imgUrl": "https://res.cloudinary.com/hf6mryjpf/image/upload/c_crop,g_south,h_629/v1716234444/assets/EnCiv__Our_Mission_Image_obe2bs.png"
@@ -186,9 +196,10 @@
     "_id": { "$oid": "663bf75092723e19b45a9398" },
     "path": "/irs-forms",
     "subject": "IRS Forms",
-    "description": "## IRS Forms\n\n###[IRS Tax Exemption Determination Letter June 20, 2018](https://drive.google.com/file/d/17JF7wiZzvRi3UYoA68mCvXwuwhzJRBVh/view)\n\n### [IRS Form 990-PF 2024](https://drive.google.com/file/d/15-eoO7M8HnuOsmQ7aiLRkeJ1dgTTpYcH/view)\n\n### [IRS Form 990-PF 2023](https://drive.google.com/file/d/1ErvY70ALJQdEvjbja5mbLODyy99v2xdG/view)\n\n### [IRS Form 990-PF 2022](https://drive.google.com/file/d/1iMdfg1RQW78B4fmo-JkUuW4hgcIMaV-f/view)\n\n### [IRS Form 990-PF 2021](https://drive.google.com/file/d/17ORn5UYpPUQc9g9d51D1gz2Pt7ZeNRGL/view)\n\n### [IRS Form 990-PF 2020](https://drive.google.com/file/d/1Z6uSQ-LAvEERmrplmSqLamew-kSOj7TG/view)\n\n### [IRS Form 990-PF 2019](https://drive.google.com/file/d/1Vl-EIcmwVM459zNBoYFzH2aSLBgh8huI/view)\n\n### [IRS Form 990-PF 2018](https://drive.google.com/file/d/1Zbj4Pe9gqCJ5zVMMT-V_zi-gZWa3HfQX/view)\n\n",
+    "description": "## IRS Forms\n\n### [IRS Tax Exemption Determination Letter June 20, 2018](https://drive.google.com/file/d/17JF7wiZzvRi3UYoA68mCvXwuwhzJRBVh/view)\n\n### [IRS Form 990-PF 2024](https://drive.google.com/file/d/15-eoO7M8HnuOsmQ7aiLRkeJ1dgTTpYcH/view)\n\n### [IRS Form 990-PF 2023](https://drive.google.com/file/d/1ErvY70ALJQdEvjbja5mbLODyy99v2xdG/view)\n\n### [IRS Form 990-PF 2022](https://drive.google.com/file/d/1iMdfg1RQW78B4fmo-JkUuW4hgcIMaV-f/view)\n\n### [IRS Form 990-PF 2021](https://drive.google.com/file/d/17ORn5UYpPUQc9g9d51D1gz2Pt7ZeNRGL/view)\n\n### [IRS Form 990-PF 2020](https://drive.google.com/file/d/1Z6uSQ-LAvEERmrplmSqLamew-kSOj7TG/view)\n\n### [IRS Form 990-PF 2019](https://drive.google.com/file/d/1Vl-EIcmwVM459zNBoYFzH2aSLBgh8huI/view)\n\n### [IRS Form 990-PF 2018](https://drive.google.com/file/d/1Zbj4Pe9gqCJ5zVMMT-V_zi-gZWa3HfQX/view)\n\n",
     "webComponent": {
       "webComponent": "Markdown",
+      "formLinkMode": "button",
       "style": { "minHeight": "65vh" }
     }
   },
@@ -3124,5 +3135,12 @@
         "property=\"og:image\" content=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1782189022/assets/Diverse_People_Deliberating_in_front_of_Capitol_building._2027bfad-4c4a-47d6-85d3-0f09ca068413_bjuzmj.jpg\""
       ]
     }
+  },
+  {
+    "_id": { "$oid": "6976c7050000000000000001" },
+    "path": "/civil-pursuit",
+    "subject": "Civil Pursuit",
+    "description": "Civil Pursuit is EnCiv's non-partisan platform for civic debate.",
+    "webComponent": "CivilPursuitPage"
   }
 ]

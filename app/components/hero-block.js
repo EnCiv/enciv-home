@@ -5,9 +5,11 @@ import cx from 'classnames'
 import ActionButton from './action-button'
 import { useMediaQuery } from '@react-hook/media-query'
 import { theme } from 'civil-pursuit'
+import { getAnimatedHeadingStyles, getRevealTiming, titleRevealKeyframes } from './animated-heading'
 
 const startFontSize = 4
 const maxSubjectWidthRatio = 0.9 // maximum width for the subject text as a percent of the screen width
+const homepageHeroOverlay = 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 45.874%, rgba(0, 0, 0, 0.81) 98.821%)'
 
 const HeroBlock = props => {
   const {
@@ -17,14 +19,36 @@ const HeroBlock = props => {
     imgUrlObj = {},
     subject = '',
     subjectStyle = {},
+    height,
+    textColor,
+    textShadow,
     actionText,
     action,
+    secondaryActionText,
+    secondaryAction,
     actionStyle = {},
+    variant = 'default',
+    compact = false,
+    showScrollCue = true,
+    featherBottom = true,
+    featherBottomColor = '#f2f0ed',
+    darkenImage = true,
+    actionBevel = false,
     ...otherProps
   } = props
 
-  const classes = useStylesFromThemeFunction({ ...props, alignContent })
-  const [fontSize, setFontSize] = useState(startFontSize)
+  const [isSubjectVisible, setIsSubjectVisible] = useState(false)
+  const { steps: subjectCharacterCount, duration: subjectRevealDuration } = getRevealTiming(subject)
+  const classes = useStylesFromThemeFunction({
+    ...props,
+    alignContent,
+    isSubjectVisible,
+    subjectCharacterCount,
+    subjectRevealDuration,
+    featherBottom,
+    featherBottomColor,
+    darkenImage,
+  })
   const outerRef = useRef(null)
   const innerRef = useRef(null)
 
@@ -34,8 +58,41 @@ const HeroBlock = props => {
   const themeFix = theme.theme || theme
 
   const use2lines = useMediaQuery(`(max-width: ${themeFix.condensedWidthBreakPoint})`)
+  const isMobileHero = useMediaQuery('(max-width: 42rem)')
+  const baseFontSize = variant === 'homepage' ? (isMobileHero ? 3.5 : 4.6875) : startFontSize
+  const [fontSize, setFontSize] = useState(baseFontSize)
 
-  const subjectLines = use2lines ? subject.split('-').map(line => line.trim()) : [subject]
+  const subjectLines = subject
+    .split(/\r?\n/)
+    .flatMap(line => (use2lines ? line.split('-') : [line]))
+    .map(line => line.trim())
+  const heroImage = imgUrlObj?.highRes || imgUrl
+  const mobileHeroImage = imgUrlObj?.lowRes || heroImage
+
+  const scrollToSubject = () => {
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    innerRef.current?.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' })
+  }
+
+  useEffect(() => {
+    if (variant !== 'homepage' || !outerRef.current) return
+    if (!('IntersectionObserver' in window)) {
+      setIsSubjectVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsSubjectVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.25 }
+    )
+    observer.observe(outerRef.current)
+    return () => observer.disconnect()
+  }, [variant])
 
   useEffect(() => {
     // trick is that onResize will only get created once, and will only see the value of resized once
@@ -56,6 +113,10 @@ const HeroBlock = props => {
   useLayoutEffect(() => {
     const outerRect = outerRef.current.getBoundingClientRect()
     const innerRect = innerRef.current.getBoundingClientRect()
+    if (fontSize > baseFontSize) {
+      setFontSize(baseFontSize)
+      return
+    }
     const calcFontSize = () => {
       return Math.floor(fontSize * ((outerRect.width * maxSubjectWidthRatio) / innerRect.width) * 100) / 100
     }
@@ -65,101 +126,387 @@ const HeroBlock = props => {
         setFontSize(newFontSize)
       }
     }
-    if (innerRect.width < outerRect.width * maxSubjectWidthRatio && fontSize < startFontSize) {
-      const newFontSize = Math.min(calcFontSize(), startFontSize)
+    if (innerRect.width < outerRect.width * maxSubjectWidthRatio && fontSize < baseFontSize) {
+      const newFontSize = Math.min(calcFontSize(), baseFontSize)
       if (Math.abs(newFontSize - fontSize) > 0.02) {
         setFontSize(newFontSize)
       }
     }
-  }, [resized])
+  }, [resized, baseFontSize, fontSize])
 
   return (
     <div className={cx(classes.heroBlock, className)} {...otherProps}>
-      <div className={classes.subjectWrapper} ref={outerRef}>
-        <div className={classes.subject} style={{ ...subjectStyle, fontSize: fontSize + 'rem' }} ref={innerRef}>
-          {subjectLines.map((line, index) => (
-            <h1 className={classes.subjectText} key={`${line}-${index}`}>
-              {line}
-            </h1>
-          ))}
-        </div>
-      </div>
-      {actionText && (
-        <div className={classes.actionWrapper}>
-          <ActionButton action={action} className={classes.action} style={actionStyle}>
-            {actionText}
-          </ActionButton>
-        </div>
+      {variant === 'homepage' && heroImage && (
+        <picture className={classes.heroPicture}>
+          <source media={`(max-width: ${themeFix.condensedWidthBreakPoint})`} srcSet={mobileHeroImage} />
+          <img
+            className={classes.heroImage}
+            src={heroImage}
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
       )}
+      {variant === 'homepage' && showScrollCue && !isSubjectVisible && (
+        <button
+          className={classes.scrollCue}
+          type="button"
+          aria-label="Scroll to see the headline"
+          title="Scroll to see the headline"
+          onClick={scrollToSubject}
+        >
+          <span aria-hidden="true">↓</span>
+        </button>
+      )}
+      <div className={classes.heroContent}>
+        <div className={classes.subjectWrapper} ref={outerRef}>
+          <div className={classes.subject} style={{ ...subjectStyle, fontSize: fontSize + 'rem' }} ref={innerRef}>
+            {subjectLines.map((line, index) => (
+              <h1
+                className={cx(classes.subjectText, variant === 'homepage' && index === 1 && classes.subjectTextSecondLine)}
+                key={`${line}-${index}`}
+              >
+                {line}
+              </h1>
+            ))}
+          </div>
+        </div>
+        {(actionText || secondaryActionText) && (
+          <div className={classes.actionWrapper}>
+            {actionText && (
+              <ActionButton action={action} className={classes.action} style={actionStyle} bevel={actionBevel}>
+                {actionText}
+              </ActionButton>
+            )}
+            {secondaryActionText && (
+              <ActionButton action={secondaryAction} variant="secondary" className={classes.secondaryAction}>
+                {secondaryActionText}
+              </ActionButton>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 export default HeroBlock
 
-const HEIGHT = '30vw' // yes vw becuase its a 16:9 of the width
 const useStylesFromThemeFunction = createUseStyles(theme => ({
   heroBlock: props => ({
-    backgroundImage: `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
     width: '100%', // using vw makes the div a tiny bit wider than the viewport causing a scrollbar I suspect roundoff
-    height: HEIGHT,
-    backgroundSize: 'cover',
+    height: props.height || 'auto',
+    aspectRatio: props.variant === 'homepage' && !props.compact ? '1446 / 1160' : '1.56 / 1',
+    maxHeight: '100rem',
+    backgroundColor: props.variant === 'homepage' ? '#f2f0ed' : '#171717',
     position: 'relative',
+    display: props.variant === 'homepage' ? 'flex' : 'block',
+    flexDirection: 'column',
     boxSizing: 'border-box',
-    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
-      backgroundImage: `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
-      height: '64vw',
+    overflow: props.variant === 'homepage' ? 'clip' : 'hidden',
+    isolation: 'isolate',
+    ...(props.variant === 'homepage'
+      ? {
+          '& $scrollCue': {
+            animation: '$scrollCueBlink 1.4s steps(2, start) infinite',
+          },
+          '&:hover $heroPicture::after': {
+            boxShadow: 'inset 0 0 1.75rem rgba(0, 0, 0, 0.34)',
+          },
+        }
+      : {}),
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      inset: '-0.25rem',
+      backgroundImage:
+        props.variant === 'homepage'
+          ? props.darkenImage
+            ? homepageHeroOverlay
+            : 'none'
+          : `url(\"${props.imgUrlObj?.highRes || props.imgUrl}\")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center top',
+      backgroundColor: props.darkenImage && props.variant !== 'homepage' ? 'rgba(0, 0, 0, 0.38)' : 'transparent',
+      backgroundBlendMode: 'multiply',
+      transform: 'none',
+      boxShadow: 'inset 0 0 0 rgba(255, 255, 255, 0)',
+      transition: 'box-shadow 450ms ease',
+      zIndex: props.variant === 'homepage' ? 1 : 0,
+      pointerEvents: 'none',
     },
+    ...(props.featherBottom
+      ? {
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: '14%',
+            background: `linear-gradient(to bottom, rgba(242, 240, 237, 0) 0%, ${props.featherBottomColor} 100%)`,
+            zIndex: 1,
+            pointerEvents: 'none',
+          },
+        }
+      : {}),
+    ...(props.variant === 'homepage'
+      ? {}
+      : {
+          marginBottom: '4rem',
+          '&:hover::before': {
+            boxShadow: 'inset 0 0 3rem rgba(255, 255, 255, 0.14)',
+          },
+        }),
+    '& > *': {
+      zIndex: 2,
+    },
+    '& > picture': {
+      zIndex: 0,
+    },
+    '@media (prefers-reduced-motion: reduce)': {
+      '&::before': {
+        transition: 'none',
+      },
+      ...(props.variant === 'homepage'
+        ? {
+            '& $scrollCue': {
+              animation: 'none',
+            },
+            '& $heroImage': {
+              transition: 'none',
+              transform: 'none',
+            },
+            '& $heroPicture::after': {
+              transition: 'none',
+            },
+          }
+        : {}),
+    },
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      '&::before': {
+        backgroundImage:
+          props.variant === 'homepage'
+            ? props.darkenImage
+              ? homepageHeroOverlay
+              : 'none'
+            : `url(\"${props.imgUrlObj?.lowRes || props.imgUrl}\")`,
+      },
+    },
+    ...(props.variant === 'homepage' && !props.compact
+      ? {
+          '@media (max-width: 42rem)': {
+            aspectRatio: '0.82 / 1',
+          },
+        }
+      : {}),
+  }),
+
+  heroPicture: {
+    position: 'absolute',
+    inset: 0,
+    display: 'block',
+    pointerEvents: 'none',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      inset: 0,
+      pointerEvents: 'none',
+      boxShadow: 'inset 0 0 0.75rem rgba(0, 0, 0, 0.2)',
+      transition: 'box-shadow 350ms ease',
+    },
+  },
+  scrollCue: {
+    position: 'absolute',
+    zIndex: 3,
+    top: '43%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'grid',
+    placeItems: 'center',
+    width: '3rem',
+    height: '3rem',
+    padding: 0,
+    border: 0,
+    background: 'transparent',
+    color: '#fff',
+    fontSize: '2.5rem',
+    lineHeight: 1,
+    cursor: 'pointer',
+    textShadow: '0 0.125rem 0.5rem rgba(0, 0, 0, 0.65)',
+    '&:focus-visible': {
+      outline: '0.125rem solid #fff',
+      outlineOffset: '0.25rem',
+    },
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      top: '40%',
+      fontSize: '2rem',
+    },
+  },
+  heroImage: props => ({
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center top',
+    filter: props.darkenImage ? 'brightness(50%)' : 'none',
+    transform: 'none',
+    willChange: 'auto',
+    transition: 'none',
+  }),
+
+  heroContent: props => ({
+    position: props.variant === 'homepage' ? (props.compact ? 'absolute' : 'sticky') : 'static',
+    bottom: props.variant === 'homepage' ? (props.compact ? '0' : '3rem') : 'auto',
+    width: '100%',
+    boxSizing: 'border-box',
+    zIndex: props.variant === 'homepage' ? 2 : 'auto',
+    ...(props.variant === 'homepage'
+      ? {
+          marginTop: props.compact ? 0 : 'auto',
+          padding: props.compact ? '0 3rem 2.5rem' : '0 36.45% 2rem 7.19%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          marginBottom: props.compact ? 0 : '8rem',
+          [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+            padding: props.compact ? '0 2rem 2rem' : '0 1.5rem 2rem',
+          },
+        }
+      : {}),
   }),
 
   subjectWrapper: props => ({
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    textAlign: props.alignContent,
-    width: props.alignContent === 'center' ? '100%' : 'calc(100% - 4rem)', // subtract left and right padding
-    ...(props.alignContent !== 'center' && {
-      maxWidth: theme.maxPanelWidth,
-      paddingLeft: '2rem',
-      paddingRight: '2rem',
-      margin: '0 auto',
-    }),
+    position: props.variant === 'homepage' ? 'relative' : 'absolute',
+    left: props.variant === 'homepage' ? 0 : 0,
+    right: props.variant === 'homepage' ? 0 : 0,
+    bottom: props.variant === 'homepage' ? 'auto' : (props.actionText || props.secondaryActionText ? '6rem' : '2rem'),
+    top: props.variant === 'homepage' ? 'auto' : 'auto',
+    boxSizing: 'border-box',
+    width: '100%',
+    maxWidth: props.variant === 'homepage' ? 'none' : theme.maxPanelWidth,
+    paddingLeft: props.variant === 'homepage' ? 0 : '2rem',
+    paddingRight: props.variant === 'homepage' ? 0 : '2rem',
+    paddingBottom: props.variant === 'homepage' ? '1.25rem' : 0,
+    margin: props.variant === 'homepage' ? 0 : '0 auto',
+    textAlign: 'left',
+    zIndex: props.variant === 'homepage' ? 'auto' : 'auto',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      bottom: props.variant === 'homepage' ? 'auto' : (props.actionText || props.secondaryActionText ? '5.5rem' : '1.25rem'),
+      width: '100%',
+      paddingLeft: props.variant === 'homepage' ? 0 : '1rem',
+      paddingRight: props.variant === 'homepage' ? 0 : '1rem',
+      paddingBottom: props.variant === 'homepage' ? '1rem' : 0,
+    },
   }),
 
-  subject: {
+  subject: props => ({
     boxSizing: 'border-box',
     display: 'inline-block',
-  },
-  subjectText: {
+    ...getAnimatedHeadingStyles({
+      isVisible: props.isSubjectVisible,
+      duration: props.subjectRevealDuration,
+      steps: props.subjectCharacterCount,
+      enabled: props.variant === 'homepage',
+    }),
+  }),
+  subjectText: props => ({
     fontSize: '1em', // override the default H1
     textWrap: 'nowrap',
     display: 'block',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Newsreader, serif',
     fontStyle: 'normal',
-    fontWeight: 800,
-    lineHeight: '1.2em',
+    fontWeight: props.variant === 'homepage' ? 600 : 800,
+    lineHeight: props.variant === 'homepage' ? '1.0667em' : '1.2em',
+    color: props.textColor || (props.variant === 'homepage' ? '#FBBC0D' : '#FFC315'),
+    backgroundImage:
+      props.variant === 'homepage' && !props.textColor
+        ? 'linear-gradient(180deg, #fff4c2 0%, #ffe27d 18%, #f6b900 47%, #c47a00 76%, #ffedaa 100%)'
+        : 'none',
+    backgroundClip: props.variant === 'homepage' && !props.textColor ? 'text' : 'border-box',
+    WebkitBackgroundClip: props.variant === 'homepage' && !props.textColor ? 'text' : 'border-box',
+    WebkitTextFillColor: props.variant === 'homepage' && !props.textColor ? 'transparent' : 'currentColor',
+    filter:
+      !props.textShadow
+        ? 'drop-shadow(0 0.25rem 0.5rem rgba(0, 0, 0, 0.7))'
+        : 'none',
+    textShadow: props.textShadow ??
+      (props.variant === 'homepage'
+        ? '0 1px 0 rgba(255, 246, 198, 0.9), 0 2px 0 rgba(145, 88, 0, 0.82), 0 4px 0 rgba(113, 64, 0, 0.72), 0 0.5rem 0.75rem rgba(0, 0, 0, 0.62)'
+        : '0 1px 0 rgba(0, 0, 0, 0.45), 0 0.25rem 0.35rem rgba(0, 0, 0, 0.82), 0 0.75rem 1rem rgba(0, 0, 0, 0.56)'),
     marginBlockStart: 0,
     marginBlockEnd: 0,
-    backgroundColor: 'rgba(255,255,255,0.75)',
-    paddingLeft: '0.5rem',
-    paddingRight: '0.5rem',
     '&:not(:last-child)': {
-      marginBottom: '1em',
+      marginBottom: '0.2em',
     },
-    borderRadius: '0.5rem',
+  }),
+  subjectTextSecondLine: {
+    fontSize: '0.92em',
   },
   actionWrapper: props => ({
-    position: 'absolute',
-    top: '85%',
-    left: props.alignContent === 'center' ? '50%' : '0',
-    transform: props.alignContent === 'center' ? 'translate(-50%, -50%)' : 'translateY(-50%)',
-    textAlign: props.alignContent,
-    width: props.alignContent === 'center' ? 'auto' : '100%',
-    maxWidth: theme.maxPanelWidth,
-    ...(props.alignContent !== 'center' && {
-      paddingLeft: '2rem',
-      paddingRight: '2rem',
-    }),
+    position: props.variant === 'homepage' ? 'relative' : 'absolute',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: props.variant === 'homepage' ? '1.25rem' : '0.75rem',
+    left: 0,
+    right: props.variant === 'homepage' ? 'auto' : 0,
+    bottom: props.variant === 'homepage' ? 'auto' : '2rem',
+    top: props.variant === 'homepage' ? 'auto' : 'auto',
+    textAlign: 'left',
+    width: props.variant === 'homepage' ? 'auto' : 'calc(100% - 4rem)',
+    maxWidth: props.variant === 'homepage' ? 'none' : theme.maxPanelWidth,
+    margin: props.variant === 'homepage' ? 0 : '0 auto',
+    paddingBottom: 0,
+    zIndex: props.variant === 'homepage' ? 'auto' : 'auto',
+    [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
+      width: props.variant === 'homepage' ? 'auto' : 'calc(100% - 2rem)',
+      bottom: props.variant === 'homepage' ? 'auto' : '1.25rem',
+      gap: props.variant === 'homepage' ? '0.75rem' : '0.5rem',
+      paddingBottom: 0,
+    },
+    ...(props.variant === 'homepage'
+      ? {
+          '@media (max-width: 42rem)': {
+            width: '100%',
+            left: 0,
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            flexWrap: 'nowrap',
+            bottom: 'auto',
+            paddingBottom: 0,
+          },
+        }
+      : {}),
   }),
 
-  action: {},
+  action: props =>
+    props.variant === 'homepage'
+      ? {
+          padding: '1.125rem 1.5625rem',
+          fontWeight: 600,
+          borderRadius: '0.5rem',
+          '@media (max-width: 42rem)': {
+            width: '100%',
+            boxSizing: 'border-box',
+          },
+        }
+      : {},
+  secondaryAction: props =>
+    props.variant === 'homepage'
+      ? {
+          padding: '1.125rem 1.5625rem',
+          fontWeight: 600,
+          '@media (max-width: 42rem)': {
+            width: '100%',
+            boxSizing: 'border-box',
+          },
+        }
+      : {},
+  ...titleRevealKeyframes,
+  '@keyframes scrollCueBlink': {
+    '0%, 49%': { opacity: 1 },
+    '50%, 100%': { opacity: 0.35 },
+  },
 }))

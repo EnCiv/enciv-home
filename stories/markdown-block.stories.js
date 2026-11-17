@@ -34,6 +34,10 @@ export const PartialLineWidth = {
   },
 }
 
+export const LongLineWidth = {
+  args: { ...PartialLineWidth.args, lineWidth: 'long' },
+}
+
 export const HeaderIcon = {
   args: {
     children: `###No partisanship.\n\n---\n\nWe're non-partisan\n\nWe never endorse a particular party, policy, or, candidate

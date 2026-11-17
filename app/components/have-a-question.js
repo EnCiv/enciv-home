@@ -1,121 +1,81 @@
 //https://github.com/EnCiv/enciv-home/issues/20
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import TextareaAutosize from 'react-textarea-autosize'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import { Components } from 'civil-pursuit'
 const Submit = Components.ModifierButton
 
-const placeHoderMessage = 'Have a question? Ask away....'
+const placeholderMessage = 'Ask away...'
 const emailMessage = 'Want a reply? Leave your email.'
 export default function HaveAQuestion(props) {
   const [message, setMessage] = useState('')
-  const classes = useStyles()
   const [askEmail, setAskEmail] = useState(false)
   const [response, setResponse] = useState(null)
-  const [responseMessage, setResponseMessage] = useState(true)
-  const [submittedQuestion, setSubmittedQuestion] = useState(true)
-  const [isAlertVisible, setIsAlertVisible] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [email, setEmail] = useState('')
   const { className, style, mode = 'dark' } = props
+  const classes = useStyles({ mode })
+  const questionId = `question-${useId().replace(/:/g, '')}`
 
-  const handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      setAskEmail(true)
-      e.preventDefault()
-    }
-  }
-  const handelInput = e => {
-    setMessage(e.target.value)
-    setAskEmail(true)
+  const handleMessageChange = e => {
+    const nextMessage = e.target.value
+    setMessage(nextMessage)
+    setAskEmail(Boolean(nextMessage.trim()))
+    setResponse(null)
   }
 
-  const handleKeyPress2 = e => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-    }
-  }
-  const handelInput2 = e => {
-    setEmail(e.target.value)
-  }
-
-  const contactUs = e => {
-    let fname = ''
-    let lname = ''
-    let subject = 'Have A Question'
-
-    window.socket.emit('send-contact-us', email, fname, lname, subject, message, response => {
-      if (response && response.error) {
-        let { error } = response
-        setTimeout(() => {
-          setSubmittedQuestion(true)
-          setResponseMessage(true)
-          setAskEmail(true)
-        }, 10000)
-        setResponse(error)
-      } else {
-        setResponse('Your question was sucessfully submitted!')
+  const contactUs = () => {
+    window.socket.emit('send-contact-us', email, '', '', 'Have A Question', message, result => {
+      if (result?.error) {
+        setResponse(result.error)
+        return
       }
-      setIsAlertVisible(true)
-      setTimeout(() => {
-        setIsAlertVisible(false)
-      }, 10000)
-      setSubmittedQuestion(false)
-      setResponseMessage(false)
-      setAskEmail(false)
+      setResponse('Your question was successfully submitted!')
+      setIsSubmitted(true)
     })
   }
+
   return (
     <div className={cx(className, classes[mode], classes.container)} style={style}>
-      <TextareaAutosize
-        className={cx(
-          responseMessage && classes.input,
-          !responseMessage && classes.disabled,
-          responseMessage && classes.noBorder,
-          classes[mode]
-        )}
-        placeholder={placeHoderMessage}
-        onFocus={e => (e.target.placeholder = '')}
-        onBlur={handelInput}
-        onKeyDown={handleKeyPress}
-      />
-      <TextareaAutosize
-        onBlur={handelInput2}
-        onKeyDown={handleKeyPress2}
-        className={cx(
-          !askEmail && classes.disabled,
-          !responseMessage && classes.disabled,
-          askEmail && classes.input,
-          classes[mode]
-        )}
-        placeholder={emailMessage}
-        onFocus={e => (e.target.placeholder = '')}
-      ></TextareaAutosize>
-      <Submit
-        className={cx(
-          !askEmail && classes.disabled,
-          !responseMessage && classes.disabled,
-          askEmail && classes.askQuestion
-        )}
-        onDone={contactUs}
-        children={'Submit'}
-      />
-      <TextareaAutosize
-        className={cx(submittedQuestion && classes.disabled, !submittedQuestion && classes.input, classes[mode])}
-        defaultValue={message}
-      ></TextareaAutosize>
-
-      {isAlertVisible ? (
-        <div
-          className={cx(
-            responseMessage && classes.disabled,
-            submittedQuestion && classes.disabled,
-            !responseMessage && classes.response
-          )}
-        >
+      <h3 className={classes.heading}>Have a question?</h3>
+      {isSubmitted ? (
+        <p className={classes.success} role="status">
           {response}
-        </div>
-      ) : null}
+        </p>
+      ) : (
+        <>
+          <TextareaAutosize
+            id={questionId}
+            className={cx(classes.field, classes[`${mode}Field`])}
+            minRows={2}
+            maxRows={6}
+            value={message}
+            placeholder={placeholderMessage}
+            aria-label="Your question"
+            onChange={handleMessageChange}
+          />
+          <div className={cx(classes.followUp, askEmail && classes.followUpOpen)} aria-hidden={!askEmail} inert={!askEmail}>
+            <div className={classes.followUpInner}>
+              <input
+                className={cx(classes.field, classes.emailField, classes[`${mode}Field`])}
+                type="email"
+                value={email}
+                placeholder={emailMessage}
+                aria-label="Email address for a reply"
+                onChange={e => setEmail(e.target.value)}
+              />
+              <Submit className={classes.askQuestion} onDone={contactUs} children="Submit" />
+            </div>
+          </div>
+          {response && (
+            <p className={classes.response} role="alert">
+              {response}
+            </p>
+          )}
+        </>
+      )}
     </div>
   )
 }
@@ -125,54 +85,93 @@ const useStyles = createUseStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    margin: '0 auto',
+    maxWidth: breakpoints.tablet,
+    gap: '0.875rem',
+    margin: '2rem auto 0',
+    paddingTop: '1.5rem',
+    borderTop: '1px solid rgba(64, 54, 46, 0.18)',
+    boxSizing: 'border-box',
   },
-
-  input: {
-    backgroundColor: theme.colors.darkModeGray,
-    color: 'white',
-    fontFamily: 'Montserrat',
-    fontSize: '1.5rem',
+  heading: props => ({
+    margin: 0,
+    color: props.mode === 'dark' ? '#fff' : theme.colors.textBrown,
+    fontFamily: 'Newsreader, serif',
+    fontSize: '2rem',
+    fontWeight: 400,
+    lineHeight: 1.2,
+  }),
+  field: {
+    display: 'block',
+    width: '100%',
+    minWidth: 0,
+    boxSizing: 'border-box',
+    border: '1px solid rgba(64, 54, 46, 0.2)',
+    borderRadius: '0.5rem',
+    padding: '0.875rem 1rem',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '1rem',
+    lineHeight: 1.5,
+    fontWeight: 400,
     resize: 'none',
-    border: 'none',
-    borderRadius: theme.defaultBorderRadius,
-    marginBottom: '0.3rem',
-    marginTop: '0.3rem',
     overflow: 'hidden',
-    fontWeight: 500,
-    padding: '0.9375rem 0rem',
-    borderTop: 'none',
-    borderBottom: '0.125rem solid',
-    borderRadius: '0rem',
-    '&::-webkit-input-placeholder': {
+    transition: 'border-color 180ms ease, box-shadow 180ms ease',
+    '&:focus-visible': {
+      outline: 'none',
+      borderColor: theme.colors.encivYellow,
+      boxShadow: `0 0 0 0.125rem ${theme.colors.encivYellow}`,
+    },
+    '&::placeholder': {
+      opacity: 0.72,
+    },
+  },
+  emailField: {
+    fontSize: '0.9375rem',
+  },
+  followUp: {
+    display: 'grid',
+    gridTemplateRows: '0fr',
+    opacity: 0,
+    transform: 'translateY(-0.5rem)',
+    transition: 'grid-template-rows 350ms ease, opacity 250ms ease, transform 350ms ease',
+  },
+  followUpOpen: {
+    gridTemplateRows: '1fr',
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
+  followUpInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.875rem',
+    minHeight: 0,
+    overflow: 'hidden',
+  },
+  lightField: {
+    backgroundColor: '#fff',
+    color: theme.colors.darkModeGray,
+    '&::placeholder': {
+      color: theme.colors.darkModeGray,
+    },
+  },
+  darkField: {
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    borderColor: 'rgba(255, 255, 255, 0.24)',
+    color: 'white',
+    '&::placeholder': {
       color: 'white',
     },
-    '&:focus-visible': {
-      outline: '-webkit-focus-ring-color auto 0px;',
-    },
-  },
-  noBorder: {
-    borderBottom: 'none',
-  },
-  emailMessage: {
-    placeholder: 'block',
-  },
-  disabled: {
-    display: 'none',
   },
   askQuestion: {
-    display: 'flex',
-    width: 'fit-content',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: 'inline-flex',
+    alignSelf: 'flex-start',
     textDecoration: 'none',
     color: theme.colors.darkModeGray,
-    gap: '0.5rem',
     backgroundColor: theme.colors.encivYellow,
     borderRadius: '1.75rem',
-    fontSize: '1.25rem',
-    fontWeight: '700',
-    marginTop: '0.3rem',
+    fontSize: '1rem',
+    fontWeight: 700,
+    padding: '0.75rem 1.25rem',
+    marginTop: '0.25rem',
     '&:hover, &.hover': {
       textDecoration: 'none',
       backgroundColor: theme.colors.encivYellow,
@@ -185,32 +184,45 @@ const useStyles = createUseStyles(theme => ({
       border: '0.125rem solid '.concat(theme.colors.encivYellow),
       textDecoration: 'none',
     },
-    '&:focus': {
+    '&:focus-visible': {
       outline: theme.focusOutline,
     },
   },
-
-  response: {
-    fontFamily: 'Montserrat',
-    fontSize: '1.25rem',
-    marginTop: '0.3rem',
-    padding: '1.25rem',
-    border: '0.3rem solid #0088dd',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  success: props => ({
+    margin: 0,
+    color: props.mode === 'dark' ? '#fff' : theme.colors.textBrown,
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '1rem',
+    lineHeight: 1.5,
+  }),
+  response: props => ({
+    margin: 0,
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '0.9375rem',
+    lineHeight: 1.5,
+    color: props.mode === 'dark' ? '#ffb4a9' : '#9b3328',
+  }),
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
-    '&::-webkit-input-placeholder': {
-      color: 'white',
-    },
   },
   light: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     color: theme.colors.darkModeGray,
-    '&::-webkit-input-placeholder': {
-      color: theme.colors.darkModeGray,
+  },
+  [`@media (max-width: ${breakpoints.tablet})`]: {
+    container: {
+      marginTop: '1.5rem',
+      paddingTop: '1rem',
+    },
+    heading: {
+      fontSize: '1.625rem',
+    },
+  },
+  '@media (prefers-reduced-motion: reduce)': {
+    followUp: {
+      transition: 'none',
+      transform: 'none',
     },
   },
 }))

@@ -32,8 +32,20 @@ const CivilPursuitQuestion = props => {
       }}
       {...otherProps}
     >
+      <svg className={classes.questionIcon} viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+        <path
+          d="M14.75 15a5.25 5.25 0 1 1 8.87 3.78C22.02 20.3 20 21.07 20 23.75"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2.2"
+        />
+        <circle cx="20" cy="30" r="1.25" fill="currentColor" />
+      </svg>
       <span className={classes.subject}>{subject}</span>
       <span className={classes.chevron}>›</span>
+      <span className={classes.badge}>Deliberation</span>
     </a>
   )
 }
@@ -49,15 +61,16 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     border: '0.125rem solid #E5E5E5',
     borderRadius: '1rem',
     textDecoration: 'none',
-    transition: 'all 0.3s ease',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease',
     cursor: 'pointer',
     minHeight: '4.5rem',
     gap: '1.5rem',
-    boxShadow: '0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05)',
+    boxShadow: '0 0.1875rem 0 rgba(0, 0, 0, 0.2), 0 0.625rem 1.125rem rgba(0, 0, 0, 0.2), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.12)',
+    position: 'relative',
     '&:hover': {
       borderColor: theme.colors?.encivYellow,
       transform: 'translateX(0.5rem)',
-      boxShadow: '0 0.25rem 0.75rem rgba(0, 0, 0, 0.08)',
+      boxShadow: '0 0.25rem 0 rgba(0, 0, 0, 0.3), 0 0.875rem 1.5rem rgba(0, 0, 0, 0.28), inset 0 0.0625rem 0 rgba(255, 255, 255, 0.16)',
     },
     '&:focus': {
       outline: theme.focusOutline || '0.1875rem solid #4A90E2',
@@ -65,6 +78,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
     '&:active': {
       transform: 'translateX(0.25rem) scale(0.99)',
+      boxShadow: '0 0.0625rem 0 rgba(0, 0, 0, 0.22), 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.2)',
     },
     [`@media (max-width: ${theme.condensedWidthBreakPoint})`]: {
       padding: '1.25rem 1.5rem',
@@ -72,7 +86,7 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     },
   },
   subject: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Newsreader, serif',
     fontSize: '1.375rem',
     fontWeight: 500,
     lineHeight: '1.75rem',
@@ -82,6 +96,27 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       fontSize: '1.125rem',
       lineHeight: '1.5rem',
     },
+  },
+  questionIcon: {
+    display: 'block',
+    flex: '0 0 2.5rem',
+    width: '2.5rem',
+    height: '2.5rem',
+  },
+  badge: {
+    position: 'absolute',
+    top: '0.5rem',
+    right: '0.875rem',
+    padding: '0.2rem 0.55rem',
+    borderRadius: '999px',
+    backgroundColor: theme.colors?.encivYellow || '#FFC315',
+    color: theme.colors.darkModeGray,
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '0.6875rem',
+    fontWeight: 600,
+    lineHeight: 1.2,
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
   },
   chevron: {
     fontSize: '2.5rem',

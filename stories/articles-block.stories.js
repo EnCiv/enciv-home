@@ -1,4 +1,5 @@
 import React from 'react'
+import { expect, within } from 'storybook/test'
 import ArticleThumbnailsBlock from '../app/components/article-thumbnails-block'
 
 export default {
@@ -24,5 +25,11 @@ const articles = [
 ]
 
 export const Empty = { args: {} }
-export const Default = { args: { articles } }
+export const Default = {
+  args: { articles },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: 'Load More' })
+    expect(button.className).toContain('primaryButton')
+  },
+}
 export const LightMode = { args: { mode: 'light', articles } }

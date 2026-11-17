@@ -2,51 +2,55 @@ import React, { useEffect, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import parse from 'html-react-parser'
 import cx from 'classnames'
+import { breakpoints } from '../theme'
 import ActionButton from './action-button'
 import { SignupForm } from './brevo-join'
 
-/**
- * article format
-    "article": {
-      "title": "Citizens Can Lead the Way on Civility",
-      "date": "2018-02-14T10:36:03",
-      "modified": "2019-01-19T02:08:32",
-      "authorName": "Adolf Gundersen",
-      "status": "publish",
-      "content": "<p><p>&nbsp;</p>\n<div style=\"width: 276px\" class=\"wp-caption alignleft\"><img loading=\"lazy\" decoding=\"async\" class=\"\" title=\"Empowering European Citizens, Module 2 in Malmö by Demokratikollektivet Watch it!\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1717007740/wp-import/6864772579_28578967b1_citizen-meeting.jpg\" alt=\"citizen meeting photo\" width=\"266\" height=\"199\" /><p class=\"wp-caption-text\"><small>Photo by <a href=\"http://www.flickr.com/photos/46060166@N04/6864772579\" target=\"_blank\" rel=\"noopener\">Demokratikollektivet Watch it!</a> <a title=\"Attribution-ShareAlike License\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\" target=\"_blank\" rel=\"nofollow noopener\"><img decoding=\"async\" src=\"https://res.cloudinary.com/hf6mryjpf/image/upload/v1716941116/wp-import/cc.png\" /></a></small></p></div>\n<p>Take a few minutes to read this non-partisan <a href=\"http://lacrossetribune.com/news/opinion/adolf-g-gundersen-citizens-can-lead-the-way-on-civility/article_bf3bcd53-cf07-5f4a-b892-31accaa3f256.html\">editorial</a> in favor of civil discussion and I think you&#8217;ll agree that it&#8217;s even more relevant today than when I wrote it four years ago.  The gist of it is that when it comes to civil discussion, it&#8217;s up to us&#8211;not journalists or politicians.</p>\n",
-      "tagNames": [
-        "citizens",
-        "civil discussion"
-      ],
-      "categoryNames": [
-        "Strategy and Vision"
-      ]
-    }
- */
+function getTextContent(node) {
+  if (typeof node === 'string' || typeof node === 'number') return String(node)
+  if (Array.isArray(node)) return node.map(getTextContent).join(' ')
+  if (!React.isValidElement(node) || node.type === 'img') return ''
+  return getTextContent(node.props.children)
+}
 
 export default function ArticleBlock(props) {
-  const { article = {}, className, mode = 'dark', vState, ...otherProps } = props
-  const classes = useStylesFromThemeFunction()
+  const { article = {}, className, mode = 'light', vState = 'article', ...otherProps } = props
+  const isThumbnail = vState === 'thumbnail'
+  const classes = useStylesFromThemeFunction({ mode })
   // to allow articles to embed a signup form - but not in the thumbnail
   const replace = domNode => {
     if (domNode.type === 'tag' && domNode.name === 'signupform') {
-      return vState === 'thumbnail' ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
+      return isThumbnail ? null : <SignupForm style={{ backgroundColor: 'unset' }} />
     }
   }
+  const parsedContent = parse(article.content ?? '', { replace })
+  const previewContent = isThumbnail ? getTextContent(parsedContent).replace(/\s+/g, ' ').trim() : parsedContent
 
   return (
-    <div className={cx(classes.articleBlock, classes[mode], classes[vState], className)} {...otherProps}>
-      <div className={cx(classes.elipsis, classes[mode], classes[vState])}>{'...'}</div>
-      <div className={cx(classes.wrapper, classes[vState])}>
-        <div className={cx(classes.article, classes[vState])}>
-          <h1>{parse(article.title ?? '')}</h1>
+    <div className={cx(classes.articleBlock, classes[mode], isThumbnail && classes.thumbnail, className)} {...otherProps}>
+      <div className={cx(classes.wrapper, isThumbnail && classes.thumbnail)}>
+        <div
+          className={cx(
+            classes.article,
+            isThumbnail && classes.thumbnail,
+            classes.surface,
+            isThumbnail && classes.previewSurface,
+            !isThumbnail && classes.articlePage
+          )}
+        >
+          {article.title && <h1>{parse(article.title)}</h1>}
           {article.date && <div className={classes.date}>{new Date(article.date).toLocaleDateString()}</div>}
           <div className={classes.author}>{article.authorName}</div>
-          <div className={classes.content}> {parse(article.content ?? '', { replace })}</div>
+          <div className={classes.content}>
+            {isThumbnail ? <p className={classes.previewExcerpt}>{previewContent}</p> : parsedContent}
+          </div>
+            {isThumbnail && (
+            <div className={classes.elipsis}>{'...'}</div>
+          )}
         </div>
-        {vState !== 'thumbnail' && (
-          <div className={cx(classes.cta, classes[vState])}>
-            <h3>Want to learn more about about what EnCiv's doing to unite us?</h3>
+          {!isThumbnail && (
+            <div className={cx(classes.cta, classes.articlePageCta)}>
+            <h2>Want to learn more about what EnCiv is doing to unite us?</h2>
             <ActionButton children="Join the Community" />
           </div>
         )}
@@ -59,115 +63,167 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
   thumbnail: {},
   elipsis: {
     display: 'none',
-    '$thumbnail&': {
-      display: 'block',
-      position: 'absolute',
-      bottom: '0',
-      right: '0',
-      paddingLeft: '0.5rem',
-      paddingRight: '0.5rem',
-      lineHeight: '2rem',
-    },
   },
   articleBlock: {
     position: 'relative',
-    textAlign: 'center',
-    paddingTop: '1rem',
-    paddingBottom: '4rem',
-    minHeight: '65rem',
+    textAlign: 'left',
+    padding: '5.25rem 2rem 8rem',
+    minHeight: 'auto',
+    borderTop: '1px solid #e6e1d9',
     '$thumbnail&': {
+      display: 'flex',
+      flexDirection: 'column',
       paddingTop: 0,
       paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+      width: '100%',
+      height: '100%',
       minHeight: 'auto',
+      borderTop: 'none',
       overflow: 'hidden',
       boxSizing: 'border-box',
+      backgroundColor: 'transparent',
+    },
+    [`@media (max-width: ${breakpoints.tablet})`]: {
+      padding: '4rem 1.5rem 5rem',
     },
   },
   wrapper: {
-    maxWidth: theme.maxPanelWidth,
+    maxWidth: '80rem',
     marginLeft: 'auto',
     marginRight: 'auto',
     whiteSpace: 'pre-line',
-    '& $thumbnail': {
-      maxWidth: 'auto',
+    '$thumbnail&': {
+      flex: '1 1 auto',
+      minHeight: 0,
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
   },
   cta: {
-    paddingBottom: '4rem',
-    marginLeft: '2rem',
-    marginRight: '2rem',
+    padding: '3rem 0 4rem',
     '& $thumbnail': {
       display: 'none',
     },
-    '& h3': {
-      fontFamily: 'Montserrat',
+    '& h2': {
+      color: '#252a2d',
+      fontFamily: 'Newsreader, serif',
       fontStyle: 'normal',
       fontWeight: 400,
-      paddingTop: '4rem',
-      paddingBottom: '4rem',
+      paddingTop: '2rem',
+      paddingBottom: '2rem',
       textAlign: 'center',
-      fontSize: '2rem',
-      fontWeight: 600,
+      fontSize: '2.625rem',
       marginBlockEnd: 0,
     },
   },
   content: {
-    paddingTop: '5rem',
+    paddingTop: 0,
     '$thumbnail &': {
       paddingTop: 0,
     },
   },
-  date: {
-    '$thumbnail &': {
-      display: 'none',
-    },
+  previewExcerpt: {
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 4,
+    overflow: 'hidden',
   },
+  date: props => ({
+    '$thumbnail &': {
+      display: 'block',
+      color: props.mode === 'dark' ? '#d6c6ad' : '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '0.875rem',
+      lineHeight: 1.4,
+      flexShrink: 0,
+      textAlign: 'center',
+      marginBottom: '0.5rem',
+    },
+  }),
   author: {
-    fontSize: '1.25rem',
-    paddingTop: '1rem',
-    fontWeight: '500',
+    color: '#252a2d',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '1.125rem',
+    paddingTop: '0.5rem',
+    fontWeight: 600,
     '$thumbnail &': {
       display: 'none',
     },
   },
 
   article: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 400,
     leadingTrim: 'both',
     textEdge: 'cap',
-    textAlign: 'center',
-    marginLeft: '2rem',
-    marginRight: '2rem',
+    textAlign: 'left',
+    margin: 0,
     '$thumbnail &': {
       margin: 0,
+      textAlign: 'center',
     },
     '& h1': {
+      color: '#252a2d',
+      fontFamily: 'Newsreader, serif',
       textAlign: 'center',
-      fontSize: '4rem',
-      lineHeight: '5rem',
-      paddingTop: '4rem',
-      paddingBottom: '1rem',
-      marginBottom: 0,
+      fontSize: '3.4375rem',
+      fontWeight: 600,
+      lineHeight: 1.1,
+      padding: 0,
+      margin: '0 auto 3rem',
       '$thumbnail &': {
-        fontSize: '1.25rem',
-        lineHeight: '1.5rem',
+        display: '-webkit-box',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: 3,
+        overflow: 'hidden',
+        color: '#80664a',
+        fontSize: '1.5rem',
+        lineHeight: '1.8rem',
+        fontWeight: 700,
+        flexShrink: 0,
         padding: 0,
         margin: 0,
-        marginBottom: '.5rem',
+        marginBottom: '0.75rem',
         overflowWrap: 'anywhere',
+        textAlign: 'center',
       },
     },
+    '& $previewExcerpt': {
+      color: '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1.125rem',
+      lineHeight: 1.5,
+      margin: 0,
+      marginTop: '1rem',
+      fontStyle: 'italic',
+      overflowWrap: 'anywhere',
+      textAlign: 'center',
+    },
     '& h2': {
+      color: '#252a2d',
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
-      fontSize: '3rem',
-      lineHeight: '3.5rem',
-      paddingBottom: '1.5rem',
-      borderBottom: `${theme.colors.encivYellow} 0.25rem solid`,
-      marginBlockEnd: '2rem',
+      fontSize: '2.125rem',
+      fontWeight: 400,
+      lineHeight: 1.2,
+      padding: '2rem 0 0',
+      borderTop: '1px solid #e6e1d9',
+      margin: '3rem 0 1.25rem',
+      '&::after': {
+        content: '""',
+        display: 'block',
+        width: '1.25rem',
+        height: '0.125rem',
+        backgroundColor: '#FF9114',
+        marginTop: '1rem',
+      },
       '$thumbnail &': {
-        fontFamily: 'Inter',
+        fontFamily: 'Newsreader, serif',
         fontSize: '1rem',
         fontWeight: 'normal',
         lineHeight: '1.5rem',
@@ -177,37 +233,14 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         borderBottom: 'none',
       },
     },
-    '& h3': {
-      textAlign: 'left',
-      fontSize: '2rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
-      '$thumbnail &': {
-        fontSize: '1.25rem',
-        lineHeight: '1.5rem',
-        padding: 0,
-        margin: 0,
-        overflowWrap: 'anywhere',
-      },
-    },
-    '& h4': {
-      textAlign: 'left',
-      fontSize: '1.75rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
-      '$thumbnail &': {
-        fontSize: '1.25rem',
-        lineHeight: '1.5rem',
-        padding: 0,
-        margin: 0,
-        overflowWrap: 'anywhere',
-      },
-    },
-    '& h5': {
+    '& h3, & h4, & h5': {
+      color: '#252a2d',
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.5rem',
-      fontWeight: 600,
-      marginBlockEnd: 0,
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -217,9 +250,13 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& h6': {
+      color: '#252a2d',
+      fontFamily: 'Newsreader, serif',
       textAlign: 'left',
       fontSize: '1.25rem',
-      marginBlockEnd: 0,
+      fontWeight: 500,
+      lineHeight: 1.3,
+      margin: '2rem 0 0.75rem',
       '$thumbnail &': {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -229,21 +266,27 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
       },
     },
     '& p': {
-      fontFamily: 'Inter',
-      fontSize: '1rem',
+      color: '#252a2d',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1.375rem',
       textAlign: 'left',
-      lineHeight: '200%',
+      lineHeight: 1.6,
+      margin: '0 0 1.5rem',
       '$thumbnail &': {
-        lineHeight: '150%',
+        color: '#80664a',
+        lineHeight: '1.5',
+        fontSize: '1.125rem',
         padding: 0,
         margin: 0,
         overflowWrap: 'anywhere',
       },
     },
     '& a': {
-      color: '#B1890F',
+      color: '#9b5b13',
       '$thumbnail &': {
         padding: 0,
+        fontSize: '1rem',
+        lineHeight: '1.5rem',
         margin: 0,
         overflowWrap: 'anywhere',
       },
@@ -254,14 +297,19 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
     '& img': {
       float: 'left',
       paddingRight: '2rem',
-      marginTop: '.6rem', // to align with the top of text in the same line - considering the line height
+      marginTop: '.6rem',
       '$thumbnail &': {
         display: 'none',
       },
     },
     '& ul': {
       textAlign: 'left',
-      lineHeight: '150%',
+      color: '#252a2d',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1.375rem',
+      lineHeight: 1.6,
+      paddingLeft: '1.5rem',
+      margin: '0 0 1.5rem',
       '$thumbnail &': {
         padding: 0,
         margin: 0,
@@ -273,13 +321,214 @@ const useStylesFromThemeFunction = createUseStyles(theme => ({
         display: 'none',
       },
     },
+    [`@media (max-width: ${breakpoints.tablet})`]: {
+      '& h1': {
+        fontSize: '2.5rem',
+        marginBottom: '2rem',
+      },
+      '& h2': {
+        fontSize: '1.75rem',
+        marginTop: '2.5rem',
+        paddingTop: '1.5rem',
+      },
+      '& h3, & h4, & h5, & h6': {
+        fontSize: '1.25rem',
+      },
+      '& p, & ul': {
+        fontSize: '1rem',
+      },
+    },
+  },
+  surface: {
+    boxSizing: 'border-box',
+    width: '100%',
+    backgroundColor: '#fff',
+    border: '1px solid',
+    borderColor: '#fff #d6d1c8 #d6d1c8 #fff',
+    borderRadius: '0.25rem',
+    boxShadow: 'inset 0 0.125rem 0.25rem rgba(38, 42, 45, 0.06)',
+  },
+  previewSurface: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto',
+    position: 'relative',
+    height: '100%',
+    minHeight: 0,
+    padding: '1.25rem',
+    overflow: 'hidden',
+    '& $elipsis': {
+      display: 'block',
+      position: 'absolute',
+      bottom: '0.25rem',
+      right: '0.25rem',
+      paddingLeft: '0.5rem',
+      paddingRight: '0.5rem',
+      lineHeight: '2rem',
+    },
+  },
+  articlePage: {
+    padding: '2.5rem 3rem',
+    textAlign: 'left',
+    '& h1': {
+      color: '#80664a',
+      fontFamily: 'Newsreader, serif',
+      fontSize: '3.4375rem',
+      fontWeight: 600,
+      lineHeight: 1.1,
+      margin: '0 auto 1rem',
+      textAlign: 'center',
+    },
+    '& $date': {
+      display: 'block',
+      color: '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '0.875rem',
+      lineHeight: 1.4,
+      textAlign: 'center',
+      marginBottom: '0.5rem',
+    },
+    '& $author': {
+      color: '#80664a',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '1rem',
+      fontWeight: 600,
+      textAlign: 'center',
+    },
+    '& $content': {
+      maxWidth: '64.5rem',
+      margin: '3rem auto 0',
+      '& p': {
+        color: '#80664a',
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '1.375rem',
+        fontStyle: 'normal',
+        lineHeight: 1.6,
+        textAlign: 'left',
+        margin: '0 0 1.5rem',
+      },
+      '& h2': {
+        color: '#80664a',
+        fontFamily: 'Newsreader, serif',
+        fontSize: '2.625rem',
+        fontWeight: 600,
+        lineHeight: 1.15,
+        textAlign: 'left',
+        padding: 0,
+        margin: '4rem 0 1.5rem',
+        borderTop: 'none',
+      },
+      '& h3, & h4, & h5, & h6': {
+        color: '#80664a',
+        fontFamily: 'Newsreader, serif',
+        fontSize: '2rem',
+        fontWeight: 600,
+        lineHeight: 1.2,
+        textAlign: 'left',
+        margin: '2.5rem 0 1rem',
+      },
+      '& ul': {
+        color: '#80664a',
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '1.375rem',
+        lineHeight: 1.6,
+        textAlign: 'left',
+        listStylePosition: 'outside',
+        margin: '0 0 1.5rem',
+      },
+      '& img': {
+        display: 'block',
+        float: 'none',
+        height: 'auto',
+        maxWidth: '100%',
+        margin: '2rem auto',
+        paddingRight: 0,
+        borderRadius: '1.5rem',
+      },
+    },
+    [`@media (max-width: ${breakpoints.tablet})`]: {
+      padding: '1.25rem 1.5rem',
+      '& h1': {
+        fontSize: '2.5rem',
+      },
+      '& $content': {
+        marginTop: '2.5rem',
+        '& p, & ul': {
+          fontSize: '1.125rem',
+        },
+        '& h2': {
+          fontSize: '2rem',
+          marginTop: '3rem',
+        },
+        '& h3, & h4, & h5, & h6': {
+          fontSize: '1.5rem',
+          marginTop: '2rem',
+        },
+      },
+    },
+  },
+  articlePageCta: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '1rem',
+    marginTop: '1.5rem',
+    padding: '2.5rem 1.5rem',
+    borderTop: '1px solid #c9b99f',
+    borderRadius: '0.25rem',
+    backgroundColor: '#f2f0ed',
+    textAlign: 'center',
+    '& h2': {
+      maxWidth: '40rem',
+      color: '#80664a',
+      fontFamily: 'Newsreader, serif',
+      fontSize: '2rem',
+      fontWeight: 500,
+      lineHeight: 1.25,
+      margin: 0,
+      padding: 0,
+    },
+    [`@media (max-width: ${breakpoints.tablet})`]: {
+      padding: '2rem 1rem',
+      '& h2': {
+        fontSize: '1.5rem',
+      },
+    },
   },
   dark: {
     backgroundColor: theme.colors.darkModeGray,
     color: 'white',
+    '& $articlePage': {
+      backgroundColor: '#303438',
+      borderColor: '#454a4d',
+    },
+    '& $previewSurface': {
+      backgroundColor: '#303438',
+      borderColor: '#454a4d',
+    },
+    '& $articlePageCta': {
+      backgroundColor: '#303438',
+      borderTopColor: '#454a4d',
+      '& h2': {
+        color: 'white',
+      },
+    },
+    '& $article': {
+      color: 'white',
+      '& h1, & h2, & h3, & h4, & h5, & h6, & p, & ul': {
+        color: 'white',
+      },
+      '& a': {
+        color: theme.colors.encivYellow,
+      },
+    },
+    '& $cta h2': {
+      color: 'white',
+    },
   },
   light: {
-    backgroundColor: '#F2F2F2',
-    color: theme.colors.darkModeGray,
+    backgroundColor: '#fafaf9',
+    color: '#80664a',
   },
 }))

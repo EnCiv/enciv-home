@@ -1,58 +1,99 @@
-import Home from '../app/web-components/home'
+import App from '../app/components/app'
+import iotas from '../iotas.json'
 
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
+import { createUseStyles } from 'react-jss'
+import { expect, within } from 'storybook/test'
+
+const rasterAssetFiles = require.context(
+  '../assets/images',
+  false,
+  /\.(?:avif|bmp|gif|ico|jpe?g|png|webp)$/i,
+  'lazy'
+)
+const svgAssetFiles = require.context('../assets/svg', false, /\.svg$/i, 'lazy')
+const assetEntries = [
+  ...rasterAssetFiles.keys().map(file => ({ name: file.slice(2), src: `/assets/images/${file.slice(2)}` })),
+  ...svgAssetFiles.keys().map(file => ({ name: file.slice(2), src: `/assets/svg/${file.slice(2)}` })),
+].sort((first, second) => first.name.localeCompare(second.name))
 
 export default {
   title: 'Home',
-  component: Home,
-  decorators: [
-    Story => {
-      useState(() => {
-        // not useEffect because the socket needs to be set before the component is rendered
-        // Mock the socket API for CivilPursuitQuestionsBlock
-        window.socket = {
-          emit: (event, cb) => {
-            if (event === 'get-civil-pursuit-questions') {
-              setTimeout(() => {
-                cb([
-                  {
-                    _id: '1',
-                    path: '/question/healthcare',
-                    subject: 'What should we do about healthcare costs?',
-                  },
-                  {
-                    _id: '2',
-                    path: '/question/climate',
-                    subject: 'How can we address climate change effectively?',
-                  },
-                  {
-                    _id: '3',
-                    path: '/question/education',
-                    subject: 'What reforms are needed in our education system?',
-                  },
-                ])
-              }, 100)
-            }
-          },
-        }
-        return () => {
-          delete window.socket
-        }
-      }, [])
-      return <Story />
-    },
-  ],
+  component: App,
+  decorators: [Story => <HomeStoryDecorator Story={Story} />],
+}
+
+const mockQuestions = [
+  {
+    _id: '1',
+    path: '/250years',
+    subject:
+      'If we united and ratified exactly one constitutional amendment today, what should it be to yield the greatest positive return for our country 250 years from now?',
+  },
+  {
+    _id: '2',
+    path: '/direction-500',
+    subject: 'What direction for our country would unite us in pursuit of it?',
+  },
+  {
+    _id: '3',
+    path: '/what-do-we-want-government-to-do-2025',
+    subject: 'What Do We Want Government To Do?',
+  },
+]
+
+function HomeStoryDecorator({ Story }) {
+  useLayoutEffect(() => {
+    const previousSocket = window.socket
+    window.socket = {
+      emit: (event, callback) => {
+        if (event === 'get-civil-pursuit-questions') callback(mockQuestions)
+      },
+    }
+    return () => {
+      if (previousSocket) window.socket = previousSocket
+      else delete window.socket
+    }
+  }, [])
+
+  return <Story />
+}
+
+function HomeStoryRouter({ blocks }) {
+  const [route, setRoute] = useState('/')
+  const homePage = iotas.find(page => page.path === '/')
+  const storyHomePage = { ...homePage, webComponent: { ...homePage.webComponent, blocks } }
+  const page = route === '/' ? storyHomePage : iotas.find(iota => iota.path === route) || storyHomePage
+  const navigate = event => {
+    const link = event.target.closest?.('a[href]')
+    const targetPage = iotas.find(iota => iota.path === link?.getAttribute('href'))
+    if (!targetPage) return
+    event.preventDefault()
+    setRoute(targetPage.path)
+  }
+
+  return <div onClickCapture={navigate}><App iota={page} onNavigate={setRoute} /></div>
 }
 
 const blocks = [
   {
     key: 'HeroBlock',
-    subject: 'Politics is dividing us - EnCiv is uniting us',
+    subject: 'Politics is dividing us.\n EnCiv is uniting us.',
+    actionText: 'Start Discussion',
+    action: '/national-deliberations',
+    secondaryActionText: 'Learn More',
+    secondaryAction: '/about',
     imgUrlObj: {
-      highRes: 'https://res.cloudinary.com/hf6mryjpf/image/upload/v1715626901/assets/header_image_no_text_hw5vnf.png',
-      lowRes:
-        'https://res.cloudinary.com/hf6mryjpf/image/upload/v1716234364/assets/EnCiv__Landing_Page_Image_Mobile_xrkvci.png',
+      highRes: '/assets/images/home-hero.webp',
+      lowRes: '/assets/images/home-hero.webp',
     },
+  },
+  {
+    key: 'CivilPursuitQuestionsBlock',
+    mode: 'light',
+    subject: 'National Deliberations',
+    description:
+      'We are hosting large scale national deliberations to identify the issues that unite us as a country and the solutions that have broad support across the political spectrum. Join us to be part of this historic effort to unite our country through productive discourse.\n\nThis is not a survey, this is a new kind of tool that is designed to help us discuss our ideas and productively converge on what unites us.',
   },
   {
     key: 'TextBlock',
@@ -173,10 +214,103 @@ Together, we can fix it.\n\nTo overcome the forces polarizing us, we must have n
       },
     ],
   },
-  {
-    key: 'CivilPursuitQuestionsBlock',
-    mode: 'light',
-    subject: 'Deliberation Topics',
-  },
 ]
-export const Primary = { args: { blocks } }
+export const Primary = {
+  args: { blocks },
+  render: args => <HomeStoryRouter blocks={args.blocks} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByRole('link', { name: 'Learn More' }).getAttribute('href')).toBe('/about')
+  },
+}
+
+function AssetsGallery() {
+  const classes = useAssetGalleryStyles()
+
+  return (
+    <main className={classes.gallery}>
+      <header className={classes.header}>
+        <h1>Assets Gallery</h1>
+        <span>{assetEntries.length} local assets</span>
+      </header>
+      <div className={classes.grid}>
+        {assetEntries.map(({ name, src }) => (
+          <figure className={classes.item} key={src}>
+            <a className={classes.preview} href={src} target="_blank" rel="noreferrer" aria-label={`Open ${name}`}>
+              <img src={src} alt={name} loading="lazy" />
+            </a>
+            <figcaption>{name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </main>
+  )
+}
+
+export const AssetsGalleryStory = {
+  name: 'Assets Gallery',
+  render: () => <AssetsGallery />,
+}
+
+const useAssetGalleryStyles = createUseStyles({
+  gallery: {
+    minHeight: '100vh',
+    padding: '2rem',
+    background: '#f2f0ed',
+    color: '#343433',
+    fontFamily: 'Inter, sans-serif',
+  },
+  header: {
+    maxWidth: '90rem',
+    margin: '0 auto 2rem',
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    gap: '1rem',
+    '& h1': {
+      margin: 0,
+      fontFamily: 'Newsreader, serif',
+      fontSize: '2.5rem',
+      fontWeight: 500,
+    },
+    '& span': {
+      color: '#80664a',
+      fontSize: '0.875rem',
+    },
+  },
+  grid: {
+    maxWidth: '90rem',
+    margin: '0 auto',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(12rem, 1fr))',
+    gap: '1rem',
+  },
+  preview: {
+    display: 'grid',
+    placeItems: 'center',
+    width: '100%',
+    aspectRatio: '4 / 3',
+    overflow: 'hidden',
+    background: '#f7f6f4',
+    '& img': {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+    },
+  },
+  item: {
+    minWidth: 0,
+    margin: 0,
+    padding: '0.75rem',
+    background: '#fff',
+    border: '1px solid #ded9d1',
+    borderRadius: '0.375rem',
+    '& figcaption': {
+      overflowWrap: 'anywhere',
+      marginTop: '0.625rem',
+      fontSize: '0.8125rem',
+      lineHeight: 1.4,
+    },
+  },
+})
